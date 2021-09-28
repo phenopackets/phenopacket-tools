@@ -83,68 +83,68 @@ public class TimeElementBuilder {
         return this;
     }
 
-    public TimeElementBuilder fetalOnset() {
+    public static TimeElement fetalOnset() {
         OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0011461").setLabel("Fetal onset").build();
-        return ontologyClass(fetal);
+        return TimeElement.newBuilder().setOntologyClass(fetal).build();
     }
 
-    public TimeElementBuilder embryonalOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0011460").setLabel("Embryonal onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement embryonalOnset() {
+        OntologyClass embryonal = OntologyClass.newBuilder().setId("HP:0011460").setLabel("Embryonal onset").build();
+        return TimeElement.newBuilder().setOntologyClass(embryonal).build();
     }
 
-    public TimeElementBuilder antenatalOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0030674").setLabel("Antenatal onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement antenatalOnset() {
+        OntologyClass antenatal = OntologyClass.newBuilder().setId("HP:0030674").setLabel("Antenatal onset").build();
+        return TimeElement.newBuilder().setOntologyClass(antenatal).build();
     }
 
-    public TimeElementBuilder congenitalOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0003577").setLabel("Congenital onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement congenitalOnset() {
+        OntologyClass congenital = OntologyClass.newBuilder().setId("HP:0003577").setLabel("Congenital onset").build();
+        return TimeElement.newBuilder().setOntologyClass(congenital).build();
     }
 
-    public TimeElementBuilder neonatalOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0003623").setLabel("Neonatal onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement neonatalOnset() {
+        OntologyClass neonatal = OntologyClass.newBuilder().setId("HP:0003623").setLabel("Neonatal onset").build();
+        return TimeElement.newBuilder().setOntologyClass(neonatal).build();
     }
 
-    public TimeElementBuilder pediatricOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0410280").setLabel("Pediatric onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement pediatricOnset() {
+        OntologyClass pediatric = OntologyClass.newBuilder().setId("HP:0410280").setLabel("Pediatric onset").build();
+        return TimeElement.newBuilder().setOntologyClass(pediatric).build();
     }
 
-    public TimeElementBuilder childhoodOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0011463").setLabel("Childhood onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement childhoodOnset() {
+        OntologyClass childhood = OntologyClass.newBuilder().setId("HP:0011463").setLabel("Childhood onset").build();
+        return TimeElement.newBuilder().setOntologyClass(childhood).build();
     }
-    public TimeElementBuilder juvenileOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0003621").setLabel("Juvenile onset").build();
-        return ontologyClass(fetal);
-    }
-
-    public TimeElementBuilder infantileOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0003593").setLabel("Infantile onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement juvenileOnset() {
+        OntologyClass juvenile = OntologyClass.newBuilder().setId("HP:0003621").setLabel("Juvenile onset").build();
+        return TimeElement.newBuilder().setOntologyClass(juvenile).build();
     }
 
-    public TimeElementBuilder adultOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0003581").setLabel("Adult onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement infantileOnset() {
+        OntologyClass infantile = OntologyClass.newBuilder().setId("HP:0003593").setLabel("Infantile onset").build();
+        return TimeElement.newBuilder().setOntologyClass(infantile).build();
     }
 
-    public TimeElementBuilder lateOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0003584").setLabel("Late onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement adultOnset() {
+        OntologyClass adult = OntologyClass.newBuilder().setId("HP:0003581").setLabel("Adult onset").build();
+        return TimeElement.newBuilder().setOntologyClass(adult).build();
     }
 
-    public TimeElementBuilder middleAgeOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0003596").setLabel("Middle age onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement lateOnset() {
+        OntologyClass late = OntologyClass.newBuilder().setId("HP:0003584").setLabel("Late onset").build();
+        return TimeElement.newBuilder().setOntologyClass(late).build();
     }
 
-    public TimeElementBuilder youngAdultOnset() {
-        OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0011462").setLabel("Young adult onset").build();
-        return ontologyClass(fetal);
+    public static TimeElement middleAgeOnset() {
+        OntologyClass middleAge = OntologyClass.newBuilder().setId("HP:0003596").setLabel("Middle age onset").build();
+        return TimeElement.newBuilder().setOntologyClass(middleAge).build();
+    }
+
+    public static TimeElement youngAdultOnset() {
+        OntologyClass youngAdult = OntologyClass.newBuilder().setId("HP:0011462").setLabel("Young adult onset").build();
+        return TimeElement.newBuilder().setOntologyClass(youngAdult).build();
     }
 
     public TimeElementBuilder timestamp(String timestamp) {

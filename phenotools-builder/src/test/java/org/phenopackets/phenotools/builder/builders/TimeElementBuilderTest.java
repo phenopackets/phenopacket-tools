@@ -59,7 +59,7 @@ public class TimeElementBuilderTest {
     @Test
     public void testFetalOnset() {
         OntologyClass fetal = OntologyClass.newBuilder().setId("HP:0011461").setLabel("Fetal onset").build();
-        TimeElement time = TimeElementBuilder.create().fetalOnset().build();
+        TimeElement time = TimeElementBuilder.fetalOnset();
         assertTrue(time.hasOntologyClass());
         assertEquals(fetal, time.getOntologyClass());
     }
@@ -67,7 +67,7 @@ public class TimeElementBuilderTest {
     @Test
     public void testMiddleAgeOnset() {
         OntologyClass middleAge = OntologyClass.newBuilder().setId("HP:0003596").setLabel("Middle age onset").build();
-        TimeElement time = TimeElementBuilder.create().middleAgeOnset().build();
+        TimeElement time = TimeElementBuilder.middleAgeOnset();
         assertTrue(time.hasOntologyClass());
         assertEquals(middleAge, time.getOntologyClass());
     }
@@ -97,7 +97,7 @@ public class TimeElementBuilderTest {
         String timeString = "2020-03-17T00:00:00Z";
         // We do not allow a time Element to be constructed with more than one subelement
         Assertions.assertThrows(PhenotoolsRuntimeException.class, () -> {
-            TimeElement time = TimeElementBuilder.create().timestamp(timeString).pediatricOnset().build();
+            TimeElement time = TimeElementBuilder.create().timestamp(timeString).age("P31Y3M2D").build();
         });
     }
 
