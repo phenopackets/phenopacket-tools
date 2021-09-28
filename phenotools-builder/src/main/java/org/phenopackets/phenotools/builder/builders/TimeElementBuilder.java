@@ -167,6 +167,9 @@ public class TimeElementBuilder {
     }
 
     public TimeElement build() {
+        if (builder == null) {
+            throw new PhenotoolsRuntimeException("Attempt to construct a TImeElement with no data");
+        }
         return builder.build();
     }
 
