@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.phenopackets.schema.v2.core.Individual;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.TimeElement;
+import org.phenopackets.schema.v2.core.VitalStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.HOMO_SAPIENS;
@@ -57,6 +58,16 @@ public class IndividualBuilderTest {
         Individual individual2 = IndividualBuilder.create("human").homoSapiens().build();
         assertEquals(HOMO_SAPIENS, individual2.getTaxonomy());
         assertNotEquals(HOMO_SAPIENS, individual.getTaxonomy());
+    }
+
+    @Test
+    public void testVitalStatus() {
+        Individual individual = IndividualBuilder.create("id").deceased().build();
+        assertTrue(individual.hasVitalStatus());
+        assertEquals(VitalStatus.Status.DECEASED, individual.getVitalStatus().getStatus());
+        Individual individual2 = IndividualBuilder.create("id").alive().build();
+        assertTrue(individual2.hasVitalStatus());
+        assertEquals(VitalStatus.Status.ALIVE, individual2.getVitalStatus().getStatus());
     }
 
 
