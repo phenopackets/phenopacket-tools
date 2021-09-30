@@ -1,4 +1,4 @@
-package org.phenopackets.phenotools.builder.examples;
+package org.phenopackets.phenotools.examples;
 
 import org.phenopackets.schema.v2.Phenopacket;
 

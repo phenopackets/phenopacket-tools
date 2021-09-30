@@ -5,19 +5,19 @@ import org.phenopackets.schema.v2.core.Interpretation;
 
 public class InterpretationBuilder {
 
-    Interpretation.Builder builder;
+    private Interpretation.Builder builder;
 
-    InterpretationBuilder(String id, Interpretation.ProgressStatus status) {
+    public InterpretationBuilder(String id, Interpretation.ProgressStatus status) {
         builder = Interpretation.newBuilder().setId(id).setProgressStatus(status);
     }
 
-    InterpretationBuilder diagnosis(Diagnosis dx) {
+    public InterpretationBuilder diagnosis(Diagnosis dx) {
         builder = builder.mergeFrom(builder.build()).setDiagnosis(dx);
         return this;
     }
 
 
-    InterpretationBuilder summary(String sm) {
+    public InterpretationBuilder summary(String sm) {
         builder = builder.mergeFrom(builder.build()).setSummary(sm);
         return this;
     }
@@ -41,6 +41,10 @@ public class InterpretationBuilder {
 
     public static InterpretationBuilder unsolved(String id) {
         return create(id, Interpretation.ProgressStatus.UNSOLVED);
+    }
+
+    public Interpretation build() {
+        return builder.build();
     }
 
 

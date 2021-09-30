@@ -2,7 +2,9 @@ package org.phenopackets.phenotools.builder.builders;
 
 
 import org.ga4gh.vrsatile.v1.GeneDescriptor;
+import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
 import org.phenopackets.schema.v2.core.GenomicInterpretation;
+import org.phenopackets.schema.v2.core.VariantInterpretation;
 
 import java.util.List;
 
@@ -14,49 +16,22 @@ public class GenomicInterpretationBuilder {
         builder = GenomicInterpretation.newBuilder().setSubjectOrBiosampleId(id).setInterpretationStatus(status);
     }
 
-    // value_id 	string 	1..1 	Official identifier of the gene. REQUIRED.
-    //symbol 	string 	1..1 	Official gene symbol. REQUIRED.
-    //description 	string 	0..1 	A free-text description of the gene
-    //alternate_ids 	list of string 	0..* 	Alternative identifier(s) of the gene
-    //xrefs 	list of string 	0..* 	Related concept IDs (e.g. gene ortholog IDs) may be placed in xrefs
-    //alternate_symbols 	list of string 	0..* 	Alternative symbol(s) of the gene
-
-    GenomicInterpretationBuilder geneDescriptor(String identifier, String symbol) {
-        GeneDescriptor geneDescriptor = GeneDescriptor.newBuilder().setValueId(identifier).setSymbol(symbol).build();
-        builder = builder.mergeFrom(builder.build()).setGene(geneDescriptor);
+   public GenomicInterpretationBuilder geneDescriptor(GeneDescriptor descriptor) {
+        if (builder.hasVariantInterpretation()) {
+            throw new PhenotoolsRuntimeException("Attempt to add Gene Descriptor to builder that already has Variant Interpretation");
+        }
+        builder = builder.mergeFrom(builder.build()).setGene(descriptor);
         return this;
-    }
+   }
 
-    GenomicInterpretationBuilder geneDescriptor(String identifier, String symbol, String description) {
-        GeneDescriptor geneDescriptor = GeneDescriptor.newBuilder()
-                .setValueId(identifier)
-                .setSymbol(symbol)
-                .setDescription(description)
-                .build();
-        builder = builder.mergeFrom(builder.build()).setGene(geneDescriptor);
-        return this;
-    }
+   public GenomicInterpretationBuilder variantInterpretation(VariantInterpretation interpretation) {
+        if (builder.hasGene()) {
+            throw new PhenotoolsRuntimeException("Attempt to add Variant Interpretation to builder that already has Gene Descriptor");
 
-    GenomicInterpretationBuilder geneDescriptor(String identifier,
-                                                String symbol,
-                                                String description,
-                                                List<String> alternateIds,
-                                                List<String> xrefs,
-                                                List<String> alternateSymbols) {
-
-        GeneDescriptor geneDescriptor = GeneDescriptor.newBuilder()
-                .setValueId(identifier)
-                .setSymbol(symbol)
-                .setDescription(description)
-                .addAllAlternateIds(alternateIds)
-                .addAllXrefs(xrefs)
-                .addAllAlternateSymbols(alternateSymbols)
-                .build();
-        builder = builder.mergeFrom(builder.build()).setGene(geneDescriptor);
-        return this;
-    }
-
-
+        }
+       builder = builder.mergeFrom(builder.build()).setVariantInterpretation(interpretation);
+       return this;
+   }
 
 
     public GenomicInterpretation build() {
