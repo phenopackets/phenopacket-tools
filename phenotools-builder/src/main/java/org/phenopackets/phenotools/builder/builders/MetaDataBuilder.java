@@ -49,11 +49,98 @@ public class MetaDataBuilder {
         return this;
     }
 
+    public MetaDataBuilder hpWithVersion(String version) {
+        Resource hp = Resource.newBuilder()
+                 .setId("hp")
+                .setName("human phenotype ontology")
+                .setNamespacePrefix("HP")
+                .setIriPrefix("http://purl.obolibrary.org/obo/HP_")
+                .setUrl("http://purl.obolibrary.org/obo/hp.owl")
+                .setVersion(version)
+                .build();
+        builder = builder.mergeFrom(builder.build()).addResources(hp);
+        return this;
+    }
+
+    public MetaDataBuilder genoWithVersion(String version) {
+        Resource geno = Resource.newBuilder()
+                .setId("geno")
+                .setName("Genotype Ontology")
+                .setNamespacePrefix("GENO")
+                .setIriPrefix("http://purl.obolibrary.org/obo/GENO_")
+                .setUrl("http://purl.obolibrary.org/obo/geno.owl")
+                .setVersion(version)
+                .build();
+        builder = builder.mergeFrom(builder.build()).addResources(geno);
+        return this;
+    }
+
+    public MetaDataBuilder patoWithVersion(String version) {
+        Resource pato = Resource.newBuilder()
+                .setId("pato")
+                .setName("PhenotypicFeature And Trait Ontology")
+                .setNamespacePrefix("PATO")
+                .setUrl("http://purl.obolibrary.org/obo/pato.owl")
+                .setIriPrefix("http://purl.obolibrary.org/obo/PATO_")
+                .setVersion(version)
+                .build();
+        builder = builder.mergeFrom(builder.build()).addResources(pato);
+        return this;
+    }
+
+    public MetaDataBuilder efoWithVersion(String version) {
+        Resource efo = Resource.newBuilder()
+                .setId("efo")
+                .setName("Experimental Factor Ontology")
+                .setNamespacePrefix("EFO")
+                .setUrl("http://www.ebi.ac.uk/efo/efo.owl")
+                .setIriPrefix("http://purl.obolibrary.org/obo/EFO_")
+                .setVersion(version)
+                .build();
+        builder = builder.mergeFrom(builder.build()).addResources(efo);
+        return this;
+    }
+
+    public MetaDataBuilder clWithVersion(String version) {
+        Resource cl = Resource.newBuilder()
+                .setId("cl")
+                .setName("Cell Ontology")
+                .setNamespacePrefix("CL")
+                .setUrl("http://purl.obolibrary.org/obo/cl.owl")
+                .setIriPrefix("http://purl.obolibrary.org/obo/CL_")
+                .setVersion(version)
+                .build();
+        builder = builder.mergeFrom(builder.build()).addResources(cl);
+        return this;
+    }
+    public MetaDataBuilder uberonWithVersion(String version) {
+        Resource uberon = Resource.newBuilder()
+                 .setId("uberon")
+                .setName("Uber-anatomy ontology")
+                .setNamespacePrefix("UBERON")
+                .setUrl("http://purl.obolibrary.org/obo/uberon.owl")
+                .setIriPrefix("http://purl.obolibrary.org/obo/UBERON_")
+                .setVersion(version)
+                .build();
+        builder = builder.mergeFrom(builder.build()).addResources(uberon);
+        return this;
+    }
+    public MetaDataBuilder ncbiTaxonWithVersion(String version) {
+        Resource ncbiTaxon = Resource.newBuilder()
+                .setId("ncbitaxon")
+                .setName("NCBI organismal classification")
+                .setNamespacePrefix("NCBITaxon")
+                .setUrl("http://purl.obolibrary.org/obo/ncbitaxon.owl")
+                .setIriPrefix("http://purl.obolibrary.org/obo/NCBITaxon_")
+                .setVersion(version)
+                .build();
+        builder = builder.mergeFrom(builder.build()).addResources(ncbiTaxon);
+        return this;
+    }
+
     public MetaData build() {
         return builder.build();
     }
-
-
 
     public static MetaDataBuilder create(String created, String createdBy) {
         return new MetaDataBuilder(created, createdBy);

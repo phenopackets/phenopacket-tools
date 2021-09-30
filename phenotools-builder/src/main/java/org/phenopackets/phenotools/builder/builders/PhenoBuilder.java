@@ -2,6 +2,7 @@ package org.phenopackets.phenotools.builder.builders;
 
 import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.Timestamps;
+import org.phenopackets.schema.v2.core.ExternalReference;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,10 @@ public class PhenoBuilder {
                 .setId(termid)
                 .setLabel(label)
                 .build();
+    }
+
+    public static ExternalReference externalReference(String id, String description) {
+        return ExternalReference.newBuilder().setId(id).setDescription(description).build();
     }
 
 
