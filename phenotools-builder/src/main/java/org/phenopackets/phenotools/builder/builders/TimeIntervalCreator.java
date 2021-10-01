@@ -3,7 +3,7 @@ package org.phenopackets.phenotools.builder.builders;
 import com.google.protobuf.Timestamp;
 import org.phenopackets.schema.v2.core.TimeInterval;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3339;
+import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromISO8601;
 
 public class TimeIntervalCreator {
 
@@ -17,8 +17,8 @@ public class TimeIntervalCreator {
 
     public static TimeInterval create(String start, String end) {
         return TimeInterval.newBuilder()
-                .setStart(fromRFC3339(start))
-                .setEnd(fromRFC3339(end))
+                .setStart(fromISO8601(start))
+                .setEnd(fromISO8601(end))
                 .build();
     }
 
