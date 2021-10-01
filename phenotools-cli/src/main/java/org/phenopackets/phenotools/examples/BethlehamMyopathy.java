@@ -1,14 +1,11 @@
 package org.phenopackets.phenotools.examples;
 
 
-
-import org.ga4gh.vrsatile.v1.VariationDescriptor;
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.externalReference;
 import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
 
 public class BethlehamMyopathy implements PhenopacketExample{
@@ -97,6 +94,7 @@ public class BethlehamMyopathy implements PhenopacketExample{
                         .evidence(authorAssertion)
                         .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
+                .individual(individual)
                 .phenotypicFeature(VSD)
                 .phenotypicFeature(coarseFacial)
                 .phenotypicFeature(cryptorchidism)
