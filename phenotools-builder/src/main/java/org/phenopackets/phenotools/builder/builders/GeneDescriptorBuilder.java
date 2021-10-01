@@ -5,7 +5,7 @@ import org.ga4gh.vrsatile.v1.GeneDescriptor;
 import java.util.List;
 
 public class GeneDescriptorBuilder {
-    GeneDescriptor.Builder builder;
+    final GeneDescriptor.Builder builder;
 
     public GeneDescriptorBuilder(String identifier, String symbol) {
         builder = GeneDescriptor.newBuilder().setValueId(identifier).setSymbol(symbol);

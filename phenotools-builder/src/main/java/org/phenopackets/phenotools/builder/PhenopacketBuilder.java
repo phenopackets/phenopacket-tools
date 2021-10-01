@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PhenopacketBuilder {
 
-    private Phenopacket.Builder builder;
+    private final Phenopacket.Builder builder;
 
     public PhenopacketBuilder(String id, MetaData metaData) {
         builder = Phenopacket.newBuilder().setId(id).setMetaData(metaData);

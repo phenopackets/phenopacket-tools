@@ -4,8 +4,6 @@ import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.Diagnosis;
-import org.phenopackets.schema.v2.core.Evidence;
-import org.phenopackets.schema.v2.core.OntologyClass;
 
 import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
 

@@ -5,7 +5,6 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
 import org.phenopackets.schema.v2.core.TimeElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
@@ -19,7 +18,7 @@ public class PhenotypicFeatureBuilder {
 
     public static final OntologyClass SEVERE = ontologyClass("HP:0012828", "Severe");
 
-    private PhenotypicFeature.Builder builder;
+    private final PhenotypicFeature.Builder builder;
 
     public PhenotypicFeatureBuilder(String id, String label) {
         OntologyClass clz = ontologyClass(id,label);

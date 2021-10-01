@@ -12,7 +12,7 @@ public class MetaDataBuilder {
 
 
 
-    private MetaData.Builder builder;
+    private final MetaData.Builder builder;
 
 
     public MetaDataBuilder(String created, String createdBy) {
