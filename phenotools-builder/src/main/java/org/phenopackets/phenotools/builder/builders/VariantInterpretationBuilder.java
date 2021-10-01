@@ -14,34 +14,34 @@ public class VariantInterpretationBuilder {
     }
 
     public VariantInterpretationBuilder benign() {
-        builder = builder.mergeFrom(builder.build()).setAcmgPathogenicityClassification(AcmgPathogenicityClassification.BENIGN);
+        builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.BENIGN);
         return this;
     }
 
     public VariantInterpretationBuilder likelyBenign() {
-        builder = builder.mergeFrom(builder.build()).setAcmgPathogenicityClassification(AcmgPathogenicityClassification.LIKELY_BENIGN);
+        builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.LIKELY_BENIGN);
         return this;
     }
 
     public VariantInterpretationBuilder uncertainSignificance() {
-        builder = builder.mergeFrom(builder.build()).setAcmgPathogenicityClassification(AcmgPathogenicityClassification.UNCERTAIN_SIGNIFICANCE);
+        builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.UNCERTAIN_SIGNIFICANCE);
         return this;
     }
     public VariantInterpretationBuilder likelyPathogenic() {
-        builder = builder.mergeFrom(builder.build()).setAcmgPathogenicityClassification(AcmgPathogenicityClassification.LIKELY_PATHOGENIC);
+        builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.LIKELY_PATHOGENIC);
         return this;
     }
     public VariantInterpretationBuilder pathogenic() {
-        builder = builder.mergeFrom(builder.build()).setAcmgPathogenicityClassification(AcmgPathogenicityClassification.PATHOGENIC);
+        builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.PATHOGENIC);
         return this;
     }
     public VariantInterpretationBuilder notActionable() {
-        builder = builder.mergeFrom(builder.build()).setTherapeuticActionability(TherapeuticActionability.NOT_ACTIONABLE);
+        builder.setTherapeuticActionability(TherapeuticActionability.NOT_ACTIONABLE);
         return this;
     }
 
     public VariantInterpretationBuilder actionable() {
-        builder = builder.mergeFrom(builder.build()).setTherapeuticActionability(TherapeuticActionability.ACTIONABLE);
+        builder.setTherapeuticActionability(TherapeuticActionability.ACTIONABLE);
         return this;
     }
 

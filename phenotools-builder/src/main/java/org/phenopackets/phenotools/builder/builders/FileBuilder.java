@@ -11,12 +11,12 @@ public class FileBuilder {
     }
 
     public FileBuilder addFileAttribute(String k, String v) {
-        builder.mergeFrom(builder.build()).putFileAttributes(k, v);
+        builder.putFileAttributes(k, v);
         return this;
     }
 
     public FileBuilder addIndividualToFileIdentifiers(String individual, String fileIdentifier) {
-        builder.mergeFrom(builder.build()).putIndividualToFileIdentifiers(individual, fileIdentifier);
+        builder.putIndividualToFileIdentifiers(individual, fileIdentifier);
         return this;
     }
 

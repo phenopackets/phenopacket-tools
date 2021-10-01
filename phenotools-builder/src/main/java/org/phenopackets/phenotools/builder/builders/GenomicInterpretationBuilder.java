@@ -6,11 +6,9 @@ import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException
 import org.phenopackets.schema.v2.core.GenomicInterpretation;
 import org.phenopackets.schema.v2.core.VariantInterpretation;
 
-import java.util.List;
-
 public class GenomicInterpretationBuilder {
 
-    private GenomicInterpretation.Builder builder;
+    private final GenomicInterpretation.Builder builder;
 
     public GenomicInterpretationBuilder(String id, GenomicInterpretation.InterpretationStatus status) {
         builder = GenomicInterpretation.newBuilder().setSubjectOrBiosampleId(id).setInterpretationStatus(status);
@@ -20,7 +18,7 @@ public class GenomicInterpretationBuilder {
         if (builder.hasVariantInterpretation()) {
             throw new PhenotoolsRuntimeException("Attempt to add Gene Descriptor to builder that already has Variant Interpretation");
         }
-        builder = builder.mergeFrom(builder.build()).setGene(descriptor);
+        builder.setGene(descriptor);
         return this;
    }
 
@@ -29,7 +27,7 @@ public class GenomicInterpretationBuilder {
             throw new PhenotoolsRuntimeException("Attempt to add Variant Interpretation to builder that already has Gene Descriptor");
 
         }
-       builder = builder.mergeFrom(builder.build()).setVariantInterpretation(interpretation);
+       builder.setVariantInterpretation(interpretation);
        return this;
    }
 

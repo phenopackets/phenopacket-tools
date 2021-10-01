@@ -17,79 +17,79 @@ public class VariationDescriptorBuilder {
     }
 
     public VariationDescriptorBuilder label(String lbl) {
-        builder = builder.mergeFrom(builder.build()).setLabel(lbl);
+        builder.setLabel(lbl);
         return this;
     }
 
     public VariationDescriptorBuilder variation(Variation variation) {
-        builder = builder.mergeFrom(builder.build()).setVariation(variation);
+        builder.setVariation(variation);
         return this;
     }
 
     public VariationDescriptorBuilder description(String desc) {
-        builder = builder.mergeFrom(builder.build()).setDescription(desc);
+        builder.setDescription(desc);
         return this;
     }
 
     public VariationDescriptorBuilder geneContext(GeneDescriptor gene) {
-        builder = builder.mergeFrom(builder.build()).setGeneContext(gene);
+        builder.setGeneContext(gene);
         return this;
     }
 
     public VariationDescriptorBuilder vcfVecord(VcfRecord vcf) {
-        builder = builder.mergeFrom(builder.build()).setVcfRecord(vcf);
+        builder.setVcfRecord(vcf);
         return this;
     }
 
     public VariationDescriptorBuilder xref(String xref) {
-        builder = builder.mergeFrom(builder.build()).addXrefs(xref);
+        builder.addXrefs(xref);
         return this;
     }
 
     public VariationDescriptorBuilder addAllXrefs(List<String> xrefs) {
-        builder = builder.mergeFrom(builder.build()).addAllXrefs(xrefs);
+        builder.addAllXrefs(xrefs);
         return this;
     }
 
     public VariationDescriptorBuilder alternateLabels(String altLabel) {
-        builder = builder.mergeFrom(builder.build()).addAlternateLabels(altLabel);
+        builder.addAlternateLabels(altLabel);
         return this;
     }
 
     public VariationDescriptorBuilder addAllAlternateLabels(List<String> altLabels) {
-        builder = builder.mergeFrom(builder.build()).addAllAlternateLabels(altLabels);
+        builder.addAllAlternateLabels(altLabels);
         return this;
     }
 
     public VariationDescriptorBuilder genomic() {
-        builder = builder.mergeFrom(builder.build()).setMoleculeContext(MoleculeContext.genomic);
+        builder.setMoleculeContext(MoleculeContext.genomic);
         return this;
     }
 
     public VariationDescriptorBuilder protein() {
-        builder = builder.mergeFrom(builder.build()).setMoleculeContext(MoleculeContext.protein);
+        builder.setMoleculeContext(MoleculeContext.protein);
         return this;
     }
 
     public VariationDescriptorBuilder structuralType(OntologyClass clz) {
-        builder = builder.mergeFrom(builder.build()).setStructuralType(clz);
+        builder.setStructuralType(clz);
         return this;
     }
 
     public VariationDescriptorBuilder heterozygous() {
         OntologyClass heterozygous = ontologyClass("GENO:0000135", "heterozygous");
-        builder = builder.mergeFrom(builder.build()).setAllelicState(heterozygous);
+        builder.setAllelicState(heterozygous);
         return this;
     }
 
     public VariationDescriptorBuilder homozygous() {
         OntologyClass heterozygous = ontologyClass("GENO:0000136", "homozygous");
-        builder = builder.mergeFrom(builder.build()).setAllelicState(heterozygous);
+        builder.setAllelicState(heterozygous);
         return this;
     }
     public VariationDescriptorBuilder hemizygous() {
         OntologyClass heterozygous = ontologyClass("GENO:0000134", "hemizygous");
-        builder = builder.mergeFrom(builder.build()).setAllelicState(heterozygous);
+        builder.setAllelicState(heterozygous);
         return this;
     }
 
@@ -98,7 +98,7 @@ public class VariationDescriptorBuilder {
                 .setSyntax("hgvs")
                 .setValue(value)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addExpressions(expression);
+        builder.addExpressions(expression);
         return this;
     }
 
@@ -107,7 +107,7 @@ public class VariationDescriptorBuilder {
                 .setSyntax("spdi")
                 .setValue(value)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addExpressions(expression);
+        builder.addExpressions(expression);
         return this;
     }
 
@@ -116,7 +116,7 @@ public class VariationDescriptorBuilder {
                 .setSyntax("iscn")
                 .setValue(value)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addExpressions(expression);
+        builder.addExpressions(expression);
         return this;
     }
 
