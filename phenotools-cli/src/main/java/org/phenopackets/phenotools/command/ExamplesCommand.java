@@ -3,6 +3,7 @@ package org.phenopackets.phenotools.command;
 import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
 import org.phenopackets.phenotools.examples.BethlehamMyopathy;
+import org.phenopackets.phenotools.examples.Marfan;
 import org.phenopackets.phenotools.examples.PhenopacketExample;
 import org.phenopackets.phenotools.examples.Thrombocytopenia2;
 import org.phenopackets.schema.v2.Phenopacket;
@@ -59,5 +60,7 @@ public class ExamplesCommand implements Runnable {
         outputPhenopacket("bethlehamMyopathy.json", bethleham.getPhenopacket());
         PhenopacketExample thrombocytopenia2 = new Thrombocytopenia2();
         outputPhenopacket("thrombocytopenia2.json", thrombocytopenia2.getPhenopacket());
+        PhenopacketExample marfan = new Marfan();
+        outputPhenopacket("marfan.json", marfan.getPhenopacket());
     }
 }
