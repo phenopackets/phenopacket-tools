@@ -24,12 +24,12 @@ public class MetaDataBuilder {
 
 
     public MetaDataBuilder submittedBy(String submitter) {
-        builder = builder.mergeFrom(builder.build()).setSubmittedBy(submitter);
+        builder.setSubmittedBy(submitter);
         return this;
     }
 
     public MetaDataBuilder addResource(Resource r) {
-        builder = builder.mergeFrom(builder.build()).addResources(r);
+        builder.addResources(r);
         return this;
     }
 
