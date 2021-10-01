@@ -61,5 +61,7 @@ public class ExamplesCommand implements Runnable {
         outputPhenopacket("marfan.json", marfan.getPhenopacket());
         PhenopacketExample aml = new Aml();
         outputPhenopacket("AML.json", aml.getPhenopacket());
+        PhenopacketExample scc = new SquamousCellCancer();
+        outputPhenopacket("squamousCellEsophagealCarcinoma.json", aml.getPhenopacket());
     }
 }
