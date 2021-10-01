@@ -8,22 +8,7 @@ import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontology
 
 public class EvidenceBuilder {
 
-    /*
-     public static Evidence authorStatementEvidence(String pmid, String title) {
-        TermId tid = TermId.of("ECO:0000033");
-        String label = "author statement supported by traceable reference";
-        OntologyClass evidenceCode = OntologyClass.newBuilder().setId(tid.getValue()).setLabel(label).build();
-        return Evidence.newBuilder().
-                setReference(ExternalReference.newBuilder().
-                        setId(pmid).
-                        setDescription(title).
-                        build()).
-                setEvidenceCode(evidenceCode)
-                .build();
-    }
-     */
-
-    private Evidence.Builder builder;
+    private final Evidence.Builder builder;
 
     public EvidenceBuilder(String id, String label) {
         OntologyClass evidenceCode = ontologyClass(id, label);
@@ -35,7 +20,7 @@ public class EvidenceBuilder {
     }
 
     public EvidenceBuilder reference(ExternalReference externalReference) {
-        builder = builder.mergeFrom(builder.build()).setReference(externalReference);
+        builder.setReference(externalReference);
         return this;
     }
 

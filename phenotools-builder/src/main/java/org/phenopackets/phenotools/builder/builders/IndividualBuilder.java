@@ -24,19 +24,19 @@ import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3
  */
 public class IndividualBuilder {
 
-    private Individual.Builder builder;
+    private final Individual.Builder builder;
 
     public IndividualBuilder(String id) {
         builder = Individual.newBuilder().setId(id);
     }
 
     public IndividualBuilder alternateId(String altId) {
-        builder = builder.mergeFrom(builder.build()).addAlternateIds(altId);
+        builder.addAlternateIds(altId);
         return this;
     }
 
     public IndividualBuilder alternateId(List<String> altIdList) {
-        builder = builder.mergeFrom(builder.build()).addAllAlternateIds(altIdList);
+        builder.addAllAlternateIds(altIdList);
         return this;
     }
 
@@ -49,84 +49,84 @@ public class IndividualBuilder {
     public IndividualBuilder timestampAtLastEncounter(String timestamp) {
         Timestamp stamp = fromRFC3339(timestamp);
         TimeElement t = TimeElement.newBuilder().setTimestamp(stamp).build();
-        builder = builder.mergeFrom(builder.build()).setTimeAtLastEncounter(t);
+        builder.setTimeAtLastEncounter(t);
         return this;
     }
     public IndividualBuilder ageAtLastEncounter(String iso8601) {
         TimeElement t = TimeElement.newBuilder().setAge(Age.newBuilder().setIso8601Duration(iso8601)).build();
-        builder = builder.mergeFrom(builder.build()).setTimeAtLastEncounter(t);
+        builder.setTimeAtLastEncounter(t);
         return this;
     }
 
     public IndividualBuilder alive() {
         VitalStatus status = VitalStatus.newBuilder().setStatus(VitalStatus.Status.ALIVE).build();
-        builder = builder.mergeFrom(builder.build()).setVitalStatus(status);
+        builder.setVitalStatus(status);
         return this;
     }
 
     public IndividualBuilder deceased() {
         VitalStatus status = VitalStatus.newBuilder().setStatus(VitalStatus.Status.DECEASED).build();
-        builder = builder.mergeFrom(builder.build()).setVitalStatus(status);
+        builder.setVitalStatus(status);
         return this;
     }
 
     public IndividualBuilder male() {
-        builder = builder.mergeFrom(builder.build()).setSex(Sex.MALE);
+        builder.setSex(Sex.MALE);
         return this;
     }
 
     public IndividualBuilder female() {
-        builder = builder.mergeFrom(builder.build()).setSex(Sex.FEMALE);
+        builder.setSex(Sex.FEMALE);
         return this;
     }
 
     public IndividualBuilder XX() {
-        builder = builder.mergeFrom(builder.build()).setKaryotypicSex(KaryotypicSex.XX);
+        builder.setKaryotypicSex(KaryotypicSex.XX);
         return this;
     }
 
     public IndividualBuilder XY() {
-        builder = builder.mergeFrom(builder.build()).setKaryotypicSex(KaryotypicSex.XY);
+        builder.setKaryotypicSex(KaryotypicSex.XY);
         return this;
     }
 
     public IndividualBuilder XO() {
-        builder = builder.mergeFrom(builder.build()).setKaryotypicSex(KaryotypicSex.XO);
+        builder.setKaryotypicSex(KaryotypicSex.XO);
         return this;
     }
 
     public IndividualBuilder XXY() {
-        builder = builder.mergeFrom(builder.build()).setKaryotypicSex(KaryotypicSex.XXY);
+        builder.setKaryotypicSex(KaryotypicSex.XXY);
         return this;
     }
 
     public IndividualBuilder XXX() {
-        builder = builder.mergeFrom(builder.build()).setKaryotypicSex(KaryotypicSex.XXX);
+        builder.setKaryotypicSex(KaryotypicSex.XXX);
         return this;
     }
 
     public IndividualBuilder XXYY() {
-        builder = builder.mergeFrom(builder.build()).setKaryotypicSex(KaryotypicSex.XXYY);
+        builder.setKaryotypicSex(KaryotypicSex.XXYY);
         return this;
     }
 
     public IndividualBuilder XXXY() {
-        builder = builder.mergeFrom(builder.build()).setKaryotypicSex(KaryotypicSex.XXXY);
+        builder.setKaryotypicSex(KaryotypicSex.XXXY);
         return this;
     }
 
     public IndividualBuilder XXXX() {
-        builder = builder.mergeFrom(builder.build()).setKaryotypicSex(KaryotypicSex.XXXX);
+        builder.setKaryotypicSex(KaryotypicSex.XXXX);
         return this;
     }
 
     public IndividualBuilder taxonomy(OntologyClass taxon) {
-        builder = builder.mergeFrom(builder.build()).setTaxonomy(taxon);
+        builder.setTaxonomy(taxon);
         return this;
     }
 
     public IndividualBuilder homoSapiens() {
-        builder = builder.mergeFrom(builder.build()).setTaxonomy(HOMO_SAPIENS);
+        builder.setTaxonomy(HOMO_SAPIENS);
         return this;
     }
 

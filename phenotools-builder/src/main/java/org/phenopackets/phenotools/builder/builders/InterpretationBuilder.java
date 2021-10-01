@@ -5,20 +5,20 @@ import org.phenopackets.schema.v2.core.Interpretation;
 
 public class InterpretationBuilder {
 
-    private Interpretation.Builder builder;
+    private final Interpretation.Builder builder;
 
     public InterpretationBuilder(String id, Interpretation.ProgressStatus status) {
         builder = Interpretation.newBuilder().setId(id).setProgressStatus(status);
     }
 
     public InterpretationBuilder diagnosis(Diagnosis dx) {
-        builder = builder.mergeFrom(builder.build()).setDiagnosis(dx);
+        builder.setDiagnosis(dx);
         return this;
     }
 
 
     public InterpretationBuilder summary(String sm) {
-        builder = builder.mergeFrom(builder.build()).setSummary(sm);
+        builder.setSummary(sm);
         return this;
     }
 

@@ -4,7 +4,7 @@ import org.ga4gh.vrsatile.v1.VcfRecord;
 
 public class VcfRecordBuilder {
 
-    private VcfRecord.Builder builder;
+    private final VcfRecord.Builder builder;
 
     public VcfRecordBuilder(String assembly, String chromosome, int position, String ref, String alt) {
         builder = VcfRecord.newBuilder()
@@ -22,7 +22,7 @@ public class VcfRecordBuilder {
      * @return
      */
     public VcfRecordBuilder id(String id) {
-        builder = builder.mergeFrom(builder.build()).setId(id);
+        builder.setId(id);
         return this;
     }
 
@@ -31,7 +31,7 @@ public class VcfRecordBuilder {
      * @return
      */
     public VcfRecordBuilder qual(String QUAL) {
-        builder = builder.mergeFrom(builder.build()).setQual(QUAL);
+        builder.setQual(QUAL);
         return this;
     }
 
@@ -39,7 +39,7 @@ public class VcfRecordBuilder {
      * If this method is called, "PASS" is added to the FILTER column
      */
     public VcfRecordBuilder pass() {
-        builder = builder.mergeFrom(builder.build()).setFilter("PASS");
+        builder.setFilter("PASS");
         return this;
     }
 
@@ -47,7 +47,7 @@ public class VcfRecordBuilder {
      * @param filter FILTER field of VCF. calling {@link #pass()} is equivant to calling filter("PASS)
      */
     public VcfRecordBuilder filter(String filter) {
-        builder = builder.mergeFrom(builder.build()).setFilter(filter);
+        builder.setFilter(filter);
         return this;
     }
 
@@ -55,7 +55,7 @@ public class VcfRecordBuilder {
      * @param info Additional information: Semicolon-separated series of additional information fields
      */
     public VcfRecordBuilder info(String info) {
-        builder = builder.mergeFrom(builder.build()).setInfo(info);
+        builder.setInfo(info);
         return this;
     }
 

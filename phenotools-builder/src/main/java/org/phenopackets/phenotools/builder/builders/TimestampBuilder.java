@@ -8,7 +8,7 @@ import java.time.ZoneOffset;
 
 public class TimestampBuilder {
 
-    private Timestamp.Builder builder;
+    private final Timestamp.Builder builder;
 
     public TimestampBuilder(long seconds) {
         builder = Timestamp.newBuilder().setSeconds(seconds);

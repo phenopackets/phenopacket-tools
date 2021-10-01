@@ -8,44 +8,44 @@ import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontology
 
 public class DiseaseBuilder {
 
-    private Disease.Builder builder;
+    private final Disease.Builder builder;
 
     public DiseaseBuilder(OntologyClass term) {
         builder = Disease.newBuilder().setTerm(term);
     }
 
     public DiseaseBuilder excluded() {
-        builder = builder.mergeFrom(builder.build()).setExcluded(true);
+        builder.setExcluded(true);
         return this;
     }
 
     public DiseaseBuilder onset(TimeElement timeElement) {
-        builder = builder.mergeFrom(builder.build()).setOnset(timeElement);
+        builder.setOnset(timeElement);
         return this;
     }
 
     public DiseaseBuilder resolution(TimeElement timeElement) {
-        builder = builder.mergeFrom(builder.build()).setResolution(timeElement);
+        builder.setResolution(timeElement);
         return this;
     }
 
     public DiseaseBuilder addDiseaseStage(OntologyClass stage) {
-        builder = builder.mergeFrom(builder.build()).addDiseaseStage(stage);
+        builder.addDiseaseStage(stage);
         return this;
     }
 
 
-    public DiseaseBuilder addClinicalTnmFinding(OntologyClass tnmFinding) {
-        builder = builder.mergeFrom(builder.build()).addClinicalTnmFinding(tnmFinding);
+    public DiseaseBuilder clinicalTnmFinding(OntologyClass tnmFinding) {
+        builder.addClinicalTnmFinding(tnmFinding);
         return this;
     }
     public DiseaseBuilder primarySite(OntologyClass site) {
-        builder = builder.mergeFrom(builder.build()).setPrimarySite(site);
+        builder.setPrimarySite(site);
         return this;
     }
 
     public DiseaseBuilder laterality(OntologyClass laterality) {
-        builder = builder.mergeFrom(builder.build()).setLaterality(laterality);
+        builder.setLaterality(laterality);
         return this;
     }
 
