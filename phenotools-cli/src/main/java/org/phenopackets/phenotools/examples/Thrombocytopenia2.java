@@ -60,10 +60,6 @@ public class Thrombocytopenia2 implements PhenopacketExample {
                 .build();
     }
 
-    @Override
-    public String getJson() {
-        return null;
-    }
 
     @Override
     public Phenopacket getPhenopacket() {

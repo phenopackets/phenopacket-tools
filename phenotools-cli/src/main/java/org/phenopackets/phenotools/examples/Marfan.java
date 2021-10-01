@@ -43,11 +43,6 @@ public class Marfan implements  PhenopacketExample {
 
 
     @Override
-    public String getJson() {
-        return null;
-    }
-
-    @Override
     public Phenopacket getPhenopacket() {
         return phenopacket;
     }
