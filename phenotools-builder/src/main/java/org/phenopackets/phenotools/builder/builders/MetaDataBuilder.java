@@ -34,18 +34,18 @@ public class MetaDataBuilder {
     }
 
     public MetaDataBuilder addUpdate(Update u) {
-        builder = builder.mergeFrom(builder.build()).addUpdates(u);
+        builder.addUpdates(u);
         return this;
     }
 
     public MetaDataBuilder addExternalReference(ExternalReference er) {
-        builder = builder.mergeFrom(builder.build()).addExternalReferences(er);
+        builder.addExternalReferences(er);
         return this;
     }
 
     public MetaDataBuilder addExternalReference(String id, String description) {
         ExternalReference er = ExternalReference.newBuilder().setId(id).setDescription(description).build();
-        builder = builder.mergeFrom(builder.build()).addExternalReferences(er);
+        builder.addExternalReferences(er);
         return this;
     }
 
@@ -58,7 +58,7 @@ public class MetaDataBuilder {
                 .setUrl("http://purl.obolibrary.org/obo/hp.owl")
                 .setVersion(version)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addResources(hp);
+        builder.addResources(hp);
         return this;
     }
 
@@ -71,7 +71,7 @@ public class MetaDataBuilder {
                 .setUrl("http://purl.obolibrary.org/obo/geno.owl")
                 .setVersion(version)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addResources(geno);
+        builder.addResources(geno);
         return this;
     }
 
@@ -84,7 +84,7 @@ public class MetaDataBuilder {
                 .setIriPrefix("http://purl.obolibrary.org/obo/PATO_")
                 .setVersion(version)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addResources(pato);
+        builder.addResources(pato);
         return this;
     }
 
@@ -97,7 +97,7 @@ public class MetaDataBuilder {
                 .setIriPrefix("http://purl.obolibrary.org/obo/EFO_")
                 .setVersion(version)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addResources(efo);
+        builder.addResources(efo);
         return this;
     }
 
@@ -110,7 +110,7 @@ public class MetaDataBuilder {
                 .setIriPrefix("http://purl.obolibrary.org/obo/CL_")
                 .setVersion(version)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addResources(cl);
+        builder.addResources(cl);
         return this;
     }
     public MetaDataBuilder uberonWithVersion(String version) {
@@ -122,7 +122,7 @@ public class MetaDataBuilder {
                 .setIriPrefix("http://purl.obolibrary.org/obo/UBERON_")
                 .setVersion(version)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addResources(uberon);
+        builder.addResources(uberon);
         return this;
     }
     public MetaDataBuilder ncbiTaxonWithVersion(String version) {
@@ -134,7 +134,7 @@ public class MetaDataBuilder {
                 .setIriPrefix("http://purl.obolibrary.org/obo/NCBITaxon_")
                 .setVersion(version)
                 .build();
-        builder = builder.mergeFrom(builder.build()).addResources(ncbiTaxon);
+        builder.addResources(ncbiTaxon);
         return this;
     }
 

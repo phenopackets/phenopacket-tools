@@ -42,7 +42,7 @@ public class IndividualBuilder {
 
     public IndividualBuilder dateOfBirth(String dobirth) {
         Timestamp dob = fromRFC3339(dobirth);
-        builder = builder.mergeFrom(builder.build()).setDateOfBirth(dob);
+        builder.setDateOfBirth(dob);
         return this;
     }
 
