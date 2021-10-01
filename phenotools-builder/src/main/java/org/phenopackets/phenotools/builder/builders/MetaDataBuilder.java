@@ -113,6 +113,30 @@ public class MetaDataBuilder {
         builder.addResources(cl);
         return this;
     }
+
+
+    public MetaDataBuilder ncitWithVersion(String version) {
+        /*
+         Ontology IRI: http://purl.obolibrary.org/obo/ncit.owl
+Version IRI: http://purl.obolibrary.org/obo/ncit/releases/2021-05-25/ncit.owl
+Ontology ID: ncit
+Version:
+Number of terms: 165673
+Last loaded: Thu Jul 15 23:06:07 BST 2021
+         */
+        Resource cl = Resource.newBuilder()
+                .setId("ncit")
+                .setName("NCI Thesaurus")
+                .setNamespacePrefix("NCIT")
+                .setUrl("http://purl.obolibrary.org/obo/ncit.owl")
+                .setIriPrefix("http://purl.obolibrary.org/obo/NCIT_")
+                .setVersion(version)
+                .build();
+        builder.addResources(cl);
+        return this;
+    }
+
+
     public MetaDataBuilder uberonWithVersion(String version) {
         Resource uberon = Resource.newBuilder()
                  .setId("uberon")
