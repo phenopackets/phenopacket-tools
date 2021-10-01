@@ -10,11 +10,10 @@ import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontology
 
 public class BethlehamMyopathy implements PhenopacketExample{
     private static final String PHENOPACKET_ID = "arbitrary proband id";
-    private static final String INTERPRETATION_ID = "arbitrary genomic interpretation id";
+    private static final String INTERPRETATION_ID = "arbitrary interpretation id";
     private static final String PROBAND_ID = "proband A";
     private static final String PMID = "PMID:30808312";
     private static final String publication = "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report";
-    private static final Evidence authorAssertion = EvidenceBuilder.create(PMID, publication).build();
 
     /** A disease-associated variant in COL6A1. */
     private static final String hgvsExpression = "NM_001848.2:c.877G>A";

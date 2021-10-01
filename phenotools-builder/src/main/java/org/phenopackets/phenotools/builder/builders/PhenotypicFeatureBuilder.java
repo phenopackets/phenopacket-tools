@@ -79,6 +79,11 @@ public class PhenotypicFeatureBuilder {
         return this;
     }
 
+    public PhenotypicFeatureBuilder excluded() {
+        builder.setExcluded(true);
+        return this;
+    }
+
     public PhenotypicFeatureBuilder evidence(Evidence evidence) {
         builder.addEvidence(evidence);
         return this;

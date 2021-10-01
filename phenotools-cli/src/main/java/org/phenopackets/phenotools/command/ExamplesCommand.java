@@ -4,6 +4,7 @@ import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
 import org.phenopackets.phenotools.examples.BethlehamMyopathy;
 import org.phenopackets.phenotools.examples.PhenopacketExample;
+import org.phenopackets.phenotools.examples.Thrombocytopenia2;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.File;
 import picocli.CommandLine;
@@ -56,5 +57,7 @@ public class ExamplesCommand implements Runnable {
     public void run() {
         PhenopacketExample bethleham = new BethlehamMyopathy();
         outputPhenopacket("bethlehamMyopathy.json", bethleham.getPhenopacket());
+        PhenopacketExample thrombocytopenia2 = new Thrombocytopenia2();
+        outputPhenopacket("thrombocytopenia2.json", thrombocytopenia2.getPhenopacket());
     }
 }
