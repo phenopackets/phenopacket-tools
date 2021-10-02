@@ -6,9 +6,6 @@ import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException
 import org.phenopackets.schema.v2.core.ExternalReference;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-
 
 /**
  * This class contains some commonly used static functions and constants for various common tasks
