@@ -10,7 +10,7 @@ import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontology
 
 public class VariationDescriptorBuilder {
 
-    VariationDescriptor.Builder builder;
+    final VariationDescriptor.Builder builder;
 
     public VariationDescriptorBuilder(String id) {
         builder = VariationDescriptor.newBuilder().setId(id);

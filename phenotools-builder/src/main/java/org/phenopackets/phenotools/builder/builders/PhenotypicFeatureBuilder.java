@@ -26,6 +26,10 @@ public class PhenotypicFeatureBuilder {
         builder.setType(clz);
     }
 
+    public PhenotypicFeatureBuilder(OntologyClass feature) {
+        builder = PhenotypicFeature.newBuilder().setType(feature);
+    }
+
     public PhenotypicFeatureBuilder onset(TimeElement time) {
         builder.setOnset(time);
         return this;
@@ -105,6 +109,10 @@ public class PhenotypicFeatureBuilder {
 
     public PhenotypicFeature build() {
         return builder.build();
+    }
+
+    public static PhenotypicFeatureBuilder create(OntologyClass feature) {
+        return new PhenotypicFeatureBuilder(feature);
     }
 
     public static PhenotypicFeatureBuilder create(String id, String label) {

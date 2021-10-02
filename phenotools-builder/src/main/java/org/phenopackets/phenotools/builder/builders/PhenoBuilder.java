@@ -2,11 +2,9 @@ package org.phenopackets.phenotools.builder.builders;
 
 import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.Timestamps;
+import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
 import org.phenopackets.schema.v2.core.ExternalReference;
 import org.phenopackets.schema.v2.core.OntologyClass;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 
 /**
@@ -38,10 +36,26 @@ public class PhenoBuilder {
         try {
             return Timestamps.parse(tstamp);
         } catch (Exception e) {
-            LocalDateTime timeNow = LocalDateTime.now();
-            return Timestamp.newBuilder()
-                    .setSeconds(timeNow.toEpochSecond(ZoneOffset.UTC))
-                    .build();
+            throw new PhenotoolsRuntimeException("Invalid time string: \"" + tstamp + "\"");
+        }
+    }
+
+    /**
+     * Accepts strings like 2021-10-01T18:58:43Z (also valid RFC3339) and simple Strings
+     * like 2021-10-01 (valid ISO 8601 but not RFC3339). Here we assume that the time of day is
+     * zero seconds and pass that on to the {@link #fromRFC3339(String)} to get a time stamp
+     * @param time
+     * @return
+     */
+    public static Timestamp fromISO8601(String time) {
+        //2021-10-01T18:58:43Z is valid
+        //2021-10-01 is also valid
+        // the first is also valid RFC3339
+        if (time.contains("T") && time.endsWith("Z")) {
+            return fromRFC3339(time);
+        } else {
+            time += "T00:00:00Z";
+            return fromRFC3339(time);
         }
     }
 }

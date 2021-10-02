@@ -5,8 +5,7 @@ import org.phenopackets.schema.v2.core.MetaData;
 import org.phenopackets.schema.v2.core.Resource;
 import org.phenopackets.schema.v2.core.Update;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.SCHEMA_VERSION;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3339;
+import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.*;
 
 public class MetaDataBuilder {
 
@@ -17,7 +16,7 @@ public class MetaDataBuilder {
 
     public MetaDataBuilder(String created, String createdBy) {
         builder = MetaData.newBuilder()
-                .setCreated(fromRFC3339(created))
+                .setCreated(fromISO8601(created))
                 .setCreatedBy(createdBy)
                 .setPhenopacketSchemaVersion(SCHEMA_VERSION); // only one option for schema version!
     }
@@ -113,6 +112,35 @@ public class MetaDataBuilder {
         builder.addResources(cl);
         return this;
     }
+
+
+    public MetaDataBuilder ncitWithVersion(String version) {
+        Resource cl = Resource.newBuilder()
+                .setId("ncit")
+                .setName("NCI Thesaurus")
+                .setNamespacePrefix("NCIT")
+                .setUrl("http://purl.obolibrary.org/obo/ncit.owl")
+                .setIriPrefix("http://purl.obolibrary.org/obo/NCIT_")
+                .setVersion(version)
+                .build();
+        builder.addResources(cl);
+        return this;
+    }
+
+    public MetaDataBuilder mondoWithVersion(String version) {
+        Resource mondo = Resource.newBuilder()
+                .setId("mondo")
+                .setName("Mondo Disease Ontology")
+                .setUrl("http://purl.obolibrary.org/obo/mondo.obo")
+                .setVersion(version)
+                .setIriPrefix("http://purl.obolibrary.org/obo/MONDO_")
+                .setNamespacePrefix("MONDO")
+                .build();
+        builder.addResources(mondo);
+        return this;
+    }
+
+
     public MetaDataBuilder uberonWithVersion(String version) {
         Resource uberon = Resource.newBuilder()
                  .setId("uberon")

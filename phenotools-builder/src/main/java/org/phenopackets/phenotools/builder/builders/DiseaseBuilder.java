@@ -29,7 +29,7 @@ public class DiseaseBuilder {
         return this;
     }
 
-    public DiseaseBuilder addDiseaseStage(OntologyClass stage) {
+    public DiseaseBuilder diseaseStage(OntologyClass stage) {
         builder.addDiseaseStage(stage);
         return this;
     }

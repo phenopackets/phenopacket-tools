@@ -6,7 +6,7 @@ import org.phenopackets.schema.v2.core.*;
 
 import java.util.regex.*;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3339;
+import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromISO8601;
 
 /**
  * The TimeElement is used in many places in the Phenopacket. It is defined as being one of the
@@ -151,7 +151,7 @@ public class TimeElementBuilder {
         if (builder != null) {
             throw new PhenotoolsRuntimeException("Not allowed to add two subelements to TimeElement");
         }
-        Timestamp time = fromRFC3339(timestamp);
+        Timestamp time = fromISO8601(timestamp);
         this.builder= TimeElement.newBuilder().setTimestamp(time);
         return this;
     }
@@ -160,8 +160,8 @@ public class TimeElementBuilder {
         if (builder != null) {
             throw new PhenotoolsRuntimeException("Not allowed to add two subelements to TimeElement");
         }
-        Timestamp start = fromRFC3339(timestampStart);
-        Timestamp end = fromRFC3339(timestampEnd);
+        Timestamp start = fromISO8601(timestampStart);
+        Timestamp end = fromISO8601(timestampEnd);
         this.builder= TimeElement.newBuilder().setInterval(TimeInterval.newBuilder().setStart(start).setEnd(end));
         return this;
     }

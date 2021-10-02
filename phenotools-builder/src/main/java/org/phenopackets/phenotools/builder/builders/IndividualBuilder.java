@@ -70,6 +70,11 @@ public class IndividualBuilder {
         return this;
     }
 
+    public IndividualBuilder vitalStatus(VitalStatus status) {
+        builder.setVitalStatus(status);
+        return this;
+    }
+
     public IndividualBuilder male() {
         builder.setSex(Sex.MALE);
         return this;

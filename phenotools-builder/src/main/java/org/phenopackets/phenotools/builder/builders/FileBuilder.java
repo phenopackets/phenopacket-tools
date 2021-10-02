@@ -10,12 +10,12 @@ public class FileBuilder {
         builder = File.newBuilder().setUri(uri);
     }
 
-    public FileBuilder addFileAttribute(String k, String v) {
+    public FileBuilder fileAttribute(String k, String v) {
         builder.putFileAttributes(k, v);
         return this;
     }
 
-    public FileBuilder addIndividualToFileIdentifiers(String individual, String fileIdentifier) {
+    public FileBuilder individualToFileIdentifier(String individual, String fileIdentifier) {
         builder.putIndividualToFileIdentifiers(individual, fileIdentifier);
         return this;
     }
@@ -30,15 +30,15 @@ public class FileBuilder {
 
     public static FileBuilder hg38vcf(String uri) {
         FileBuilder fb = new FileBuilder(uri);
-        fb.addFileAttribute("genomeAssembly", "GRCh38");
-        fb.addFileAttribute("fileFormat", "VCF");
+        fb.fileAttribute("genomeAssembly", "GRCh38");
+        fb.fileAttribute("fileFormat", "VCF");
         return fb;
     }
 
     public static FileBuilder hg37vcf(String uri) {
         FileBuilder fb = new FileBuilder(uri);
-        fb.addFileAttribute("genomeAssembly", "GRCh37");
-        fb.addFileAttribute("fileFormat", "VCF");
+        fb.fileAttribute("genomeAssembly", "GRCh37");
+        fb.fileAttribute("fileFormat", "VCF");
         return fb;
     }
 }
