@@ -23,7 +23,7 @@ public class PhenopacketBuilder {
         return this;
     }
 
-    public PhenopacketBuilder addAllPhenotypicFeatures(List<PhenotypicFeature> features) {
+    public PhenopacketBuilder allPhenotypicFeatures(List<PhenotypicFeature> features) {
         builder.addAllPhenotypicFeatures(features);
         return this;
     }
@@ -33,7 +33,7 @@ public class PhenopacketBuilder {
         return this;
     }
 
-    public PhenopacketBuilder addAllMeasurements(List<Measurement> measurements) {
+    public PhenopacketBuilder allMeasurements(List<Measurement> measurements) {
         builder.addAllMeasurements(measurements);
         return this;
     }

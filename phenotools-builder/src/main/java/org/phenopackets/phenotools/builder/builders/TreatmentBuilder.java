@@ -4,6 +4,8 @@ import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
+import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
+
 public class TreatmentBuilder {
     private final Treatment.Builder builder;
 
@@ -54,4 +56,8 @@ public class TreatmentBuilder {
    public static TreatmentBuilder create(OntologyClass agent) {
         return new TreatmentBuilder(agent);
    }
+
+    public static TreatmentBuilder create(String id, String label) {
+        return new TreatmentBuilder(ontologyClass(id, label));
+    }
 }

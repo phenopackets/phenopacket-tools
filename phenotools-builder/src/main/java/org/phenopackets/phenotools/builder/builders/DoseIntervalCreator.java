@@ -14,4 +14,13 @@ public class DoseIntervalCreator {
                 .setInterval(interval)
                 .build();
     }
+
+    public static DoseInterval create(Quantity quantity, OntologyClass schedule_frequency, String start, String end) {
+        var interval = TimeIntervalCreator.create(start, end);
+        return DoseInterval.newBuilder()
+                .setQuantity(quantity)
+                .setScheduleFrequency(schedule_frequency)
+                .setInterval(interval)
+                .build();
+    }
 }

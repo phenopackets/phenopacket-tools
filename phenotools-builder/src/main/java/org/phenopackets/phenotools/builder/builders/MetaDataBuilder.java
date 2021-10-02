@@ -5,8 +5,7 @@ import org.phenopackets.schema.v2.core.MetaData;
 import org.phenopackets.schema.v2.core.Resource;
 import org.phenopackets.schema.v2.core.Update;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.SCHEMA_VERSION;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3339;
+import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.*;
 
 public class MetaDataBuilder {
 
@@ -17,7 +16,7 @@ public class MetaDataBuilder {
 
     public MetaDataBuilder(String created, String createdBy) {
         builder = MetaData.newBuilder()
-                .setCreated(fromRFC3339(created))
+                .setCreated(fromISO8601(created))
                 .setCreatedBy(createdBy)
                 .setPhenopacketSchemaVersion(SCHEMA_VERSION); // only one option for schema version!
     }
@@ -116,14 +115,6 @@ public class MetaDataBuilder {
 
 
     public MetaDataBuilder ncitWithVersion(String version) {
-        /*
-         Ontology IRI: http://purl.obolibrary.org/obo/ncit.owl
-Version IRI: http://purl.obolibrary.org/obo/ncit/releases/2021-05-25/ncit.owl
-Ontology ID: ncit
-Version:
-Number of terms: 165673
-Last loaded: Thu Jul 15 23:06:07 BST 2021
-         */
         Resource cl = Resource.newBuilder()
                 .setId("ncit")
                 .setName("NCI Thesaurus")
@@ -133,6 +124,19 @@ Last loaded: Thu Jul 15 23:06:07 BST 2021
                 .setVersion(version)
                 .build();
         builder.addResources(cl);
+        return this;
+    }
+
+    public MetaDataBuilder mondoWithVersion(String version) {
+        Resource mondo = Resource.newBuilder()
+                .setId("mondo")
+                .setName("Mondo Disease Ontology")
+                .setUrl("http://purl.obolibrary.org/obo/mondo.obo")
+                .setVersion(version)
+                .setIriPrefix("http://purl.obolibrary.org/obo/MONDO_")
+                .setNamespacePrefix("MONDO")
+                .build();
+        builder.addResources(mondo);
         return this;
     }
 
