@@ -13,8 +13,12 @@ import org.phenopackets.schema.v2.core.OntologyClass;
  */
 public class PhenoBuilder {
 
-    public final static OntologyClass HOMO_SAPIENS = ontologyClass("NCBI:txid9606", "Homo sapiens");
-    public final static String SCHEMA_VERSION = "2.0";
+    public static final OntologyClass HOMO_SAPIENS = ontologyClass("NCBI:txid9606", "Homo sapiens");
+    public static final String SCHEMA_VERSION = "2.0";
+
+    private PhenoBuilder() {
+    }
+
     public static OntologyClass ontologyClass(String termid, String label) {
         return OntologyClass.newBuilder()
                 .setId(termid)

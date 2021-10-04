@@ -121,9 +121,6 @@ public class VariationDescriptorBuilder {
     }
 
 
-
-
-
     public VariationDescriptor build() {
         return builder.build();
     }

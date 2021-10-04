@@ -32,7 +32,7 @@ public class Marfan implements  PhenopacketExample {
                 .build();
         var medicalAction = MedicalActionBuilder.treatment(losartanTreatment).build();
         var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .hpWithVersion("2021-08-02")
+                .addResource(Resources.hpoVersion("2021-08-02"))
                 .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)
