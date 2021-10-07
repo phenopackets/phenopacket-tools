@@ -8,8 +8,7 @@ import org.phenopackets.schema.v2.core.TimeInterval;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 public class DoseIntervalBuilderTest {
 
 

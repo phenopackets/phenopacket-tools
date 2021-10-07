@@ -6,6 +6,8 @@ import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException
 import org.phenopackets.schema.v2.core.ExternalReference;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 
 /**
  * This class contains some commonly used static functions and constants for various common tasks
@@ -15,12 +17,6 @@ public class PhenoBuilder {
 
     public final static OntologyClass HOMO_SAPIENS = ontologyClass("NCBI:txid9606", "Homo sapiens");
     public final static String SCHEMA_VERSION = "2.0";
-    public static OntologyClass ontologyClass(String termid, String label) {
-        return OntologyClass.newBuilder()
-                .setId(termid)
-                .setLabel(label)
-                .build();
-    }
 
     public static ExternalReference externalReference(String id, String description) {
         return ExternalReference.newBuilder().setId(id).setDescription(description).build();

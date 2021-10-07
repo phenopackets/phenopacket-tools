@@ -4,7 +4,8 @@ import org.phenopackets.schema.v2.core.Evidence;
 import org.phenopackets.schema.v2.core.ExternalReference;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 
 public class EvidenceBuilder {
 

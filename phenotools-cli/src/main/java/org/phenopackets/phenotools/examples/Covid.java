@@ -8,8 +8,7 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 public class Covid implements PhenopacketExample {
 
     private static final String ONSET_OF_COVID = "2021-02-01T05:00:00Z";

@@ -4,8 +4,7 @@ import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 public class TreatmentBuilder {
     private final Treatment.Builder builder;
 
