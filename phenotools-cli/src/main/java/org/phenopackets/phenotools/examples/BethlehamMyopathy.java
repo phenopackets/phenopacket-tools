@@ -25,7 +25,7 @@ public class BethlehamMyopathy implements PhenopacketExample{
         var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .hpWithVersion("2021-08-02")
                 .genoWithVersion("2020-03-08")
-                .addExternalReference(authorAssertion.getReference())
+                .externalReference(authorAssertion.getReference())
                 .build();
         var variationDescriptor =
                 VariationDescriptorBuilder.create("variant id")

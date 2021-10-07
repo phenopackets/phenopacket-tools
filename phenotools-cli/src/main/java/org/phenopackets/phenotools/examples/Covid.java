@@ -58,7 +58,7 @@ public class Covid implements PhenopacketExample {
         var metaData =  MetaDataBuilder.create("2021-08-17", "anonymous biocurator")
                 .ncitWithVersion("2019-11-26")
                 .mondoWithVersion("2021-11-26")
-                .addExternalReference(externalRef)
+                .externalReference(externalRef)
                 .build();
 
 
