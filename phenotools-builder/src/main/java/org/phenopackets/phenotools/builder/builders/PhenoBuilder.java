@@ -40,8 +40,8 @@ public class PhenoBuilder {
      * Accepts strings like 2021-10-01T18:58:43Z (also valid RFC3339) and simple Strings
      * like 2021-10-01 (valid ISO 8601 but not RFC3339). Here we assume that the time of day is
      * zero seconds and pass that on to the {@link #fromRFC3339(String)} to get a time stamp
-     * @param time
-     * @return
+     * @param time a string such as 2021-10-01T18:58:43Z or 2021-10-01
+     * @return corresponding protobuf Timestamp object
      */
     public static Timestamp fromISO8601(String time) {
         //2021-10-01T18:58:43Z is valid

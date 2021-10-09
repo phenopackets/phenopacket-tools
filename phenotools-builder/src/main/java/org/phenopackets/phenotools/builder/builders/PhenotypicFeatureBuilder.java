@@ -91,7 +91,7 @@ public class PhenotypicFeatureBuilder {
         return this;
     }
 
-    public PhenotypicFeatureBuilder addAllEvidence(List<Evidence> evidenceList) {
+    public PhenotypicFeatureBuilder allEvidence(List<Evidence> evidenceList) {
         builder.addAllEvidence(evidenceList);
         return this;
     }
@@ -101,7 +101,7 @@ public class PhenotypicFeatureBuilder {
         return this;
     }
 
-    public PhenotypicFeatureBuilder addAllModifiers(List<OntologyClass> modifiers) {
+    public PhenotypicFeatureBuilder allModifiers(List<OntologyClass> modifiers) {
         builder.addAllModifiers(modifiers);
         return this;
     }
