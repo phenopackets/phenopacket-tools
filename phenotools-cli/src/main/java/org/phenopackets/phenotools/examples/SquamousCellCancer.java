@@ -17,10 +17,10 @@ public class SquamousCellCancer implements PhenopacketExample{
     public SquamousCellCancer() {
         Individual proband = IndividualBuilder.create(PROBAND_ID).male().ageAtLastEncounter("P38Y").build();
         var metadata = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .addResource(Resources.ncitVersion("21.05d"))
-                .addResource(Resources.efoVersion("3.34.0"))
-                .addResource(Resources.uberonVersion("2021-07-27"))
-                .addResource(Resources.ncbiTaxonVersion(" 2021-06-10"))
+                .resource(Resources.ncitVersion("21.05d"))
+                .resource(Resources.efoVersion("3.34.0"))
+                .resource(Resources.uberonVersion("2021-07-27"))
+                .resource(Resources.ncbiTaxonVersion(" 2021-06-10"))
                 .build();
         var esophagealSCC = ontologyClass("NCIT:C4024","Esophageal Squamous Cell Carcinoma");
         var disease = DiseaseBuilder.create(esophagealSCC)

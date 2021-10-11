@@ -19,8 +19,8 @@ public class BethlehamMyopathy implements PhenopacketExample{
         var bethlehamMyopathy = ontologyClass("OMIM:158810", "Bethlem myopathy 1");
         var individual = IndividualBuilder.create(PROBAND_ID).male().ageAtLastEncounter("P6Y3M").build();
         var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .hpWithVersion("2021-08-02")
-                .genoWithVersion("2020-03-08")
+                .resource(Resources.hpoVersion("2021-08-02"))
+                .resource(Resources.genoVersion("2020-03-08"))
                 .externalReference(authorAssertion.getReference())
                 .build();
         var variationDescriptor =

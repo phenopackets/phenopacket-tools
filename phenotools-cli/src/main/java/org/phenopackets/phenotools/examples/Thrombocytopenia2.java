@@ -18,8 +18,8 @@ public class Thrombocytopenia2 implements PhenopacketExample {
         var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
         var individual = IndividualBuilder.create(PROBAND_ID).female().ageAtLastEncounter("P20Y").build();
         var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .hpWithVersion("2021-08-02")
-                .genoWithVersion("2020-03-08")
+                .resource(Resources.hpoVersion("2021-08-02"))
+                .resource(Resources.genoVersion("2020-03-08"))
                 .externalReference(authorAssertion.getReference())
                 .build();
         var variationDescriptor =
