@@ -5,8 +5,7 @@ import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.Diagnosis;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 public class Thrombocytopenia2 implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "id-C";
     private static final String INTERPRETATION_ID = "arbitrary interpretation id";
@@ -19,9 +18,9 @@ public class Thrombocytopenia2 implements PhenopacketExample {
         var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
         var individual = IndividualBuilder.create(PROBAND_ID).female().ageAtLastEncounter("P20Y").build();
         var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .addResource(Resources.hpoVersion("2021-08-02"))
-                .addResource(Resources.genoVersion("2020-03-08"))
-                .addExternalReference(authorAssertion.getReference())
+                .hpWithVersion("2021-08-02")
+                .genoWithVersion("2020-03-08")
+                .externalReference(authorAssertion.getReference())
                 .build();
         var variationDescriptor =
                 VariationDescriptorBuilder.create("variant id")

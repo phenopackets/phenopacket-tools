@@ -5,7 +5,8 @@ import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.TimeElement;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 
 public class Aml implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";

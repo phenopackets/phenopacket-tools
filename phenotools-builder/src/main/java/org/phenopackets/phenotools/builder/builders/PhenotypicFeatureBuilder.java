@@ -7,8 +7,7 @@ import org.phenopackets.schema.v2.core.TimeElement;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 /**
  * This has convenience methods for building PhenotypicFeature messages with some
  * commonly used options.
@@ -98,7 +97,7 @@ public class PhenotypicFeatureBuilder {
         return this;
     }
 
-    public PhenotypicFeatureBuilder addAllEvidence(List<Evidence> evidenceList) {
+    public PhenotypicFeatureBuilder allEvidence(List<Evidence> evidenceList) {
         builder.addAllEvidence(evidenceList);
         return this;
     }
@@ -108,7 +107,7 @@ public class PhenotypicFeatureBuilder {
         return this;
     }
 
-    public PhenotypicFeatureBuilder addAllModifiers(List<OntologyClass> modifiers) {
+    public PhenotypicFeatureBuilder allModifiers(List<OntologyClass> modifiers) {
         builder.addAllModifiers(modifiers);
         return this;
     }
