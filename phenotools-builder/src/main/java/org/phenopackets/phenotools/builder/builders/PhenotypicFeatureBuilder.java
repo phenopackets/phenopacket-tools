@@ -15,8 +15,6 @@ import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.
  */
 public class PhenotypicFeatureBuilder {
 
-    public static final OntologyClass SEVERE = ontologyClass("HP:0012828", "Severe");
-
     private final PhenotypicFeature.Builder builder;
 
     public PhenotypicFeatureBuilder(String id, String label) {
@@ -29,43 +27,51 @@ public class PhenotypicFeatureBuilder {
         builder = PhenotypicFeature.newBuilder().setType(feature);
     }
 
+    public static PhenotypicFeatureBuilder create(OntologyClass feature) {
+        return new PhenotypicFeatureBuilder(feature);
+    }
+
+    public static PhenotypicFeatureBuilder create(String id, String label) {
+        return new PhenotypicFeatureBuilder(id, label);
+    }
+
     public PhenotypicFeatureBuilder onset(TimeElement time) {
         builder.setOnset(time);
         return this;
     }
 
     public PhenotypicFeatureBuilder congenitalOnset() {
-        TimeElement time = TimeElementBuilder.congenitalOnset();
+        TimeElement time = TimeElements.congenitalOnset();
         builder.setOnset(time);
         return this;
     }
 
     public PhenotypicFeatureBuilder embryonalOnset() {
-        TimeElement time = TimeElementBuilder.embryonalOnset();
+        TimeElement time = TimeElements.embryonalOnset();
         builder.setOnset(time);
         return this;
     }
 
     public PhenotypicFeatureBuilder fetalOnset() {
-        TimeElement time = TimeElementBuilder.fetalOnset();
+        TimeElement time = TimeElements.fetalOnset();
         builder.setOnset(time);
         return this;
     }
 
     public PhenotypicFeatureBuilder infantileOnset() {
-        TimeElement time = TimeElementBuilder.infantileOnset();
+        TimeElement time = TimeElements.infantileOnset();
         builder.setOnset(time);
         return this;
     }
 
     public PhenotypicFeatureBuilder childhoodOnset() {
-        TimeElement time = TimeElementBuilder.childhoodOnset();
+        TimeElement time = TimeElements.childhoodOnset();
         builder.setOnset(time);
         return this;
     }
 
     public PhenotypicFeatureBuilder adultOnset() {
-        TimeElement time = TimeElementBuilder.adultOnset();
+        TimeElement time = TimeElements.adultOnset();
         builder.setOnset(time);
         return this;
     }
@@ -77,7 +83,7 @@ public class PhenotypicFeatureBuilder {
     }
 
     public PhenotypicFeatureBuilder severe() {
-        builder.setSeverity(SEVERE);
+        builder.setSeverity(Severity.severe());
         return this;
     }
 
@@ -110,11 +116,4 @@ public class PhenotypicFeatureBuilder {
         return builder.build();
     }
 
-    public static PhenotypicFeatureBuilder create(OntologyClass feature) {
-        return new PhenotypicFeatureBuilder(feature);
-    }
-
-    public static PhenotypicFeatureBuilder create(String id, String label) {
-        return new PhenotypicFeatureBuilder(id, label);
-    }
 }

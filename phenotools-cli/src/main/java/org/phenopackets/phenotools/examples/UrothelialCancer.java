@@ -11,7 +11,7 @@ import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.
 public class UrothelialCancer implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "patient1";
-    private final String AGE_AT_BIOPSY = "P52Y2M";
+    private static final TimeElement AGE_AT_BIOPSY = TimeElements.age("P52Y2M");
     private static final OntologyClass BIOPSY = ontologyClass("NCIT:C15189", "Biopsy");
 
     private final Phenopacket phenopacket;
@@ -23,10 +23,10 @@ public class UrothelialCancer implements PhenopacketExample {
                 .severe()
                 .build();
         var metadata = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .ncitWithVersion("21.05d")
-                .efoWithVersion("3.34.0")
-                .uberonWithVersion("2021-07-27")
-                .ncbiTaxonWithVersion(" 2021-06-10")
+                .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.efoVersion("3.34.0"))
+                .addResource(Resources.uberonVersion("2021-07-27"))
+                .addResource(Resources.ncbiTaxonVersion(" 2021-06-10"))
                 .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .disease(infiltratingUrothelialCarcinoma())
@@ -74,7 +74,7 @@ public class UrothelialCancer implements PhenopacketExample {
         return BiosampleBuilder.create("prostate biosample ID")
                 .sampledTissue(prostateGland)
                 .individualId(PROBAND_ID)
-                .timeOfCollection(TimeElementBuilder.create().age(AGE_AT_BIOPSY).build())
+                .timeOfCollection(AGE_AT_BIOPSY)
                 .histologicalDiagnosis(prostateAcinarAdenocarcinoma)
                 .tumorProgression(ontologyClass("NCIT:C95606", "Second Primary Malignant Neoplasm"))
                 .tumorGrade(ontologyClass("NCIT:C28091", "Gleason Score 7"))
@@ -87,7 +87,7 @@ public class UrothelialCancer implements PhenopacketExample {
         return BiosampleBuilder.create("left ureter biosample ID")
                 .sampledTissue(leftUreter)
                 .individualId(PROBAND_ID)
-                .timeOfCollection(TimeElementBuilder.create().age(AGE_AT_BIOPSY).build())
+                .timeOfCollection(AGE_AT_BIOPSY)
                 .histologicalDiagnosis(ontologyClass("NCIT:C38757", "Negative Finding"))
                 .procedure(ProcedureBuilder.create(BIOPSY).build())
                 .build();
@@ -102,7 +102,7 @@ public class UrothelialCancer implements PhenopacketExample {
         return BiosampleBuilder.create("right ureter biosample ID")
                 .sampledTissue(rightUreter)
                 .individualId(PROBAND_ID)
-                .timeOfCollection(TimeElementBuilder.create().age(AGE_AT_BIOPSY).build())
+                .timeOfCollection(AGE_AT_BIOPSY)
                 .histologicalDiagnosis(ontologyClass("NCIT:C38757", "Negative Finding"))
                 .procedure(ProcedureBuilder.create(BIOPSY).build())
                 .build();
@@ -113,7 +113,7 @@ public class UrothelialCancer implements PhenopacketExample {
         return BiosampleBuilder.create("pelvic lymph node biosample ID")
                 .sampledTissue(pelvicLymphNode)
                 .individualId(PROBAND_ID)
-                .timeOfCollection(TimeElementBuilder.create().age(AGE_AT_BIOPSY).build())
+                .timeOfCollection(AGE_AT_BIOPSY)
                 .tumorProgression(ontologyClass("NCIT:C3261", "Metastatic Neoplasm"))
                 .file(metastasisHtsFile())
                 .procedure(ProcedureBuilder.create(BIOPSY).build())
@@ -125,7 +125,7 @@ public class UrothelialCancer implements PhenopacketExample {
         return BiosampleBuilder.create("bladder biopsy id")
                 .sampledTissue(bladderWall)
                 .individualId(PROBAND_ID)
-                .timeOfCollection(TimeElementBuilder.create().age(AGE_AT_BIOPSY).build())
+                .timeOfCollection(AGE_AT_BIOPSY)
                 .histologicalDiagnosis(ontologyClass("NCIT:C39853", "Infiltrating Urothelial Carcinoma"))
                 .tumorProgression(ontologyClass("NCIT:C84509", "Primary Malignant Neoplasm"))
                 .file(somaticHtsFile())

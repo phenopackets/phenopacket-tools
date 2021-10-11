@@ -10,14 +10,11 @@ public class Thrombocytopenia2 implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "id-C";
     private static final String INTERPRETATION_ID = "arbitrary interpretation id";
     private static final String PROBAND_ID = "family 10 proband";
-    private static final String PMID = "PMID:21211618";
-    private static final String publication = "Mutations in the 5' UTR of ANKRD26, the ankirin repeat domain 26 gene, cause an autosomal-dominant form of inherited thrombocytopenia, THC2";
-    private static final String hgvsExpression = "NM_014915.2:c.-128G>A";
 
     private final Phenopacket phenopacket;
 
     public Thrombocytopenia2() {
-        var authorAssertion = EvidenceBuilder.authorStatementEvidence(PMID, publication);
+        var authorAssertion = EvidenceBuilder.authorStatementEvidence("PMID:21211618", "Mutations in the 5' UTR of ANKRD26, the ankirin repeat domain 26 gene, cause an autosomal-dominant form of inherited thrombocytopenia, THC2");
         var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
         var individual = IndividualBuilder.create(PROBAND_ID).female().ageAtLastEncounter("P20Y").build();
         var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
@@ -28,7 +25,7 @@ public class Thrombocytopenia2 implements PhenopacketExample {
         var variationDescriptor =
                 VariationDescriptorBuilder.create("variant id")
                         .heterozygous()
-                        .hgvs(hgvsExpression)
+                        .hgvs("NM_014915.2:c.-128G>A")
                         .build();
         var col6a1VariantInterpretation =
                 VariantInterpretationBuilder.create(variationDescriptor)

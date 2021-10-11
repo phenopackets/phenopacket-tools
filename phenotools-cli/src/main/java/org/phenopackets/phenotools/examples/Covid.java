@@ -25,12 +25,9 @@ public class Covid implements PhenopacketExample {
             .setExcluded(true)
             .build();
 
-    private static final OntologyClass CONTINUOUS =  ontologyClass("PATO:0000689", "continuous");
+    private static final OntologyClass CONTINUOUS = ontologyClass("PATO:0000689", "continuous");
 
-
-    private static final String PMID = "PMID: 32292915";
-    private static final String publication = "The Imperfect Cytokine Storm: Severe COVID-19 With ARDS in a Patient on Durable LVAD Support";
-    private static final Evidence authorAssertion = EvidenceBuilder.create(PMID, publication).build();
+    private static final Evidence authorAssertion = EvidenceBuilder.create("PMID: 32292915", "The Imperfect Cytokine Storm: Severe COVID-19 With ARDS in a Patient on Durable LVAD Support").build();
 
     private final Phenopacket phenopacket;
 
@@ -45,7 +42,7 @@ public class Covid implements PhenopacketExample {
         Disease cardiomyopathy = DiseaseBuilder.create("MONDO:0004994", "cardiomyopathy").build();
         Disease covid = DiseaseBuilder
                 .create("MONDO:0100096", "COVID-19")
-                .onset(TimeElementBuilder.create().timestamp("2020-03-17").build())
+                .onset(TimeElements.timestamp("2020-03-17"))
                 .build();
         var bloodGroupA = PhenotypicFeatureBuilder.create("HP:0032370", "Blood group A");
         var rhesusPositive = PhenotypicFeatureBuilder.create("NCIT:C76251", "Rh Positive Blood Group");
@@ -62,14 +59,12 @@ public class Covid implements PhenopacketExample {
                 .build();
 
 
-
-
         phenopacket = PhenopacketBuilder.create("arbitrary.phenopacket.id", metaData)
                 .individual(patient)
                 .allPhenotypicFeatures(getAllPhenotypicFeatures())
                 .allMeasurements(getAllMeasurements())
-               // .addMeasurements(initialBloodLymphocyteCount)
-               // .addMeasurements(hoD0bloodLymphocyteCount)
+                // .addMeasurements(initialBloodLymphocyteCount)
+                // .addMeasurements(hoD0bloodLymphocyteCount)
                 .medicalAction(lvadImplant())
                 .medicalAction(nasalOxygenAdministered())
                 .medicalAction(dexamethasone())
@@ -91,22 +86,22 @@ public class Covid implements PhenopacketExample {
         // His blood group was type A positive.
 
         var fever = PhenotypicFeatureBuilder.create("HP:0001945", "Fever ")
-                .onset(TimeElementBuilder.create().timestamp(ONSET_OF_COVID).build())
+                .onset(TimeElements.timestamp(ONSET_OF_COVID))
                 .build();
         var flankPain = PhenotypicFeatureBuilder.create("HP:0030157", "Flank pain")
-                .onset(TimeElementBuilder.create().timestamp(ONSET_OF_COVID).build())
+                .onset(TimeElements.timestamp(ONSET_OF_COVID))
                 .build();
         var hematuria = PhenotypicFeatureBuilder.create("HP:0000790", "Hematuria")
-                .onset(TimeElementBuilder.create().timestamp(ONSET_OF_COVID).build())
+                .onset(TimeElements.timestamp(ONSET_OF_COVID))
                 .build();
         var renalFailureStage3 = PhenotypicFeatureBuilder.create(stage3kidney)
-                .onset(TimeElementBuilder.create().timestamp(ONSET_OF_COVID).build())
+                .onset(TimeElements.timestamp(ONSET_OF_COVID))
                 .build();
 
         // He was tested for coronavirus disease 2019 (COVID-19), but he left against medical advice.
         // In the ensuing days, he continued to have fever, new onset myalgia, diarrhea, and dyspnea.
         TimeElement preHospitalisationDateRange =
-                TimeElementBuilder.create().interval("2020-03-18", "2020-03-20").build();
+                TimeElements.interval("2020-03-18", "2020-03-20");
         var myalgia = PhenotypicFeatureBuilder.create("HP:0003326", "Myalgia")
                 .onset(preHospitalisationDateRange)
                 .build();
@@ -118,9 +113,9 @@ public class Covid implements PhenopacketExample {
                 .build();
 
         var ARDS =
-                PhenotypicFeatureBuilder.create("HP:0033677","Acute respiratory distress syndrome")
-                    .onset(TimeElementBuilder.create().timestamp(RETURN_TO_HOSPITAL_TIME).build())
-                    .build();
+                PhenotypicFeatureBuilder.create("HP:0033677", "Acute respiratory distress syndrome")
+                        .onset(TimeElements.timestamp(RETURN_TO_HOSPITAL_TIME))
+                        .build();
 
         List<PhenotypicFeature> features = new ArrayList<>();
         features.add(fever);
@@ -137,16 +132,15 @@ public class Covid implements PhenopacketExample {
     private List<Measurement> getAllMeasurements() {
         List<Measurement> measurements = new ArrayList<>();
         Value value = ValueBuilder.create(QuantityBuilder.create("NCIT:C67245", "Thousand Cells", 1.4).build()).build();
-       var assay = ontologyClass("LOINC:26474-7", "Lymphocytes [#/volume] in Blood");
+        var assay = ontologyClass("LOINC:26474-7", "Lymphocytes [#/volume] in Blood");
         var initialBloodLymphocyteCount = MeasurementBuilder.value(assay, value)
-                .timeObserved(TimeElementBuilder.create()
-                        .interval("2019-09-01", "2020-03-01").build())
+                .timeObserved(TimeElements.interval("2019-09-01", "2020-03-01"))
                 .build();
         measurements.add(initialBloodLymphocyteCount);
         Value value2 = ValueBuilder.create(QuantityBuilder.create("NCIT:C67245", "Thousand Cells", 0.7).build()).build();
 
         var hoD0bloodLymphocyteCount = MeasurementBuilder.value(assay, value2)
-                .timeObserved(TimeElementBuilder.create().timestamp(RETURN_TO_HOSPITAL_TIME).build())
+                .timeObserved(TimeElements.timestamp(RETURN_TO_HOSPITAL_TIME))
                 .build();
         measurements.add(hoD0bloodLymphocyteCount);
         return measurements;
@@ -156,11 +150,11 @@ public class Covid implements PhenopacketExample {
     private MedicalAction nasalOxygenAdministered() {
         Quantity twoLperMin = QuantityBuilder.create("NCIT:C67388", "Liter per Minute", 2).build();
         var interval1 = DoseIntervalCreator.create(twoLperMin,
-                ontologyClass("PATO:0000689", "continuous"),
+                CONTINUOUS,
                 TimeIntervalCreator.create("2021-02-01T18:58:43Z", "2021-02-02T08:22:42Z"));
         Quantity fiftyLperMin = QuantityBuilder.create("NCIT:C67388", "Liter per Minute", 50).build();
         var interval2 = DoseIntervalCreator.create(fiftyLperMin,
-                ontologyClass("PATO:0000689", "continuous"),
+                CONTINUOUS,
                 TimeIntervalCreator.create("2021-02-02T08:22:42Z", "2021-02-02T12:22:42Z"));
         Treatment nasalOxygen = TreatmentBuilder.create("NCIT:C722", "Oxygen")
                 .routeOfAdministration(ontologyClass("NCIT:C38284", "Nasal Route of Administration"))
@@ -172,30 +166,30 @@ public class Covid implements PhenopacketExample {
 
     private MedicalAction lvadImplant() {
         Procedure proc = ProcedureBuilder.create("NCIT:C80473", "Left Ventricular Assist Device")
-                .performed(TimeElementBuilder.create().timestamp("2016-01-01").build()).build();
+                .performed(TimeElements.timestamp("2016-01-01")).build();
         return MedicalActionBuilder.procedure(proc).build();
     }
 
-    private MedicalAction trachealIntubation () {
+    private MedicalAction trachealIntubation() {
         Procedure intubation = ProcedureBuilder.create("NCIT:C116648", "Tracheal Intubation")
-            .performed(TimeElementBuilder.create().timestamp("2020-03-22").build()).build();
+                .performed(TimeElements.timestamp("2020-03-22")).build();
         return MedicalActionBuilder.procedure(intubation).build();
     }
 
-    private MedicalAction peepOxygenAdministered () {
+    private MedicalAction peepOxygenAdministered() {
         Quantity quantity = QuantityBuilder.create("NCIT:C91060", "Centimeters of Water", 14).build();
-        var doseInterval = DoseIntervalCreator.create(quantity, CONTINUOUS,"2020-03-22", "2020-03-28");
+        var doseInterval = DoseIntervalCreator.create(quantity, CONTINUOUS, "2020-03-22", "2020-03-28");
         Treatment oxygen = TreatmentBuilder.create(ontologyClass("NCIT:C722", "Oxygen"))
                 .routeOfAdministration(ontologyClass("NCIT:C50254", "Positive end Expiratory Pressure Valve Device"))
-                .doseInterval( doseInterval)
+                .doseInterval(doseInterval)
                 .build();
         return MedicalActionBuilder.treatment(oxygen).build();
     }
 
-    private MedicalAction tocilizumabAdministered () {
+    private MedicalAction tocilizumabAdministered() {
         Quantity quantity = QuantityBuilder.create("NCIT:C124458", "Milligram per Kilogram per Dose", 4).build();
         OntologyClass q4weeks = ontologyClass("NCIT:C64529", "Every Four Weeks");
-        var doseInterval = DoseIntervalCreator.create(quantity, q4weeks,"2020-03-24", "2020-03-28");
+        var doseInterval = DoseIntervalCreator.create(quantity, q4weeks, "2020-03-24", "2020-03-28");
         var treatment = TreatmentBuilder.create("NCIT:C84217", "Tocilizumab")
                 .doseInterval(doseInterval)
                 .build();

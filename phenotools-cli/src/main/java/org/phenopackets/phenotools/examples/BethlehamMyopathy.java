@@ -11,15 +11,11 @@ public class BethlehamMyopathy implements PhenopacketExample{
     private static final String PHENOPACKET_ID = "arbitrary proband id";
     private static final String INTERPRETATION_ID = "arbitrary interpretation id";
     private static final String PROBAND_ID = "proband A";
-    private static final String PMID = "PMID:30808312";
-    private static final String publication = "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report";
 
-    /** A disease-associated variant in COL6A1. */
-    private static final String hgvsExpression = "NM_001848.2:c.877G>A";
     private final Phenopacket phenopacket;
 
     public BethlehamMyopathy() {
-        var authorAssertion = EvidenceBuilder.authorStatementEvidence(PMID, publication);
+        var authorAssertion = EvidenceBuilder.authorStatementEvidence("PMID:30808312", "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report");
         var bethlehamMyopathy = ontologyClass("OMIM:158810", "Bethlem myopathy 1");
         var individual = IndividualBuilder.create(PROBAND_ID).male().ageAtLastEncounter("P6Y3M").build();
         var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
@@ -30,7 +26,7 @@ public class BethlehamMyopathy implements PhenopacketExample{
         var variationDescriptor =
                 VariationDescriptorBuilder.create("variant id")
                         .heterozygous()
-                        .hgvs(hgvsExpression)
+                        .hgvs("NM_001848.2:c.877G>A")
                         .build();
         var col6a1VariantInterpretation =
                 VariantInterpretationBuilder.create(variationDescriptor)

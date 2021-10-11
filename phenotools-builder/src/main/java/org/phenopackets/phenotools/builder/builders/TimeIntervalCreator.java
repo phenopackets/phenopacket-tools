@@ -7,6 +7,8 @@ import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromISO8
 
 public class TimeIntervalCreator {
 
+    private TimeIntervalCreator() {
+    }
 
     public static TimeInterval create(Timestamp start, Timestamp end) {
         return TimeInterval.newBuilder()

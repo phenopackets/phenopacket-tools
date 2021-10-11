@@ -53,7 +53,7 @@ public class IndividualBuilder {
         return this;
     }
     public IndividualBuilder ageAtLastEncounter(String iso8601) {
-        TimeElement t = TimeElement.newBuilder().setAge(Age.newBuilder().setIso8601Duration(iso8601)).build();
+        TimeElement t = TimeElements.age(iso8601);
         builder.setTimeAtLastEncounter(t);
         return this;
     }

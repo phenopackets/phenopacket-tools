@@ -19,7 +19,7 @@ public class Aml implements PhenopacketExample {
         var disease = DiseaseBuilder
                 .create(ontologyClass("NCIT:C3171", "Acute Myeloid Leukemia"))
                 .build();
-        TimeElement age = TimeElementBuilder.create().age("P8Y").build();
+        TimeElement age = TimeElements.age("P8Y");
         var biospy = BiosampleBuilder.create("SAMN05324082")
                 .individualId("SAMN05324082-individual")
                 .description("THP-1; 6 hours; DMSO; Replicate 1")
@@ -29,10 +29,10 @@ public class Aml implements PhenopacketExample {
                 .histologicalDiagnosis(ontologyClass("EFO:0000221", "Acute Monocytic Leukemia"))
                 .build();
         var metadata = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .ncitWithVersion("21.05d")
-                .efoWithVersion("3.34.0")
-                .uberonWithVersion("2021-07-27")
-                .ncbiTaxonWithVersion(" 2021-06-10")
+                .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.efoVersion("3.34.0"))
+                .addResource(Resources.uberonVersion("2021-07-27"))
+                .addResource(Resources.ncbiTaxonVersion("2021-06-10"))
                 .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(individual)
