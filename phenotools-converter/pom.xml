@@ -16,9 +16,6 @@
     <artifactId>phenotools-converter</artifactId>
 
     <dependencies>
-
-
-
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
@@ -100,8 +97,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-
         <!-- Utility for inter-converting CURIEs and IRIs
             TODO - probably we can get rid of this dependency with a newer phenol version.
             It seems to "leak" from phenol or some other library and be required in the pom file
@@ -112,8 +107,5 @@
             <artifactId>curie-util</artifactId>
             <version>0.0.2</version>
         </dependency>
-
-
     </dependencies>
-
 </project>
