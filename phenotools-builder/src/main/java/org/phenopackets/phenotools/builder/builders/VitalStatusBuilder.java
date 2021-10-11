@@ -4,7 +4,8 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.TimeElement;
 import org.phenopackets.schema.v2.core.VitalStatus;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 
 public class VitalStatusBuilder {
 

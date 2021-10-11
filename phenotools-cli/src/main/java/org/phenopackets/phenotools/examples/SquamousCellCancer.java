@@ -6,8 +6,7 @@ import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.Individual;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 public class SquamousCellCancer implements PhenopacketExample{
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
@@ -18,10 +17,10 @@ public class SquamousCellCancer implements PhenopacketExample{
     public SquamousCellCancer() {
         Individual proband = IndividualBuilder.create(PROBAND_ID).male().ageAtLastEncounter("P38Y").build();
         var metadata = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .ncitWithVersion("21.05d")
-                .efoWithVersion("3.34.0")
-                .uberonWithVersion("2021-07-27")
-                .ncbiTaxonWithVersion(" 2021-06-10")
+                .resource(Resources.ncitVersion("21.05d"))
+                .resource(Resources.efoVersion("3.34.0"))
+                .resource(Resources.uberonVersion("2021-07-27"))
+                .resource(Resources.ncbiTaxonVersion(" 2021-06-10"))
                 .build();
         var esophagealSCC = ontologyClass("NCIT:C4024","Esophageal Squamous Cell Carcinoma");
         var disease = DiseaseBuilder.create(esophagealSCC)
@@ -31,14 +30,14 @@ public class SquamousCellCancer implements PhenopacketExample{
                 .build();
         var  esophagusBiopsy = BiosampleBuilder.create("biosample 1")
                     .individualId(PROBAND_ID)
-                    .timeOfCollection(TimeElementBuilder.create().age("P49Y2M").build())
+                    .timeOfCollection(TimeElements.age("P49Y2M"))
                     .sampledTissue((ontologyClass("NCIT:C12389", "Esophagus")))
                     .tumorProgression(ontologyClass("NCIT:C4813", "Recurrent Malignant Neoplasm"))
                     .procedure(ProcedureBuilder.create(BIOPSY).build())
                     .build();
         var lymphNodeBiopsy = BiosampleBuilder.create("biosample 2")
                     .individualId(PROBAND_ID)
-                    .timeOfCollection(TimeElementBuilder.create().age("P48Y3M").build())
+                    .timeOfCollection(TimeElements.age("P48Y3M"))
                     .sampledTissue(ontologyClass("NCIT:C139196", "Esophageal Lymph Node"))
                     .tumorProgression(ontologyClass("NCIT:C84509", "Primary Malignant Neoplasm"))
                     .histologicalDiagnosis(ontologyClass("NCIT:C4024", "Esophageal Squamous Cell Carcinoma"))
@@ -47,7 +46,7 @@ public class SquamousCellCancer implements PhenopacketExample{
                     .build();
         var lungBiopsy = BiosampleBuilder.create("biosample 3")
                     .individualId(PROBAND_ID)
-                    .timeOfCollection(TimeElementBuilder.create().age("P50Y7M").build())
+                    .timeOfCollection(TimeElements.age("P50Y7M"))
                     .sampledTissue(ontologyClass("NCIT:C12468", "Lung"))
                     .tumorProgression(ontologyClass("NCIT:C3261", "Metastatic Neoplasm"))
                     .procedure(ProcedureBuilder.create(BIOPSY).build())

@@ -6,8 +6,7 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 public class VariationDescriptorBuilder {
 
     final VariationDescriptor.Builder builder;
@@ -119,9 +118,6 @@ public class VariationDescriptorBuilder {
         builder.addExpressions(expression);
         return this;
     }
-
-
-
 
 
     public VariationDescriptor build() {

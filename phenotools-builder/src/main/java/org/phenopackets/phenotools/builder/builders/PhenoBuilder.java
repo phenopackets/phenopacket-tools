@@ -6,6 +6,8 @@ import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException
 import org.phenopackets.schema.v2.core.ExternalReference;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 
 /**
  * This class contains some commonly used static functions and constants for various common tasks
@@ -15,12 +17,7 @@ public class PhenoBuilder {
 
     public final static OntologyClass HOMO_SAPIENS = ontologyClass("NCBI:txid9606", "Homo sapiens");
     public final static String SCHEMA_VERSION = "2.0";
-    public static OntologyClass ontologyClass(String termid, String label) {
-        return OntologyClass.newBuilder()
-                .setId(termid)
-                .setLabel(label)
-                .build();
-    }
+
 
     public static ExternalReference externalReference(String id, String description) {
         return ExternalReference.newBuilder().setId(id).setDescription(description).build();
@@ -44,8 +41,8 @@ public class PhenoBuilder {
      * Accepts strings like 2021-10-01T18:58:43Z (also valid RFC3339) and simple Strings
      * like 2021-10-01 (valid ISO 8601 but not RFC3339). Here we assume that the time of day is
      * zero seconds and pass that on to the {@link #fromRFC3339(String)} to get a time stamp
-     * @param time
-     * @return
+     * @param time a string such as 2021-10-01T18:58:43Z or 2021-10-01
+     * @return corresponding protobuf Timestamp object
      */
     public static Timestamp fromISO8601(String time) {
         //2021-10-01T18:58:43Z is valid

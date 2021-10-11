@@ -19,7 +19,6 @@ public class VcfRecordBuilder {
      * Identifier: Semicolon-separated list of unique identifiers where available
      * If this is a dbSNP variant thes number(s) should be used.
      * @param id identifier for this variant
-     * @return
      */
     public VcfRecordBuilder id(String id) {
         builder.setId(id);
@@ -28,7 +27,6 @@ public class VcfRecordBuilder {
 
     /**
      * @param QUAL: Phred-scaled quality score for the assertion made in ALT.
-     * @return
      */
     public VcfRecordBuilder qual(String QUAL) {
         builder.setQual(QUAL);

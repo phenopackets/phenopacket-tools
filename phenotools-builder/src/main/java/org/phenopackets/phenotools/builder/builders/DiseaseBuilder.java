@@ -4,7 +4,7 @@ import org.phenopackets.schema.v2.core.Disease;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.TimeElement;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 public class DiseaseBuilder {
 

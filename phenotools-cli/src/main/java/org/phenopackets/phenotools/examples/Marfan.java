@@ -4,8 +4,7 @@ import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 public class Marfan implements  PhenopacketExample {
 
     private static final String PHENOPACKET_ID = "id-C";
@@ -32,7 +31,7 @@ public class Marfan implements  PhenopacketExample {
                 .build();
         var medicalAction = MedicalActionBuilder.treatment(losartanTreatment).build();
         var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .hpWithVersion("2021-08-02")
+                .resource(Resources.hpoVersion("2021-08-02"))
                 .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)

@@ -4,8 +4,7 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.Quantity;
 import org.phenopackets.schema.v2.core.ReferenceRange;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 public class QuantityBuilder {
 
     private final Quantity.Builder builder;
