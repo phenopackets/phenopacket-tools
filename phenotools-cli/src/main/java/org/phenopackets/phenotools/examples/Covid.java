@@ -8,8 +8,7 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.ontologyClass;
-
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 public class Covid implements PhenopacketExample {
 
     private static final String ONSET_OF_COVID = "2021-02-01T05:00:00Z";
@@ -53,10 +52,10 @@ public class Covid implements PhenopacketExample {
                 .reference("PMID:32292915")
                 .description("The Imperfect Cytokine Storm: Severe COVID-19 With ARDS in a Patient on Durable LVAD Support")
                 .build();
-        var metaData = MetaDataBuilder.create("2021-08-17", "anonymous biocurator")
-                .addResource(Resources.ncitVersion("2019-11-26"))
-                .addResource(Resources.mondoVersion("2021-11-26"))
-                .addExternalReference(externalRef)
+        var metaData =  MetaDataBuilder.create("2021-08-17", "anonymous biocurator")
+                .ncitWithVersion("2019-11-26")
+                .mondoWithVersion("2021-11-26")
+                .externalReference(externalRef)
                 .build();
 
 
