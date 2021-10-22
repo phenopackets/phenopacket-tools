@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import static org.phenopackets.phenotools.converter.converters.v2.AgeConverter.toAge;
 import static org.phenopackets.phenotools.converter.converters.v2.AgeConverter.toAgeRange;
+import static org.phenopackets.phenotools.converter.converters.v2.EvidenceConverter.toEvidences;
 import static org.phenopackets.phenotools.converter.converters.v2.ExternalReferenceConverter.toExternalReference;
 import static org.phenopackets.phenotools.converter.converters.v2.OntologyClassConverter.toOntologyClass;
 import static org.phenopackets.phenotools.converter.converters.v2.OntologyClassConverter.toOntologyClassList;
@@ -21,13 +22,20 @@ public class PhenotypicFeatureConverter {
     }
 
     public static PhenotypicFeature toPhenotypicFeature(org.phenopackets.schema.v1.core.PhenotypicFeature v1PhenotypicFeature) {
-        return PhenotypicFeature.newBuilder()
+        PhenotypicFeature.Builder builder = PhenotypicFeature.newBuilder();
+        // optional fields we don't want to set as empty
+        if (v1PhenotypicFeature.hasSeverity()) {
+            builder.setSeverity(toOntologyClass(v1PhenotypicFeature.getSeverity()));
+        }
+        if (v1PhenotypicFeature.hasClassOfOnset() || v1PhenotypicFeature.hasAgeOfOnset() || v1PhenotypicFeature.hasAgeRangeOfOnset()) {
+            builder.setOnset(toPhenotypicFeatureOnset(v1PhenotypicFeature));
+        }
+
+        return builder
                 .setType(toOntologyClass(v1PhenotypicFeature.getType()))
                 .setExcluded(v1PhenotypicFeature.getNegated())
-                .setSeverity(toOntologyClass(v1PhenotypicFeature.getSeverity()))
                 .addAllModifiers(toModifiers(v1PhenotypicFeature.getModifiersList()))
                 .addAllEvidence(toEvidences(v1PhenotypicFeature.getEvidenceList()))
-                .setOnset(toPhenotypicFeatureOnset(v1PhenotypicFeature))
                 .setDescription(v1PhenotypicFeature.getDescription())
                 .build();
     }
@@ -46,16 +54,4 @@ public class PhenotypicFeatureConverter {
     public static List<OntologyClass> toModifiers(List<org.phenopackets.schema.v1.core.OntologyClass> modifiersList) {
         return toOntologyClassList(modifiersList);
     }
-
-    public static List<Evidence> toEvidences(List<org.phenopackets.schema.v1.core.Evidence> evidenceList) {
-        return evidenceList.stream().map(PhenotypicFeatureConverter::toEvidence).collect(Collectors.toUnmodifiableList());
-    }
-
-    public static Evidence toEvidence(org.phenopackets.schema.v1.core.Evidence v1Evidence) {
-        return Evidence.newBuilder()
-                .setEvidenceCode(toOntologyClass(v1Evidence.getEvidenceCode()))
-                .setReference(toExternalReference(v1Evidence.getReference()))
-                .build();
-    }
-
 }

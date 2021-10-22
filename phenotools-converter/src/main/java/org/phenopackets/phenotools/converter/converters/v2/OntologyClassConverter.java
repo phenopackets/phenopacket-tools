@@ -15,6 +15,9 @@ public class OntologyClassConverter {
     }
 
     public static OntologyClass toOntologyClass(org.phenopackets.schema.v1.core.OntologyClass v1OntologyClass) {
+        if (org.phenopackets.schema.v1.core.OntologyClass.getDefaultInstance().equals(v1OntologyClass)) {
+            return OntologyClass.getDefaultInstance();
+        }
         return OntologyClass.newBuilder()
                 .setId(v1OntologyClass.getId())
                 .setLabel(v1OntologyClass.getLabel())
