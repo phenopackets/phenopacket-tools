@@ -7,14 +7,13 @@ import org.phenopackets.schema.v2.core.TimeElement;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-
-public class Aml implements PhenopacketExample {
+class Aml implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
 
     private final Phenopacket phenopacket;
 
-    public Aml() {
+    Aml() {
         var individual = IndividualBuilder.create(PROBAND_ID).male().ageAtLastEncounter("P8Y").build();
         var disease = DiseaseBuilder
                 .create(ontologyClass("NCIT:C3171", "Acute Myeloid Leukemia"))
@@ -45,14 +44,4 @@ public class Aml implements PhenopacketExample {
     public Phenopacket getPhenopacket() {
         return phenopacket;
     }
-    /*
-
-
-
-
-
-
-
-
-     */
 }

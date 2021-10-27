@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 @CommandLine.Command(name = "convert", aliases = {"c"},
         mixinStandardHelpOptions = true,
@@ -34,6 +35,10 @@ public class ConvertCommand implements Runnable{
             return;
         }
         Path inPath = Path.of(input).toAbsolutePath();
+        if (!Files.exists(inPath)) {
+            System.err.println("No such input file: " + inPath);
+            return;
+        }
         var builder = org.phenopackets.schema.v1.Phenopacket.newBuilder();
         try {
             JsonFormat.parser().ignoringUnknownFields().merge(Files.newBufferedReader(inPath), builder);
@@ -42,23 +47,18 @@ public class ConvertCommand implements Runnable{
         }
         var v1Phenopacket = builder.build();
         var version = v1Phenopacket.getMetaData().getPhenopacketSchemaVersion();
-        if (! version.equals("1.0.0")) {
-            throw new PhenotoolsRuntimeException("This script converts version 1.0.0 to version 2.0.0 but you passed version \"" + version + "\".");
+        if (! (version.equals("1.0") || version.equals("1.0.0"))) {
+            throw new PhenotoolsRuntimeException("This script converts version 1.0 to version 2.0 but you passed version \"" + version + "\".");
         }
-        var v2Phenopacket = PhenopacketConverter.convertToV2(v1Phenopacket);
+        var v2Phenopacket = PhenopacketConverter.toV2Phenopacket(v1Phenopacket);
 
         try {
             String json = JsonFormat.printer().print(v2Phenopacket);
             System.out.println(json);
-            String v2name;
-            if (this.output == null) {
-                v2name = getV2FileName(this.input);
-            } else {
-                v2name = output;
+            String v2name = Objects.requireNonNullElseGet(this.output, () -> getV2FileName(this.input));
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(v2name))) {
+                writer.write(json);
             }
-            BufferedWriter writer = new BufferedWriter(new FileWriter(v2name));
-            writer.write(json);
-            writer.close();
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -72,7 +72,6 @@ public class ConvertCommand implements Runnable{
      * @return corresponding v2 filename (possibly path)
      */
     private String getV2FileName(String input) {
-        File f = new File(input);
         String sep = File.separator;
         String [] components = input.split(sep);
         String base = components[components.length - 1];

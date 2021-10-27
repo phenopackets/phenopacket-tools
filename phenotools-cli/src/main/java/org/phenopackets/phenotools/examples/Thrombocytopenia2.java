@@ -6,14 +6,15 @@ import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.Diagnosis;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-public class Thrombocytopenia2 implements PhenopacketExample {
+
+class Thrombocytopenia2 implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "id-C";
     private static final String INTERPRETATION_ID = "arbitrary interpretation id";
     private static final String PROBAND_ID = "family 10 proband";
 
     private final Phenopacket phenopacket;
 
-    public Thrombocytopenia2() {
+    Thrombocytopenia2() {
         var authorAssertion = EvidenceBuilder.authorStatementEvidence("PMID:21211618", "Mutations in the 5' UTR of ANKRD26, the ankirin repeat domain 26 gene, cause an autosomal-dominant form of inherited thrombocytopenia, THC2");
         var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
         var individual = IndividualBuilder.create(PROBAND_ID).female().ageAtLastEncounter("P20Y").build();
@@ -45,7 +46,7 @@ public class Thrombocytopenia2 implements PhenopacketExample {
                         .evidence(authorAssertion)
                         .build();
         var brusing =
-                PhenotypicFeatureBuilder.create( "HP:0000978", "Bruising susceptibility")
+                PhenotypicFeatureBuilder.create("HP:0000978", "Bruising susceptibility")
                         .evidence(authorAssertion)
                         .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
@@ -55,7 +56,6 @@ public class Thrombocytopenia2 implements PhenopacketExample {
                 .interpretation(interpretation)
                 .build();
     }
-
 
     @Override
     public Phenopacket getPhenopacket() {

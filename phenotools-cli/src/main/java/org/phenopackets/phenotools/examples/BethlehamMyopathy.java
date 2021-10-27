@@ -7,14 +7,15 @@ import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-public class BethlehamMyopathy implements PhenopacketExample{
+
+class BethlehamMyopathy implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary proband id";
     private static final String INTERPRETATION_ID = "arbitrary interpretation id";
     private static final String PROBAND_ID = "proband A";
 
     private final Phenopacket phenopacket;
 
-    public BethlehamMyopathy() {
+    BethlehamMyopathy() {
         var authorAssertion = EvidenceBuilder.authorStatementEvidence("PMID:30808312", "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report");
         var bethlehamMyopathy = ontologyClass("OMIM:158810", "Bethlem myopathy 1");
         var individual = IndividualBuilder.create(PROBAND_ID).male().ageAtLastEncounter("P6Y3M").build();
@@ -40,8 +41,8 @@ public class BethlehamMyopathy implements PhenopacketExample{
                 .setDisease(bethlehamMyopathy).addGenomicInterpretations(genomicInterpretation).build();
         var interpretation = InterpretationBuilder.completed(INTERPRETATION_ID)
                 .diagnosis(diagnosis).build();
-        var VSD =
-                PhenotypicFeatureBuilder.create("HP:0001629","Ventricular septal defect")
+        var ventricularSeptalDefect =
+                PhenotypicFeatureBuilder.create("HP:0001629", "Ventricular septal defect")
                         .congenitalOnset()
                         .evidence(authorAssertion)
                         .build();
@@ -60,7 +61,7 @@ public class BethlehamMyopathy implements PhenopacketExample{
                         .evidence(authorAssertion)
                         .build();
         var micropenis =
-                PhenotypicFeatureBuilder.create("HP:0000054","Micropenis")
+                PhenotypicFeatureBuilder.create("HP:0000054", "Micropenis")
                         .congenitalOnset()
                         .evidence(authorAssertion)
                         .build();
@@ -89,7 +90,7 @@ public class BethlehamMyopathy implements PhenopacketExample{
                         .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)
-                .phenotypicFeature(VSD)
+                .phenotypicFeature(ventricularSeptalDefect)
                 .phenotypicFeature(coarseFacial)
                 .phenotypicFeature(cryptorchidism)
                 .phenotypicFeature(polyhydramnios)
@@ -101,13 +102,10 @@ public class BethlehamMyopathy implements PhenopacketExample{
                 .phenotypicFeature(unilateralCleftLip)
                 .interpretation(interpretation)
                 .build();
-
     }
-
 
     @Override
     public Phenopacket getPhenopacket() {
         return phenopacket;
     }
-
 }

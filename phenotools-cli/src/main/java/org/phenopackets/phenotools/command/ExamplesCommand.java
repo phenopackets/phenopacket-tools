@@ -4,69 +4,54 @@ import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
 import org.phenopackets.phenotools.examples.*;
 import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.schema.v2.core.File;
 import picocli.CommandLine;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-@CommandLine.Command(name = "examples", aliases = {"E"},
+@CommandLine.Command(name = "examples", aliases = {"e"},
         mixinStandardHelpOptions = true,
         description = "output example phenopackets to file")
 public class ExamplesCommand implements Runnable {
 
+    @CommandLine.Option(names = {"-o", "--outdir"}, description = "path to out directory (default: current directory)")
+    public String outdir = ".";
 
-    @CommandLine.Option(names = {"-o","--outdir"}, description = "path to out directory (default: current directory)")
-    public String outdir=".";
-
-
-
-
-    private void outputPhenopacket(String fname, Phenopacket phenopacket) {
-        String path = this.outdir + java.io.File.separator + fname;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
-            String json =  JsonFormat.printer().print(phenopacket);
+    private void outputPhenopacket(String fileName, Phenopacket phenopacket) {
+        Path outDirectory = createOutdirectoryIfNeeded(outdir);
+        Path path = outDirectory.resolve(fileName);
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+            String json = JsonFormat.printer().print(phenopacket);
             writer.write(json);
         } catch (IOException e) {
             throw new PhenotoolsRuntimeException(e.getMessage());
         }
     }
 
-
-    private void createOutdirectoryIfNeeded() {
-        java.io.File directory = new java.io.File(this.outdir);
-        if (! directory.exists()){
-            boolean success = directory.mkdir();
-            if (!success) {
-                throw new PhenotoolsRuntimeException("Could not create outdir");
-            }
+    private Path createOutdirectoryIfNeeded(String outDir) {
+        Path outDirectory = Path.of(outDir);
+        if (Files.exists(outDirectory)) {
+            return outDirectory;
         }
-    }
-
-    private void outputToFile(Phenopacket phenopacket, File outfile) {
-        if (! outdir.equals(".")) {
-            createOutdirectoryIfNeeded();
+        try {
+            return Files.createDirectory(outDirectory);
+        } catch (IOException e) {
+            // swallow
         }
+        throw new PhenotoolsRuntimeException("Could not create directory " + outDir);
     }
-
 
     @Override
     public void run() {
-        PhenopacketExample bethleham = new BethlehamMyopathy();
-        outputPhenopacket("bethlehamMyopathy.json", bethleham.getPhenopacket());
-        PhenopacketExample thrombocytopenia2 = new Thrombocytopenia2();
-        outputPhenopacket("thrombocytopenia2.json", thrombocytopenia2.getPhenopacket());
-        PhenopacketExample marfan = new Marfan();
-        outputPhenopacket("marfan.json", marfan.getPhenopacket());
-        PhenopacketExample aml = new Aml();
-        outputPhenopacket("AML.json", aml.getPhenopacket());
-        PhenopacketExample scc = new SquamousCellCancer();
-        outputPhenopacket("squamousCellEsophagealCarcinoma.json", aml.getPhenopacket());
-        PhenopacketExample urothelial = new UrothelialCancer();
-        outputPhenopacket("urothelialCancer.json", urothelial.getPhenopacket());
-        PhenopacketExample covid = new Covid();
-        outputPhenopacket("covid.json", covid.getPhenopacket());
-
+        outputPhenopacket("bethleham-myopathy.json", PhenopacketExamples.bethlemMyopathy());
+        outputPhenopacket("thrombocytopenia2.json", PhenopacketExamples.thrombocytopenia2());
+        outputPhenopacket("marfan.json", PhenopacketExamples.marfanSyndrome());
+        outputPhenopacket("acute-myeloid-leukemia.json", PhenopacketExamples.acuteMyeloidLeukemia());
+        outputPhenopacket("squamous-cell-esophageal-carcinoma.json", PhenopacketExamples.squamousCellEsophagealCarcinoma());
+        outputPhenopacket("urothelial-cancer.json", PhenopacketExamples.urothelialCarcinoma());
+        outputPhenopacket("covid.json", PhenopacketExamples.covid19());
     }
 }

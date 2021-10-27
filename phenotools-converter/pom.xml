@@ -92,7 +92,7 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>-com.google.protobuf</groupId>
+                    <groupId>com.google.protobuf</groupId>
                     <artifactId>protobuf-java-util</artifactId>
                 </exclusion>
             </exclusions>

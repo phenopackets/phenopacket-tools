@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-public class Covid implements PhenopacketExample {
+
+class Covid implements PhenopacketExample {
 
     private static final String ONSET_OF_COVID = "2021-02-01T05:00:00Z";
 
@@ -32,7 +33,7 @@ public class Covid implements PhenopacketExample {
     private final Phenopacket phenopacket;
 
 
-    public Covid() {
+    Covid() {
         Individual patient = IndividualBuilder.create("P123542")
                 .male()
                 .ageAtLastEncounter("P70Y")
@@ -52,7 +53,7 @@ public class Covid implements PhenopacketExample {
                 .reference("PMID:32292915")
                 .description("The Imperfect Cytokine Storm: Severe COVID-19 With ARDS in a Patient on Durable LVAD Support")
                 .build();
-        var metaData =  MetaDataBuilder.create("2021-08-17", "anonymous biocurator")
+        var metaData = MetaDataBuilder.create("2021-08-17", "anonymous biocurator")
                 .resource(Resources.ncitVersion("2019-11-26"))
                 .resource(Resources.mondoVersion("2021-11-26"))
                 .externalReference(externalRef)
@@ -77,7 +78,6 @@ public class Covid implements PhenopacketExample {
                 .build();
 
     }
-
 
     private List<PhenotypicFeature> getAllPhenotypicFeatures() {
         // 70-year-old male with a destination therapy HeartMate 3 (Abbott Laboratory, Lake Bluff, Illinois)
@@ -145,7 +145,6 @@ public class Covid implements PhenopacketExample {
         measurements.add(hoD0bloodLymphocyteCount);
         return measurements;
     }
-
 
     private MedicalAction nasalOxygenAdministered() {
         Quantity twoLperMin = QuantityBuilder.create("NCIT:C67388", "Liter per Minute", 2).build();
