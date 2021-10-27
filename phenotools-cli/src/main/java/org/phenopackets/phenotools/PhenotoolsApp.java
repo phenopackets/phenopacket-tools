@@ -16,8 +16,9 @@ public class PhenotoolsApp implements Runnable {
         }
         CommandLine cline = new CommandLine(new PhenotoolsApp())
                 .addSubcommand("examples", new ExamplesCommand())
-                .addSubcommand("convert", new ConvertCommand());
-        cline.setToggleBooleanFlags(false);
+                .addSubcommand("convert", new ConvertCommand())
+                .setExpandAtFiles(true)
+                .setToggleBooleanFlags(false);
         int exitCode = cline.execute(args);
         System.exit(exitCode);
     }
