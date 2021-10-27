@@ -2,6 +2,9 @@ package org.phenopackets.phenotools.converter.converters;
 
 import org.phenopackets.schema.v2.Phenopacket;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.phenopackets.phenotools.converter.converters.v2.BiosampleConverter.toBiosamples;
 import static org.phenopackets.phenotools.converter.converters.v2.DiseaseConverter.toDiseases;
 import static org.phenopackets.phenotools.converter.converters.v2.FileConverter.toFiles;
@@ -14,21 +17,42 @@ public class PhenopacketConverter {
     private PhenopacketConverter() {
     }
 
-    public static Phenopacket convertToV2(org.phenopackets.schema.v1.Phenopacket v1PhenoPacket) {
-        // TODO: Attempt to convert genes and variants into an interpretation
-        return Phenopacket.newBuilder()
-                .setMetaData(toMetaData(v1PhenoPacket.getMetaData()))
-                .setId(v1PhenoPacket.getId())
-                .setSubject(toIndividual(v1PhenoPacket.getSubject()))
-                .addAllPhenotypicFeatures(toPhenotypicFeatures(v1PhenoPacket.getPhenotypicFeaturesList()))
-                .addAllBiosamples(toBiosamples(v1PhenoPacket.getBiosamplesList()))
-                .addAllDiseases(toDiseases(v1PhenoPacket.getDiseasesList()))
-                .addAllFiles(toFiles(v1PhenoPacket.getHtsFilesList()))
-                .build();
+    public static Phenopacket toV2Phenopacket(org.phenopackets.schema.v1.Phenopacket v1PhenoPacket) {
+        Phenopacket.Builder builder = Phenopacket.newBuilder();
+
+        if (v1PhenoPacket.hasMetaData()) {
+            builder.setMetaData(toMetaData(v1PhenoPacket.getMetaData()));
+        }
+        if (!v1PhenoPacket.getId().isEmpty()) {
+            builder.setId(v1PhenoPacket.getId());
+        }
+        if (v1PhenoPacket.hasSubject()) {
+            builder.setSubject(toIndividual(v1PhenoPacket.getSubject()));
+        }
+        if (v1PhenoPacket.getPhenotypicFeaturesCount() > 0) {
+            builder.addAllPhenotypicFeatures(toPhenotypicFeatures(v1PhenoPacket.getPhenotypicFeaturesList()));
+        }
+        if (v1PhenoPacket.getBiosamplesCount() > 0) {
+            builder.addAllBiosamples(toBiosamples(v1PhenoPacket.getBiosamplesList()));
+        }
+        if (v1PhenoPacket.getDiseasesCount() > 0) {
+            builder.addAllDiseases(toDiseases(v1PhenoPacket.getDiseasesList()));
+        }
+        if (v1PhenoPacket.getHtsFilesCount() > 0) {
+            builder.addAllFiles(toFiles(v1PhenoPacket.getHtsFilesList()));
+        }
+        return builder.build();
     }
 
-    // TODO: add Family converter
+    public static List<Phenopacket> toV2Phenopackets(List<org.phenopackets.schema.v1.Phenopacket> v1Phenopackets) {
+        return v1Phenopackets.stream().map(PhenopacketConverter::toV2Phenopacket).collect(Collectors.toUnmodifiableList());
+    }
 
-    // TODO: Add Interpretation converter
+    // TODO: Attempt to convert genes and variants into an interpretation
+//    public static Phenopacket toPhenopacket(org.phenopackets.schema.v1.Interpretation interpretation) {
+//
+//        return Phenopacket.newBuilder()
+//                .build();
+//    }
 
 }
