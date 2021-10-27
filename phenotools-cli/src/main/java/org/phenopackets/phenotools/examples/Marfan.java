@@ -5,14 +5,15 @@ import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-public class Marfan implements  PhenopacketExample {
+
+class Marfan implements PhenopacketExample {
 
     private static final String PHENOPACKET_ID = "id-C";
     private static final String PROBAND_ID = "proband C";
 
     private final Phenopacket phenopacket;
 
-    public Marfan() {
+    Marfan() {
         var marfan = DiseaseBuilder.create("OMIM:154700 ", "Marfan syndrome").build();
         var individual = IndividualBuilder.create(PROBAND_ID).female().ageAtLastEncounter("P27Y").build();
         var losartan = ontologyClass("DrugCentral:1610", "losartan");
@@ -39,7 +40,6 @@ public class Marfan implements  PhenopacketExample {
                 .medicalAction(medicalAction)
                 .build();
     }
-
 
     @Override
     public Phenopacket getPhenopacket() {

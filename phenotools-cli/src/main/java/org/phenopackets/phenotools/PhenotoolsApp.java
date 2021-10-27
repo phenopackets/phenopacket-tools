@@ -3,15 +3,11 @@ package org.phenopackets.phenotools;
 
 import org.phenopackets.phenotools.command.ConvertCommand;
 import org.phenopackets.phenotools.command.ExamplesCommand;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 
-@CommandLine.Command(name = "Phenotools builder", version = "0.0.1", mixinStandardHelpOptions = true)
+@CommandLine.Command(name = "phenotools", version = "0.0.1", mixinStandardHelpOptions = true)
 public class PhenotoolsApp implements Runnable {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PhenotoolsApp.class);
 
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -20,8 +16,9 @@ public class PhenotoolsApp implements Runnable {
         }
         CommandLine cline = new CommandLine(new PhenotoolsApp())
                 .addSubcommand("examples", new ExamplesCommand())
-                .addSubcommand("convert", new ConvertCommand());
-        cline.setToggleBooleanFlags(false);
+                .addSubcommand("convert", new ConvertCommand())
+                .setExpandAtFiles(true)
+                .setToggleBooleanFlags(false);
         int exitCode = cline.execute(args);
         System.exit(exitCode);
     }
