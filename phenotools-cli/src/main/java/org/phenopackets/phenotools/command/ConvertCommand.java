@@ -45,11 +45,12 @@ public class ConvertCommand implements Callable<Integer> {
         try {
             JsonFormat.parser().ignoringUnknownFields().merge(Files.newBufferedReader(inPath), builder);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error! Unable to read input file, " + e.getMessage() + "\nPlease check the format of file " + inPath);
+            return 1;
         }
         var v1Phenopacket = builder.build();
         var inputFileVersion = v1Phenopacket.getMetaData().getPhenopacketSchemaVersion();
-        if (! (inputFileVersion.equals("1.0") || inputFileVersion.equals("1.0.0"))) {
+        if (!(inputFileVersion.equals("1.0") || inputFileVersion.equals("1.0.0"))) {
             System.err.println("Error! This script converts version 1.0 to version 2.0 but the input file has version \"" + inputFileVersion + "\".");
             return 1;
         }
