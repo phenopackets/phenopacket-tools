@@ -3,6 +3,7 @@ package org.phenopackets.phenotools.command;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenotools.converter.converters.PhenopacketConverter;
+import org.phenopackets.schema.v2.Phenopacket;
 import picocli.CommandLine.Command;
 
 import java.io.BufferedWriter;
@@ -11,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
@@ -22,10 +24,10 @@ import static picocli.CommandLine.*;
 public class ConvertCommand implements Callable<Integer> {
 
     @Parameters(index = "0", description = "input phenopacket file")
-    private File input;
+    private Path input;
 
     @Option(names = {"-o", "--output"}, description = "output file")
-    private String output = null;
+    private Path output = null;
 
     @Option(names = {"-pv","--phenopackets_version"}, description = "version to convert to (defaults to 2.0)")
     private String version = "2.0";
@@ -36,7 +38,7 @@ public class ConvertCommand implements Callable<Integer> {
             System.err.println("Error! No input file provided");
             return 1;
         }
-        Path inPath = input.toPath().toAbsolutePath();
+        Path inPath = input.toAbsolutePath();
         if (!Files.exists(inPath)) {
             System.err.println("Error! No such input file: " + inPath);
             return 1;
@@ -56,24 +58,30 @@ public class ConvertCommand implements Callable<Integer> {
         }
         var v2Phenopacket = PhenopacketConverter.toV2Phenopacket(v1Phenopacket);
 
+        String json;
         try {
-            String json = JsonFormat.printer().print(v2Phenopacket);
-            if (output == null) {
-                 System.out.println(json);
-            } else {
-                String v2name = Objects.requireNonNullElseGet(output, () -> getV2FileName(input.getName()));
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(v2name))) {
-                    writer.write(json);
-                    writer.newLine();
-                }
-            }
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.err.println("Could not write V2 phenopacket: " + e.getMessage());
+            json = toJson(v2Phenopacket);
+        } catch (InvalidProtocolBufferException ex) {
+            System.err.println("Unable to convert v2 phenopacket to json. " + ex.getMessage());
             return 1;
         }
+        if (output == null) {
+            System.out.println(json);
+        } else {
+//            Path v2File = Objects.requireNonNullElseGet(output, () -> getV2FileName(input));
+            try (BufferedWriter writer = Files.newBufferedWriter(output)) {
+                writer.write(json);
+                writer.newLine();
+            } catch (IOException e) {
+                System.err.println("Could not write V2 phenopacket to file " + output + " : " + e.getMessage());
+                return 1;
+            }
+        }
         return 0;
+    }
+
+    private String toJson(Phenopacket v2Phenopacket) throws InvalidProtocolBufferException {
+        return JsonFormat.printer().print(v2Phenopacket);
     }
 
     /**
@@ -81,12 +89,9 @@ public class ConvertCommand implements Callable<Integer> {
      * @param input filename (possibly path) of v1 phenopacket
      * @return corresponding v2 filename (possibly path)
      */
-    private String getV2FileName(String input) {
-        String sep = File.separator;
-        String [] components = input.split(sep);
-        String base = components[components.length - 1];
-        base = base.contains(".") ? base.replace(".", "-v2.") : base + "-v2";
-        components[components.length - 1] = base;
-        return String.join(sep, components);
+    private Path getV2FileName(Path input) {
+        String inputFileName = input.getFileName().toString();
+        String v2FileName = inputFileName.contains(".") ? inputFileName.replace(".", "-v2.") : inputFileName + "-v2";
+        return Path.of(v2FileName);
     }
 }
