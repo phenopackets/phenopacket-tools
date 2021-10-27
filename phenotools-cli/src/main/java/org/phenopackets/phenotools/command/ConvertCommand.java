@@ -63,6 +63,7 @@ public class ConvertCommand implements Callable<Integer> {
                 String v2name = Objects.requireNonNullElseGet(output, () -> getV2FileName(input.getName()));
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(v2name))) {
                     writer.write(json);
+                    writer.newLine();
                 }
             }
         } catch (InvalidProtocolBufferException e) {
