@@ -5,8 +5,8 @@ import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.HOMO_SAPIENS;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3339;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+import static org.phenopackets.phenotools.builder.builders.TimestampBuilder.fromRFC3339;
 
 /**
  * An Individual in the version 2 phenopacket can have these attributes. Only the id is required.
@@ -24,10 +24,20 @@ import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3
  */
 public class IndividualBuilder {
 
+    public static final OntologyClass HOMO_SAPIENS = ontologyClass("NCBI:txid9606", "Homo sapiens");
+
     private final Individual.Builder builder;
 
-    public IndividualBuilder(String id) {
+    private IndividualBuilder(String id) {
         builder = Individual.newBuilder().setId(id);
+    }
+
+    public static Individual individual(String id) {
+        return Individual.newBuilder().setId(id).build();
+    }
+
+    public static IndividualBuilder create(String id) {
+        return new IndividualBuilder(id);
     }
 
     public IndividualBuilder alternateId(String altId) {
@@ -138,9 +148,4 @@ public class IndividualBuilder {
     public Individual build() {
         return builder.build();
     }
-
-    public static IndividualBuilder create(String id) {
-        return new IndividualBuilder(id);
-    }
-
 }

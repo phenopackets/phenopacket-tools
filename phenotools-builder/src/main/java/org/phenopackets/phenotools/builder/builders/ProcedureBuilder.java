@@ -5,12 +5,25 @@ import org.phenopackets.schema.v2.core.Procedure;
 import org.phenopackets.schema.v2.core.TimeElement;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 public class ProcedureBuilder {
 
     private final Procedure.Builder builder;
 
-    public ProcedureBuilder(OntologyClass procedure) {
+    private ProcedureBuilder(OntologyClass procedure) {
         builder = Procedure.newBuilder().setCode(procedure);
+    }
+
+    public static Procedure procedure(OntologyClass procedure) {
+        return Procedure.newBuilder().setCode(procedure).build();
+    }
+
+    public static ProcedureBuilder create(OntologyClass procedure) {
+        return new ProcedureBuilder(procedure);
+    }
+
+    public static ProcedureBuilder create(String id, String label) {
+        return new ProcedureBuilder(ontologyClass(id, label));
     }
 
     public ProcedureBuilder bodySite(OntologyClass site) {
@@ -25,13 +38,5 @@ public class ProcedureBuilder {
 
     public Procedure build() {
         return builder.build();
-    }
-
-    public static ProcedureBuilder create(OntologyClass procedure) {
-        return new ProcedureBuilder(procedure);
-    }
-
-    public static ProcedureBuilder create(String id, String label) {
-        return new ProcedureBuilder(ontologyClass(id, label));
     }
 }

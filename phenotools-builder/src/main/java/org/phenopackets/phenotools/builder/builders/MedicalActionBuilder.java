@@ -8,20 +8,52 @@ public class MedicalActionBuilder {
 
     private final MedicalAction.Builder builder;
 
-    public MedicalActionBuilder(Procedure procedure) {
+    private MedicalActionBuilder(Procedure procedure) {
         builder = MedicalAction.newBuilder().setProcedure(procedure);
     }
 
-    public MedicalActionBuilder(Treatment treatment) {
+    private MedicalActionBuilder(Treatment treatment) {
         builder = MedicalAction.newBuilder().setTreatment(treatment);
     }
 
-    public MedicalActionBuilder(RadiationTherapy rxTherapy) {
+    private MedicalActionBuilder(RadiationTherapy rxTherapy) {
         builder = MedicalAction.newBuilder().setRadiationTherapy(rxTherapy);
     }
 
-    public MedicalActionBuilder(TherapeuticRegimen regimen) {
+    private MedicalActionBuilder(TherapeuticRegimen regimen) {
         builder = MedicalAction.newBuilder().setTherapeuticRegimen(regimen);
+    }
+
+    public static MedicalAction procedure(Procedure procedure) {
+        return MedicalAction.newBuilder().setProcedure(procedure).build();
+    }
+
+    public static MedicalAction treatment(Treatment treatment) {
+        return MedicalAction.newBuilder().setTreatment(treatment).build();
+    }
+
+    public static MedicalAction radiationTherapy(RadiationTherapy rxTherapy) {
+        return MedicalAction.newBuilder().setRadiationTherapy(rxTherapy).build();
+    }
+
+    public static MedicalAction therapeuticRegimen(TherapeuticRegimen regimen) {
+        return MedicalAction.newBuilder().setTherapeuticRegimen(regimen).build();
+    }
+
+    public static MedicalActionBuilder create(Procedure procedure) {
+        return new MedicalActionBuilder(procedure);
+    }
+
+    public static MedicalActionBuilder create(Treatment treatment) {
+        return new MedicalActionBuilder(treatment);
+    }
+
+    public static MedicalActionBuilder create(RadiationTherapy rxTherapy) {
+        return new MedicalActionBuilder(rxTherapy);
+    }
+
+    public static MedicalActionBuilder create(TherapeuticRegimen regimen) {
+        return new MedicalActionBuilder(regimen);
     }
 
     public MedicalActionBuilder treatmentTarget(OntologyClass target) {
@@ -57,24 +89,4 @@ public class MedicalActionBuilder {
     public MedicalAction build() {
         return builder.build();
     }
-
-    public static MedicalActionBuilder procedure(Procedure procedure) {
-        return new MedicalActionBuilder(procedure);
-    }
-
-
-
-    public static MedicalActionBuilder treatment(Treatment treatment) {
-        return new MedicalActionBuilder(treatment);
-    }
-
-    public static MedicalActionBuilder radiationTherapy(RadiationTherapy rxTheraoy) {
-        return new MedicalActionBuilder(rxTheraoy);
-    }
-
-    public static MedicalActionBuilder therapeuticRegimen(TherapeuticRegimen regimen) {
-        return new MedicalActionBuilder(regimen);
-    }
-
-
 }

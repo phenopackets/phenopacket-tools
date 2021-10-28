@@ -10,7 +10,7 @@ import org.phenopackets.schema.v2.core.TimeElement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3339;
+import static org.phenopackets.phenotools.builder.builders.TimestampBuilder.fromRFC3339;
 
 public class TimeElementsTest {
 

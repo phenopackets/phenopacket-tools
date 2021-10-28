@@ -6,16 +6,27 @@ import org.phenopackets.schema.v2.core.VitalStatus;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-
 public class VitalStatusBuilder {
 
     private final VitalStatus.Builder builder;
 
-    public VitalStatusBuilder(VitalStatus.Status status) {
+    private VitalStatusBuilder(VitalStatus.Status status) {
         builder = VitalStatus.newBuilder().setStatus(status);
     }
 
-    public VitalStatusBuilder time_of_death(TimeElement time) {
+    public static VitalStatus vitalStatus(VitalStatus.Status status) {
+        return VitalStatus.newBuilder().setStatus(status).build();
+    }
+
+    public static VitalStatusBuilder alive() {
+        return new VitalStatusBuilder(VitalStatus.Status.ALIVE);
+    }
+
+    public static VitalStatusBuilder deceased() {
+        return new VitalStatusBuilder(VitalStatus.Status.DECEASED);
+    }
+
+    public VitalStatusBuilder timeOfDeath(TimeElement time) {
         builder.setTimeOfDeath(time);
         return this;
     }
@@ -30,7 +41,7 @@ public class VitalStatusBuilder {
         return this;
     }
 
-    public  VitalStatusBuilder survivalTimeInDays(int days) {
+    public VitalStatusBuilder survivalTimeInDays(int days) {
         builder.setSurvivalTimeInDays(days);
         return this;
     }
@@ -38,12 +49,4 @@ public class VitalStatusBuilder {
     public VitalStatus build() {
         return builder.build();
     }
-
-    public static VitalStatusBuilder deceased() {
-        return new VitalStatusBuilder(VitalStatus.Status.DECEASED);
-    }
-    public static VitalStatusBuilder alive() {
-        return new VitalStatusBuilder(VitalStatus.Status.ALIVE);
-    }
-
 }

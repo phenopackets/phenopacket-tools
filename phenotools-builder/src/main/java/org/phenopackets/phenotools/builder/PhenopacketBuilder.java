@@ -9,8 +9,12 @@ public class PhenopacketBuilder {
 
     private final Phenopacket.Builder builder;
 
-    public PhenopacketBuilder(String id, MetaData metaData) {
+    private PhenopacketBuilder(String id, MetaData metaData) {
         builder = Phenopacket.newBuilder().setId(id).setMetaData(metaData);
+    }
+
+    public static PhenopacketBuilder create(String id, MetaData metaData)  {
+        return new PhenopacketBuilder(id, metaData);
     }
 
     public PhenopacketBuilder individual(Individual subject) {
@@ -65,9 +69,5 @@ public class PhenopacketBuilder {
 
     public Phenopacket build() {
         return builder.build();
-    }
-
-    public static PhenopacketBuilder create(String id, MetaData metaData)  {
-        return new PhenopacketBuilder(id, metaData);
     }
 }

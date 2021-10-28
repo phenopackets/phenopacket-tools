@@ -6,8 +6,16 @@ public class FileBuilder {
 
     private final File.Builder builder;
 
-    public FileBuilder(String uri) {
+    private FileBuilder(String uri) {
         builder = File.newBuilder().setUri(uri);
+    }
+
+    public static File file(String uri) {
+        return File.newBuilder().setUri(uri).build();
+    }
+
+    public static FileBuilder create(String uri) {
+        return new FileBuilder(uri);
     }
 
     public FileBuilder fileAttribute(String k, String v) {
@@ -22,10 +30,6 @@ public class FileBuilder {
 
     public File build() {
         return builder.build();
-    }
-
-    public static FileBuilder create(String uri) {
-        return new FileBuilder(uri);
     }
 
     public static FileBuilder hg38vcf(String uri) {

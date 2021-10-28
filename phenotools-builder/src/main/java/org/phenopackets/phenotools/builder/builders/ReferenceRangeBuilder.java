@@ -14,17 +14,18 @@ import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.
  *  high: 450000.0
  *  @author  Peter N Robinson
  */
-public class ReferenceRangeCreator {
+public class ReferenceRangeBuilder {
 
+    private ReferenceRangeBuilder() {
+    }
 
-    public static ReferenceRange create(OntologyClass unit, double low, double high) {
+    public static ReferenceRange referenceRange(OntologyClass unit, double low, double high) {
         return ReferenceRange.newBuilder().setUnit(unit).setLow(low).setHigh(high).build();
     }
 
-    public static ReferenceRange create(String id, String label, double low, double high) {
+    public static ReferenceRange referenceRange(String id, String label, double low, double high) {
         OntologyClass unit = ontologyClass(id, label);
-        return ReferenceRange.newBuilder().setUnit(unit).setLow(low).setHigh(high).build();
+        return referenceRange(unit, low, high);
     }
-
 
 }

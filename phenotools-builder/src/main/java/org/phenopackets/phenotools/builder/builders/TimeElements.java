@@ -8,7 +8,7 @@ import java.util.regex.*;
 
 import static org.phenopackets.phenotools.builder.builders.Onset.late;
 import static org.phenopackets.phenotools.builder.builders.Onset.middleAge;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromISO8601;
+import static org.phenopackets.phenotools.builder.builders.TimestampBuilder.fromISO8601;
 
 /**
  * The TimeElement is used in many places in the Phenopacket. It is defined as being one of the
