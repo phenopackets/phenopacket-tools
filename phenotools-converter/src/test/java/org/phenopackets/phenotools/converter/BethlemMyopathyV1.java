@@ -1,10 +1,6 @@
 package org.phenopackets.phenotools.converter;
 
-import com.google.common.collect.ImmutableList;
 import com.google.protobuf.Timestamp;
-import com.google.protobuf.util.JsonFormat;
-import org.junit.jupiter.api.Test;
-import org.phenopackets.schema.v1.Family;
 import org.phenopackets.schema.v1.Phenopacket;
 import org.phenopackets.schema.v1.core.*;
 

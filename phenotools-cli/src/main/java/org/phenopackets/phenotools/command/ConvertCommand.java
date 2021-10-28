@@ -7,16 +7,13 @@ import org.phenopackets.schema.v2.Phenopacket;
 import picocli.CommandLine.Command;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Callable;
 
-import static picocli.CommandLine.*;
+import static picocli.CommandLine.Option;
+import static picocli.CommandLine.Parameters;
 
 @Command(name = "convert", aliases = {"c"},
         mixinStandardHelpOptions = true,
@@ -62,7 +59,7 @@ public class ConvertCommand implements Callable<Integer> {
         try {
             json = toJson(v2Phenopacket);
         } catch (InvalidProtocolBufferException ex) {
-            System.err.println("Unable to convert v2 phenopacket to json. " + ex.getMessage());
+            System.err.println("Unable to convert v" + version + " phenopacket to json. " + ex.getMessage());
             return 1;
         }
         if (output == null) {
@@ -73,7 +70,7 @@ public class ConvertCommand implements Callable<Integer> {
                 writer.write(json);
                 writer.newLine();
             } catch (IOException e) {
-                System.err.println("Could not write V2 phenopacket to file " + output + " : " + e.getMessage());
+                System.err.println("Could not write v" + version + " phenopacket to file " + output + " : " + e.getMessage());
                 return 1;
             }
         }
