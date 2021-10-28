@@ -8,23 +8,28 @@ import org.phenopackets.schema.v2.core.TimeElement;
 import java.util.List;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 /**
  * This has convenience methods for building PhenotypicFeature messages with some
  * commonly used options.
+ *
  * @author Peter N Robinson
  */
 public class PhenotypicFeatureBuilder {
 
     private final PhenotypicFeature.Builder builder;
 
-    public PhenotypicFeatureBuilder(String id, String label) {
-        OntologyClass clz = ontologyClass(id,label);
-        builder = PhenotypicFeature.newBuilder();
-        builder.setType(clz);
+    private PhenotypicFeatureBuilder(OntologyClass feature) {
+        builder = PhenotypicFeature.newBuilder().setType(feature);
     }
 
-    public PhenotypicFeatureBuilder(OntologyClass feature) {
-        builder = PhenotypicFeature.newBuilder().setType(feature);
+    public static PhenotypicFeature phenotypicFeature(OntologyClass feature) {
+        return PhenotypicFeature.newBuilder().setType(feature).build();
+    }
+
+    public static PhenotypicFeature phenotypicFeature(String id, String label) {
+        OntologyClass ontologyClass = ontologyClass(id, label);
+        return phenotypicFeature(ontologyClass);
     }
 
     public static PhenotypicFeatureBuilder create(OntologyClass feature) {
@@ -32,7 +37,8 @@ public class PhenotypicFeatureBuilder {
     }
 
     public static PhenotypicFeatureBuilder create(String id, String label) {
-        return new PhenotypicFeatureBuilder(id, label);
+        OntologyClass ontologyClass = ontologyClass(id, label);
+        return create(ontologyClass);
     }
 
     public PhenotypicFeatureBuilder onset(TimeElement time) {

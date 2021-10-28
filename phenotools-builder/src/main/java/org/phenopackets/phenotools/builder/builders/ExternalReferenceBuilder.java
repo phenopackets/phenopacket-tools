@@ -6,9 +6,18 @@ public class ExternalReferenceBuilder {
 
     private final ExternalReference.Builder builder;
 
-    public ExternalReferenceBuilder() {
+    private ExternalReferenceBuilder() {
         builder = ExternalReference.newBuilder();
     }
+
+    public static ExternalReference externalReference(String id, String description) {
+        return ExternalReference.newBuilder().setId(id).setDescription(description).build();
+    }
+
+    public static ExternalReferenceBuilder create() {
+        return new ExternalReferenceBuilder();
+    }
+
     public ExternalReferenceBuilder id(String id) {
         builder.setId(id);
         return this;
@@ -27,10 +36,4 @@ public class ExternalReferenceBuilder {
     public ExternalReference build() {
         return builder.build();
     }
-
-    public static ExternalReferenceBuilder create() {
-        return new ExternalReferenceBuilder();
-    }
-
-
 }

@@ -5,10 +5,19 @@ import org.ga4gh.vrsatile.v1.GeneDescriptor;
 import java.util.List;
 
 public class GeneDescriptorBuilder {
-    final GeneDescriptor.Builder builder;
 
-    public GeneDescriptorBuilder(String identifier, String symbol) {
+    private final GeneDescriptor.Builder builder;
+
+    private GeneDescriptorBuilder(String identifier, String symbol) {
         builder = GeneDescriptor.newBuilder().setValueId(identifier).setSymbol(symbol);
+    }
+
+    public static GeneDescriptor geneDescriptor(String identifier, String symbol) {
+        return GeneDescriptor.newBuilder().setValueId(identifier).setSymbol(symbol).build();
+    }
+
+    public static GeneDescriptorBuilder create(String identifier, String symbol) {
+        return new GeneDescriptorBuilder(identifier, symbol);
     }
 
     public GeneDescriptorBuilder description(String desc) {
@@ -25,6 +34,7 @@ public class GeneDescriptorBuilder {
         builder.addAllAlternateIds(alt_ids);
         return this;
     }
+
     public GeneDescriptorBuilder xref(String xref) {
         builder.addXrefs(xref);
         return this;
@@ -39,7 +49,8 @@ public class GeneDescriptorBuilder {
         builder.addAlternateSymbols(altSymbol);
         return this;
     }
-    public GeneDescriptorBuilder addAllAlternateSymbols(List<String>  altSymbols) {
+
+    public GeneDescriptorBuilder addAllAlternateSymbols(List<String> altSymbols) {
         builder.addAllAlternateSymbols(altSymbols);
         return this;
     }
@@ -47,9 +58,4 @@ public class GeneDescriptorBuilder {
     public GeneDescriptor build() {
         return builder.build();
     }
-
-    public static GeneDescriptorBuilder create(String identifier, String symbol) {
-        return new GeneDescriptorBuilder(identifier, symbol);
-    }
-
 }

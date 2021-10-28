@@ -4,37 +4,25 @@ package org.phenopackets.phenotools.builder.builders;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.Quantity;
 import org.phenopackets.schema.v2.core.Value;
+
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 
 public class ValueBuilder {
 
-    private final Value.Builder builder;
-
-    public ValueBuilder(OntologyClass clz) {
-        builder = Value.newBuilder().setOntologyClass(clz);
+    private ValueBuilder() {
     }
 
-    public ValueBuilder(Quantity quantity) {
-        builder = Value.newBuilder().setQuantity(quantity);
+    public static Value value(String id, String label) {
+        OntologyClass ontologyClass = ontologyClass(id, label);
+        return value(ontologyClass);
     }
 
-    public Value build() {
-        return builder.build();
+    public static Value value(OntologyClass ontologyClass) {
+        return Value.newBuilder().setOntologyClass(ontologyClass).build();
     }
 
-    public static ValueBuilder create(OntologyClass clz) {
-        return new ValueBuilder(clz);
+    public static Value value(Quantity quantity) {
+        return Value.newBuilder().setQuantity(quantity).build();
     }
-
-    public static ValueBuilder create(String id, String label) {
-        OntologyClass clz = ontologyClass(id, label);
-        return new ValueBuilder(clz);
-    }
-
-    public static ValueBuilder create(Quantity quantity) {
-        return new ValueBuilder(quantity);
-    }
-
-
 }

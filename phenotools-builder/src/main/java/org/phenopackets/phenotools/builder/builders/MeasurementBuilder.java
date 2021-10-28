@@ -6,12 +6,28 @@ public class MeasurementBuilder {
 
     private final Measurement.Builder builder;
 
-    public MeasurementBuilder(OntologyClass assay, Value value) {
+    private MeasurementBuilder(OntologyClass assay, Value value) {
         builder = Measurement.newBuilder().setAssay(assay).setValue(value);
     }
 
-    public MeasurementBuilder(OntologyClass assay, ComplexValue complexValue) {
+    private MeasurementBuilder(OntologyClass assay, ComplexValue complexValue) {
         builder = Measurement.newBuilder().setAssay(assay).setComplexValue(complexValue);
+    }
+
+    public static Measurement measurement(OntologyClass assay, Value value) {
+        return Measurement.newBuilder().setAssay(assay).setValue(value).build();
+    }
+
+    public static Measurement measurement(OntologyClass assay, ComplexValue complexValue) {
+        return Measurement.newBuilder().setAssay(assay).setComplexValue(complexValue).build();
+    }
+
+    public static MeasurementBuilder value(OntologyClass assay, Value value) {
+        return new MeasurementBuilder(assay, value);
+    }
+
+    public static MeasurementBuilder complexValue(OntologyClass assay, ComplexValue complexValue) {
+        return new MeasurementBuilder(assay, complexValue);
     }
 
     public MeasurementBuilder description(String desc) {
@@ -32,13 +48,4 @@ public class MeasurementBuilder {
     public Measurement build() {
         return builder.build();
     }
-
-    public static MeasurementBuilder value(OntologyClass assay, Value value) {
-        return new MeasurementBuilder(assay, value);
-    }
-
-    public static MeasurementBuilder complexValue(OntologyClass assay, ComplexValue complexValue) {
-        return new MeasurementBuilder(assay, complexValue);
-    }
-
 }

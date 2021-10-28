@@ -7,8 +7,8 @@ import org.phenopackets.schema.v2.core.TimeElement;
 import org.phenopackets.schema.v2.core.VitalStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.HOMO_SAPIENS;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3339;
+import static org.phenopackets.phenotools.builder.builders.IndividualBuilder.HOMO_SAPIENS;
+import static org.phenopackets.phenotools.builder.builders.TimestampBuilder.fromRFC3339;
 
 
 public class IndividualBuilderTest {

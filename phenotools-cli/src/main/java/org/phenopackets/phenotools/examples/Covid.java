@@ -45,9 +45,9 @@ class Covid implements PhenopacketExample {
                 .create("MONDO:0100096", "COVID-19")
                 .onset(TimeElements.timestamp("2020-03-17"))
                 .build();
-        var bloodGroupA = PhenotypicFeatureBuilder.create("HP:0032370", "Blood group A");
-        var rhesusPositive = PhenotypicFeatureBuilder.create("NCIT:C76251", "Rh Positive Blood Group");
-        var obesityPhenotype = PhenotypicFeatureBuilder.create(obesity).build();
+        var bloodGroupA = PhenotypicFeatureBuilder.phenotypicFeature("HP:0032370", "Blood group A");
+        var rhesusPositive = PhenotypicFeatureBuilder.phenotypicFeature("NCIT:C76251", "Rh Positive Blood Group");
+        var obesityPhenotype = PhenotypicFeatureBuilder.phenotypicFeature(obesity);
         var externalRef = ExternalReferenceBuilder.create()
                 .id("DOI:10.1016/j.jaccas.2020.04.001")
                 .reference("PMID:32292915")
@@ -131,13 +131,13 @@ class Covid implements PhenopacketExample {
 
     private List<Measurement> getAllMeasurements() {
         List<Measurement> measurements = new ArrayList<>();
-        Value value = ValueBuilder.create(QuantityBuilder.create("NCIT:C67245", "Thousand Cells", 1.4).build()).build();
+        Value value = ValueBuilder.value(QuantityBuilder.quantity("NCIT:C67245", "Thousand Cells", 1.4));
         var assay = ontologyClass("LOINC:26474-7", "Lymphocytes [#/volume] in Blood");
         var initialBloodLymphocyteCount = MeasurementBuilder.value(assay, value)
                 .timeObserved(TimeElements.interval("2019-09-01", "2020-03-01"))
                 .build();
         measurements.add(initialBloodLymphocyteCount);
-        Value value2 = ValueBuilder.create(QuantityBuilder.create("NCIT:C67245", "Thousand Cells", 0.7).build()).build();
+        Value value2 = ValueBuilder.value(QuantityBuilder.quantity("NCIT:C67245", "Thousand Cells", 0.7));
 
         var hoD0bloodLymphocyteCount = MeasurementBuilder.value(assay, value2)
                 .timeObserved(TimeElements.timestamp(RETURN_TO_HOSPITAL_TIME))
@@ -147,64 +147,64 @@ class Covid implements PhenopacketExample {
     }
 
     private MedicalAction nasalOxygenAdministered() {
-        Quantity twoLperMin = QuantityBuilder.create("NCIT:C67388", "Liter per Minute", 2).build();
-        var interval1 = DoseIntervalCreator.create(twoLperMin,
+        Quantity twoLperMin = QuantityBuilder.quantity("NCIT:C67388", "Liter per Minute", 2);
+        var interval1 = DoseIntervalBuilder.doseInterval(twoLperMin,
                 CONTINUOUS,
-                TimeIntervalCreator.create("2021-02-01T18:58:43Z", "2021-02-02T08:22:42Z"));
-        Quantity fiftyLperMin = QuantityBuilder.create("NCIT:C67388", "Liter per Minute", 50).build();
-        var interval2 = DoseIntervalCreator.create(fiftyLperMin,
+                TimeIntervalBuilder.timeInterval("2021-02-01T18:58:43Z", "2021-02-02T08:22:42Z"));
+        Quantity fiftyLperMin = QuantityBuilder.quantity("NCIT:C67388", "Liter per Minute", 50);
+        var interval2 = DoseIntervalBuilder.doseInterval(fiftyLperMin,
                 CONTINUOUS,
-                TimeIntervalCreator.create("2021-02-02T08:22:42Z", "2021-02-02T12:22:42Z"));
+                TimeIntervalBuilder.timeInterval("2021-02-02T08:22:42Z", "2021-02-02T12:22:42Z"));
         Treatment nasalOxygen = TreatmentBuilder.create("NCIT:C722", "Oxygen")
                 .routeOfAdministration(ontologyClass("NCIT:C38284", "Nasal Route of Administration"))
                 .doseInterval(interval1)
                 .doseInterval(interval2)
                 .build();
-        return MedicalActionBuilder.treatment(nasalOxygen).build();
+        return MedicalActionBuilder.treatment(nasalOxygen);
     }
 
     private MedicalAction lvadImplant() {
         Procedure proc = ProcedureBuilder.create("NCIT:C80473", "Left Ventricular Assist Device")
                 .performed(TimeElements.timestamp("2016-01-01")).build();
-        return MedicalActionBuilder.procedure(proc).build();
+        return MedicalActionBuilder.procedure(proc);
     }
 
     private MedicalAction trachealIntubation() {
         Procedure intubation = ProcedureBuilder.create("NCIT:C116648", "Tracheal Intubation")
                 .performed(TimeElements.timestamp("2020-03-22")).build();
-        return MedicalActionBuilder.procedure(intubation).build();
+        return MedicalActionBuilder.procedure(intubation);
     }
 
     private MedicalAction peepOxygenAdministered() {
-        Quantity quantity = QuantityBuilder.create("NCIT:C91060", "Centimeters of Water", 14).build();
-        var doseInterval = DoseIntervalCreator.create(quantity, CONTINUOUS, "2020-03-22", "2020-03-28");
+        Quantity quantity = QuantityBuilder.quantity("NCIT:C91060", "Centimeters of Water", 14);
+        var doseInterval = DoseIntervalBuilder.doseInterval(quantity, CONTINUOUS, "2020-03-22", "2020-03-28");
         Treatment oxygen = TreatmentBuilder.create(ontologyClass("NCIT:C722", "Oxygen"))
                 .routeOfAdministration(ontologyClass("NCIT:C50254", "Positive end Expiratory Pressure Valve Device"))
                 .doseInterval(doseInterval)
                 .build();
-        return MedicalActionBuilder.treatment(oxygen).build();
+        return MedicalActionBuilder.treatment(oxygen);
     }
 
     private MedicalAction tocilizumabAdministered() {
-        Quantity quantity = QuantityBuilder.create("NCIT:C124458", "Milligram per Kilogram per Dose", 4).build();
+        Quantity quantity = QuantityBuilder.quantity("NCIT:C124458", "Milligram per Kilogram per Dose", 4);
         OntologyClass q4weeks = ontologyClass("NCIT:C64529", "Every Four Weeks");
-        var doseInterval = DoseIntervalCreator.create(quantity, q4weeks, "2020-03-24", "2020-03-28");
+        var doseInterval = DoseIntervalBuilder.doseInterval(quantity, q4weeks, "2020-03-24", "2020-03-28");
         var treatment = TreatmentBuilder.create("NCIT:C84217", "Tocilizumab")
                 .doseInterval(doseInterval)
                 .build();
-        return MedicalActionBuilder.treatment(treatment).build();
+        return MedicalActionBuilder.treatment(treatment);
     }
 
     private MedicalAction dexamethasone() {
         // ten days, 6 mg once a day
-        Quantity quantity = QuantityBuilder.create("UO:0000022", "milligram", 6).build();
+        Quantity quantity = QuantityBuilder.quantity("UO:0000022", "milligram", 6);
         OntologyClass onceDaily = ontologyClass("NCIT:C125004", "Once Daily");
-        var doseInterval = DoseIntervalCreator.create(quantity, onceDaily, "2020-03-20", "2020-03-30");
+        var doseInterval = DoseIntervalBuilder.doseInterval(quantity, onceDaily, "2020-03-20", "2020-03-30");
 
         Treatment dexa = TreatmentBuilder.create("CHEBI:41879", "dexamethasone")
                 .doseInterval(doseInterval)
                 .build();
-        return MedicalActionBuilder.treatment(dexa).build();
+        return MedicalActionBuilder.treatment(dexa);
     }
 
     @Override
