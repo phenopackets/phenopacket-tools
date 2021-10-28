@@ -15,12 +15,20 @@ public class EvidenceBuilder {
         builder = Evidence.newBuilder().setEvidenceCode(evidenceCode);
     }
 
+    public static Evidence evidence(OntologyClass evidenceCode) {
+        return new EvidenceBuilder(evidenceCode).build();
+    }
+
     public static Evidence evidence(OntologyClass evidenceCode, ExternalReference externalReference) {
         return new EvidenceBuilder(evidenceCode).reference(externalReference).build();
     }
 
     public static EvidenceBuilder create(String id, String label) {
         OntologyClass evidenceCode = ontologyClass(id, label);
+        return new EvidenceBuilder(evidenceCode);
+    }
+
+    public static EvidenceBuilder create(OntologyClass evidenceCode) {
         return new EvidenceBuilder(evidenceCode);
     }
 

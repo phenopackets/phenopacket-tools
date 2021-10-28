@@ -28,8 +28,6 @@ class Covid implements PhenopacketExample {
 
     private static final OntologyClass CONTINUOUS = ontologyClass("PATO:0000689", "continuous");
 
-    private static final Evidence authorAssertion = EvidenceBuilder.create("PMID: 32292915", "The Imperfect Cytokine Storm: Severe COVID-19 With ARDS in a Patient on Durable LVAD Support").build();
-
     private final Phenopacket phenopacket;
 
 

@@ -21,7 +21,7 @@ class SquamousCellCancer implements PhenopacketExample {
                 .resource(Resources.ncitVersion("21.05d"))
                 .resource(Resources.efoVersion("3.34.0"))
                 .resource(Resources.uberonVersion("2021-07-27"))
-                .resource(Resources.ncbiTaxonVersion(" 2021-06-10"))
+                .resource(Resources.ncbiTaxonVersion("2021-06-10"))
                 .build();
         var esophagealSCC = ontologyClass("NCIT:C4024", "Esophageal Squamous Cell Carcinoma");
         var disease = DiseaseBuilder.create(esophagealSCC)
