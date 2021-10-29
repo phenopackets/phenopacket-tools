@@ -6,7 +6,7 @@
 
 The ``examples`` command in the CLI module writes a series of example Phenopackets to file.
 
-```bazaar
+```bash
 mvn package
 java -jar phenotools-cli/target/phenotools-cli-0.0.1-SNAPSHOT.jar examples
 ```
