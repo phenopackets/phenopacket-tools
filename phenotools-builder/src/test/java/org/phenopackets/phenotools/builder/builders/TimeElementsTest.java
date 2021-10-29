@@ -10,7 +10,7 @@ import org.phenopackets.schema.v2.core.TimeElement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.phenopackets.phenotools.builder.builders.TimestampBuilder.fromRFC3339;
+import static org.phenopackets.phenotools.builder.builders.TimestampBuilder.fromISO8601;
 
 public class TimeElementsTest {
 
@@ -75,7 +75,7 @@ public class TimeElementsTest {
     @Test
     public void testTimestamp() {
         String timeString = "2020-03-17T00:00:00Z";
-        Timestamp timestamp = fromRFC3339(timeString);
+        Timestamp timestamp = fromISO8601(timeString);
         TimeElement time = TimeElements.timestamp("2020-03-17T00:00:00Z");
         assertTrue(time.hasTimestamp());
         assertEquals(timestamp, time.getTimestamp());
@@ -84,8 +84,8 @@ public class TimeElementsTest {
     public void testTimeInterval() {
         String time1 = "2020-03-17T00:00:00Z";
         String time2 = "2021-03-17T00:00:00Z";
-        Timestamp timestamp1 = fromRFC3339(time1);
-        Timestamp timestamp2 = fromRFC3339(time2);
+        Timestamp timestamp1 = fromISO8601(time1);
+        Timestamp timestamp2 = fromISO8601(time2);
         TimeElement time = TimeElements.interval(time1, time2);
         assertTrue(time.hasInterval());
         assertEquals(timestamp1, time.getInterval().getStart());

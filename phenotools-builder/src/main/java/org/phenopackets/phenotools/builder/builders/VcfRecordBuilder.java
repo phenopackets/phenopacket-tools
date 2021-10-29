@@ -6,7 +6,7 @@ public class VcfRecordBuilder {
 
     private final VcfRecord.Builder builder;
 
-    public VcfRecordBuilder(String assembly, String chromosome, int position, String ref, String alt) {
+    private VcfRecordBuilder(String assembly, String chromosome, int position, String ref, String alt) {
         builder = VcfRecord.newBuilder()
                 .setGenomeAssembly(assembly)
                 .setChrom(chromosome)
@@ -15,9 +15,23 @@ public class VcfRecordBuilder {
                 .setAlt(alt);
     }
 
+    public static VcfRecord vcfRecord(String assembly, String chromosome, int position, String ref, String alt) {
+        return VcfRecord.newBuilder()
+                .setGenomeAssembly(assembly)
+                .setChrom(chromosome)
+                .setPos(position)
+                .setRef(ref)
+                .setAlt(alt)
+                .build();
+    }
+
+    public static VcfRecordBuilder create(String assembly, String chromosome, int position, String ref, String alt) {
+        return new VcfRecordBuilder(assembly, chromosome, position, ref, alt);
+    }
+
     /**
      * Identifier: Semicolon-separated list of unique identifiers where available
-     * If this is a dbSNP variant thes number(s) should be used.
+     * If this is a dbSNP/dbVAR variant these rsID/nsvID(s) should be used.
      * @param id identifier for this variant
      */
     public VcfRecordBuilder id(String id) {
@@ -26,10 +40,10 @@ public class VcfRecordBuilder {
     }
 
     /**
-     * @param QUAL: Phred-scaled quality score for the assertion made in ALT.
+     * @param qual: Phred-scaled quality score for the assertion made in ALT.
      */
-    public VcfRecordBuilder qual(String QUAL) {
-        builder.setQual(QUAL);
+    public VcfRecordBuilder qual(String qual) {
+        builder.setQual(qual);
         return this;
     }
 
@@ -60,10 +74,4 @@ public class VcfRecordBuilder {
     public VcfRecord build() {
         return builder.build();
     }
-
-    public static VcfRecordBuilder create(String assembly, String chromosome, int position, String ref, String alt) {
-        return new VcfRecordBuilder(assembly, chromosome, position, ref, alt);
-    }
-
-
 }

@@ -7,8 +7,24 @@ public class InterpretationBuilder {
 
     private final Interpretation.Builder builder;
 
-    public InterpretationBuilder(String id, Interpretation.ProgressStatus status) {
+    private InterpretationBuilder(String id, Interpretation.ProgressStatus status) {
         builder = Interpretation.newBuilder().setId(id).setProgressStatus(status);
+    }
+
+    public static Interpretation interpretation(String id, Interpretation.ProgressStatus status) {
+        return Interpretation.newBuilder().setId(id).setProgressStatus(status).build();
+    }
+
+    public static Interpretation interpretation(String id, Interpretation.ProgressStatus status, Diagnosis dx) {
+        return Interpretation.newBuilder().setId(id).setProgressStatus(status).setDiagnosis(dx).build();
+    }
+
+    public static Interpretation interpretation(String id, Interpretation.ProgressStatus status, Diagnosis dx, String summary) {
+        return Interpretation.newBuilder().setId(id).setProgressStatus(status).setDiagnosis(dx).setSummary(summary).build();
+    }
+
+    public static InterpretationBuilder create(String id, Interpretation.ProgressStatus status) {
+        return new InterpretationBuilder(id, status);
     }
 
     public InterpretationBuilder diagnosis(Diagnosis dx) {
@@ -16,15 +32,9 @@ public class InterpretationBuilder {
         return this;
     }
 
-
     public InterpretationBuilder summary(String sm) {
         builder.setSummary(sm);
         return this;
-    }
-
-
-    public static InterpretationBuilder create(String id, Interpretation.ProgressStatus status) {
-        return new InterpretationBuilder(id, status);
     }
 
     public static InterpretationBuilder inProgress(String id) {
@@ -46,6 +56,4 @@ public class InterpretationBuilder {
     public Interpretation build() {
         return builder.build();
     }
-
-
 }

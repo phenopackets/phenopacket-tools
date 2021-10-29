@@ -38,7 +38,7 @@ class Covid implements PhenopacketExample {
                 .vitalStatus(VitalStatusBuilder.deceased().causeOfDeath("MONDO:0100096", "COVID-19").build())
                 .build();
 
-        Disease cardiomyopathy = DiseaseBuilder.create("MONDO:0004994", "cardiomyopathy").build();
+        Disease cardiomyopathy = DiseaseBuilder.disease("MONDO:0004994", "cardiomyopathy");
         Disease covid = DiseaseBuilder
                 .create("MONDO:0100096", "COVID-19")
                 .onset(TimeElements.timestamp("2020-03-17"))

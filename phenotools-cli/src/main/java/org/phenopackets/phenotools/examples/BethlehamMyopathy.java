@@ -7,6 +7,7 @@ import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+import static org.phenopackets.schema.v2.core.GenomicInterpretation.InterpretationStatus.*;
 
 class BethlehamMyopathy implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary proband id";
@@ -30,17 +31,12 @@ class BethlehamMyopathy implements PhenopacketExample {
                         .hgvs("NM_001848.2:c.877G>A")
                         .build();
         var col6a1VariantInterpretation =
-                VariantInterpretationBuilder.create(variationDescriptor)
-                        .pathogenic()
-                        .build();
+                VariantInterpretationBuilder.variantInterpretation(variationDescriptor, Status.pathogenic());
         var genomicInterpretation =
-                GenomicInterpretationBuilder.causative(INTERPRETATION_ID)
-                        .variantInterpretation(col6a1VariantInterpretation)
-                        .build();
+                GenomicInterpretationBuilder.genomicInterpretation(INTERPRETATION_ID, CAUSATIVE, col6a1VariantInterpretation);
         var diagnosis = Diagnosis.newBuilder()
                 .setDisease(bethlehamMyopathy).addGenomicInterpretations(genomicInterpretation).build();
-        var interpretation = InterpretationBuilder.completed(INTERPRETATION_ID)
-                .diagnosis(diagnosis).build();
+        var interpretation = InterpretationBuilder.interpretation(INTERPRETATION_ID, Status.completed(), diagnosis);
         var ventricularSeptalDefect =
                 PhenotypicFeatureBuilder.create("HP:0001629", "Ventricular septal defect")
                         .congenitalOnset()

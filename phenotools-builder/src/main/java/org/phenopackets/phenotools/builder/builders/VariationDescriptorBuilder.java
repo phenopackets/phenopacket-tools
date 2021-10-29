@@ -7,11 +7,12 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 import java.util.List;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 public class VariationDescriptorBuilder {
 
     final VariationDescriptor.Builder builder;
 
-    public VariationDescriptorBuilder(String id) {
+    private VariationDescriptorBuilder(String id) {
         builder = VariationDescriptor.newBuilder().setId(id);
     }
 
@@ -86,6 +87,7 @@ public class VariationDescriptorBuilder {
         builder.setAllelicState(heterozygous);
         return this;
     }
+
     public VariationDescriptorBuilder hemizygous() {
         OntologyClass heterozygous = ontologyClass("GENO:0000134", "hemizygous");
         builder.setAllelicState(heterozygous);

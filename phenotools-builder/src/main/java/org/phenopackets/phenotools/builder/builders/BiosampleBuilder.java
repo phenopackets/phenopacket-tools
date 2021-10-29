@@ -124,7 +124,7 @@ public class BiosampleBuilder {
         return this;
     }
 
-    public BiosampleBuilder material_sample(OntologyClass material) {
+    public BiosampleBuilder materialSample(OntologyClass material) {
         builder.setMaterialSample(material);
         return this;
     }

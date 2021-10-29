@@ -9,8 +9,28 @@ public class VariantInterpretationBuilder {
 
     final VariantInterpretation.Builder builder;
 
-    public VariantInterpretationBuilder(VariationDescriptor descriptor) {
+    private VariantInterpretationBuilder(VariationDescriptor descriptor) {
         builder = VariantInterpretation.newBuilder().setVariationDescriptor(descriptor);
+    }
+
+    public static VariantInterpretation variantInterpretation(VariationDescriptor descriptor, AcmgPathogenicityClassification acmgPathogenicityClassification) {
+        return VariantInterpretation.newBuilder()
+                .setVariationDescriptor(descriptor)
+                .setAcmgPathogenicityClassification(acmgPathogenicityClassification)
+                // will default to UNKNOWN_ACTIONABILITY
+                .build();
+    }
+
+    public static VariantInterpretation variantInterpretation(VariationDescriptor descriptor, AcmgPathogenicityClassification acmgPathogenicityClassification, TherapeuticActionability therapeuticActionability) {
+        return VariantInterpretation.newBuilder()
+                .setVariationDescriptor(descriptor)
+                .setAcmgPathogenicityClassification(acmgPathogenicityClassification)
+                .setTherapeuticActionability(therapeuticActionability)
+                .build();
+    }
+
+    public static VariantInterpretationBuilder create(VariationDescriptor descriptor) {
+        return new VariantInterpretationBuilder(descriptor);
     }
 
     public VariantInterpretationBuilder benign() {
@@ -27,14 +47,17 @@ public class VariantInterpretationBuilder {
         builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.UNCERTAIN_SIGNIFICANCE);
         return this;
     }
+
     public VariantInterpretationBuilder likelyPathogenic() {
         builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.LIKELY_PATHOGENIC);
         return this;
     }
+
     public VariantInterpretationBuilder pathogenic() {
         builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.PATHOGENIC);
         return this;
     }
+
     public VariantInterpretationBuilder notActionable() {
         builder.setTherapeuticActionability(TherapeuticActionability.NOT_ACTIONABLE);
         return this;
@@ -45,14 +68,7 @@ public class VariantInterpretationBuilder {
         return this;
     }
 
-    public static VariantInterpretationBuilder create(VariationDescriptor descriptor) {
-        return new VariantInterpretationBuilder(descriptor);
-    }
-
     public VariantInterpretation build() {
         return builder.build();
     }
-
-
-
 }

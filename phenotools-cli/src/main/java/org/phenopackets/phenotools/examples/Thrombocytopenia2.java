@@ -3,9 +3,12 @@ package org.phenopackets.phenotools.examples;
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.schema.v2.core.Diagnosis;
 
+import static org.phenopackets.phenotools.builder.builders.DiagnosisBuilder.diagnosis;
+import static org.phenopackets.phenotools.builder.builders.GenomicInterpretationBuilder.genomicInterpretation;
+import static org.phenopackets.phenotools.builder.builders.InterpretationBuilder.interpretation;
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+import static org.phenopackets.phenotools.builder.builders.VariantInterpretationBuilder.variantInterpretation;
 
 class Thrombocytopenia2 implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "id-C";
@@ -28,18 +31,11 @@ class Thrombocytopenia2 implements PhenopacketExample {
                         .heterozygous()
                         .hgvs("NM_014915.2:c.-128G>A")
                         .build();
-        var col6a1VariantInterpretation =
-                VariantInterpretationBuilder.create(variationDescriptor)
-                        .pathogenic()
-                        .build();
+        var col6a1VariantInterpretation = variantInterpretation(variationDescriptor, Status.pathogenic());
         var genomicInterpretation =
-                GenomicInterpretationBuilder.causative("genomic interpretation id")
-                        .variantInterpretation(col6a1VariantInterpretation)
-                        .build();
-        var diagnosis = Diagnosis.newBuilder()
-                .setDisease(thrombocytopenia2).addGenomicInterpretations(genomicInterpretation).build();
-        var interpretation = InterpretationBuilder.completed(INTERPRETATION_ID)
-                .diagnosis(diagnosis).build();
+                genomicInterpretation("genomic interpretation id", Status.causative(), col6a1VariantInterpretation);
+        var diagnosis = diagnosis(thrombocytopenia2, genomicInterpretation);
+        var interpretation = interpretation(INTERPRETATION_ID, Status.completed(), diagnosis);
         var excludedAbnormalPlateletSize =
                 PhenotypicFeatureBuilder.create("HP:0011876", "Abnormal platelet volume")
                         .excluded()
