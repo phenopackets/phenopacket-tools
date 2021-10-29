@@ -20,10 +20,10 @@ import java.util.concurrent.Callable;
 public class ExamplesCommand implements Callable<Integer> {
 
     @Option(names = {"-o", "--outdir"}, description = "path to out directory (default: current directory)")
-    public String outdir = ".";
+    public Path outdir = Path.of("");
 
-    private void outputPhenopacket(String fileName, Phenopacket phenopacket) throws Exception {
-        Path outDirectory = createOutdirectoryIfNeeded(outdir);
+    private void outputPhenopacket(String fileName, Phenopacket phenopacket) {
+        Path outDirectory = createOutDirectoryIfNeeded(outdir);
         Path path = outDirectory.resolve(fileName);
         try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             String json = JsonFormat.printer().print(phenopacket);
@@ -33,8 +33,7 @@ public class ExamplesCommand implements Callable<Integer> {
         }
     }
 
-    private Path createOutdirectoryIfNeeded(String outDir) throws Exception {
-        Path outDirectory = Path.of(outDir);
+    private Path createOutDirectoryIfNeeded(Path outDirectory) {
         if (Files.exists(outDirectory)) {
             return outDirectory;
         }
@@ -43,7 +42,7 @@ public class ExamplesCommand implements Callable<Integer> {
         } catch (IOException e) {
             // swallow
         }
-        throw new PhenotoolsRuntimeException("Could not create directory " + outDir);
+        throw new PhenotoolsRuntimeException("Could not create directory " + outDirectory.toAbsolutePath());
     }
 
     @Override
