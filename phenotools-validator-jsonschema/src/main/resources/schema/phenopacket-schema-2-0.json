@@ -467,10 +467,20 @@
           "$ref": "#/definitions/timeElement"
         },
         "diseaseStage": {
-          "$ref": "#/definitions/ontologyClass"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ontologyClass"
+          },
+          "minItems": 0,
+          "uniqueItems": true
         },
         "clinicalTnmFinding": {
-          "$ref": "#/definitions/ontologyClass"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ontologyClass"
+          },
+          "minItems": 0,
+          "uniqueItems": true
         },
         "primarySite": {
           "$ref": "#/definitions/ontologyClass"
