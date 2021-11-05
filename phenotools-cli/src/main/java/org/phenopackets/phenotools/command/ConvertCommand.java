@@ -6,6 +6,7 @@ import org.phenopackets.phenotools.converter.converters.PhenopacketConverter;
 import org.phenopackets.schema.v2.Phenopacket;
 import picocli.CommandLine.Command;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -41,8 +42,8 @@ public class ConvertCommand implements Callable<Integer> {
             return 1;
         }
         var builder = org.phenopackets.schema.v1.Phenopacket.newBuilder();
-        try {
-            JsonFormat.parser().ignoringUnknownFields().merge(Files.newBufferedReader(inPath), builder);
+        try (BufferedReader reader = Files.newBufferedReader(inPath)) {
+            JsonFormat.parser().ignoringUnknownFields().merge(reader, builder);
         } catch (IOException e) {
             System.err.println("Error! Unable to read input file, " + e.getMessage() + "\nPlease check the format of file " + inPath);
             return 1;
