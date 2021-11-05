@@ -14,7 +14,7 @@ class Covid implements PhenopacketExample {
 
     private static final String ONSET_OF_COVID = "2021-02-01T05:00:00Z";
 
-    private static final String RETURN_TO_HOSPITAL_TIME = "2020-03-20";
+    private static final String RETURN_TO_HOSPITAL_TIME = "2020-03-20T00:00:00Z";
 
     private static final OntologyClass stage3kidney = ontologyClass("HP:0012625", "Stage 3 chronic kidney disease");
     private static final OntologyClass obesity = ontologyClass("HP:0001513", "Obesity");
@@ -41,7 +41,7 @@ class Covid implements PhenopacketExample {
         Disease cardiomyopathy = DiseaseBuilder.disease("MONDO:0004994", "cardiomyopathy");
         Disease covid = DiseaseBuilder
                 .create("MONDO:0100096", "COVID-19")
-                .onset(TimeElements.timestamp("2020-03-17"))
+                .onset(TimeElements.timestamp("2020-03-17T00:00:00Z"))
                 .build();
         var bloodGroupA = PhenotypicFeatureBuilder.phenotypicFeature("HP:0032370", "Blood group A");
         var rhesusPositive = PhenotypicFeatureBuilder.phenotypicFeature("NCIT:C76251", "Rh Positive Blood Group");
@@ -51,7 +51,7 @@ class Covid implements PhenopacketExample {
                 .reference("PMID:32292915")
                 .description("The Imperfect Cytokine Storm: Severe COVID-19 With ARDS in a Patient on Durable LVAD Support")
                 .build();
-        var metaData = MetaDataBuilder.create("2021-08-17", "anonymous biocurator")
+        var metaData = MetaDataBuilder.create("2021-08-17T00:00:00Z", "anonymous biocurator")
                 .resource(Resources.ncitVersion("2019-11-26"))
                 .resource(Resources.mondoVersion("2021-11-26"))
                 .externalReference(externalRef)
@@ -99,7 +99,7 @@ class Covid implements PhenopacketExample {
         // He was tested for coronavirus disease 2019 (COVID-19), but he left against medical advice.
         // In the ensuing days, he continued to have fever, new onset myalgia, diarrhea, and dyspnea.
         TimeElement preHospitalisationDateRange =
-                TimeElements.interval("2020-03-18", "2020-03-20");
+                TimeElements.interval("2020-03-18T00:00:00Z", "2020-03-20T00:00:00Z");
         var myalgia = PhenotypicFeatureBuilder.create("HP:0003326", "Myalgia")
                 .onset(preHospitalisationDateRange)
                 .build();
@@ -132,7 +132,7 @@ class Covid implements PhenopacketExample {
         Value value = ValueBuilder.value(QuantityBuilder.quantity("NCIT:C67245", "Thousand Cells", 1.4));
         var assay = ontologyClass("LOINC:26474-7", "Lymphocytes [#/volume] in Blood");
         var initialBloodLymphocyteCount = MeasurementBuilder.value(assay, value)
-                .timeObserved(TimeElements.interval("2019-09-01", "2020-03-01"))
+                .timeObserved(TimeElements.interval("2019-09-01T00:00:00Z", "2020-03-01T00:00:00Z"))
                 .build();
         measurements.add(initialBloodLymphocyteCount);
         Value value2 = ValueBuilder.value(QuantityBuilder.quantity("NCIT:C67245", "Thousand Cells", 0.7));
@@ -163,13 +163,13 @@ class Covid implements PhenopacketExample {
 
     private MedicalAction lvadImplant() {
         Procedure proc = ProcedureBuilder.create("NCIT:C80473", "Left Ventricular Assist Device")
-                .performed(TimeElements.timestamp("2016-01-01")).build();
+                .performed(TimeElements.timestamp("2016-01-01T00:00:00Z")).build();
         return MedicalActionBuilder.procedure(proc);
     }
 
     private MedicalAction trachealIntubation() {
         Procedure intubation = ProcedureBuilder.create("NCIT:C116648", "Tracheal Intubation")
-                .performed(TimeElements.timestamp("2020-03-22")).build();
+                .performed(TimeElements.timestamp("2020-03-22T00:00:00Z")).build();
         return MedicalActionBuilder.procedure(intubation);
     }
 

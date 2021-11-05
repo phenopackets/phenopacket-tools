@@ -12,6 +12,8 @@
 
     <modules>
         <module>phenotools-builder</module>
+        <module>phenotools-validator</module>
+        <module>phenotools-validator-jsonschema</module>
         <module>phenotools-converter</module>
         <module>phenotools-cli</module>
     </modules>
