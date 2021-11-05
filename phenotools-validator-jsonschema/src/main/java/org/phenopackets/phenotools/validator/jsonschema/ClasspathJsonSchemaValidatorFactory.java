@@ -27,7 +27,7 @@ public class ClasspathJsonSchemaValidatorFactory implements PhenopacketValidator
 
     private static Map<ValidatorInfo, JsonSchemaValidator> makeValidatorMap() {
         return Map.of(
-                ValidatorInfo.generic(), makeJsonValidator("/schema/phenopacket-general-schema.json", ValidatorInfo.generic()),
+                ValidatorInfo.generic(), makeJsonValidator("/schema/phenopacket-schema-2-0.json", ValidatorInfo.generic()),
                 ValidatorInfo.rareDiseaseValidation(), makeJsonValidator("/schema/hpo-rare-disease-schema.json", ValidatorInfo.rareDiseaseValidation())
         );
     }
