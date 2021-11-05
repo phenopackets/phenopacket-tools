@@ -52,7 +52,6 @@ public class DiseaseBuilder {
         return this;
     }
 
-
     public DiseaseBuilder clinicalTnmFinding(OntologyClass tnmFinding) {
         builder.addClinicalTnmFinding(tnmFinding);
         return this;

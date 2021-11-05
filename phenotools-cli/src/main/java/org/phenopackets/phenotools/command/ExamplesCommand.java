@@ -2,10 +2,9 @@ package org.phenopackets.phenotools.command;
 
 import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
-import org.phenopackets.phenotools.examples.*;
+import org.phenopackets.phenotools.examples.PhenopacketExamples;
 import org.phenopackets.schema.v2.Phenopacket;
 import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -14,16 +13,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
-@Command(name = "examples", aliases = {"e"},
+import static picocli.CommandLine.Parameters;
+
+@Command(name = "examples",
         mixinStandardHelpOptions = true,
-        description = "output example phenopackets to file")
+        description = "Write example phenopackets to directory.")
 public class ExamplesCommand implements Callable<Integer> {
 
-    @Option(names = {"-o", "--outdir"}, description = "path to out directory (default: current directory)")
-    public String outdir = ".";
+    @Parameters(index = "0", arity = "0..1", description = "Output directory (default: current directory)")
+    private Path outDir = Path.of(".");
 
     private void outputPhenopacket(String fileName, Phenopacket phenopacket) throws Exception {
-        Path outDirectory = createOutdirectoryIfNeeded(outdir);
+        Path outDirectory = createOutdirectoryIfNeeded(outDir);
         Path path = outDirectory.resolve(fileName);
         try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             String json = JsonFormat.printer().print(phenopacket);
@@ -33,8 +34,7 @@ public class ExamplesCommand implements Callable<Integer> {
         }
     }
 
-    private Path createOutdirectoryIfNeeded(String outDir) throws Exception {
-        Path outDirectory = Path.of(outDir);
+    private Path createOutdirectoryIfNeeded(Path outDirectory) {
         if (Files.exists(outDirectory)) {
             return outDirectory;
         }

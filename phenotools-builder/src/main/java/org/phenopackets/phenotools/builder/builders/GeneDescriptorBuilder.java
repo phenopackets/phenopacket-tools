@@ -25,13 +25,13 @@ public class GeneDescriptorBuilder {
         return this;
     }
 
-    public GeneDescriptorBuilder alternateId(String alt_id) {
-        builder.addAlternateIds(alt_id);
+    public GeneDescriptorBuilder alternateId(String altId) {
+        builder.addAlternateIds(altId);
         return this;
     }
 
-    public GeneDescriptorBuilder addAllAlternateIds(List<String> alt_ids) {
-        builder.addAllAlternateIds(alt_ids);
+    public GeneDescriptorBuilder addAllAlternateIds(List<String> altIds) {
+        builder.addAllAlternateIds(altIds);
         return this;
     }
 

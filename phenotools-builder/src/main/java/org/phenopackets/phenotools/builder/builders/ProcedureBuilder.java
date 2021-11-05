@@ -18,6 +18,10 @@ public class ProcedureBuilder {
         return Procedure.newBuilder().setCode(procedure).build();
     }
 
+    public static Procedure procedure(String id, String label) {
+        return procedure(ontologyClass(id, label));
+    }
+
     public static ProcedureBuilder create(OntologyClass procedure) {
         return new ProcedureBuilder(procedure);
     }

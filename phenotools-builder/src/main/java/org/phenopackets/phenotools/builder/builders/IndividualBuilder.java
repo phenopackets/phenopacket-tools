@@ -6,7 +6,6 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.List;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-import static org.phenopackets.phenotools.builder.builders.TimestampBuilder.fromRFC3339;
 
 /**
  * An Individual in the version 2 phenopacket can have these attributes. Only the id is required.
@@ -51,14 +50,13 @@ public class IndividualBuilder {
     }
 
     public IndividualBuilder dateOfBirth(String dobirth) {
-        Timestamp dob = fromRFC3339(dobirth);
+        Timestamp dob = TimestampBuilder.fromISO8601(dobirth);
         builder.setDateOfBirth(dob);
         return this;
     }
 
     public IndividualBuilder timestampAtLastEncounter(String timestamp) {
-        Timestamp stamp = fromRFC3339(timestamp);
-        TimeElement t = TimeElement.newBuilder().setTimestamp(stamp).build();
+        TimeElement t = TimeElements.timestamp(timestamp);
         builder.setTimeAtLastEncounter(t);
         return this;
     }

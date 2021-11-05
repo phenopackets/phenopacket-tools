@@ -23,6 +23,4 @@ public class TimeIntervalBuilder {
                 .setEnd(fromISO8601(end))
                 .build();
     }
-
-
 }

@@ -18,7 +18,7 @@ public class DoseIntervalBuilderTest {
         var quantity = QuantityBuilder.quantity(mg, 30.0);
         var administration = ontologyClass("NCIT:C38288", "Oral Route of Administration");
         var bid = ontologyClass("NCIT:C64496", "Twice Daily");
-        var interval = TimeIntervalBuilder.timeInterval("2019-03-20", "2021-03-20");
+        var interval = TimeIntervalBuilder.timeInterval("2019-03-20T00:00:00Z", "2021-03-20T00:00:00Z");
         DoseInterval dosage = DoseIntervalBuilder.doseInterval(quantity, bid, interval);
         assertEquals(30.0, dosage.getQuantity().getValue());
         TimeInterval timeInterval = dosage.getInterval();

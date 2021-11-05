@@ -6,6 +6,7 @@ import org.phenopackets.phenotools.converter.converters.PhenopacketConverter;
 import org.phenopackets.schema.v2.Phenopacket;
 import picocli.CommandLine.Command;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,19 +16,19 @@ import java.util.concurrent.Callable;
 import static picocli.CommandLine.Option;
 import static picocli.CommandLine.Parameters;
 
-@Command(name = "convert", aliases = {"c"},
+@Command(name = "convert",
         mixinStandardHelpOptions = true,
-        description = "convert phenopacket version")
+        description = "Convert a v1.0 phenopacket to a v2.0 phenopacket. Beware this process could be lossy!")
 public class ConvertCommand implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "input phenopacket file")
+    @Parameters(index = "0", description = "Input phenopacket file")
     private Path input;
 
-    @Option(names = {"-o", "--output"}, description = "output file")
+    @Option(names = {"-o", "--output"}, description = "Output file")
     private Path output = null;
 
-    @Option(names = {"-pv","--phenopackets_version"}, description = "version to convert to (defaults to 2.0)")
-    private String version = "2.0";
+    @Option(names = {"-ov","--out-version"}, description = "Version to convert to (defaults to 2.0)")
+    private String outVersion = "2.0";
 
     @Override
     public Integer call() throws Exception {
@@ -41,8 +42,8 @@ public class ConvertCommand implements Callable<Integer> {
             return 1;
         }
         var builder = org.phenopackets.schema.v1.Phenopacket.newBuilder();
-        try {
-            JsonFormat.parser().ignoringUnknownFields().merge(Files.newBufferedReader(inPath), builder);
+        try (BufferedReader reader = Files.newBufferedReader(inPath)) {
+            JsonFormat.parser().ignoringUnknownFields().merge(reader, builder);
         } catch (IOException e) {
             System.err.println("Error! Unable to read input file, " + e.getMessage() + "\nPlease check the format of file " + inPath);
             return 1;
@@ -59,7 +60,7 @@ public class ConvertCommand implements Callable<Integer> {
         try {
             json = toJson(v2Phenopacket);
         } catch (InvalidProtocolBufferException ex) {
-            System.err.println("Unable to convert v" + version + " phenopacket to json. " + ex.getMessage());
+            System.err.println("Unable to convert v" + outVersion + " phenopacket to json. " + ex.getMessage());
             return 1;
         }
         if (output == null) {
@@ -70,7 +71,7 @@ public class ConvertCommand implements Callable<Integer> {
                 writer.write(json);
                 writer.newLine();
             } catch (IOException e) {
-                System.err.println("Could not write v" + version + " phenopacket to file " + output + " : " + e.getMessage());
+                System.err.println("Could not write v" + outVersion + " phenopacket to file " + output + " : " + e.getMessage());
                 return 1;
             }
         }

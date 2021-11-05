@@ -23,7 +23,7 @@ class Marfan implements PhenopacketExample {
         var quantity = QuantityBuilder.quantity(mg, 30.0);
         var administration = ontologyClass("NCIT:C38288", "Oral Route of Administration");
         var bid = ontologyClass("NCIT:C64496", "Twice Daily");
-        var interval = TimeIntervalBuilder.timeInterval("2019-03-20", "2021-03-20");
+        var interval = TimeIntervalBuilder.timeInterval("2019-03-20T00:00:00Z", "2021-03-20T00:00:00Z");
         var dosage = DoseIntervalBuilder.doseInterval(quantity, bid, interval);
         var losartanTreatment = TreatmentBuilder
                 .create(losartan)
