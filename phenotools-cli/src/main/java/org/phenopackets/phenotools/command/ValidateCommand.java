@@ -63,9 +63,7 @@ public class ValidateCommand implements Callable<Integer> {
 
     private void printSeparator() {
         if (phenopackets.size() > 1) {
-            System.out.println();
-            System.out.println("--------------------------------------------------------------------------------");
-            System.out.println();
+            System.out.println("---");
         }
     }
 
