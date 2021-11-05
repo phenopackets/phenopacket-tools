@@ -3,6 +3,7 @@ package org.phenopackets.phenotools.builder.builders;
 import com.google.protobuf.Timestamp;
 
 import java.time.*;
+import java.time.format.DateTimeParseException;
 
 public class TimestampBuilder {
 
@@ -55,15 +56,21 @@ public class TimestampBuilder {
     }
 
     /**
-     * Accepts strings like 2021-10-01T18:58:43Z (also valid RFC3339)
+     * Accepts strings like 2021-10-01T18:58:43Z (also valid RFC3339) OR an ISO date time e.g. 2021-11-05 which will
+     * return a timestamp for midnight UTC of that day.
      * @param time a string such as 2021-10-01T18:58:43Z
      * @return corresponding protobuf Timestamp object
      */
     public static Timestamp fromISO8601(String time) {
-        Instant instant = Instant.parse(time);
-        return Timestamp.newBuilder()
-                .setSeconds(instant.getEpochSecond())
-                .setNanos(instant.getNano())
-                .build();
+        try {
+            Instant instant = Instant.parse(time);
+            return Timestamp.newBuilder()
+                    .setSeconds(instant.getEpochSecond())
+                    .setNanos(instant.getNano())
+                    .build();
+        } catch (DateTimeParseException ex) {
+            // swallow this for now as we could have a date
+        }
+        return fromISO8601LocalDate(time);
     }
 }
