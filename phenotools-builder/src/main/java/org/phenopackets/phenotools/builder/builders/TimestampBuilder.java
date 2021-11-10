@@ -43,6 +43,13 @@ public class TimestampBuilder {
                 .build();
     }
 
+    public static Timestamp fromInstant(Instant instant) {
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
+    }
+
     /**
      * Accepts strings with the ISO8601 date format e.g. 2021-10-01 and returns a timestamp for midnight UTC of that day.
      * @param date a string such as 2021-10-01

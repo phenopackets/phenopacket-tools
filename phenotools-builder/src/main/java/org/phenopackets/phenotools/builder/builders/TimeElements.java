@@ -3,6 +3,8 @@ package org.phenopackets.phenotools.builder.builders;
 import com.google.protobuf.Timestamp;
 import org.phenopackets.schema.v2.core.*;
 
+import java.time.Instant;
+
 import static org.phenopackets.phenotools.builder.builders.Onset.late;
 import static org.phenopackets.phenotools.builder.builders.Onset.middleAge;
 
@@ -112,9 +114,20 @@ public class TimeElements {
         return YOUNG_ADULT_ONSET;
     }
 
+    public static TimeElement timestamp(Instant instant) {
+        Timestamp time = TimestampBuilder.fromInstant(instant);
+        return TimeElement.newBuilder().setTimestamp(time).build();
+    }
+
     public static TimeElement timestamp(String timestamp) {
         Timestamp time = TimestampBuilder.fromISO8601(timestamp);
         return TimeElement.newBuilder().setTimestamp(time).build();
+    }
+
+    public static TimeElement interval(Instant startInstant, Instant endInstant) {
+        Timestamp start = TimestampBuilder.fromInstant(startInstant);
+        Timestamp end = TimestampBuilder.fromInstant(endInstant);
+        return TimeElement.newBuilder().setInterval(TimeInterval.newBuilder().setStart(start).setEnd(end)).build();
     }
 
     public static TimeElement interval(String timestampStart, String timestampEnd) {
