@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2019-09/schema#",
   "$id": "https://www.ga4gh.org/phenopackets",
   "title": "HPO Rare Disease Phenopacket Schema",
-  "description": "HPO Rare Disease Schema for GGA4GH Phenopacket",
+  "description": "HPO Rare Disease Schema for GA4GH Phenopacket",
   "_comment": "Here we require the phenopacket to have the following elements that are not required by the default schema 1. subject (proband being investigated) 2. at least one phenotypicFeature element 3. time_at_last encounter (subelement of subject), representing the age of the proband. In addition, we require that Human Phenotype Ontology (HPO) terms are used to represent phenotypicFeature",
   "type": "object",
   "properties": {
@@ -15,23 +15,27 @@
           "description": "The time at last encounter is required for a rare-disease phenopacket"
         }
       },
-      "required": [ "timeAtLastEncounter"]
+      "required": [
+        "timeAtLastEncounter"
+      ]
     },
     "phenotypicFeatures": {
       "type": "array",
-      "items": [{
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^HP:\\([0-9]{7}$"
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^HP:\\([0-9]{7}$"
+            }
           }
         }
-      }
       ]
     }
   },
   "required": [
-    "subject", "phenotypicFeatures"
+    "subject",
+    "phenotypicFeatures"
   ]
 }
