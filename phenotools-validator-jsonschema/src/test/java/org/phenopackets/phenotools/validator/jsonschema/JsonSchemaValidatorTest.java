@@ -2,18 +2,18 @@ package org.phenopackets.phenotools.validator.jsonschema;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.phenotools.validator.testdatagen.RareDiseasePhenopacket;
-import org.phenopackets.phenotools.validator.testdatagen.SimplePhenopacket;
 import org.phenopackets.phenotools.validator.core.ErrorType;
+import org.phenopackets.phenotools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenotools.validator.core.ValidationItem;
 import org.phenopackets.phenotools.validator.core.ValidatorInfo;
+import org.phenopackets.phenotools.validator.testdatagen.RareDiseasePhenopacket;
+import org.phenopackets.phenotools.validator.testdatagen.SimplePhenopacket;
+import org.phenopackets.schema.v2.Phenopacket;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Objects;
 
 import com.google.protobuf.util.JsonFormat;
 
@@ -29,7 +29,7 @@ public class JsonSchemaValidatorTest {
 
     @Test
     public void testValidationOfSimpleValidPhenopacket() throws Exception {
-        JsonSchemaValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
+        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
         Phenopacket phenopacket = simplePhenopacket.getPhenopacket();
         String json =  JsonFormat.printer().print(phenopacket);
         List<? extends ValidationItem> errors = validator.validate(json);
@@ -50,7 +50,7 @@ public class JsonSchemaValidatorTest {
      */
     @Test
     public void testValidationOfSimpleInValidPhenopacket() throws Exception {
-        JsonSchemaValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
+        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
 
         String invalidPhenopacketJson = "{\"disney\" : \"donald\"}";
 
@@ -70,7 +70,7 @@ public class JsonSchemaValidatorTest {
 
     @Test
     public void testRareDiseaseBethlemahmValidPhenopacket() throws Exception {
-        JsonSchemaValidator validator = FACTORY.getValidatorForType(ValidatorInfo.rareDiseaseValidation()).get();
+        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.rareDiseaseValidation()).get();
 
         Phenopacket bethlehamMyopathy = rareDiseasePhenopacket.getPhenopacket();
         String json =  JsonFormat.printer().print(bethlehamMyopathy);
@@ -82,7 +82,7 @@ public class JsonSchemaValidatorTest {
     @Test
     @Disabled // TODO - we should rework the testing strategy to invalidate a valid phenopacket and check that it raises the expected error
     public void testRareDiseaseBethlemahmInvalidValidPhenopacket() throws IOException {
-        JsonSchemaValidator validator = FACTORY.getValidatorForType(ValidatorInfo.rareDiseaseValidation()).get();
+        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.rareDiseaseValidation()).get();
 
         File invalidMyopathyPhenopacket = Path.of("src/test/resources/json/bethlehamMyopathyInvalidExample.json").toFile();
         List<ValidationItem> validationItems = validator.validate(invalidMyopathyPhenopacket);

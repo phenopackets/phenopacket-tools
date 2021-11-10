@@ -1,5 +1,6 @@
 package org.phenopackets.phenotools.validator.jsonschema;
 
+import org.phenopackets.phenotools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenotools.validator.core.PhenopacketValidatorFactory;
 import org.phenopackets.phenotools.validator.core.ValidatorInfo;
 import org.phenopackets.phenotools.validator.core.except.PhenopacketValidatorRuntimeException;
@@ -45,7 +46,7 @@ public class ClasspathJsonSchemaValidatorFactory implements PhenopacketValidator
     }
 
     @Override
-    public Optional<JsonSchemaValidator> getValidatorForType(ValidatorInfo type) {
+    public Optional<PhenopacketValidator> getValidatorForType(ValidatorInfo type) {
         return Optional.ofNullable(validatorMap.get(type));
     }
 
