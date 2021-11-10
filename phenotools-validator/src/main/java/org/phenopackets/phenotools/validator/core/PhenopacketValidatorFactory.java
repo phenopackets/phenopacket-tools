@@ -10,6 +10,6 @@ import java.util.Optional;
  */
 public interface PhenopacketValidatorFactory {
 
-    Optional<? extends PhenopacketValidator> getValidatorForType(ValidatorInfo type);
+    Optional<PhenopacketValidator> getValidatorForType(ValidatorInfo type);
 
 }

@@ -4,15 +4,16 @@ package org.phenopackets.phenotools.validator.jsonschema;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import org.junit.jupiter.api.Test;
+import org.phenopackets.phenotools.validator.core.PhenopacketValidator;
+import org.phenopackets.phenotools.validator.core.ErrorType;
+import org.phenopackets.phenotools.validator.core.ValidationItem;
+import org.phenopackets.phenotools.validator.core.ValidatorInfo;
+import org.phenopackets.phenotools.validator.testdatagen.PhenopacketUtil;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.Disease;
 import org.phenopackets.schema.v2.core.MetaData;
 import org.phenopackets.schema.v2.core.Resource;
 import org.phenopackets.schema.v2.core.TimeElement;
-import org.phenopackets.phenotools.validator.core.ErrorType;
-import org.phenopackets.phenotools.validator.core.ValidationItem;
-import org.phenopackets.phenotools.validator.core.ValidatorInfo;
-import org.phenopackets.phenotools.validator.testdatagen.PhenopacketUtil;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ import static org.phenopackets.phenotools.validator.testdatagen.PhenopacketUtil.
 /**
  * This class creates a simple phenopacket with a Disease object and creates some variations with
  * validation errors.
+ *
  * @author Peter N Robinson
  */
 public class JsonSchemaDiseaseValidatorTest {
@@ -63,18 +65,18 @@ public class JsonSchemaDiseaseValidatorTest {
 
     @Test
     public void testPhenopacketValidity() throws InvalidProtocolBufferException {
-        JsonSchemaValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
-        String json =  JsonFormat.printer().print(phenopacket);
+        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
+        String json = JsonFormat.printer().print(phenopacket);
         List<ValidationItem> errors = validator.validate(json);
         assertTrue(errors.isEmpty());
     }
 
     @Test
     public void testLacksId() throws InvalidProtocolBufferException {
-        JsonSchemaValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
+        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
         // the Phenopacket is not valid if we remove the id
         Phenopacket p1 = Phenopacket.newBuilder(phenopacket).clearId().build();
-        String json =  JsonFormat.printer().print(p1);
+        String json = JsonFormat.printer().print(p1);
         System.out.println(json);
         List<ValidationItem> errors = validator.validate(json);
         System.out.println(errors);
@@ -83,7 +85,6 @@ public class JsonSchemaDiseaseValidatorTest {
         assertEquals(ErrorType.JSON_REQUIRED, error.errorType());
         assertEquals("$.id: is missing but it is required", error.message());
     }
-
 
 
 }
