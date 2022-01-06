@@ -8,8 +8,16 @@ public class BiosampleBuilder {
 
     private final Biosample.Builder builder;
 
-    public BiosampleBuilder(String id) {
+    private BiosampleBuilder(String id) {
         builder = Biosample.newBuilder().setId(id);
+    }
+
+    public static Biosample biosample(String id) {
+        return Biosample.newBuilder().setId(id).build();
+    }
+
+    public static BiosampleBuilder create(String id) {
+        return new BiosampleBuilder(id);
     }
 
     public BiosampleBuilder individualId(String id) {
@@ -111,12 +119,12 @@ public class BiosampleBuilder {
         return this;
     }
 
-
     public BiosampleBuilder allFile(List<File> files) {
         builder.addAllFiles(files);
         return this;
     }
-    public BiosampleBuilder material_sample(OntologyClass material) {
+
+    public BiosampleBuilder materialSample(OntologyClass material) {
         builder.setMaterialSample(material);
         return this;
     }
@@ -132,9 +140,5 @@ public class BiosampleBuilder {
 
    public Biosample build() {
        return builder.build();
-   }
-
-   public static BiosampleBuilder create(String id) {
-        return new BiosampleBuilder(id);
    }
 }

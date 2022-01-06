@@ -1,0 +1,814 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://www.ga4gh.org/phenopackets",
+  "title": "Phenopacket",
+  "description": "Schema for Global Alliance for Genomics and Health (GA4GH) Phenopacket",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The unique identifier for the Phenopacket",
+      "type": "string"
+    },
+    "subject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "An arbitrary identifier for the subject of the Phenopacket",
+          "type": "string"
+        },
+        "alternateIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "timeAtLastEncounter": {
+          "$ref": "#/definitions/timeElement"
+        },
+        "vitalStatus": {
+          "enum": ["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
+        },
+        "sex": {
+          "enum": ["UNKNOWN_SEX", "FEMALE", "MALE"]
+        },
+        "karyotypicSex": {
+          "enum": ["UNKNOWN_KARYOTYPE", "XX", "XY", "XO", "XXY","XXX","XXYY", "XXXY", "XXXX", "XYY", "OTHER_KARYOTYPE"]
+        },
+        "taxonomy": {"$ref": "#/definitions/ontologyClass"}
+      },
+      "required": ["id"]
+    },
+    "phenotypicFeatures": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/phenotypicFeature" },
+      "minItems": 1
+    },
+    "measurements": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/measurement" },
+      "minItems": 0
+    },
+    "biosamples": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/biosample" },
+      "minItems": 0
+    },
+    "interpretations": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/interpretation" },
+      "minItems": 0
+    },
+    "diseases": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/disease" },
+      "minItems": 0
+    },
+    "medicalActions": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/medicalAction" },
+      "minItems": 1
+    },
+    "files": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/file" },
+      "minItems": 0
+    },
+    "metaData": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "submittedBy": {
+          "type": "string"
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/resource"
+          },
+          "minItems": 1
+        },
+        "updates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/update"
+          },
+          "minItems": 1
+        },
+        "phenopacketSchemaVersion": { "enum": ["2.0"]},
+        "externalReferences": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/externalReference" },
+          "minItems": 0
+        }
+      },
+      "required": ["created", "createdBy","phenopacketSchemaVersion"],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [ "id", "metaData" ],
+  "definitions": {
+    "ontologyClass": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "a CURIE-style identifier e.g. HP:0001875.",
+          "type": "string"
+        },
+        "label": {
+          "description": "human-readable, class name",
+          "type": "string"
+        }
+      },
+      "required": ["id", "label"],
+      "additionalProperties": false
+    },
+    "gestationalAge": {
+      "type": "object",
+      "properties": {
+        "weeks": {
+          "type": "integer"
+        },
+        "days": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "weeks"
+      ],
+      "additionalProperties": false
+    },
+    "timeInterval": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "evidenceCode": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "reference": {
+          "$ref": "#/definitions/externalReference"
+        }
+      }
+    },
+    "timeElement": {
+      "properties": {
+          "gestationalAge":  {"$ref": "#/definitions/gestationalAge"},
+          "age" : {"$ref": "#/definitions/age"},
+          "ageRange": {   "$ref": "#/definitions/ageRange"},
+        "ontologyClass": { "$ref": "#/definitions/ontologyClass"},
+        "timestamp": { "type": "string", "format": "date-time"},
+        "timeInterval": {"$ref": "#/definitions/timeInterval"}
+      },
+      "oneOf": [ { "required": [ "gestationalAge" ]},
+        { "required": [ "age" ]},
+        { "required": [ "ageRange"]},
+        { "required": [ "ontologyClass" ]},
+        { "required": [ "timestamp" ]},
+        { "required": [ "timeInterval" ]}
+      ]
+    },
+    "update": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedBy": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "timestamp"
+      ],
+      "additionalProperties": false
+    },
+    "phenotypicFeature": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "excluded": {
+          "type": "boolean"
+        },
+        "severity": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "modifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ontologyClass"
+          }
+        },
+        "onset": {
+          "$ref": "#/definitions/timeElement"
+        },
+        "resolution": {
+          "$ref": "#/definitions/timeElement"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/evidence"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "referenceRange": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "low": {
+          "type": "number"
+        },
+        "high": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "low",
+        "high"
+      ],
+      "additionalProperties": false
+    },
+    "quantity": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "value": {
+          "type": "number"
+        },
+        "referenceRange": {
+          "$ref": "#/definitions/referenceRange"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "value": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        {
+          "$ref": "#/definitions/quantity"
+        }
+      ]
+    },
+    "complexValue": {
+      "type": "null"
+    },
+    "measurement": {
+    },
+    "age": {
+      "type": "object",
+      "properties": {
+        "iso8601duration": {
+          "description": "An ISO8601 string representing age.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "iso8601duration"
+      ]
+    },
+    "ageRange": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/definitions/age"
+        },
+        "end": {
+          "$ref": "#/definitions/age"
+        }
+      }
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string"
+        },
+        "individual_to_file_identifiers": {
+          "title": "Map<String,String>",
+          "type": "object",
+          "patternProperties": {
+            ".+": {
+              "type": "string"
+            }
+          }
+        },
+        "file_attributes": {
+          "title": "Map<String,String>",
+          "type": "object",
+          "patternProperties": {
+            ".+": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "uri"
+      ]
+    },
+    "externalReference": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "variantInterpretation": {
+      "type": "null"
+    },
+    "geneDescriptor": {
+      "type": "object",
+      "properties": {
+        "valueId": {
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "alternateIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "xrefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "alternateSymbols": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "genomicInterpretation": {
+      "type": "object",
+      "properties": {
+        "subjectOrBiosampleId": {
+          "type": "string"
+        },
+        "interpretationStatus": {
+          "enum": [
+            "UNKNOWN_STATUS",
+            "REJECTED",
+            "CANDIDATE",
+            "CONTRIBUTORY",
+            "CAUSATIVE"
+          ]
+        },
+        "variationInterpretation": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/geneDescriptor"
+            },
+            {
+              "$ref": "#/definitions/geneDescriptor"
+            }
+          ]
+        }
+      }
+    },
+    "diagnosis": {
+      "type": "object",
+      "properties": {
+        "disease": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "genomicInterpretations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/genomicInterpretation"
+          }
+        }
+      },
+      "required": [
+        "disease"
+      ]
+    },
+    "disease": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "excluded": {
+          "type": "boolean"
+        },
+        "onset": {
+          "$ref": "#/definitions/timeElement"
+        },
+        "resolution": {
+          "$ref": "#/definitions/timeElement"
+        },
+        "diseaseStage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ontologyClass"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "clinicalTnmFinding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ontologyClass"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "primarySite": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "laterality": {
+          "$ref": "#/definitions/ontologyClass"
+        }
+      }
+    },
+    "interpretation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "progressStatus": {
+          "enum": [
+            "UNKNOWN_PROGRESS",
+            "IN_PROGRESS",
+            "COMPLETED",
+            "SOLVED",
+            "UNSOLVED"
+          ]
+        },
+        "diagnosis": {
+          "$ref": "#/definitions/diagnosis"
+        }
+      },
+      "required": [
+        "id",
+        "progressStatus"
+      ]
+    },
+    "variationInterpretation": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/geneDescriptor"
+        },
+        {
+          "$ref": "#/definitions/geneDescriptor"
+        }
+      ]
+    },
+    "procedure": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "bodySite": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "performed": {
+          "$ref": "#/definitions/timeElement"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "additionalProperties": false
+    },
+    "biosample": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "individualId": {
+          "type": "string"
+        },
+        "derivedFromId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sampledTissue": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "sampledType": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "phenotypicFeatures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/phenotypicFeature"
+          }
+        },
+        "measurements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/measurement"
+          }
+        },
+        "taxonomy": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "timeOfCollection": {
+          "$ref": "#/definitions/timeElement"
+        },
+        "histologicalDiagnosis": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "tumorProgression": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "tumorGrade": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "pathologicalStage": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "pathologicalTnmFinding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ontologyClass"
+          }
+        },
+        "diagnosticMarkers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ontologyClass"
+          }
+        },
+        "procedure": {
+          "$ref": "#/definitions/procedure"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file"
+          }
+        },
+        "materialSample": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "sampleProcessing": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "sampleStorage": {
+          "$ref": "#/definitions/ontologyClass"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "resource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "namespacePrefix": {
+          "type": "string"
+        },
+        "iriPrefix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "url",
+        "version",
+        "namespacePrefix",
+        "iriPrefix"
+      ],
+      "additionalProperties": false
+    },
+    "doseInterval": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "$ref": "#/definitions/quantity"
+        },
+        "scheduleFrequency": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "interval": {
+          "$ref": "#/definitions/timeInterval"
+        }
+      },
+      "required": [
+        "quantity",
+        "scheduleFrequency",
+        "interval"
+      ],
+      "additionalProperties": false
+    },
+    "treatment": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "routeOfAdministration": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "doseIntervals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/doseInterval"
+          }
+        },
+        "drugType": {
+          "enum": [
+            "UNKNOWN_DRUG_TYPE",
+            "PRESCRIPTION",
+            "EHR_MEDICATION_LIST",
+            "ADMINISTRATION_RELATED_TO_PROCEDURE"
+          ]
+        },
+        "cumulativeDose": {
+          "$ref": "#/definitions/quantity"
+        }
+      },
+      "required": [
+        "agent"
+      ],
+      "additionalProperties": false
+    },
+    "radiationTherapy": {
+      "type": "object",
+      "properties": {
+        "modality": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "bodySite": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "dosage": {
+          "type": "integer"
+        },
+        "fractions": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "modality",
+        "bodySite",
+        "dosage",
+        "fractions"
+      ],
+      "additionalProperties": false
+    },
+    "therapeuticRegimen": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ontologyClass"
+            },
+            {
+              "$ref": "#/definitions/externalReference"
+            }
+          ]},
+          "startTime": {
+            "$ref": "#/definitions/timeElement"
+          },
+          "endTime": {
+            "$ref": "#/definitions/timeElement"
+          },
+          "status": {
+            "enum": [
+              "UNKNOWN_STATUS",
+              "STARTED",
+              "COMPLETED",
+              "DISCONTINUED"
+            ]
+          }
+      },
+      "required": [
+        "identifier"
+      ],
+      "additionalProperties": false
+    },
+    "medicalAction": {
+      "type": "object",
+      "properties": {
+        "treatment": {
+          "$ref": "#/definitions/treatment"
+        },
+        "procedure": {
+          "$ref": "#/definitions/procedure"
+        },
+        "radiationTherapy": {
+          "$ref": "#/definitions/radiationTherapy"
+        },
+        "therapeuticRegimen": {
+          "$ref": "#/definitions/therapeuticRegimen"
+        },
+        "treatmentTarget": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "treatmentIntent": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "responseToTreatment": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "adverseEvents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ontologyClass"
+          }
+        },
+        "treatmentTerminationReason": {
+          "$ref": "#/definitions/ontologyClass"
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [ { "required": [ "procedure" ]},
+        { "required": [ "radiationTherapy" ]},
+        { "required": [ "therapeuticRegimen"]},
+        { "required": [ "treatment" ]}
+      ]
+    }
+  }
+}

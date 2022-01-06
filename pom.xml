@@ -6,12 +6,14 @@
 
     <groupId>org.phenopackets.phenotools</groupId>
     <artifactId>phenotools</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
     <modules>
         <module>phenotools-builder</module>
+        <module>phenotools-validator</module>
+        <module>phenotools-validator-jsonschema</module>
         <module>phenotools-converter</module>
         <module>phenotools-cli</module>
     </modules>
@@ -44,6 +46,12 @@
             <organization>The Jackson Laboratory</organization>
             <organizationUrl>https://www.jax.org/</organizationUrl>
         </developer>
+        <developer>
+            <name>Jules Jacobsen</name>
+            <email>j.jacobsen@qmul.ac.uk</email>
+            <organization>Queen Mary University of London</organization>
+            <organizationUrl>https://www.qmul.ac.uk/</organizationUrl>
+        </developer>
     </developers>
 
     <scm>
@@ -70,24 +78,58 @@
     </properties>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>2.5.4</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.phenopackets/phenopacket-schema -->
+            <dependency>
+                <groupId>org.phenopackets</groupId>
+                <artifactId>phenopacket-schema</artifactId>
+                <version>${phenopacket-schema.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>${protobuf.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <!-- logging -->
         <dependency>

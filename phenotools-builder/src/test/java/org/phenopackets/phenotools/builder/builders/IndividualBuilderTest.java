@@ -7,8 +7,8 @@ import org.phenopackets.schema.v2.core.TimeElement;
 import org.phenopackets.schema.v2.core.VitalStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.HOMO_SAPIENS;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromRFC3339;
+import static org.phenopackets.phenotools.builder.builders.IndividualBuilder.HOMO_SAPIENS;
+import static org.phenopackets.phenotools.builder.builders.TimestampBuilder.fromISO8601;
 
 
 public class IndividualBuilderTest {
@@ -28,7 +28,7 @@ public class IndividualBuilderTest {
         Individual individual = IndividualBuilder.create("some.id")
                 .dateOfBirth(dob)
                 .build();
-        Timestamp dobStamp = fromRFC3339(dob);
+        Timestamp dobStamp = fromISO8601(dob);
         assertEquals(dobStamp, individual.getDateOfBirth());
     }
 
@@ -39,7 +39,7 @@ public class IndividualBuilderTest {
         Individual individual = IndividualBuilder.create("some.id")
                 .timestampAtLastEncounter(lastExamTime)
                 .build();
-        Timestamp encounterStamp = fromRFC3339(lastExamTime);
+        Timestamp encounterStamp = fromISO8601(lastExamTime);
         TimeElement lastEncounter = individual.getTimeAtLastEncounter();
         assertTrue(lastEncounter.hasTimestamp());
         assertEquals(encounterStamp, lastEncounter.getTimestamp());

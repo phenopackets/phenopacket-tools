@@ -8,7 +8,7 @@ import org.phenopackets.schema.v2.core.*;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-public class UrothelialCancer implements PhenopacketExample {
+class UrothelialCancer implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "patient1";
     private static final TimeElement AGE_AT_BIOPSY = TimeElements.age("P52Y2M");
@@ -16,7 +16,7 @@ public class UrothelialCancer implements PhenopacketExample {
 
     private final Phenopacket phenopacket;
 
-    public UrothelialCancer() {
+    UrothelialCancer() {
         var individual = IndividualBuilder.create(PROBAND_ID).male().dateOfBirth("1964-03-15T00:00:00Z").build();
         var hematuria = PhenotypicFeatureBuilder.create("HP:0000790","Hematuria").build();
         var dsyuria = PhenotypicFeatureBuilder.create("HP:0100518","Dysuria")
@@ -26,7 +26,7 @@ public class UrothelialCancer implements PhenopacketExample {
                 .resource(Resources.ncitVersion("21.05d"))
                 .resource(Resources.efoVersion("3.34.0"))
                 .resource(Resources.uberonVersion("2021-07-27"))
-                .resource(Resources.ncbiTaxonVersion(" 2021-06-10"))
+                .resource(Resources.ncbiTaxonVersion("2021-06-10"))
                 .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(individual)
@@ -94,9 +94,6 @@ public class UrothelialCancer implements PhenopacketExample {
                 .build();
     }
 
-
-
-
     private Biosample rightUreterBiosample() {
 
         OntologyClass rightUreter = ontologyClass("UBERON:0001222", "right ureter");
@@ -134,10 +131,6 @@ public class UrothelialCancer implements PhenopacketExample {
                 .build();
     }
 
-
-
-
-
     public File somaticHtsFile() {
         // first create a File
         // We are imagining there is a reference to a VCF file for a normal germline genome seqeunce
@@ -150,7 +143,6 @@ public class UrothelialCancer implements PhenopacketExample {
                 .build();
     }
 
-
     public File metastasisHtsFile() {
         // first create a File
         // We are imagining there is a reference to a VCF file for a normal germline genome seqeunce
@@ -161,7 +153,6 @@ public class UrothelialCancer implements PhenopacketExample {
                 .fileAttribute("description", "lymph node metastasis sample")
                 .build();
     }
-
 
     @Override
     public Phenopacket getPhenopacket() {

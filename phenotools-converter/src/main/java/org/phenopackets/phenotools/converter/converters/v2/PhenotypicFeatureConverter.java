@@ -23,21 +23,28 @@ public class PhenotypicFeatureConverter {
 
     public static PhenotypicFeature toPhenotypicFeature(org.phenopackets.schema.v1.core.PhenotypicFeature v1PhenotypicFeature) {
         PhenotypicFeature.Builder builder = PhenotypicFeature.newBuilder();
-        // optional fields we don't want to set as empty
+        builder.setType(toOntologyClass(v1PhenotypicFeature.getType()));
+        if (v1PhenotypicFeature.getNegated()) {
+            builder.setExcluded(v1PhenotypicFeature.getNegated());
+        }
         if (v1PhenotypicFeature.hasSeverity()) {
             builder.setSeverity(toOntologyClass(v1PhenotypicFeature.getSeverity()));
         }
-        if (v1PhenotypicFeature.hasClassOfOnset() || v1PhenotypicFeature.hasAgeOfOnset() || v1PhenotypicFeature.hasAgeRangeOfOnset()) {
+        if (v1PhenotypicFeature.getModifiersCount() > 0) {
+            builder.addAllModifiers(toModifiers(v1PhenotypicFeature.getModifiersList()));
+        }
+        if (v1PhenotypicFeature.getEvidenceCount() > 0) {
+            builder.addAllEvidence(toEvidences(v1PhenotypicFeature.getEvidenceList()));
+        }
+        if (v1PhenotypicFeature.hasAgeOfOnset() ||
+                v1PhenotypicFeature.hasAgeRangeOfOnset() ||
+                v1PhenotypicFeature.hasClassOfOnset()) {
             builder.setOnset(toPhenotypicFeatureOnset(v1PhenotypicFeature));
         }
-
-        return builder
-                .setType(toOntologyClass(v1PhenotypicFeature.getType()))
-                .setExcluded(v1PhenotypicFeature.getNegated())
-                .addAllModifiers(toModifiers(v1PhenotypicFeature.getModifiersList()))
-                .addAllEvidence(toEvidences(v1PhenotypicFeature.getEvidenceList()))
-                .setDescription(v1PhenotypicFeature.getDescription())
-                .build();
+        if (!v1PhenotypicFeature.getDescription().isEmpty()) {
+            builder.setDescription(v1PhenotypicFeature.getDescription());
+        }
+        return builder.build();
     }
 
     public static TimeElement toPhenotypicFeatureOnset(org.phenopackets.schema.v1.core.PhenotypicFeature v1PhenotypicFeature) {

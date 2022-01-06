@@ -5,17 +5,23 @@ import org.phenopackets.schema.v2.core.MetaData;
 import org.phenopackets.schema.v2.core.Resource;
 import org.phenopackets.schema.v2.core.Update;
 
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.*;
+import static org.phenopackets.phenotools.builder.builders.TimestampBuilder.fromISO8601;
 
 public class MetaDataBuilder {
 
+    public static final String SCHEMA_VERSION = "2.0";
+
     private final MetaData.Builder builder;
 
-    public MetaDataBuilder(String created, String createdBy) {
+    private MetaDataBuilder(String created, String createdBy) {
         builder = MetaData.newBuilder()
                 .setCreated(fromISO8601(created))
                 .setCreatedBy(createdBy)
                 .setPhenopacketSchemaVersion(SCHEMA_VERSION); // only one option for schema version!
+    }
+
+    public static MetaDataBuilder create(String created, String createdBy) {
+        return new MetaDataBuilder(created, createdBy);
     }
 
     public MetaDataBuilder submittedBy(String submitter) {
@@ -46,9 +52,5 @@ public class MetaDataBuilder {
 
     public MetaData build() {
         return builder.build();
-    }
-
-    public static MetaDataBuilder create(String created, String createdBy) {
-        return new MetaDataBuilder(created, createdBy);
     }
 }

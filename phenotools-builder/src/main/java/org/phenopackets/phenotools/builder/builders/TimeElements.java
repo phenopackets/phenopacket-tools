@@ -1,14 +1,12 @@
 package org.phenopackets.phenotools.builder.builders;
 
 import com.google.protobuf.Timestamp;
-import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
 import org.phenopackets.schema.v2.core.*;
 
-import java.util.regex.*;
+import java.time.Instant;
 
 import static org.phenopackets.phenotools.builder.builders.Onset.late;
 import static org.phenopackets.phenotools.builder.builders.Onset.middleAge;
-import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromISO8601;
 
 /**
  * The TimeElement is used in many places in the Phenopacket. It is defined as being one of the
@@ -24,8 +22,6 @@ import static org.phenopackets.phenotools.builder.builders.PhenoBuilder.fromISO8
  * @author Peter N Robinson
  */
 public class TimeElements {
-
-    private static final Pattern isoDuration = Pattern.compile("^P(?!$)(\\d+(?:\\.\\d+)?Y)?(\\d+(?:\\.\\d+)?M)?(\\d+(?:\\.\\d+)?W)?(\\d+(?:\\.\\d+)?D)?(T(?=\\d)(\\d+(?:\\.\\d+)?H)?(\\d+(?:\\.\\d+)?M)?(\\d+(?:\\.\\d+)?S)?)?$");
 
     private static final TimeElement FETAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.fetal()).build();
     private static final TimeElement EMBRYONAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.embryonal()).build();
@@ -52,24 +48,14 @@ public class TimeElements {
         return TimeElement.newBuilder().setGestationalAge(GestationalAge.newBuilder().setWeeks(weeks)).build();
     }
 
-    private static Age iso8601Age(String iso8601duration) {
-        Matcher matcher = isoDuration.matcher(iso8601duration);
-        if (! matcher.matches()) {
-            throw new PhenotoolsRuntimeException("Invalid iso8601 age (duration) string: \"" + iso8601duration + "\".");
-        }
-        return Age.newBuilder().setIso8601Duration(iso8601duration).build();
-    }
-
-
     public static TimeElement age(String iso8601duration) {
-        Age age = iso8601Age(iso8601duration);
+        Age age = AgeBuilder.age(iso8601duration);
         return TimeElement.newBuilder().setAge(age).build();
     }
 
     public static TimeElement ageRange(String iso8601start, String iso8601End) {
-        Age start = iso8601Age(iso8601start);
-        Age end = iso8601Age(iso8601End);
-        return TimeElement.newBuilder().setAgeRange(AgeRange.newBuilder().setStart(start).setEnd(end)).build();
+        AgeRange ageRange = AgeBuilder.ageRange(iso8601start, iso8601End);
+        return TimeElement.newBuilder().setAgeRange(ageRange).build();
     }
 
     public static TimeElement ontologyClass(OntologyClass clz) {
@@ -103,6 +89,7 @@ public class TimeElements {
     public static TimeElement childhoodOnset() {
         return CHILDHOOD_ONSET;
     }
+
     public static TimeElement juvenileOnset() {
         return JUVENILE_ONSET;
     }
@@ -127,14 +114,25 @@ public class TimeElements {
         return YOUNG_ADULT_ONSET;
     }
 
-    public static TimeElement timestamp(String timestamp) {
-        Timestamp time = fromISO8601(timestamp);
+    public static TimeElement timestamp(Instant instant) {
+        Timestamp time = TimestampBuilder.fromInstant(instant);
         return TimeElement.newBuilder().setTimestamp(time).build();
     }
 
+    public static TimeElement timestamp(String timestamp) {
+        Timestamp time = TimestampBuilder.fromISO8601(timestamp);
+        return TimeElement.newBuilder().setTimestamp(time).build();
+    }
+
+    public static TimeElement interval(Instant startInstant, Instant endInstant) {
+        Timestamp start = TimestampBuilder.fromInstant(startInstant);
+        Timestamp end = TimestampBuilder.fromInstant(endInstant);
+        return TimeElement.newBuilder().setInterval(TimeInterval.newBuilder().setStart(start).setEnd(end)).build();
+    }
+
     public static TimeElement interval(String timestampStart, String timestampEnd) {
-        Timestamp start = fromISO8601(timestampStart);
-        Timestamp end = fromISO8601(timestampEnd);
+        Timestamp start = TimestampBuilder.fromISO8601(timestampStart);
+        Timestamp end = TimestampBuilder.fromISO8601(timestampEnd);
         return TimeElement.newBuilder().setInterval(TimeInterval.newBuilder().setStart(start).setEnd(end)).build();
     }
 

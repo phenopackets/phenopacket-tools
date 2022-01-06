@@ -5,11 +5,29 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.List;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 public class TreatmentBuilder {
+
     private final Treatment.Builder builder;
 
-    public TreatmentBuilder(OntologyClass agent) {
+    private TreatmentBuilder(OntologyClass agent) {
         builder = Treatment.newBuilder().setAgent(agent);
+    }
+
+    public static Treatment treatment(OntologyClass agent) {
+        return Treatment.newBuilder().setAgent(agent).build();
+    }
+
+    public static Treatment treatment(String agentId, String agentLabel) {
+        return treatment(ontologyClass(agentId, agentLabel));
+    }
+
+    public static TreatmentBuilder create(OntologyClass agent) {
+        return new TreatmentBuilder(agent);
+    }
+
+    public static TreatmentBuilder create(String id, String label) {
+        return new TreatmentBuilder(ontologyClass(id, label));
     }
 
     public TreatmentBuilder routeOfAdministration(OntologyClass route) {
@@ -43,20 +61,12 @@ public class TreatmentBuilder {
         return this;
     }
 
-    public TreatmentBuilder cumulative_dose(Quantity quantity) {
+    public TreatmentBuilder cumulativeDose(Quantity quantity) {
         builder.setCumulativeDose(quantity);
         return this;
     }
 
-   public Treatment build() {
+    public Treatment build() {
         return builder.build();
-   }
-
-   public static TreatmentBuilder create(OntologyClass agent) {
-        return new TreatmentBuilder(agent);
-   }
-
-    public static TreatmentBuilder create(String id, String label) {
-        return new TreatmentBuilder(ontologyClass(id, label));
     }
 }

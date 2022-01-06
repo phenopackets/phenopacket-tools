@@ -10,8 +10,26 @@ public class DiseaseBuilder {
 
     private final Disease.Builder builder;
 
-    public DiseaseBuilder(OntologyClass term) {
+    private DiseaseBuilder(OntologyClass term) {
         builder = Disease.newBuilder().setTerm(term);
+    }
+
+    public static Disease disease(OntologyClass term) {
+        return Disease.newBuilder().setTerm(term).build();
+    }
+
+    public static Disease disease(String id, String label) {
+        OntologyClass term = ontologyClass(id, label);
+        return disease(term);
+    }
+
+    public static DiseaseBuilder create(OntologyClass term) {
+        return new DiseaseBuilder(term);
+    }
+
+    public static DiseaseBuilder create(String id, String label) {
+        OntologyClass term = ontologyClass(id, label);
+        return create(term);
     }
 
     public DiseaseBuilder excluded() {
@@ -34,7 +52,6 @@ public class DiseaseBuilder {
         return this;
     }
 
-
     public DiseaseBuilder clinicalTnmFinding(OntologyClass tnmFinding) {
         builder.addClinicalTnmFinding(tnmFinding);
         return this;
@@ -51,14 +68,5 @@ public class DiseaseBuilder {
 
     public Disease build() {
         return builder.build();
-    }
-
-    public static DiseaseBuilder create(OntologyClass term) {
-        return new DiseaseBuilder(term);
-    }
-
-    public static DiseaseBuilder create(String id, String label) {
-        OntologyClass term = ontologyClass(id, label);
-        return new DiseaseBuilder(term);
     }
 }
