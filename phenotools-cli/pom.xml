@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.phenopackets.phenotools</groupId>
         <artifactId>phenotools</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>1.0.0-RC1</version>
     </parent>
 
     <artifactId>phenotools-cli</artifactId>
@@ -33,13 +33,13 @@
         </dependency>
         <dependency>
             <groupId>org.phenopackets.phenotools</groupId>
-            <artifactId>validator-core</artifactId>
+            <artifactId>phenotools-validator-core</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.phenopackets.phenotools</groupId>
-            <artifactId>validator-jsonschema</artifactId>
+            <artifactId>phenotools-validator-jsonschema</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>

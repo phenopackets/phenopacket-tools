@@ -6,13 +6,13 @@
 
     <groupId>org.phenopackets.phenotools</groupId>
     <artifactId>phenotools</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>1.0.0-RC1</version>
 
     <packaging>pom</packaging>
 
     <modules>
         <module>phenotools-builder</module>
-        <module>phenotools-validator</module>
+        <module>phenotools-validator-core</module>
         <module>phenotools-validator-jsonschema</module>
         <module>phenotools-converter</module>
         <module>phenotools-cli</module>
