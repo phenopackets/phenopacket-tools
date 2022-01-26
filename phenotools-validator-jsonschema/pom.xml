@@ -7,15 +7,18 @@
     <parent>
         <groupId>org.phenopackets.phenotools</groupId>
         <artifactId>phenotools</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>1.0.0-RC1</version>
     </parent>
 
-    <artifactId>validator-jsonschema</artifactId>
+    <artifactId>phenotools-validator-jsonschema</artifactId>
+
+    <name>phenotools-validator-jsonschema</name>
+    <description>JSON schema validator utilities for phenopackets</description>
 
     <dependencies>
         <dependency>
             <groupId>org.phenopackets.phenotools</groupId>
-            <artifactId>validator-core</artifactId>
+            <artifactId>phenotools-validator-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 

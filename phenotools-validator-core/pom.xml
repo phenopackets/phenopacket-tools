@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.phenopackets.phenotools</groupId>
         <artifactId>phenotools</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>1.0.0-RC1</version>
     </parent>
 
-    <artifactId>validator-core</artifactId>
+    <artifactId>phenotools-validator-core</artifactId>
 
-    <name>validator-core</name>
+    <name>phenotools-validator-core</name>
     <description>Validator utilities for phenopackets</description>
 
 </project>
