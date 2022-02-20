@@ -12,6 +12,16 @@ public class VariationDescriptorBuilder {
 
     final VariationDescriptor.Builder builder;
 
+    /**
+     * Constructor if no identifier is to be used
+     */
+    private VariationDescriptorBuilder() {
+        builder = VariationDescriptor.newBuilder();
+    }
+
+    /**
+     * @param id an arbitrary identifier
+     */
     private VariationDescriptorBuilder(String id) {
         builder = VariationDescriptor.newBuilder().setId(id);
     }
@@ -128,5 +138,9 @@ public class VariationDescriptorBuilder {
 
     public static VariationDescriptorBuilder create(String id) {
         return new VariationDescriptorBuilder(id);
+    }
+
+    public static VariationDescriptorBuilder create() {
+        return new VariationDescriptorBuilder();
     }
 }
