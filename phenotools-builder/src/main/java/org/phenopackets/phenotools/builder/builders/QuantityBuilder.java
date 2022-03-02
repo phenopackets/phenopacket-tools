@@ -22,6 +22,8 @@ public class QuantityBuilder {
         return quantity(ontologyClass(id, label), value);
     }
 
+
+
     public static QuantityBuilder unitValue(OntologyClass unit, double value) {
         return new QuantityBuilder(unit, value);
     }

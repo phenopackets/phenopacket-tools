@@ -2,7 +2,6 @@ package org.phenopackets.phenotools.builder.builders;
 
 import org.junit.jupiter.api.Test;
 import org.phenopackets.schema.v2.core.Biosample;
-import org.phenopackets.schema.v2.core.OntologyClass;
 
 import java.util.List;
 

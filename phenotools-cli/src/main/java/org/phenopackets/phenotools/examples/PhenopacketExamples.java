@@ -11,6 +11,7 @@ public class PhenopacketExamples {
     private static final Phenopacket SCC = new SquamousCellCancer().getPhenopacket();
     private static final Phenopacket UROTHELIAL_CARCINOMA = new UrothelialCancer().getPhenopacket();
     private static final Phenopacket COVID_19 = new Covid().getPhenopacket();
+    private static final Phenopacket RETINOBLASTOMA = new Retinoblastoma().getPhenopacket();
 
     private PhenopacketExamples() {
     }
@@ -43,4 +44,6 @@ public class PhenopacketExamples {
     public static Phenopacket covid19() {
         return COVID_19;
     }
+
+    public static Phenopacket retinoblastoma() { return RETINOBLASTOMA; }
 }

@@ -10,4 +10,8 @@ public class OntologyClassBuilder {
     public static OntologyClass ontologyClass(String id, String label) {
         return OntologyClass.newBuilder().setId(id).setLabel(label).build();
     }
+
+
+
+
 }

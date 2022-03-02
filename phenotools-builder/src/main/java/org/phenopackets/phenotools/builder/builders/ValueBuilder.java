@@ -25,4 +25,14 @@ public class ValueBuilder {
     public static Value value(Quantity quantity) {
         return Value.newBuilder().setQuantity(quantity).build();
     }
+
+    public static Value value(String id, String label, double value) {
+        Quantity quantity = QuantityBuilder.quantity(id, label, value);
+        return value(quantity);
+    }
+
+    public static Value value(OntologyClass ontologyClass, double value) {
+        Quantity quantity = QuantityBuilder.quantity(ontologyClass, value);
+        return value(quantity);
+    }
 }

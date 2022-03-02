@@ -5,7 +5,7 @@ import org.phenopackets.schema.v2.core.File;
 import org.phenopackets.schema.v2.core.Individual;
 import org.phenopackets.schema.v2.core.MetaData;
 import org.phenopackets.schema.v2.core.Resource;
-import org.phenopackets.phenotools.validator.testdatagen.PhenopacketUtil.PhenotypicFeatureBuilder;
+
 import static org.phenopackets.phenotools.validator.testdatagen.PhenopacketUtil.*;
 
 public class RareDiseasePhenopacket {
