@@ -35,10 +35,29 @@ public class Retinoblastoma {
                 .individual(proband)
                 .allMeasurements(getMeasurements())
                 .allPhenotypicFeatures(getPhenotypicFeatures())
+                .disease(getDisease())
 //                .biosample(esophagusBiopsy)
 //                .biosample(lymphNodeBiopsy)
 //                .biosample(lungBiopsy)
 //                .disease(disease)
+                .build();
+    }
+
+
+
+    Disease getDisease() {
+        // NCIT:C27980
+        // Stage IVB
+        //  Stage IVB = Cancer that has spread to distant anatomic sites beyond its original site of growth.
+        // Retinoblastoma ,  NCIT:C7541
+        OntologyClass stageIVb = ontologyClass("NCIT:C27980", "Stage IVB");
+        OntologyClass retinoblastoma = ontologyClass("NCIT:C7541", "Retinoblastoma");
+        OntologyClass leftEye = ontologyClass("UBERON:0004548", "left eye");
+        TimeElement age4m = TimeElements.age("P4M");
+        return DiseaseBuilder.create(retinoblastoma)
+                .onset(age4m)
+                .diseaseStage(stageIVb)
+                .primarySite(leftEye)
                 .build();
     }
 
