@@ -50,7 +50,10 @@ public class Retinoblastoma {
        //0.4 mg/kg (up to a starting dose of 5 mg)
         Quantity quantity = QuantityBuilder.quantity( mm_per_kg(), 0.4);
         TimeInterval interval = TimeIntervalBuilder.timeInterval("P6M1W", "P6M1W");
-        DoseInterval doseInterval = DoseIntervalBuilder.doseInterval(quantity, administration, interval);
+        OntologyClass once = ontologyClass("NCIT:C64576", "Once");
+
+        DoseInterval doseInterval = DoseIntervalBuilder.doseInterval(quantity, once, interval);
+
 
         Treatment treatment = TreatmentBuilder.create(melphalan)
                 .routeOfAdministration(administration)

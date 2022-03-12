@@ -18,7 +18,9 @@ public class Util {
 
     public static OntologyClass mm() { return ontologyClass("UO:0000016", "millimeter"); }
 
-    public static OntologyClass mm_per_kg() { return ontologyClass("UO:0000198", "milliliter per kilogram"); }
+    public static OntologyClass mm_per_kg() { return ontologyClass("UO:0000308", "milliliter per kilogram"); }
+
+
 
     public static OntologyClass biopsy() { return ontologyClass("NCIT:C15189","Biopsy"); }
 
