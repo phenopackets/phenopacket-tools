@@ -23,6 +23,15 @@ public class QuantityBuilder {
     }
 
 
+    public static Quantity quantity(String id, String label, double value, ReferenceRange ref) {
+        return quantity(ontologyClass(id, label), value);
+    }
+
+    public static Quantity quantity(OntologyClass unit, double value, ReferenceRange ref) {
+        return Quantity.newBuilder().setUnit(unit).setValue(value).setReferenceRange(ref).build();
+    }
+
+
 
     public static QuantityBuilder unitValue(OntologyClass unit, double value) {
         return new QuantityBuilder(unit, value);

@@ -100,13 +100,16 @@ public class Retinoblastoma {
     measured with the Perkins tonometer.
      */
     List<Measurement> getMeasurements() {
+        OntologyClass iop = ontologyClass("56844-4","Intraocular pressure of Eye");
+        ReferenceRange ref = ReferenceRangeBuilder.referenceRange(iop, 10, 21);
         OntologyClass leftEyeIop =
                 OntologyClassBuilder.ontologyClass("LOINC:79893-4", "Left eye Intraocular pressure");
-        Value leftEyeValue = ValueBuilder.value(Util.mmHg(), 15);
+        Value leftEyeValue = ValueBuilder.value(Util.mmHg(), 25, ref);
         OntologyClass rightEyeIop =
                 OntologyClassBuilder.ontologyClass("LOINC:79892-6", "Right eye Intraocular pressure");
-        Value rightEyeValue = ValueBuilder.value(Util.mmHg(), 25);
+        Value rightEyeValue = ValueBuilder.value(Util.mmHg(), 15, ref);
         TimeElement age = TimeElements.age("P6M");
+
         Measurement leftEyeMeasurement = MeasurementBuilder.value(leftEyeIop, leftEyeValue).timeObserved(age).build();
         Measurement rightEyeMeasurement = MeasurementBuilder.value(rightEyeIop, rightEyeValue).timeObserved(age).build();
        //33728-7 Size.maximum dimension in Tumor
