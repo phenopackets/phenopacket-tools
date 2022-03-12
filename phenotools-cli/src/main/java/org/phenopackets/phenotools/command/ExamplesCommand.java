@@ -1,11 +1,10 @@
 package org.phenopackets.phenotools.command;
 
 
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.google.protobuf.util.JsonFormat;
 
 import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;

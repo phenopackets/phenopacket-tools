@@ -16,6 +16,9 @@ public class Util {
         return ontologyClass("UO:0000272", "millimetres of mercury");
     }
 
+    public static OntologyClass mm() { return ontologyClass("UO:0000016", "millimeter"); }
+
+
     public static OntologyClass biopsy() { return ontologyClass("NCIT:C15189","Biopsy"); }
 
     public static OntologyClass right() { return ontologyClass("HP:0012834", "Right "); }

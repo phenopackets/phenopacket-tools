@@ -8,8 +8,7 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.List;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-import static org.phenopackets.phenotools.builder.builders.Util.bilateral;
-import static org.phenopackets.phenotools.builder.builders.Util.unilateral;
+import static org.phenopackets.phenotools.builder.builders.Util.*;
 
 public class Retinoblastoma {
     private static final String PHENOPACKET_ID = "arbitrary.id";
@@ -47,16 +46,16 @@ public class Retinoblastoma {
 
     Disease getDisease() {
         // NCIT:C27980
-        // Stage IVB
-        //  Stage IVB = Cancer that has spread to distant anatomic sites beyond its original site of growth.
+        // Stage E
+        //  Group E = LOINC:LA24739-7
         // Retinoblastoma ,  NCIT:C7541
-        OntologyClass stageIVb = ontologyClass("NCIT:C27980", "Stage IVB");
+        OntologyClass stageE = ontologyClass("LOINC:LA24739-7", "Group E");
         OntologyClass retinoblastoma = ontologyClass("NCIT:C7541", "Retinoblastoma");
         OntologyClass leftEye = ontologyClass("UBERON:0004548", "left eye");
         TimeElement age4m = TimeElements.age("P4M");
         return DiseaseBuilder.create(retinoblastoma)
                 .onset(age4m)
-                .diseaseStage(stageIVb)
+                .diseaseStage(stageE)
                 .primarySite(leftEye)
                 .build();
     }
@@ -68,7 +67,7 @@ public class Retinoblastoma {
         TimeElement age3months = TimeElements.age("P3M");
         PhenotypicFeature clinodactylyPf = PhenotypicFeatureBuilder.
                 create(clinodactyly).
-                modifier(bilateral()).
+                modifier(right()).
                 onset(age3months).
                 build();
         OntologyClass leukocoria  = ontologyClass("HP:0000555", "Leukocoria");
@@ -110,7 +109,13 @@ public class Retinoblastoma {
         TimeElement age = TimeElements.age("P6M");
         Measurement leftEyeMeasurement = MeasurementBuilder.value(leftEyeIop, leftEyeValue).timeObserved(age).build();
         Measurement rightEyeMeasurement = MeasurementBuilder.value(rightEyeIop, rightEyeValue).timeObserved(age).build();
-        return List.of(leftEyeMeasurement, rightEyeMeasurement);
+       //33728-7 Size.maximum dimension in Tumor
+        //14 × 13 × 11 mm left eye tumor
+        OntologyClass maxTumorSizeTest = OntologyClassBuilder.ontologyClass("LOINC:33728-7", "Size.maximum dimension in Tumor");
+        Value maxTumorSize = ValueBuilder.value(mm(), 15);
+        Measurement maxTumorSizeMeasurement = MeasurementBuilder.value(maxTumorSizeTest, maxTumorSize).timeObserved(age).build();
+
+        return List.of(leftEyeMeasurement, rightEyeMeasurement, maxTumorSizeMeasurement);
     }
 
     public Phenopacket getPhenopacket() {
