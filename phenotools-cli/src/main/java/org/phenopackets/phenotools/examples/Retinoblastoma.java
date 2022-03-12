@@ -49,7 +49,7 @@ public class Retinoblastoma {
         OntologyClass administration = ontologyClass("NCIT:C38222",  "Intraarterial Route of Administration");
        //0.4 mg/kg (up to a starting dose of 5 mg)
         Quantity quantity = QuantityBuilder.quantity( mm_per_kg(), 0.4);
-        TimeInterval interval = TimeIntervalBuilder.timeInterval("P6M1W", "P6M1W");
+        TimeInterval interval = TimeIntervalBuilder.timeInterval("2020-09-02", "2020-09-02");
         OntologyClass once = ontologyClass("NCIT:C64576", "Once");
 
         DoseInterval doseInterval = DoseIntervalBuilder.doseInterval(quantity, once, interval);
@@ -98,6 +98,20 @@ public class Retinoblastoma {
                 .diseaseStage(stageE)
                 .primarySite(leftEye)
                 .build();
+    }
+
+
+    List<MedicalAction> getMedicalActions() {
+
+
+        return List.of();
+    }
+
+
+    Biosample getBiosample() {
+
+
+        return null;
     }
 
 
