@@ -35,12 +35,49 @@ public class Retinoblastoma {
                 .allMeasurements(getMeasurements())
                 .allPhenotypicFeatures(getPhenotypicFeatures())
                 .disease(getDisease())
+                .medicalAction(melphalan())
 //                .biosample(esophagusBiopsy)
 //                .biosample(lymphNodeBiopsy)
 //                .biosample(lungBiopsy)
 //                .disease(disease)
                 .build();
     }
+
+
+    MedicalAction melphalan() {
+        OntologyClass melphalan = ontologyClass("DrugCentral:1678", "melphalan");
+        OntologyClass administration = ontologyClass("NCIT:C38222",  "Intraarterial Route of Administration");
+       //0.4 mg/kg (up to a starting dose of 5 mg)
+        Quantity quantity = QuantityBuilder.quantity( mm_per_kg(), 0.4);
+        TimeInterval interval = TimeIntervalBuilder.timeInterval("P6M1W", "P6M1W");
+        DoseInterval doseInterval = DoseIntervalBuilder.doseInterval(quantity, administration, interval);
+
+        Treatment treatment = TreatmentBuilder.create(melphalan)
+                .routeOfAdministration(administration)
+                .doseInterval(doseInterval).build();
+
+        MedicalAction action = MedicalActionBuilder.create(treatment)
+                .adverseEvent(ontologyClass("HP:0025637", "Vasospasm"))
+                .treatmentTarget(ontologyClass("NCIT:C7541", "Retinoblastoma"))
+                .treatmentIntent(ontologyClass("NCIT:C62220", "Cure"))
+                .treatmentTerminationReason(ontologyClass("NCIT:C41331", "Adverse Event"))
+                .build();
+
+        return action;
+    }
+
+    List<MedicalAction> medicalActions() {
+
+        return List.of(melphalan());
+    }
+
+    /*
+     agent:
+            id:
+        routeOfAdministration:
+            id:
+
+     */
 
 
 
