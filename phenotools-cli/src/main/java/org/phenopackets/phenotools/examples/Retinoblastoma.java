@@ -15,6 +15,8 @@ public class Retinoblastoma {
     private static final String PROBAND_ID = "proband A";
     private static final OntologyClass BIOPSY = ontologyClass("NCIT:C15189", "Biopsy");
 
+    private final OntologyClass leftEye = ontologyClass("UBERON:0004548", "left eye");
+
     private final Phenopacket phenopacket;
     public Retinoblastoma() {
         var metadata = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
@@ -36,12 +38,14 @@ public class Retinoblastoma {
                 .allPhenotypicFeatures(getPhenotypicFeatures())
                 .disease(getDisease())
                 .medicalAction(melphalan())
+                .medicalAction(chemoRegimen())
+                .medicalAction(enucleation())
 //                .biosample(esophagusBiopsy)
-//                .biosample(lymphNodeBiopsy)
-//                .biosample(lungBiopsy)
-//                .disease(disease)
                 .build();
     }
+
+
+
 
 
     MedicalAction melphalan() {
@@ -59,28 +63,40 @@ public class Retinoblastoma {
                 .routeOfAdministration(administration)
                 .doseInterval(doseInterval).build();
 
-        MedicalAction action = MedicalActionBuilder.create(treatment)
+        return MedicalActionBuilder.create(treatment)
                 .adverseEvent(ontologyClass("HP:0025637", "Vasospasm"))
                 .treatmentTarget(ontologyClass("NCIT:C7541", "Retinoblastoma"))
                 .treatmentIntent(ontologyClass("NCIT:C62220", "Cure"))
                 .treatmentTerminationReason(ontologyClass("NCIT:C41331", "Adverse Event"))
                 .build();
-
-        return action;
     }
 
-    List<MedicalAction> medicalActions() {
 
-        return List.of(melphalan());
+    MedicalAction enucleation() {
+        ProcedureBuilder builder = ProcedureBuilder.create("NCIT:C48601", "Enucleation");
+        TimeElement age = TimeElements.age("P8M2W");
+        builder.bodySite(leftEye).performed(age);
+        MedicalActionBuilder mabuilder = MedicalActionBuilder.create(builder.build())
+                .treatmentTarget(ontologyClass("NCIT:C7541", "Retinoblastoma"))
+                .treatmentIntent(ontologyClass("NCIT:C62220", "Cure"));
+        return mabuilder.build();
     }
 
-    /*
-     agent:
-            id:
-        routeOfAdministration:
-            id:
-
+    /**
+     * NCIT:C10894, Carboplatin/Etoposide/Vincristine
+     * @return MedicalAction message representing treatment with a regimen of these three chemotherapeutics
      */
+    MedicalAction chemoRegimen() {
+        TherapeuticRegimenBuilder builder = TherapeuticRegimenBuilder.create("NCIT:C10894", "Carboplatin/Etoposide/Vincristine");
+        builder.completed();
+        TimeElement start = TimeElements.age("P7M");
+        TimeElement end = TimeElements.age("P8M");
+        builder.startTime(start).endTime(end);
+        MedicalActionBuilder mabuilder = MedicalActionBuilder.create(builder.build())
+                .treatmentTarget(ontologyClass("NCIT:C7541", "Retinoblastoma"))
+                .treatmentIntent(ontologyClass("NCIT:C62220", "Cure"));
+        return mabuilder.build();
+    }
 
 
 
@@ -91,7 +107,7 @@ public class Retinoblastoma {
         // Retinoblastoma ,  NCIT:C7541
         OntologyClass stageE = ontologyClass("LOINC:LA24739-7", "Group E");
         OntologyClass retinoblastoma = ontologyClass("NCIT:C7541", "Retinoblastoma");
-        OntologyClass leftEye = ontologyClass("UBERON:0004548", "left eye");
+
         TimeElement age4m = TimeElements.age("P4M");
         return DiseaseBuilder.create(retinoblastoma)
                 .onset(age4m)
