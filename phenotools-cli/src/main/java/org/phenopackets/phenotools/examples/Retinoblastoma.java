@@ -30,7 +30,8 @@ public class Retinoblastoma {
                 female().
                 XX().
                 build();
-
+        // VCF file with results of germline whole-genome sequencing
+        File wgsFile = FileBuilder.file("file://data/germlineWgs.vcf.gz");
 
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
@@ -40,11 +41,71 @@ public class Retinoblastoma {
                 .medicalAction(melphalan())
                 .medicalAction(chemoRegimen())
                 .medicalAction(enucleation())
-//                .biosample(esophagusBiopsy)
+                .biosample(enucleatedEye())
+                .file(wgsFile)
                 .build();
     }
 
+    /**
+     * Can be used for the multisample VCF file for germline WGS in this family
+     * @return a pedigree object in which just the proband is affected (de novo variant)
+     */
+    Pedigree pedigree() {
+        String family_id = "family.1";
+        String mother_id = "maternal1";
+        String father_id = "paternal1";
+        Pedigree.Person mother = PersonBuilder
+                .createWithUnknownParentId(family_id, mother_id)
+                .female()
+                .unaffected()
+                .build();
+        Pedigree.Person father = PersonBuilder
+                .createWithUnknownParentId(family_id, father_id)
+                .male()
+                .unaffected()
+                .build();
+        Pedigree.Person child = PersonBuilder
+                .create(family_id, PROBAND_ID, father_id, mother_id)
+                .female()
+                .affected()
+                .build();
+        PedigreeBuilder pbuilder = PedigreeBuilder.create();
+        pbuilder.person(father);
+        pbuilder.person(mother);
+        pbuilder.person(child);
+        return pbuilder.build();
+    }
 
+
+    Biosample enucleatedEye() {
+        String biosampleId = "biosample.1";
+        BiosampleBuilder builder = BiosampleBuilder.create(biosampleId);
+        builder.sampledTissue(eye());
+        //Retinoblastoma with tumor invading optic nerve past lamina cribrosa but not to surgical resection line and exhibiting massive choroidal invasion.
+        builder.pathologicalTnmFinding(ontologyClass("NCIT:C88735",
+                "Retinoblastoma pT3b TNM Finding v7"));
+        //Retinoblastoma with no regional lymph node involvement.
+        builder.pathologicalTnmFinding(ontologyClass("NCIT:C88741",
+                "Retinoblastoma pN0 TNM Finding v7"));
+
+        //
+        OntologyClass fwRosette = ontologyClass("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
+        PhenotypicFeature pfRosette = PhenotypicFeatureBuilder.create(fwRosette).build();
+        builder.phenotypicFeature(pfRosette);
+        OntologyClass apoptosisNecrosis = ontologyClass("NCIT:C132485", "Apoptosis and Necrosis");
+        PhenotypicFeature pfApoptosis = PhenotypicFeatureBuilder.create(apoptosisNecrosis).build();
+        builder.phenotypicFeature(pfApoptosis);
+
+        ProcedureBuilder pbuilder = ProcedureBuilder.create("NCIT:C48601", "Enucleation");
+        TimeElement age = TimeElements.age("P8M2W");
+        pbuilder.bodySite(leftEye).performed(age);
+        builder.procedure(pbuilder.build());
+        builder.tumorProgression(primaryNeoplasm());
+        // VCF file with results of whole-genome sequencing on this tumor
+        File wgsFile = FileBuilder.file("file://data/fileSomaticWgs.vcf.gz");
+        builder.file(wgsFile);
+        return builder.build();
+    }
 
 
 

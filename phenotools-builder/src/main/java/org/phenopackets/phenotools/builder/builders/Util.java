@@ -16,20 +16,44 @@ public class Util {
         return ontologyClass("UO:0000272", "millimetres of mercury");
     }
 
-    public static OntologyClass mm() { return ontologyClass("UO:0000016", "millimeter"); }
+    public static OntologyClass mm() {
+        return ontologyClass("UO:0000016", "millimeter");
+    }
 
-    public static OntologyClass mm_per_kg() { return ontologyClass("UO:0000308", "milliliter per kilogram"); }
+    public static OntologyClass mm_per_kg() {
+        return ontologyClass("UO:0000308", "milliliter per kilogram");
+    }
 
 
+    public static OntologyClass biopsy() {
+        return ontologyClass("NCIT:C15189", "Biopsy");
+    }
 
-    public static OntologyClass biopsy() { return ontologyClass("NCIT:C15189","Biopsy"); }
+    public static OntologyClass right() {
+        return ontologyClass("HP:0012834", "Right ");
+    }
 
-    public static OntologyClass right() { return ontologyClass("HP:0012834", "Right "); }
+    public static OntologyClass left() {
+        return ontologyClass("HP:0012835", "Left");
+    }
 
-    public static OntologyClass left() { return ontologyClass("HP:0012835", "Left"); }
+    public static OntologyClass unilateral() {
+        return ontologyClass("HP:0012833", "Unilateral");
+    }
 
-    public static OntologyClass unilateral() { return ontologyClass("HP:0012833", "Unilateral"); }
+    public static OntologyClass bilateral() {
+        return ontologyClass("HP:0012832", "Bilateral");
+    }
 
-    public static OntologyClass bilateral() { return ontologyClass("HP:0012832", "Bilateral"); }
+    // Organs
+    public static OntologyClass eye() {
+        return ontologyClass("UBERON:0000970", "eye");
+    }
+
+
+    public static OntologyClass primaryNeoplasm() {
+        return ontologyClass("NCIT:C8509", "Primary Neoplasm");
+    }
 
 }
+
