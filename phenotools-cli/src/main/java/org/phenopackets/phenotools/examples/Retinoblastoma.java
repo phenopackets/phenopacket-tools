@@ -13,6 +13,7 @@ import static org.phenopackets.phenotools.builder.builders.Util.*;
 public class Retinoblastoma {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
+    private static final String BIOSAMPLE_ID = "biosample.1";
     private static final OntologyClass BIOPSY = ontologyClass("NCIT:C15189", "Biopsy");
 
     private final OntologyClass leftEye = ontologyClass("UBERON:0004548", "left eye");
@@ -178,17 +179,12 @@ public class Retinoblastoma {
     }
 
 
-    List<MedicalAction> getMedicalActions() {
-
-
-        return List.of();
-    }
-
 
     Biosample getBiosample() {
+        BiosampleBuilder builder = BiosampleBuilder.create(BIOSAMPLE_ID);
+       // builder.
 
-
-        return null;
+        return builder.build();
     }
 
 
