@@ -1,5 +1,6 @@
 package org.phenopackets.phenotools.examples;
 
+import org.ga4gh.vrsatile.v1.VariationDescriptor;
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
@@ -15,6 +16,7 @@ public class Retinoblastoma {
     private static final String PROBAND_ID = "proband A";
     private static final String BIOSAMPLE_ID = "biosample.1";
     private static final OntologyClass BIOPSY = ontologyClass("NCIT:C15189", "Biopsy");
+    private static final OntologyClass retinoblastoma = ontologyClass("NCIT:C7541", "Retinoblastoma");
 
     private final OntologyClass leftEye = ontologyClass("UBERON:0004548", "left eye");
 
@@ -43,8 +45,41 @@ public class Retinoblastoma {
                 .medicalAction(chemoRegimen())
                 .medicalAction(enucleation())
                 .biosample(enucleatedEye())
+                .interpretation(interpretation())
                 .file(wgsFile)
                 .build();
+    }
+
+
+    Interpretation interpretation() {
+        InterpretationBuilder ibuilder = InterpretationBuilder.solved("interpretation.id");
+        GenomicInterpretation somatic = somaticRb1Missense();
+         DiagnosisBuilder dbuilder = DiagnosisBuilder.create(retinoblastoma);
+         dbuilder.genomicInterpretation(somatic);
+         ibuilder.diagnosis(dbuilder.build());
+         return ibuilder.build();
+    }
+
+
+    /**
+     * Variation ID:126824 (ClinGen pathogenic)
+     * @return
+     */
+    GenomicInterpretation somaticRb1Missense() {
+        AlleleBuilder abuilder = AlleleBuilder.create();
+        abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
+        abuilder.startEnd( 48941647, 48941648);
+        abuilder.setAltAllele("T");
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create("rs121913300");
+        vbuilder.variation(abuilder.buildVariation());
+        vbuilder.genomic();
+        vbuilder.heterozygous();
+
+        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.create("interpretation.1");
+        gbuilder.candidate();
+        //gbuilder.variantInterpretation(vbuilder.build());
+
+        return gbuilder.build();
     }
 
     /**
@@ -168,7 +203,7 @@ public class Retinoblastoma {
         //  Group E = LOINC:LA24739-7
         // Retinoblastoma ,  NCIT:C7541
         OntologyClass stageE = ontologyClass("LOINC:LA24739-7", "Group E");
-        OntologyClass retinoblastoma = ontologyClass("NCIT:C7541", "Retinoblastoma");
+
 
         TimeElement age4m = TimeElements.age("P4M");
         return DiseaseBuilder.create(retinoblastoma)

@@ -8,28 +8,22 @@ import java.util.List;
 
 public class DiagnosisBuilder {
 
-    private DiagnosisBuilder() {
+    private Diagnosis.Builder builder;
+
+    private DiagnosisBuilder(OntologyClass disease) {
+        builder = Diagnosis.newBuilder().setDisease(disease);
     }
 
-    public static Diagnosis diagnosis(OntologyClass disease) {
-        return Diagnosis.newBuilder().setDisease(disease).build();
+    public DiagnosisBuilder genomicInterpretation(GenomicInterpretation interpretation) {
+        builder.addGenomicInterpretations(interpretation);
+        return this;
     }
 
-    public static Diagnosis diagnosis(OntologyClass disease, GenomicInterpretation genomicInterpretation) {
-        return Diagnosis.newBuilder()
-                .setDisease(disease)
-                .addGenomicInterpretations(genomicInterpretation)
-                .build();
+    public static DiagnosisBuilder create(OntologyClass disease) {
+        return new DiagnosisBuilder(disease);
     }
 
-    public static Diagnosis diagnosis(OntologyClass disease, GenomicInterpretation... genomicInterpretations) {
-        return diagnosis(disease, List.of(genomicInterpretations));
-    }
-
-    public static Diagnosis diagnosis(OntologyClass disease, List<GenomicInterpretation> genomicInterpretations) {
-        return Diagnosis.newBuilder()
-                .setDisease(disease)
-                .addAllGenomicInterpretations(genomicInterpretations)
-                .build();
+    public Diagnosis build() {
+        return builder.build();
     }
 }

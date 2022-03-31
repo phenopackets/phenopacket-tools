@@ -33,7 +33,9 @@ class BethlehamMyopathy implements PhenopacketExample {
         var col6a1VariantInterpretation =
                 VariantInterpretationBuilder.variantInterpretation(variationDescriptor, Status.pathogenic());
         var genomicInterpretation =
-                GenomicInterpretationBuilder.genomicInterpretation(INTERPRETATION_ID, CAUSATIVE, col6a1VariantInterpretation);
+                GenomicInterpretationBuilder.create(INTERPRETATION_ID)
+                        .causative()
+                        .variantInterpretation(col6a1VariantInterpretation).build();
         var diagnosis = Diagnosis.newBuilder()
                 .setDisease(bethlehamMyopathy).addGenomicInterpretations(genomicInterpretation).build();
         var interpretation = InterpretationBuilder.interpretation(INTERPRETATION_ID, Status.completed(), diagnosis);

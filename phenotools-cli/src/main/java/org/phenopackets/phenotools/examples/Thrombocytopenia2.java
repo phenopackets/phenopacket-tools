@@ -4,8 +4,6 @@ import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
 
-import static org.phenopackets.phenotools.builder.builders.DiagnosisBuilder.diagnosis;
-import static org.phenopackets.phenotools.builder.builders.GenomicInterpretationBuilder.genomicInterpretation;
 import static org.phenopackets.phenotools.builder.builders.InterpretationBuilder.interpretation;
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 import static org.phenopackets.phenotools.builder.builders.VariantInterpretationBuilder.variantInterpretation;
@@ -33,8 +31,11 @@ class Thrombocytopenia2 implements PhenopacketExample {
                         .build();
         var col6a1VariantInterpretation = variantInterpretation(variationDescriptor, Status.pathogenic());
         var genomicInterpretation =
-                genomicInterpretation("genomic interpretation id", Status.causative(), col6a1VariantInterpretation);
-        var diagnosis = diagnosis(thrombocytopenia2, genomicInterpretation);
+                GenomicInterpretationBuilder.create("genomic interpretation id")
+                    .causative()
+                        .variantInterpretation(col6a1VariantInterpretation)
+                        .build();
+        var diagnosis = DiagnosisBuilder.create(thrombocytopenia2).genomicInterpretation(genomicInterpretation).build();
         var interpretation = interpretation(INTERPRETATION_ID, Status.completed(), diagnosis);
         var excludedAbnormalPlateletSize =
                 PhenotypicFeatureBuilder.create("HP:0011876", "Abnormal platelet volume")

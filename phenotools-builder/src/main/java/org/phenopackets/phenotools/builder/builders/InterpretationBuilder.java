@@ -1,14 +1,20 @@
 package org.phenopackets.phenotools.builder.builders;
 
 import org.phenopackets.schema.v2.core.Diagnosis;
+import org.phenopackets.schema.v2.core.GenomicInterpretation;
 import org.phenopackets.schema.v2.core.Interpretation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InterpretationBuilder {
 
     private final Interpretation.Builder builder;
+    private final List<GenomicInterpretation> genomicInterpretations;
 
     private InterpretationBuilder(String id, Interpretation.ProgressStatus status) {
         builder = Interpretation.newBuilder().setId(id).setProgressStatus(status);
+        genomicInterpretations = new ArrayList<>();
     }
 
     public static Interpretation interpretation(String id, Interpretation.ProgressStatus status) {
@@ -27,13 +33,14 @@ public class InterpretationBuilder {
         return new InterpretationBuilder(id, status);
     }
 
-    public InterpretationBuilder diagnosis(Diagnosis dx) {
-        builder.setDiagnosis(dx);
-        return this;
-    }
 
     public InterpretationBuilder summary(String sm) {
         builder.setSummary(sm);
+        return this;
+    }
+
+    public InterpretationBuilder diagnosis(Diagnosis diagnosis) {
+        builder.setDiagnosis(diagnosis);
         return this;
     }
 
@@ -56,4 +63,6 @@ public class InterpretationBuilder {
     public Interpretation build() {
         return builder.build();
     }
+
+
 }
