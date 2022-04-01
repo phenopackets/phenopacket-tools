@@ -65,7 +65,7 @@ public class Retinoblastoma {
 
     /**
      * Variation ID:126824 (ClinGen pathogenic)
-     * @return
+     * @return Genomic interpretation related to a somatic missense mutation in the RB1 gene.
      */
     GenomicInterpretation somaticRb1Missense() {
         AlleleBuilder abuilder = AlleleBuilder.create();

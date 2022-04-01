@@ -66,7 +66,7 @@ public class AlleleBuilder {
 
     /**
      * Wrap the Allele message in a Variation message
-     * @return
+     * @return The constructed Variant message that contains the Allele and if provided SequenceLocation information.
      */
     public Variation buildVariation() {
         if (slbuilder.hasSequenceInterval()) {

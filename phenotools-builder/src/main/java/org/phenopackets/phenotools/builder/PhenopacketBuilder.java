@@ -1,6 +1,5 @@
 package org.phenopackets.phenotools.builder;
 
-import org.phenopackets.phenotools.builder.builders.PedigreeBuilder;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 

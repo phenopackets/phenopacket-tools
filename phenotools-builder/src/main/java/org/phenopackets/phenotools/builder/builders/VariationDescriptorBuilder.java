@@ -1,6 +1,5 @@
 package org.phenopackets.phenotools.builder.builders;
 
-import com.google.errorprone.annotations.Var;
 import org.ga4gh.vrs.v1.Variation;
 import org.ga4gh.vrsatile.v1.*;
 import org.phenopackets.schema.v2.core.OntologyClass;

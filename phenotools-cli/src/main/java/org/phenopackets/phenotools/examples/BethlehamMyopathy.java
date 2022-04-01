@@ -7,7 +7,6 @@ import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-import static org.phenopackets.schema.v2.core.GenomicInterpretation.InterpretationStatus.*;
 
 class BethlehamMyopathy implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary proband id";

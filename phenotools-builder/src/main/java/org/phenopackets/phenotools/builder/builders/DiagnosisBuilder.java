@@ -4,11 +4,9 @@ import org.phenopackets.schema.v2.core.Diagnosis;
 import org.phenopackets.schema.v2.core.GenomicInterpretation;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
-import java.util.List;
-
 public class DiagnosisBuilder {
 
-    private Diagnosis.Builder builder;
+    private final Diagnosis.Builder builder;
 
     private DiagnosisBuilder(OntologyClass disease) {
         builder = Diagnosis.newBuilder().setDisease(disease);
