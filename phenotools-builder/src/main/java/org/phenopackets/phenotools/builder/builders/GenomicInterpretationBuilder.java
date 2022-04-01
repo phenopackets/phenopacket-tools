@@ -54,6 +54,12 @@ public class GenomicInterpretationBuilder {
         return this;
     }
 
+
+    public GenomicInterpretationBuilder variantInterpretation(VariantInterpretationBuilder vibuilder) {
+        builder.setVariantInterpretation(vibuilder.build());
+        return this;
+    }
+
     public GenomicInterpretation build() {
         return builder.build();
     }

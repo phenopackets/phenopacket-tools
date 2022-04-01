@@ -1,6 +1,7 @@
 package org.phenopackets.phenotools.examples;
 
-import org.ga4gh.vrsatile.v1.VariationDescriptor;
+import org.ga4gh.vrsatile.v1.Expression;
+import org.ga4gh.vrsatile.v1.GeneDescriptor;
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
@@ -56,6 +57,7 @@ public class Retinoblastoma {
         GenomicInterpretation somatic = somaticRb1Missense();
          DiagnosisBuilder dbuilder = DiagnosisBuilder.create(retinoblastoma);
          dbuilder.genomicInterpretation(somatic);
+         dbuilder.genomicInterpretation(germlineRb1Deletion());
          ibuilder.diagnosis(dbuilder.build());
          return ibuilder.build();
     }
@@ -74,12 +76,45 @@ public class Retinoblastoma {
         vbuilder.variation(abuilder.buildVariation());
         vbuilder.genomic();
         vbuilder.heterozygous();
+        vbuilder.label("RB1 c.958C>T (p.Arg320Ter)");
+        vbuilder.transcript();
+        GeneDescriptor geneDescriptor = GeneDescriptorBuilder.create("HGNC:9884", "BR1").build();
+        vbuilder.geneContext(geneDescriptor);
+        Expression hgvs = Expressions.hgvsCdna("NM_000321.2:c.958C>T");
+        Expression transcriptReference = Expressions.transcriptReference("NM_000321.2");
+        vbuilder.expression(hgvs);
+        vbuilder.expression(transcriptReference);
+        // wrap in VariantInterpretation
+        VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.create(vbuilder);
+        vibuilder.pathogenic();
+        vibuilder.actionable();
+
 
         GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.create("interpretation.1");
-        gbuilder.candidate();
-        //gbuilder.variantInterpretation(vbuilder.build());
+        gbuilder.causative();
+        gbuilder.variantInterpretation(vibuilder);
 
         return gbuilder.build();
+    }
+
+
+    GenomicInterpretation germlineRb1Deletion() {
+        CopyNumberBuilder abuilder = CopyNumberBuilder.create();
+        abuilder.copyNumberId("ga4gh:VCN.AFfJws1M4Lg8w1O3XknmHYc9TU2hHYpp");
+        abuilder.startEnd(26555377, 62280955);//VRS uses inter-residue coordinates
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create();
+      //  vbuilder.variation(abuilder.build());
+
+        VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.create(vbuilder);
+        vibuilder.pathogenic();
+        vibuilder.actionable();
+
+        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.create("interpretation.1");
+        gbuilder.causative();
+        gbuilder.variantInterpretation(vibuilder);
+
+        return gbuilder.build();
+
     }
 
     /**

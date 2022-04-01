@@ -33,6 +33,10 @@ public class VariantInterpretationBuilder {
         return new VariantInterpretationBuilder(descriptor);
     }
 
+    public static VariantInterpretationBuilder create(VariationDescriptorBuilder builder) {
+        return new VariantInterpretationBuilder(builder.build());
+    }
+
     public VariantInterpretationBuilder benign() {
         builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.BENIGN);
         return this;

@@ -58,7 +58,9 @@ public class AlleleBuilder {
     }
 
     public Allele build() {
-        builder.setSequenceLocation(slbuilder);
+        if (slbuilder.hasSequenceInterval()) {
+            builder.setSequenceLocation(slbuilder);
+        }
         return builder.build();
     }
 
@@ -67,6 +69,9 @@ public class AlleleBuilder {
      * @return
      */
     public Variation buildVariation() {
+        if (slbuilder.hasSequenceInterval()) {
+            builder.setSequenceLocation(slbuilder);
+        }
         return Variation.newBuilder().setAllele(builder.build()).build();
     }
 }

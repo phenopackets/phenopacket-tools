@@ -1,5 +1,6 @@
 package org.phenopackets.phenotools.builder.builders;
 
+import com.google.errorprone.annotations.Var;
 import org.ga4gh.vrs.v1.Variation;
 import org.ga4gh.vrsatile.v1.*;
 import org.phenopackets.schema.v2.core.OntologyClass;
@@ -81,6 +82,12 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
+    public VariationDescriptorBuilder transcript() {
+        builder.setMoleculeContext(MoleculeContext.transcript);
+        return this;
+    }
+
+
     public VariationDescriptorBuilder structuralType(OntologyClass clz) {
         builder.setStructuralType(clz);
         return this;
@@ -131,6 +138,10 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
+    public VariationDescriptorBuilder expression(Expression expression) {
+        builder.addExpressions(expression);
+        return this;
+    }
 
     public VariationDescriptor build() {
         return builder.build();
