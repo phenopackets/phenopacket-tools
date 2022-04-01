@@ -1,9 +1,7 @@
 package org.phenopackets.phenotools.builder.builders;
 
-import org.ga4gh.vrs.v1.CopyNumber;
+import org.ga4gh.vrs.v1.*;
 import org.ga4gh.vrs.v1.Number;
-import org.ga4gh.vrs.v1.SequenceInterval;
-import org.ga4gh.vrs.v1.SequenceLocation;
 
 public class CopyNumberBuilder {
 
@@ -12,6 +10,7 @@ public class CopyNumberBuilder {
 
     private CopyNumberBuilder() {
         this.builder = CopyNumber.newBuilder();
+
         slbuilder = SequenceLocation.newBuilder();
     }
 
@@ -30,13 +29,20 @@ public class CopyNumberBuilder {
 
 
     public CopyNumber build() {
-//        if (slbuilder.hasSequenceInterval()) {
-//            builder.setSequenceLocation(slbuilder);
-//        }
         return builder.build();
     }
 
+    /**
+     * Wrap the Allele message in a Variation message
+     * @return The constructed Variant message that contains the Allele and if provided SequenceLocation information.
+     */
+    public Variation buildVariation() {
+        return Variation.newBuilder().setCopyNumber(builder).build();
+
+    }
     public static CopyNumberBuilder create() {
         return new CopyNumberBuilder();
     }
+
+
 }

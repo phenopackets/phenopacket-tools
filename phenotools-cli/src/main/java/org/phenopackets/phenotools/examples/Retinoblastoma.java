@@ -103,7 +103,7 @@ public class Retinoblastoma {
         abuilder.copyNumberId("ga4gh:VCN.AFfJws1M4Lg8w1O3XknmHYc9TU2hHYpp");
         abuilder.startEnd(26555377, 62280955);//VRS uses inter-residue coordinates
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create();
-      //  vbuilder.variation(abuilder.build());
+        vbuilder.variation(abuilder.buildVariation());
 
         VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.create(vbuilder);
         vibuilder.pathogenic();
