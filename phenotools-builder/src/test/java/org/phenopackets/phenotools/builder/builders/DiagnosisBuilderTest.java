@@ -2,11 +2,11 @@ package org.phenopackets.phenotools.builder.builders;
 
 import org.junit.jupiter.api.Test;
 import org.phenopackets.schema.v2.core.Diagnosis;
-
-import java.util.List;
+import org.phenopackets.schema.v2.core.GenomicInterpretation;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 import static org.phenopackets.phenotools.builder.builders.VariantInterpretationBuilder.variantInterpretation;
 
@@ -20,16 +20,19 @@ class DiagnosisBuilderTest {
                         .hgvs("NM_014915.2:c.-128G>A")
                         .build();
         var col6a1VariantInterpretation = variantInterpretation(variationDescriptor, Status.pathogenic());
-        var genomicInterpretation =
+        var genomicInterpretationBuilder =
                 GenomicInterpretationBuilder.create("genomic interpretation id");
-        genomicInterpretation.causative();
-        genomicInterpretation.variantInterpretation(col6a1VariantInterpretation);
+        genomicInterpretationBuilder.causative();
+        genomicInterpretationBuilder.variantInterpretation(col6a1VariantInterpretation);
+        var expectedGenomicInterpretation = genomicInterpretationBuilder.build();
         var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
         Diagnosis diagnosis = DiagnosisBuilder.create(thrombocytopenia2).
-                genomicInterpretation(genomicInterpretation.build())
+                genomicInterpretation(expectedGenomicInterpretation)
                 .build();
         assertThat(diagnosis.getDisease(), equalTo(thrombocytopenia2));
-        assertThat(diagnosis.getGenomicInterpretationsList(), equalTo(List.of(genomicInterpretation)));
+        assertEquals(1, diagnosis.getGenomicInterpretationsCount());
+        GenomicInterpretation genomicInterpretation1 = diagnosis.getGenomicInterpretations(0);
+        assertEquals(expectedGenomicInterpretation, genomicInterpretation1);
     }
 
     @Test

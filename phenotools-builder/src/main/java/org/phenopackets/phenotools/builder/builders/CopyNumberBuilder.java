@@ -24,12 +24,31 @@ public class CopyNumberBuilder {
                 .setEndNumber(Number.newBuilder().setValue(endPos))
                 .build();
         slbuilder.setSequenceInterval(interval);
+        builder.setDefiniteRange(DefiniteRange.newBuilder().setMin(startPos).setMax(endPos).getDefaultInstanceForType());
         return this;
     }
 
 
     public CopyNumber build() {
         return builder.build();
+    }
+
+    public CopyNumberBuilder oneCopy() {
+        builder.setNumber(Number.newBuilder().setValue(1));
+        return this;
+    }
+    public CopyNumberBuilder twoCopies() {
+        builder.setNumber(Number.newBuilder().setValue(2));
+        return this;
+    }
+    public CopyNumberBuilder threeCopies() {
+        builder.setNumber(Number.newBuilder().setValue(3));
+        return this;
+    }
+
+    public CopyNumberBuilder nCopies(int n) {
+        builder.setNumber(Number.newBuilder().setValue(n));
+        return this;
     }
 
     /**
