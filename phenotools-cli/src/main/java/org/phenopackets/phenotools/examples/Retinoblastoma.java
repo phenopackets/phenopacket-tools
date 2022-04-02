@@ -110,7 +110,7 @@ public class Retinoblastoma {
         vibuilder.pathogenic();
         vibuilder.actionable();
 
-        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.create("interpretation.1");
+        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.create("interpretation.2");
         gbuilder.causative();
         gbuilder.variantInterpretation(vibuilder);
 
