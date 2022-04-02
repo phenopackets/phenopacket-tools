@@ -18,13 +18,17 @@ public class CopyNumberBuilder {
         builder.setId(id);
         return this;
     }
-    public CopyNumberBuilder startEnd(int startPos, int endPos) {
+    public CopyNumberBuilder alleleLocation(String contig, int startPos, int endPos) {
         SequenceInterval interval = SequenceInterval.newBuilder()
                 .setStartNumber(Number.newBuilder().setValue(startPos))
                 .setEndNumber(Number.newBuilder().setValue(endPos))
                 .build();
         slbuilder.setSequenceInterval(interval);
         builder.setDefiniteRange(DefiniteRange.newBuilder().setMin(startPos).setMax(endPos).getDefaultInstanceForType());
+        AlleleBuilder alleleBuilder = AlleleBuilder.create();
+        alleleBuilder.startEnd(startPos, endPos);
+        alleleBuilder.chromosomeLocation(contig);
+        builder.setAllele(alleleBuilder.build());
         return this;
     }
 

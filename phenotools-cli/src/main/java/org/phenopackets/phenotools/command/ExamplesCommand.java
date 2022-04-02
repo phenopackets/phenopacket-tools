@@ -107,6 +107,7 @@ public class ExamplesCommand implements Callable<Integer> {
             outputPhenopacket("squamous-cell-esophageal-carcinoma.json", PhenopacketExamples.squamousCellEsophagealCarcinoma());
             outputPhenopacket("urothelial-cancer.json", PhenopacketExamples.urothelialCarcinoma());
             outputPhenopacket("covid.json", PhenopacketExamples.covid19());
+            outputPhenopacket("retinoblastoma.json", PhenopacketExamples.retinoblastoma());
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return 1;

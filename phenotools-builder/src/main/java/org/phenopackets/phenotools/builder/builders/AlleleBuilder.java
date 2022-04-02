@@ -33,6 +33,11 @@ public class AlleleBuilder {
         return this;
     }
 
+    public AlleleBuilder chromosomeLocation(String chrom) {
+        builder.setChromosomeLocation(ChromosomeLocation.newBuilder().setChr(chrom));
+        return this;
+    }
+
     public AlleleBuilder startEnd(int start, int end) {
         SequenceInterval interval = SequenceInterval.newBuilder()
                 .setStartNumber(Number.newBuilder().setValue(start))

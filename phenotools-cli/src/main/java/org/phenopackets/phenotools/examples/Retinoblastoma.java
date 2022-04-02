@@ -101,7 +101,8 @@ public class Retinoblastoma {
     GenomicInterpretation germlineRb1Deletion() {
         CopyNumberBuilder abuilder = CopyNumberBuilder.create();
         abuilder.copyNumberId("ga4gh:VCN.AFfJws1M4Lg8w1O3XknmHYc9TU2hHYpp");
-        abuilder.startEnd(26555377, 62280955);//VRS uses inter-residue coordinates
+        abuilder.alleleLocation("chr13",26555377, 62280955);//VRS uses inter-residue coordinates
+        abuilder.oneCopy();
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create();
         vbuilder.variation(abuilder.buildVariation());
 
