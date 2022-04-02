@@ -78,7 +78,7 @@ public class Retinoblastoma {
         vbuilder.heterozygous();
         vbuilder.label("RB1 c.958C>T (p.Arg320Ter)");
         vbuilder.transcript();
-        GeneDescriptor geneDescriptor = GeneDescriptorBuilder.create("HGNC:9884", "BR1").build();
+        GeneDescriptor geneDescriptor = GeneDescriptorBuilder.create("HGNC:9884", "RB1").build();
         vbuilder.geneContext(geneDescriptor);
         Expression hgvs = Expressions.hgvsCdna("NM_000321.2:c.958C>T");
         Expression transcriptReference = Expressions.transcriptReference("NM_000321.2");
@@ -238,13 +238,16 @@ public class Retinoblastoma {
         // Stage E
         //  Group E = LOINC:LA24739-7
         // Retinoblastoma ,  NCIT:C7541
+        // No metastasis is NCIT:C140678, Retinoblastoma cM0 TNM Finding v8
+        //Retinoblastoma with no signs or symptoms of intracranial or distant metastasis. (from AJCC 8th Ed.) [ NCI ]
         OntologyClass stageE = ontologyClass("LOINC:LA24739-7", "Group E");
-
+        OntologyClass noMetastasis = ontologyClass("NCIT:C140678", "Retinoblastoma cM0 TNM Finding v8");
 
         TimeElement age4m = TimeElements.age("P4M");
         return DiseaseBuilder.create(retinoblastoma)
                 .onset(age4m)
                 .diseaseStage(stageE)
+                .clinicalTnmFinding(noMetastasis)
                 .primarySite(leftEye)
                 .build();
     }
