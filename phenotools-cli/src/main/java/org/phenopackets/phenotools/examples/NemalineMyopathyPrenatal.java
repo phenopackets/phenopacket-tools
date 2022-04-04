@@ -14,6 +14,12 @@ import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.
 import static org.phenopackets.phenotools.builder.builders.TimeElements.gestationalAge;
 import static org.phenopackets.phenotools.builder.builders.Util.eye;
 
+/**
+ * From Clin. Exp. Obstet. Gynecol. - ISSN: 0390-6663
+ * XLVII, n. 6, 2020
+ * doi: 10.31083/j.ceog.2020.06.209
+ * (Not in PubMed)
+ */
 class NemalineMyopathyPrenatal implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
