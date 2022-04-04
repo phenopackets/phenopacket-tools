@@ -73,11 +73,11 @@ public class Retinoblastoma {
         abuilder.startEnd( 48941647, 48941648);
         abuilder.setAltAllele("T");
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create("rs121913300");
-        vbuilder.variation(abuilder.buildVariation());
-        vbuilder.genomic();
-        vbuilder.heterozygous();
-        vbuilder.label("RB1 c.958C>T (p.Arg320Ter)");
-        vbuilder.transcript();
+        vbuilder.variation(abuilder.buildVariation())
+                .genomic()
+                .heterozygous()
+                .label("RB1 c.958C>T (p.Arg320Ter)")
+                .transcript();
         GeneDescriptor geneDescriptor = GeneDescriptorBuilder.create("HGNC:9884", "RB1").build();
         vbuilder.geneContext(geneDescriptor);
         Expression hgvs = Expressions.hgvsCdna("NM_000321.2:c.958C>T");
@@ -151,6 +151,7 @@ public class Retinoblastoma {
 
     Biosample enucleatedEye() {
         String biosampleId = "biosample.1";
+        TimeElement age = TimeElements.age("P8M2W");
         BiosampleBuilder builder = BiosampleBuilder.create(biosampleId);
         builder.sampledTissue(eye());
         //Retinoblastoma with tumor invading optic nerve past lamina cribrosa but not to surgical resection line and exhibiting massive choroidal invasion.
@@ -167,9 +168,13 @@ public class Retinoblastoma {
         OntologyClass apoptosisNecrosis = ontologyClass("NCIT:C132485", "Apoptosis and Necrosis");
         PhenotypicFeature pfApoptosis = PhenotypicFeatureBuilder.create(apoptosisNecrosis).build();
         builder.phenotypicFeature(pfApoptosis);
+        OntologyClass maxTumorSizeTest = OntologyClassBuilder.ontologyClass("LOINC:33728-7", "Size.maximum dimension in Tumor");
+        Value maxTumorSize = ValueBuilder.value(mm(), 15);
+        Measurement maxTumorSizeMeasurement = MeasurementBuilder.value(maxTumorSizeTest, maxTumorSize).timeObserved(age).build();
+        builder.measurement(maxTumorSizeMeasurement);
 
         ProcedureBuilder pbuilder = ProcedureBuilder.create("NCIT:C48601", "Enucleation");
-        TimeElement age = TimeElements.age("P8M2W");
+
         pbuilder.bodySite(leftEye).performed(age);
         builder.procedure(pbuilder.build());
         builder.tumorProgression(primaryNeoplasm());
@@ -254,14 +259,6 @@ public class Retinoblastoma {
 
 
 
-    Biosample getBiosample() {
-        BiosampleBuilder builder = BiosampleBuilder.create(BIOSAMPLE_ID);
-       // builder.
-
-        return builder.build();
-    }
-
-
 
     List<PhenotypicFeature> getPhenotypicFeatures() {
         OntologyClass clinodactyly = ontologyClass("HP:0030084", "Clinodactyly");
@@ -315,11 +312,7 @@ public class Retinoblastoma {
         Measurement rightEyeMeasurement = MeasurementBuilder.value(rightEyeIop, rightEyeValue).timeObserved(age).build();
        //33728-7 Size.maximum dimension in Tumor
         //14 × 13 × 11 mm left eye tumor
-        OntologyClass maxTumorSizeTest = OntologyClassBuilder.ontologyClass("LOINC:33728-7", "Size.maximum dimension in Tumor");
-        Value maxTumorSize = ValueBuilder.value(mm(), 15);
-        Measurement maxTumorSizeMeasurement = MeasurementBuilder.value(maxTumorSizeTest, maxTumorSize).timeObserved(age).build();
-
-        return List.of(leftEyeMeasurement, rightEyeMeasurement, maxTumorSizeMeasurement);
+        return List.of(leftEyeMeasurement, rightEyeMeasurement);
     }
 
     public Phenopacket getPhenopacket() {

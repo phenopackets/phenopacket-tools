@@ -30,7 +30,7 @@ public class Util {
     }
 
     public static OntologyClass right() {
-        return ontologyClass("HP:0012834", "Right ");
+        return ontologyClass("HP:0012834", "Right");
     }
 
     public static OntologyClass left() {
