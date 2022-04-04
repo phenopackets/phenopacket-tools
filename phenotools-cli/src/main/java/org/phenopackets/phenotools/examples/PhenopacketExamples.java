@@ -7,7 +7,7 @@ public class PhenopacketExamples {
     private static final Phenopacket BETHLEM_MYOPATHY = new BethlehamMyopathy().getPhenopacket();
     private static final Phenopacket THROMBOCYTOPENIA = new Thrombocytopenia2().getPhenopacket();
     private static final Phenopacket MARFAN_SYNDROME = new Marfan().getPhenopacket();
-    private static final Phenopacket AML = new Aml().getPhenopacket();
+    private static final Phenopacket AML = new NemalineMyopathyPrenatal().getPhenopacket();
     private static final Phenopacket SCC = new SquamousCellCancer().getPhenopacket();
     private static final Phenopacket UROTHELIAL_CARCINOMA = new UrothelialCancer().getPhenopacket();
     private static final Phenopacket COVID_19 = new Covid().getPhenopacket();

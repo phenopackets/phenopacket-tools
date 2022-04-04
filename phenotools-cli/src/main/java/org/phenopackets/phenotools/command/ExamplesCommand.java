@@ -86,7 +86,7 @@ public class ExamplesCommand implements Callable<Integer> {
             outputYamlPhenopacket("bethleham-myopathy.yml", PhenopacketExamples.bethlemMyopathy());
             outputYamlPhenopacket("thrombocytopenia2.yml", PhenopacketExamples.thrombocytopenia2());
             outputYamlPhenopacket("marfan.yml", PhenopacketExamples.marfanSyndrome());
-            outputYamlPhenopacket("acute-myeloid-leukemia.yml", PhenopacketExamples.acuteMyeloidLeukemia());
+            outputYamlPhenopacket("nemalineMyopathy.yml", PhenopacketExamples.acuteMyeloidLeukemia());
             outputYamlPhenopacket("squamous-cell-esophageal-carcinoma.yml", PhenopacketExamples.squamousCellEsophagealCarcinoma());
             outputYamlPhenopacket("urothelial-cancer.yml", PhenopacketExamples.urothelialCarcinoma());
             outputYamlPhenopacket("covid.yml", PhenopacketExamples.covid19());
@@ -103,7 +103,7 @@ public class ExamplesCommand implements Callable<Integer> {
             outputPhenopacket("bethleham-myopathy.json", PhenopacketExamples.bethlemMyopathy());
             outputPhenopacket("thrombocytopenia2.json", PhenopacketExamples.thrombocytopenia2());
             outputPhenopacket("marfan.json", PhenopacketExamples.marfanSyndrome());
-            outputPhenopacket("acute-myeloid-leukemia.json", PhenopacketExamples.acuteMyeloidLeukemia());
+            outputPhenopacket("nemalineMyopathy.json", PhenopacketExamples.acuteMyeloidLeukemia());
             outputPhenopacket("squamous-cell-esophageal-carcinoma.json", PhenopacketExamples.squamousCellEsophagealCarcinoma());
             outputPhenopacket("urothelial-cancer.json", PhenopacketExamples.urothelialCarcinoma());
             outputPhenopacket("covid.json", PhenopacketExamples.covid19());
