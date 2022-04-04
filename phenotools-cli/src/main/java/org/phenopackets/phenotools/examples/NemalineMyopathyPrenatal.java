@@ -23,34 +23,27 @@ import static org.phenopackets.phenotools.builder.builders.Util.eye;
 class NemalineMyopathyPrenatal implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
+    private final OntologyClass nemalineMyopathy8 = ontologyClass("MONDO:0014138", "nemaline myopathy 8");
 
     private final Phenopacket phenopacket;
 
     NemalineMyopathyPrenatal() {
-        var individual = IndividualBuilder.create(PROBAND_ID).male().ageAtLastEncounter("P8Y").build();
-        var disease = DiseaseBuilder
-                .create(ontologyClass("NCIT:C3171", "Acute Myeloid Leukemia"))
-                .build();
-        TimeElement age = TimeElements.age("P8Y");
-        var biospy = BiosampleBuilder.create("SAMN05324082")
-                .individualId("SAMN05324082-individual")
-                .description("THP-1; 6 hours; DMSO; Replicate 1")
-                .timeOfCollection(age)
-                .taxonomy(ontologyClass("NCBITaxon:9606", "Homo sapiens"))
-                .sampledTissue(ontologyClass("UBERON:0000178", "peripheral blood"))
-                .histologicalDiagnosis(ontologyClass("EFO:0000221", "Acute Monocytic Leukemia"))
-                .build();
+
         var metadata = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .resource(Resources.ncitVersion("21.05d"))
                 .resource(Resources.hpoVersion("2022-02"))
                 .resource(Resources.uberonVersion("2021-07-27"))
                 .build();
+        var vitalStatus = VitalStatusBuilder.deceased().causeOfDeath(nemalineMyopathy8).build();
+        var individual = IndividualBuilder.create(PROBAND_ID)
+                .male()
+                .ageAtLastEncounter("P1D")
+                .vitalStatus(vitalStatus).build();
         PhenopacketBuilder builder = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(individual)
                 .phenotypicFeature(decreasedFetalMovement())
                  .biosample(muscleBiopsy())
-                .interpretation(interpretation())
-                ;
+                .interpretation(interpretation());
 
         builder.allPhenotypicFeatures(sonography33weeks());
         builder.allPhenotypicFeatures(apgar());
@@ -164,7 +157,7 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
         // wrap in VariantInterpretation
         VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.create(vbuilder);
         vibuilder.pathogenic();
-        vibuilder.actionable();
+       // vibuilder.actionable();
 
 
         GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.create("interpretation.1");
@@ -205,7 +198,7 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
         // wrap in VariantInterpretation
         VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.create(vbuilder);
         vibuilder.pathogenic();
-        vibuilder.actionable();
+     //   vibuilder.actionable();
 
 
         GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.create("interpretation.2");
