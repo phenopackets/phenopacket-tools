@@ -45,4 +45,10 @@ public class FileBuilder {
         fb.fileAttribute("fileFormat", "VCF");
         return fb;
     }
+
+
+    public FileBuilder description(String s) {
+        builder.putFileAttributes("description", s);
+        return this;
+    }
 }

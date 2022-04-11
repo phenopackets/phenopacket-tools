@@ -19,7 +19,7 @@ public class WarburgMicroSyndrome implements PhenopacketExample {
     private final TimeElement age4days = TimeElements.age("P4D");
     private final Phenopacket phenopacket;
     public WarburgMicroSyndrome() {
-        var metadata = MetaDataBuilder.create("2021-05-14T10:35:00Z", "biocurator")
+        var metadata = MetaDataBuilder.create("2022-04-17T10:35:00Z", "biocurator")
                 .resource(Resources.hpoVersion("2022-04-15"))
                 .resource(Resources.mondoVersion("v2022-04-04"))
                 .build();

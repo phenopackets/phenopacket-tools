@@ -7,12 +7,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.google.protobuf.Message;
 import com.google.protobuf.util.JsonFormat;
 
 import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
+import org.phenopackets.phenotools.examples.FamilyWithPedigree;
 import org.phenopackets.phenotools.examples.PhenopacketExamples;
 import org.phenopackets.phenotools.examples.WarburgMicroSyndrome;
-import org.phenopackets.schema.v2.Phenopacket;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
@@ -22,8 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.Callable;
-
-import static picocli.CommandLine.Parameters;
 
 @Command(name = "examples",
         mixinStandardHelpOptions = true,
@@ -37,27 +36,13 @@ public class ExamplesCommand implements Callable<Integer> {
 
 
 
-    private void outputPhenopacket(Phenopacket phenopacket, Path outdir,String fileName) {
-        Path path = outdir.resolve(fileName);
-        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-            String json = JsonFormat.printer().print(phenopacket);
-            writer.write(json);
-        } catch (IOException e) {
-            throw new PhenotoolsRuntimeException(e.getMessage());
-        }
+    private void outputPhenopacket(Message phenopacket, Path outdir,String fileName) {
+        outputJsonMessage(phenopacket, outdir, fileName);
     }
 
-    private void outputYamlPhenopacket(Phenopacket phenopacket, Path outdir, String fileName) {
-        Path path = outdir.resolve(fileName);
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
-        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-            String jsonString = JsonFormat.printer().print(phenopacket);
-            JsonNode jsonNodeTree = new ObjectMapper().readTree(jsonString);
-            JsonNode node = JsonNodeFactory.instance.objectNode().set("phenopacket", jsonNodeTree);
-            mapper.writeValue(writer, node);
-        } catch (IOException e) {
-            throw new PhenotoolsRuntimeException(e.getMessage());
-        }
+    private void outputYamlPhenopacket(Message phenopacket, Path outdir, String fileName) {
+        outputYamlMessage(phenopacket, outdir, fileName, "phenopacket");
+
     }
 
     private Path createOutdirectoryIfNeeded(Path outDirectory) {
@@ -69,7 +54,7 @@ public class ExamplesCommand implements Callable<Integer> {
         } catch (IOException e) {
             // swallow
         }
-        throw new PhenotoolsRuntimeException("Could not create directory " + outDir);
+        throw new PhenotoolsRuntimeException("Could not create directory " + outDirectory);
     }
 
     @Override
@@ -79,7 +64,7 @@ public class ExamplesCommand implements Callable<Integer> {
 
 
 
-    private int output(Phenopacket phenopacket, Path outDir, String basename) {
+    private int output(Message phenopacket, Path outDir, String basename) {
         String yamlName = basename + ".yml";
         outputYamlPhenopacket(phenopacket, outDir, yamlName);
         String jsonName = basename + ".json";
@@ -88,6 +73,42 @@ public class ExamplesCommand implements Callable<Integer> {
     }
 
 
+    private void outputFamily(Message family, Path outDir, String basename) {
+        String yamlName = basename + ".yml";
+        outputYamlFamily(family, outDir, yamlName);
+        String jsonName = basename + ".json";
+        outputJsonFamily(family, outDir,jsonName);
+    }
+
+    private void outputJsonFamily(Message family, Path outDir, String jsonName) {
+    }
+
+    private void outputYamlFamily(Message family, Path outDir, String yamlName) {
+        outputYamlMessage(family, outDir, yamlName, "family");
+    }
+
+    private void outputJsonMessage(Message message, Path outDir, String fileName) {
+        Path path = outDir.resolve(fileName);
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+            String json = JsonFormat.printer().print(message);
+            writer.write(json);
+        } catch (IOException e) {
+            throw new PhenotoolsRuntimeException(e.getMessage());
+        }
+    }
+
+    private void outputYamlMessage(Message family, Path outDir, String yamlName, String messageName) {
+        Path path = outDir.resolve(yamlName);
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+            String jsonString = JsonFormat.printer().print(family);
+            JsonNode jsonNodeTree = new ObjectMapper().readTree(jsonString);
+            JsonNode node = JsonNodeFactory.instance.objectNode().set(messageName, jsonNodeTree);
+            mapper.writeValue(writer, node);
+        } catch (IOException e) {
+            throw new PhenotoolsRuntimeException(e.getMessage());
+        }
+    }
 
 
     private int outputAllPhenopackets() {
@@ -103,6 +124,7 @@ public class ExamplesCommand implements Callable<Integer> {
             output(PhenopacketExamples.covid19(), outDirectory, "covid");
             output(PhenopacketExamples.retinoblastoma(), outDirectory, "retinoblastoma");
             output(new WarburgMicroSyndrome().getPhenopacket(), outDirectory, "warburg-micro-syndrome");
+            outputFamily(new FamilyWithPedigree().getFamily(), outDirectory, "family");
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return 1;
