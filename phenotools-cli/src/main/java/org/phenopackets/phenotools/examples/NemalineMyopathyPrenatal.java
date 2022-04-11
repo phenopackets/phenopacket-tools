@@ -12,7 +12,6 @@ import java.util.List;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 import static org.phenopackets.phenotools.builder.builders.TimeElements.gestationalAge;
-import static org.phenopackets.phenotools.builder.builders.Util.eye;
 
 /**
  * From Clin. Exp. Obstet. Gynecol. - ISSN: 0390-6663
