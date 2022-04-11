@@ -27,7 +27,6 @@ public class FamilyWithPedigree {
     public FamilyWithPedigree() {
         FamilyBuilder builder = FamilyBuilder.create(FAMILY_ID);
         var metadata = MetaDataBuilder.create("2022-04-17T10:35:00Z", "biocurator")
-                .resource(Resources.hpoVersion("2022-04-15"))
                 .build();
         builder.metaData(metadata);
         builder.pedigree(pedigree());
@@ -47,7 +46,7 @@ public class FamilyWithPedigree {
         var metadata = MetaDataBuilder.create("2022-04-17T10:35:00Z", "biocurator")
                 .resource(Resources.hpoVersion("2022-04-15"))
                 .build();
-        Individual proband = IndividualBuilder.create("case1").
+        Individual proband = IndividualBuilder.create(SON_ID).
                 ageAtLastEncounter("P10Y2M4D").
                 male().
                 build();
@@ -70,7 +69,7 @@ public class FamilyWithPedigree {
         fbuilder.individualToFileIdentifier(DAUGHTER1_ID, "sample.3");
         fbuilder.individualToFileIdentifier(SON_ID, "sample.4");
         fbuilder.individualToFileIdentifier(DAUGHTER2_ID, "sample.5");
-        fbuilder.description("multiple sample VCF file for " + FAMILY_ID);
+        fbuilder.description("multi-sample VCF file for " + FAMILY_ID);
         return fbuilder.build();
     }
 
