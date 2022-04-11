@@ -12,7 +12,7 @@ import java.util.List;
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 import static org.phenopackets.phenotools.builder.builders.Util.*;
 
-public class Retinoblastoma {
+public class Retinoblastoma implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
     private static final String BIOSAMPLE_ID = "biosample.1";

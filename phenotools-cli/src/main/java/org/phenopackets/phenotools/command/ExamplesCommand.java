@@ -11,6 +11,7 @@ import com.google.protobuf.util.JsonFormat;
 
 import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
 import org.phenopackets.phenotools.examples.PhenopacketExamples;
+import org.phenopackets.phenotools.examples.WarburgMicroSyndrome;
 import org.phenopackets.schema.v2.Phenopacket;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -29,15 +30,15 @@ import static picocli.CommandLine.Parameters;
         description = "Write example phenopackets to directory.")
 public class ExamplesCommand implements Callable<Integer> {
 
-    @Parameters(index = "0", arity = "0..1", description = "Output directory (default: current directory)")
-    private Path outDir = Path.of(".");
+    @CommandLine.Option(names = {"-o", "--output"}, description = "Output directory")
+    private String output = "examples";
 
-    @CommandLine.Option(names = "--yml", description = "Output YAML format")
-    public boolean yamlFormat = false;
+    private Path outDir = null;
 
-    private void outputPhenopacket(String fileName, Phenopacket phenopacket) {
-        Path outDirectory = createOutdirectoryIfNeeded(outDir);
-        Path path = outDirectory.resolve(fileName);
+
+
+    private void outputPhenopacket(Phenopacket phenopacket, Path outdir,String fileName) {
+        Path path = outdir.resolve(fileName);
         try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             String json = JsonFormat.printer().print(phenopacket);
             writer.write(json);
@@ -46,9 +47,8 @@ public class ExamplesCommand implements Callable<Integer> {
         }
     }
 
-    private void outputYamlPhenopacket(String fileName, Phenopacket phenopacket) {
-        Path outDirectory = createOutdirectoryIfNeeded(outDir);
-        Path path = outDirectory.resolve(fileName);
+    private void outputYamlPhenopacket(Phenopacket phenopacket, Path outdir, String fileName) {
+        Path path = outdir.resolve(fileName);
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
         try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             String jsonString = JsonFormat.printer().print(phenopacket);
@@ -74,23 +74,35 @@ public class ExamplesCommand implements Callable<Integer> {
 
     @Override
     public Integer call() {
-        if (yamlFormat) {
-            return outputYaml();
-        } else {
-            return outputJson();
-        }
+        return outputAllPhenopackets();
     }
 
-    private int outputYaml() {
+
+
+    private int output(Phenopacket phenopacket, Path outDir, String basename) {
+        String yamlName = basename + ".yml";
+        outputYamlPhenopacket(phenopacket, outDir, yamlName);
+        String jsonName = basename + ".json";
+        outputPhenopacket(phenopacket, outDir,jsonName);
+        return 0;
+    }
+
+
+
+
+    private int outputAllPhenopackets() {
+        Path outDir = Path.of(output);
+        Path outDirectory = createOutdirectoryIfNeeded(outDir);
         try {
-            outputYamlPhenopacket("bethleham-myopathy.yml", PhenopacketExamples.bethlemMyopathy());
-            outputYamlPhenopacket("thrombocytopenia2.yml", PhenopacketExamples.thrombocytopenia2());
-            outputYamlPhenopacket("marfan.yml", PhenopacketExamples.marfanSyndrome());
-            outputYamlPhenopacket("nemalineMyopathy.yml", PhenopacketExamples.acuteMyeloidLeukemia());
-            outputYamlPhenopacket("squamous-cell-esophageal-carcinoma.yml", PhenopacketExamples.squamousCellEsophagealCarcinoma());
-            outputYamlPhenopacket("urothelial-cancer.yml", PhenopacketExamples.urothelialCarcinoma());
-            outputYamlPhenopacket("covid.yml", PhenopacketExamples.covid19());
-            outputYamlPhenopacket("retinoblastoma.yml", PhenopacketExamples.retinoblastoma());
+            output(PhenopacketExamples.bethlemMyopathy(), outDirectory, "bethleham-myopathy");
+            output(PhenopacketExamples.thrombocytopenia2(), outDirectory, "thrombocytopenia2");
+            output(PhenopacketExamples.marfanSyndrome(), outDirectory, "marfan");
+            output(PhenopacketExamples.acuteMyeloidLeukemia(), outDirectory, "nemalineMyopathy");
+            output(PhenopacketExamples.squamousCellEsophagealCarcinoma(), outDirectory, "squamous-cell-esophageal-carcinoma");
+            output(PhenopacketExamples.urothelialCarcinoma(), outDirectory, "urothelial-cancer");
+            output(PhenopacketExamples.covid19(), outDirectory, "covid");
+            output(PhenopacketExamples.retinoblastoma(), outDirectory, "retinoblastoma");
+            output(new WarburgMicroSyndrome().getPhenopacket(), outDirectory, "warburg-micro-syndrome");
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return 1;
@@ -98,21 +110,6 @@ public class ExamplesCommand implements Callable<Integer> {
         return 0;
     }
 
-    private int outputJson() {
-        try {
-            outputPhenopacket("bethleham-myopathy.json", PhenopacketExamples.bethlemMyopathy());
-            outputPhenopacket("thrombocytopenia2.json", PhenopacketExamples.thrombocytopenia2());
-            outputPhenopacket("marfan.json", PhenopacketExamples.marfanSyndrome());
-            outputPhenopacket("nemalineMyopathy.json", PhenopacketExamples.acuteMyeloidLeukemia());
-            outputPhenopacket("squamous-cell-esophageal-carcinoma.json", PhenopacketExamples.squamousCellEsophagealCarcinoma());
-            outputPhenopacket("urothelial-cancer.json", PhenopacketExamples.urothelialCarcinoma());
-            outputPhenopacket("covid.json", PhenopacketExamples.covid19());
-            outputPhenopacket("retinoblastoma.json", PhenopacketExamples.retinoblastoma());
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return 1;
-        }
-        return 0;
-    }
+
 
 }
