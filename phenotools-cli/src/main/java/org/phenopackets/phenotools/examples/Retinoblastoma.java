@@ -129,21 +129,21 @@ public class Retinoblastoma implements PhenopacketExample {
      * @return a pedigree object in which just the proband is affected (de novo variant)
      */
     Pedigree pedigree() {
-        String family_id = "family.1";
-        String mother_id = "maternal1";
-        String father_id = "paternal1";
+        String familyId = "family.1";
+        String motherId = "maternal1";
+        String fatherId = "paternal1";
         Pedigree.Person mother = PersonBuilder
-                .builderWithParentsAsFounders(family_id, mother_id)
+                .builderWithParentsAsFounders(familyId, motherId)
                 .female()
                 .unaffected()
                 .build();
         Pedigree.Person father = PersonBuilder
-                .builderWithParentsAsFounders(family_id, father_id)
+                .builderWithParentsAsFounders(familyId, fatherId)
                 .male()
                 .unaffected()
                 .build();
         Pedigree.Person child = PersonBuilder
-                .builder(family_id, PROBAND_ID, father_id, mother_id)
+                .builder(familyId, PROBAND_ID, fatherId, motherId)
                 .female()
                 .affected()
                 .build();
@@ -160,18 +160,14 @@ public class Retinoblastoma implements PhenopacketExample {
         BiosampleBuilder builder = BiosampleBuilder.builder(BIOSAMPLE_ID);
         builder.sampledTissue(EYE);
         //Retinoblastoma with tumor invading optic nerve past lamina cribrosa but not to surgical resection line and exhibiting massive choroidal invasion.
-        builder.pathologicalTnmFinding(of("NCIT:C88735",
-                "Retinoblastoma pT3b TNM Finding v7"));
+        builder.pathologicalTnmFinding(of("NCIT:C88735", "Retinoblastoma pT3b TNM Finding v7"));
         //Retinoblastoma with no regional lymph node involvement.
-        builder.pathologicalTnmFinding(of("NCIT:C88741",
-                "Retinoblastoma pN0 TNM Finding v7"));
+        builder.pathologicalTnmFinding(of("NCIT:C88741","Retinoblastoma pN0 TNM Finding v7"));
 
         //
-        OntologyClass fwRosette = of("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
-        PhenotypicFeature pfRosette = PhenotypicFeatureBuilder.builder(fwRosette).build();
+        PhenotypicFeature pfRosette = PhenotypicFeatureBuilder.of("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
         builder.phenotypicFeature(pfRosette);
-        OntologyClass apoptosisNecrosis = of("NCIT:C132485", "Apoptosis and Necrosis");
-        PhenotypicFeature pfApoptosis = PhenotypicFeatureBuilder.builder(apoptosisNecrosis).build();
+        PhenotypicFeature pfApoptosis = PhenotypicFeatureBuilder.of("NCIT:C132485", "Apoptosis and Necrosis");
         builder.phenotypicFeature(pfApoptosis);
         OntologyClass maxTumorSizeTest = OntologyClassBuilder.of("LOINC:33728-7", "Size.maximum dimension in Tumor");
         Value maxTumorSize = ValueBuilder.of(Unit.mm(), 15);
@@ -266,35 +262,31 @@ public class Retinoblastoma implements PhenopacketExample {
 
 
     List<PhenotypicFeature> getPhenotypicFeatures() {
-        OntologyClass clinodactyly = of("HP:0030084", "Clinodactyly");
         TimeElement age3months = TimeElements.age("P3M");
-        PhenotypicFeature clinodactylyPf = PhenotypicFeatureBuilder.
-                builder(clinodactyly).
+        PhenotypicFeature clinodactyly = PhenotypicFeatureBuilder.
+                builder("HP:0030084", "Clinodactyly").
                 modifier(Laterality.right()).
                 onset(age3months).
                 build();
-        OntologyClass leukocoria  = of("HP:0000555", "Leukocoria");
         TimeElement age4months = TimeElements.age("P4M");
-        PhenotypicFeature leukocoriaPf = PhenotypicFeatureBuilder.
-                builder(leukocoria)
+        PhenotypicFeature leukocoria = PhenotypicFeatureBuilder.
+                builder("HP:0000555", "Leukocoria")
                 .modifier(Laterality.unilateral())
                 .onset(age4months)
                 .build();
-        OntologyClass strabismus  = of("HP:0000486", "Strabismus");
         TimeElement age5months = TimeElements.age("P5M15D");
-        PhenotypicFeature strabismusPf = PhenotypicFeatureBuilder.
-                builder(strabismus)
+        PhenotypicFeature strabismus = PhenotypicFeatureBuilder.
+                builder("HP:0000486", "Strabismus")
                 .modifier(Laterality.unilateral())
                 .onset(age5months)
                 .build();
-        OntologyClass retinalDetachment  = of("HP:0000541", "Retinal detachment");
         TimeElement age6months = TimeElements.age("P6M");
-        PhenotypicFeature retinalDetachmentPf = PhenotypicFeatureBuilder.
-                builder(retinalDetachment)
+        PhenotypicFeature retinalDetachment = PhenotypicFeatureBuilder
+                .builder("HP:0000541", "Retinal detachment")
                 .modifier(Laterality.unilateral())
                 .onset(age6months)
                 .build();
-        return List.of(clinodactylyPf, leukocoriaPf, strabismusPf, retinalDetachmentPf);
+        return List.of(clinodactyly, leukocoria, strabismus, retinalDetachment);
     }
 
 
