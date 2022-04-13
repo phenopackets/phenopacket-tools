@@ -15,8 +15,8 @@ public class TherapeuticRegimenBuilder {
         builder = TherapeuticRegimen.newBuilder();
     }
 
-    public static TherapeuticRegimenBuilder create(String id, String label) {
-        OntologyClass clazz = OntologyClassBuilder.ontologyClass(id, label);
+    public static TherapeuticRegimenBuilder builder(String id, String label) {
+        OntologyClass clazz = OntologyClassBuilder.of(id, label);
         TherapeuticRegimenBuilder builder = new TherapeuticRegimenBuilder();
         builder.ontologyClass(clazz);
         return builder;

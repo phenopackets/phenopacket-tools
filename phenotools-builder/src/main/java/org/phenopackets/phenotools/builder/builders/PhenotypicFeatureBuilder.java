@@ -7,8 +7,6 @@ import org.phenopackets.schema.v2.core.TimeElement;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-
 /**
  * This has convenience methods for building PhenotypicFeature messages with some
  * commonly used options.
@@ -23,22 +21,22 @@ public class PhenotypicFeatureBuilder {
         builder = PhenotypicFeature.newBuilder().setType(feature);
     }
 
-    public static PhenotypicFeature phenotypicFeature(OntologyClass feature) {
+    public static PhenotypicFeature of(OntologyClass feature) {
         return PhenotypicFeature.newBuilder().setType(feature).build();
     }
 
-    public static PhenotypicFeature phenotypicFeature(String id, String label) {
-        OntologyClass ontologyClass = ontologyClass(id, label);
-        return phenotypicFeature(ontologyClass);
+    public static PhenotypicFeature of(String id, String label) {
+        OntologyClass ontologyClass = OntologyClassBuilder.of(id, label);
+        return of(ontologyClass);
     }
 
-    public static PhenotypicFeatureBuilder create(OntologyClass feature) {
+    public static PhenotypicFeatureBuilder builder(OntologyClass feature) {
         return new PhenotypicFeatureBuilder(feature);
     }
 
-    public static PhenotypicFeatureBuilder create(String id, String label) {
-        OntologyClass ontologyClass = ontologyClass(id, label);
-        return create(ontologyClass);
+    public static PhenotypicFeatureBuilder builder(String id, String label) {
+        OntologyClass ontologyClass = OntologyClassBuilder.of(id, label);
+        return builder(ontologyClass);
     }
 
     public PhenotypicFeatureBuilder onset(TimeElement time) {
@@ -83,7 +81,7 @@ public class PhenotypicFeatureBuilder {
     }
 
     public PhenotypicFeatureBuilder severity(String id, String label) {
-        OntologyClass severity = ontologyClass(id, label);
+        OntologyClass severity = OntologyClassBuilder.of(id, label);
         builder.setSeverity(severity);
         return this;
     }

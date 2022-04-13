@@ -12,7 +12,7 @@ class AlleleBuilderTest {
 
     @Test
     void testBuild() {
-        Variation variation = AlleleBuilder.create()
+        Variation variation = AlleleBuilder.builder()
                 .setSequenceId("NC_000003.12")
                 .startEnd(42686219, 42686220)
                 .chromosomeLocation("chr3")

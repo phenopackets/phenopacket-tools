@@ -7,26 +7,25 @@ import org.phenopackets.schema.v2.core.GenomicInterpretation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-import static org.phenopackets.phenotools.builder.builders.VariantInterpretationBuilder.variantInterpretation;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
 
 class DiagnosisBuilderTest {
 
     @Test
     void testDiagnosisBuilder() {
         var variationDescriptor =
-                VariationDescriptorBuilder.create("variant id")
+                VariationDescriptorBuilder.builder("variant id")
                         .heterozygous()
                         .hgvs("NM_014915.2:c.-128G>A")
                         .build();
-        var col6a1VariantInterpretation = variantInterpretation(variationDescriptor, Status.pathogenic());
+        var col6a1VariantInterpretation = VariantInterpretationBuilder.of(variationDescriptor, Status.pathogenic());
         var genomicInterpretationBuilder =
-                GenomicInterpretationBuilder.create("genomic interpretation id");
+                GenomicInterpretationBuilder.builder("genomic interpretation id");
         genomicInterpretationBuilder.causative();
         genomicInterpretationBuilder.variantInterpretation(col6a1VariantInterpretation);
         var expectedGenomicInterpretation = genomicInterpretationBuilder.build();
-        var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
-        Diagnosis diagnosis = DiagnosisBuilder.create(thrombocytopenia2).
+        var thrombocytopenia2 = of("OMIM:188000", "Thrombocytopenia 2");
+        Diagnosis diagnosis = DiagnosisBuilder.builder(thrombocytopenia2).
                 genomicInterpretation(expectedGenomicInterpretation)
                 .build();
         assertThat(diagnosis.getDisease(), equalTo(thrombocytopenia2));
@@ -37,8 +36,8 @@ class DiagnosisBuilderTest {
 
     @Test
     void testDiagnosisBuilderMinimalData() {
-        var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
-        Diagnosis diagnosis = DiagnosisBuilder.create(thrombocytopenia2).build();
+        var thrombocytopenia2 = of("OMIM:188000", "Thrombocytopenia 2");
+        Diagnosis diagnosis = DiagnosisBuilder.builder(thrombocytopenia2).build();
         assertThat(diagnosis.getDisease(), equalTo(thrombocytopenia2));
         assertThat(diagnosis.getGenomicInterpretationsCount(), equalTo(0));
     }

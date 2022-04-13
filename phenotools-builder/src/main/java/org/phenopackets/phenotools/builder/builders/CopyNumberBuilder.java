@@ -2,33 +2,31 @@ package org.phenopackets.phenotools.builder.builders;
 
 import org.ga4gh.vrs.v1.*;
 import org.ga4gh.vrs.v1.Number;
+import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
 
 public class CopyNumberBuilder {
 
     private final CopyNumber.Builder builder;
-    private final SequenceLocation.Builder slbuilder;
 
     private CopyNumberBuilder() {
         this.builder = CopyNumber.newBuilder();
-
-        slbuilder = SequenceLocation.newBuilder();
     }
 
     public CopyNumberBuilder copyNumberId(String id) {
         builder.setId(id);
         return this;
     }
-    public CopyNumberBuilder alleleLocation(String contig, int startPos, int endPos) {
-        SequenceInterval interval = SequenceInterval.newBuilder()
-                .setStartNumber(Number.newBuilder().setValue(startPos))
-                .setEndNumber(Number.newBuilder().setValue(endPos))
-                .build();
-        slbuilder.setSequenceInterval(interval);
-        builder.setDefiniteRange(DefiniteRange.newBuilder().setMin(startPos).setMax(endPos).getDefaultInstanceForType());
-        AlleleBuilder alleleBuilder = AlleleBuilder.create();
-        alleleBuilder.startEnd(startPos, endPos);
-        alleleBuilder.chromosomeLocation(contig);
-        builder.setAllele(alleleBuilder.build());
+
+    /**
+     *  Sequence ranges use an interbase coordinate system, which involves
+     *  Two integers that define the start and end positions of a range of
+     *  residues, possibly with length zero, and specified using “0-start, half-open” coordinates.
+     */
+    public CopyNumberBuilder alleleLocation(String contig, int interbaseStartPos, int interbaseEndPos) {
+        AlleleBuilder abuilder = AlleleBuilder.builder()
+                        .setSequenceId(contig)
+                        .startEnd(interbaseStartPos, interbaseEndPos);
+        builder.setAllele(abuilder.build());
         return this;
     }
 
@@ -51,6 +49,9 @@ public class CopyNumberBuilder {
     }
 
     public CopyNumberBuilder nCopies(int n) {
+        if (n < 0) {
+            throw new PhenotoolsRuntimeException("Negative copy numbers are not allowed");
+        }
         builder.setNumber(Number.newBuilder().setValue(n));
         return this;
     }
@@ -63,7 +64,7 @@ public class CopyNumberBuilder {
         return Variation.newBuilder().setCopyNumber(builder).build();
 
     }
-    public static CopyNumberBuilder create() {
+    public static CopyNumberBuilder builder() {
         return new CopyNumberBuilder();
     }
 

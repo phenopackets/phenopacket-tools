@@ -8,7 +8,7 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
 
 /**
  * Léonard A, et al. Prenatal diagnosis of fetal cataract: case report and review of the literature.
@@ -19,11 +19,11 @@ public class WarburgMicroSyndrome implements PhenopacketExample {
     private final TimeElement age4days = TimeElements.age("P4D");
     private final Phenopacket phenopacket;
     public WarburgMicroSyndrome() {
-        var metadata = MetaDataBuilder.create("2022-04-17T10:35:00Z", "biocurator")
+        var metadata = MetaDataBuilder.builder("2022-04-17T10:35:00Z", "biocurator")
                 .resource(Resources.hpoVersion("2022-04-15"))
                 .resource(Resources.mondoVersion("v2022-04-04"))
                 .build();
-        Individual proband = IndividualBuilder.create("case1").
+        Individual proband = IndividualBuilder.builder("case1").
                 ageAtLastEncounter("P4D").
                 male().
                 build();
@@ -45,13 +45,13 @@ public class WarburgMicroSyndrome implements PhenopacketExample {
         //  27 2/7
         TimeElement gestationalAge = TimeElements.gestationalAge(27, 2);
         PhenotypicFeature increasedFetalLensEcho = PhenotypicFeatureBuilder
-                .create("HP:0034248", "Increased fetal lens echogenicity")
+                .builder("HP:0034248", "Increased fetal lens echogenicity")
                 .onset(gestationalAge)
                 .build();
         features.add(increasedFetalLensEcho);
 
         PhenotypicFeature anteNatalMicrophthalmia = PhenotypicFeatureBuilder
-                .create("HP:0000568", "Microphthalmia")
+                .builder("HP:0000568", "Microphthalmia")
                 .onset(gestationalAge)
                 .excluded()
                 .build();
@@ -71,19 +71,19 @@ tile: 16 mm; 95th centile: 21 mm) [
 
 
         PhenotypicFeature lowSetEars = PhenotypicFeatureBuilder
-                .create("HP:0000369", "Low-set ears")
+                .builder("HP:0000369", "Low-set ears")
                 .onset(age4days)
                 .build();
         features.add(lowSetEars);
 
         PhenotypicFeature axialHypo = PhenotypicFeatureBuilder
-                .create("HP:0008936", "Axial hypotonia")
+                .builder("HP:0008936", "Axial hypotonia")
                 .onset(age4days)
                 .build();
         features.add(axialHypo);
 
         PhenotypicFeature microphthalmia = PhenotypicFeatureBuilder
-                .create("HP:0000568", "Microphthalmia")
+                .builder("HP:0000568", "Microphthalmia")
                 .onset(age4days)
                 .build();
         features.add(microphthalmia);
@@ -93,8 +93,8 @@ tile: 16 mm; 95th centile: 21 mm) [
 
 
     Disease getDisease() {
-        var warburgMS = ontologyClass("MONDO:0016649", "Warburg micro syndrome");
-        return DiseaseBuilder.create(warburgMS)
+        var warburgMS = of("MONDO:0016649", "Warburg micro syndrome");
+        return DiseaseBuilder.builder(warburgMS)
                 .onset(age4days)
                 .build();
     }

@@ -9,19 +9,19 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
 
 class ComplexValueBuilderTest {
 
     /**
-     * https://phenopacket-schema.readthedocs.io/en/v2/complex-value.html#example
+     * <a href="https://phenopacket-schema.readthedocs.io/en/v2/complex-value.html#example">https://phenopacket-schema.readthedocs.io/en/v2/complex-value.html#example</a>
      */
     @Test
     void testComplexValue() {
-        OntologyClass millimeterOfMercury = ontologyClass("NCIT:C49670", "Millimeter of Mercury");
-        TypedQuantity systolicBloodPressure = TypedQuantityBuilder.typedQuantity(ontologyClass("NCIT:C25298", "Systolic Blood Pressure"), QuantityBuilder.quantity(millimeterOfMercury, 120));
-        TypedQuantity diastolicBloodPressure = TypedQuantityBuilder.typedQuantity(ontologyClass("NCIT:C25299", "Diastolic Blood Pressure"), QuantityBuilder.quantity(millimeterOfMercury, 70));
-        ComplexValue complexValue = ComplexValueBuilder.complexValue(systolicBloodPressure, diastolicBloodPressure);
+        OntologyClass millimeterOfMercury = of("NCIT:C49670", "Millimeter of Mercury");
+        TypedQuantity systolicBloodPressure = TypedQuantityBuilder.of(of("NCIT:C25298", "Systolic Blood Pressure"), QuantityBuilder.of(millimeterOfMercury, 120));
+        TypedQuantity diastolicBloodPressure = TypedQuantityBuilder.of(of("NCIT:C25299", "Diastolic Blood Pressure"), QuantityBuilder.of(millimeterOfMercury, 70));
+        ComplexValue complexValue = ComplexValueBuilder.of(systolicBloodPressure, diastolicBloodPressure);
 
         assertThat(complexValue.getTypedQuantitiesList(), equalTo(List.of(systolicBloodPressure, diastolicBloodPressure)));
     }

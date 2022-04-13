@@ -20,7 +20,7 @@ public class MetaDataBuilder {
                 .setPhenopacketSchemaVersion(SCHEMA_VERSION); // only one option for schema version!
     }
 
-    public static MetaDataBuilder create(String created, String createdBy) {
+    public static MetaDataBuilder builder(String created, String createdBy) {
         return new MetaDataBuilder(created, createdBy);
     }
 

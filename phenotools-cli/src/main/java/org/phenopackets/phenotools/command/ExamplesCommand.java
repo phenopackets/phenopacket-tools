@@ -29,7 +29,7 @@ import java.util.concurrent.Callable;
         description = "Write example phenopackets to directory.")
 public class ExamplesCommand implements Callable<Integer> {
 
-    @CommandLine.Option(names = {"-o", "--output"}, description = "Output directory")
+    @CommandLine.Option(names = {"-o", "--output"}, description = "Output directory (default: ${DEFAULT-VALUE})")
     private String output = "examples";
 
     private Path outDir = null;
@@ -81,6 +81,7 @@ public class ExamplesCommand implements Callable<Integer> {
     }
 
     private void outputJsonFamily(Message family, Path outDir, String jsonName) {
+        outputJsonMessage(family, outDir, jsonName);
     }
 
     private void outputYamlFamily(Message family, Path outDir, String yamlName) {

@@ -4,8 +4,6 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.Procedure;
 import org.phenopackets.schema.v2.core.TimeElement;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-
 public class ProcedureBuilder {
 
     private final Procedure.Builder builder;
@@ -19,15 +17,15 @@ public class ProcedureBuilder {
     }
 
     public static Procedure procedure(String id, String label) {
-        return procedure(ontologyClass(id, label));
+        return procedure(OntologyClassBuilder.of(id, label));
     }
 
-    public static ProcedureBuilder create(OntologyClass procedure) {
+    public static ProcedureBuilder builder(OntologyClass procedure) {
         return new ProcedureBuilder(procedure);
     }
 
-    public static ProcedureBuilder create(String id, String label) {
-        return new ProcedureBuilder(ontologyClass(id, label));
+    public static ProcedureBuilder builder(String id, String label) {
+        return new ProcedureBuilder(OntologyClassBuilder.of(id, label));
     }
 
     public ProcedureBuilder bodySite(OntologyClass site) {

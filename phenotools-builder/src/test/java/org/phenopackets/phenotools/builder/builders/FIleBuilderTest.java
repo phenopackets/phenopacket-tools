@@ -13,7 +13,7 @@ public class FIleBuilderTest {
     @Test
     public void testUri() {
         String uri = "http://example.com/foobar";
-        File file = FileBuilder.create(uri).build();
+        File file = FileBuilder.builder(uri).build();
         assertEquals(uri, file.getUri());
     }
 

@@ -10,11 +10,11 @@ public class FileBuilder {
         builder = File.newBuilder().setUri(uri);
     }
 
-    public static File file(String uri) {
+    public static File of(String uri) {
         return File.newBuilder().setUri(uri).build();
     }
 
-    public static FileBuilder create(String uri) {
+    public static FileBuilder builder(String uri) {
         return new FileBuilder(uri);
     }
 
@@ -47,8 +47,8 @@ public class FileBuilder {
     }
 
 
-    public FileBuilder description(String s) {
-        builder.putFileAttributes("description", s);
+    public FileBuilder description(String description) {
+        builder.putFileAttributes("description", description);
         return this;
     }
 }

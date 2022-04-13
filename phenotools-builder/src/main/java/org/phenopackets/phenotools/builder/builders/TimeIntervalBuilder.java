@@ -10,14 +10,14 @@ public class TimeIntervalBuilder {
     private TimeIntervalBuilder() {
     }
 
-    public static TimeInterval timeInterval(Timestamp start, Timestamp end) {
+    public static TimeInterval of(Timestamp start, Timestamp end) {
         return TimeInterval.newBuilder()
                 .setStart(start)
                 .setEnd(end)
                 .build();
     }
 
-    public static TimeInterval timeInterval(String start, String end) {
+    public static TimeInterval of(String start, String end) {
         return TimeInterval.newBuilder()
                 .setStart(fromISO8601(start))
                 .setEnd(fromISO8601(end))
