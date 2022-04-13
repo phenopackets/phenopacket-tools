@@ -13,7 +13,7 @@ class BiosampleBuilderTest {
 
     @Test
     void biosampleTest() {
-        Biosample biosample = BiosampleBuilder.biosample("sample1");
+        Biosample biosample = BiosampleBuilder.builder("sample1").build();
         assertThat(biosample.getId(), equalTo("sample1"));
     }
 
