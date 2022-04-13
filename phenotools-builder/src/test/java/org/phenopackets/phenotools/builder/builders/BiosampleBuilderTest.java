@@ -18,7 +18,7 @@ class BiosampleBuilderTest {
     }
 
     /**
-     * https://phenopacket-schema.readthedocs.io/en/v2/biosample.html#example
+     * <a href="https://phenopacket-schema.readthedocs.io/en/v2/biosample.html#example">https://phenopacket-schema.readthedocs.io/en/v2/biosample.html#example</a>
      */
     @Test
     void biosampleBuilderTest() {

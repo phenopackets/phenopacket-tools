@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FamilyBuilder {
 
-    Family.Builder builder;
+    private final Family.Builder builder;
 
     private FamilyBuilder(String id) {
         builder = Family.newBuilder().setId(id);

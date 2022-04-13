@@ -18,21 +18,14 @@ public class CopyNumberBuilder {
     }
 
     /**
-     * Variation variation = AlleleBuilder.create()
-     *             .setSequenceId("refseq:NC_000003.12") // This is how and where the 'chromosome' should be set, although I think they suggest using a VRS CURIE such as ga4gh:SQ:dfsjfhgasriwyu38w3
-     *             .startEnd(42686219, 42686220)
-     * //            .chromosomeLocation("chr3")
-     *             .setAltAllele("A")
-     *             .buildVariation();
-     * @param contig
-     * @param startPos
-     * @param endPos
-     * @return
+     *  Sequence ranges use an interbase coordinate system, which involves
+     *  Two integers that define the start and end positions of a range of
+     *  residues, possibly with length zero, and specified using “0-start, half-open” coordinates.
      */
-    public CopyNumberBuilder alleleLocation(String contig, int startPos, int endPos) {
+    public CopyNumberBuilder alleleLocation(String contig, int interbaseStartPos, int interbaseEndPos) {
         AlleleBuilder abuilder = AlleleBuilder.builder()
                         .setSequenceId(contig)
-                        .startEnd(startPos, endPos);
+                        .startEnd(interbaseStartPos, interbaseEndPos);
         builder.setAllele(abuilder.build());
         return this;
     }

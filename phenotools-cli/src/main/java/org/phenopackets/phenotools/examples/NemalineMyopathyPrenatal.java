@@ -128,7 +128,6 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
      * tation c.602G > A (p.Trp201*) was inherited from the
      * mother (Figure 5) and c.1516A > C (p.Thr506Pro) from
      * the father (Figure 6)
-     * @return
      */
     GenomicInterpretation klhl40InterpretationV1() {
         // 3: 42686220 (GRCh38) NM_152393.4(KLHL40):c.602G>A (p.Trp201Ter)
@@ -166,7 +165,6 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
 
     /**
      *  c.1516A > C (p.Thr506Pro)
-     * @return
      */
     GenomicInterpretation klhl40InterpretationV2() {
         //NM_152393.4(KLHL40):c.1516A>C (p.Thr506Pro)

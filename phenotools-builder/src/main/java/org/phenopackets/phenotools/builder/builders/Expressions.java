@@ -5,7 +5,7 @@ import org.ga4gh.vrsatile.v1.Expression;
 public class Expressions {
 
     /**
-     * An Human Genome Variation Society (HGVS) expression that denotes a DNA variant https://varnomen.hgvs.org/
+     * An Human Genome Variation Society (HGVS) expression that denotes a DNA variant <a href="https://varnomen.hgvs.org/">https://varnomen.hgvs.org/</a>
      * @param hgvsExpression a String such as NM_004006.1:c.3>T
      */
     public static Expression hgvsCdna(String hgvsExpression) {

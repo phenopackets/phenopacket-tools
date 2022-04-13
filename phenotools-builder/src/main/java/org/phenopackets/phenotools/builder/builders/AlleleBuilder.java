@@ -38,6 +38,12 @@ public class AlleleBuilder {
         return this;
     }
 
+    /**
+     * Sequence ranges use an interbase coordinate system, which involves
+     * Two integers that define the start and end positions of a range of
+     * residues, possibly with length zero, and specified using “0-start, half-open” coordinates.
+     */
+
     public AlleleBuilder startEnd(int start, int end) {
         SequenceInterval interval = SequenceInterval.newBuilder()
                 .setStartNumber(Number.newBuilder().setValue(start))
