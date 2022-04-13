@@ -4,8 +4,6 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.Quantity;
 import org.phenopackets.schema.v2.core.ReferenceRange;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-
 public class QuantityBuilder {
 
     private final Quantity.Builder builder;
@@ -19,7 +17,16 @@ public class QuantityBuilder {
     }
 
     public static Quantity quantity(String id, String label, double value) {
-        return quantity(ontologyClass(id, label), value);
+        return quantity(OntologyClassBuilder.ontologyClass(id, label), value);
+    }
+
+
+    public static Quantity quantity(String id, String label, double value, ReferenceRange ref) {
+        return quantity(OntologyClassBuilder.ontologyClass(id, label), value);
+    }
+
+    public static Quantity quantity(OntologyClass unit, double value, ReferenceRange ref) {
+        return Quantity.newBuilder().setUnit(unit).setValue(value).setReferenceRange(ref).build();
     }
 
     public static QuantityBuilder unitValue(OntologyClass unit, double value) {
@@ -27,7 +34,7 @@ public class QuantityBuilder {
     }
 
     public static QuantityBuilder unitValue(String id, String label, double value) {
-        return new QuantityBuilder(ontologyClass(id, label), value);
+        return new QuantityBuilder(OntologyClassBuilder.ontologyClass(id, label), value);
     }
 
     public QuantityBuilder referenceRange(ReferenceRange range) {

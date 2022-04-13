@@ -116,3 +116,6 @@ modules.xml
 
 # Mac
 *.DS_Store
+/*.json
+/*.yml
+/examples/

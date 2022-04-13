@@ -49,7 +49,7 @@ public class JsonSchemaValidatorTest {
      * It does not contain an id or a metaData element and thus should fail.
      */
     @Test
-    public void testValidationOfSimpleInValidPhenopacket() throws Exception {
+    public void testValidationOfSimpleInValidPhenopacket() {
         PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
 
         String invalidPhenopacketJson = "{\"disney\" : \"donald\"}";

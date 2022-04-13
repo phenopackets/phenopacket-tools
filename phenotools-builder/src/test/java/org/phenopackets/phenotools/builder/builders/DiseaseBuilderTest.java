@@ -17,7 +17,7 @@ class DiseaseBuilderTest {
 
     @Test
     void testBuilder() {
-        Disease disease = DiseaseBuilder.create("OMIM:164400", "Spinocerebellar ataxia 1")
+        Disease disease = DiseaseBuilder.builder("OMIM:164400", "Spinocerebellar ataxia 1")
                 .onset(TimeElements.age("P38Y7M"))
                 .build();
         assertThat(disease.getTerm(), equalTo(ontologyClass("OMIM:164400", "Spinocerebellar ataxia 1")));

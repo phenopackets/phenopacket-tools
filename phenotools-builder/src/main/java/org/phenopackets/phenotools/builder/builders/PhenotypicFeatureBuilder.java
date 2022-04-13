@@ -7,8 +7,6 @@ import org.phenopackets.schema.v2.core.TimeElement;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-
 /**
  * This has convenience methods for building PhenotypicFeature messages with some
  * commonly used options.
@@ -28,17 +26,17 @@ public class PhenotypicFeatureBuilder {
     }
 
     public static PhenotypicFeature phenotypicFeature(String id, String label) {
-        OntologyClass ontologyClass = ontologyClass(id, label);
+        OntologyClass ontologyClass = OntologyClassBuilder.ontologyClass(id, label);
         return phenotypicFeature(ontologyClass);
     }
 
-    public static PhenotypicFeatureBuilder create(OntologyClass feature) {
+    public static PhenotypicFeatureBuilder builder(OntologyClass feature) {
         return new PhenotypicFeatureBuilder(feature);
     }
 
-    public static PhenotypicFeatureBuilder create(String id, String label) {
-        OntologyClass ontologyClass = ontologyClass(id, label);
-        return create(ontologyClass);
+    public static PhenotypicFeatureBuilder builder(String id, String label) {
+        OntologyClass ontologyClass = OntologyClassBuilder.ontologyClass(id, label);
+        return builder(ontologyClass);
     }
 
     public PhenotypicFeatureBuilder onset(TimeElement time) {
@@ -83,7 +81,7 @@ public class PhenotypicFeatureBuilder {
     }
 
     public PhenotypicFeatureBuilder severity(String id, String label) {
-        OntologyClass severity = ontologyClass(id, label);
+        OntologyClass severity = OntologyClassBuilder.ontologyClass(id, label);
         builder.setSeverity(severity);
         return this;
     }
