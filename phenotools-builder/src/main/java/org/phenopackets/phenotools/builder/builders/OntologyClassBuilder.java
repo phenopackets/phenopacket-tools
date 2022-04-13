@@ -7,7 +7,7 @@ public class OntologyClassBuilder {
     private OntologyClassBuilder() {
     }
 
-    public static OntologyClass of(String id, String label) {
+    public static OntologyClass ontologyClass(String id, String label) {
         return OntologyClass.newBuilder().setId(id).setLabel(label).build();
     }
 

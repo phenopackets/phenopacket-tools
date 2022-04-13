@@ -21,13 +21,13 @@ public class PhenotypicFeatureBuilder {
         builder = PhenotypicFeature.newBuilder().setType(feature);
     }
 
-    public static PhenotypicFeature of(OntologyClass feature) {
+    public static PhenotypicFeature phenotypicFeature(OntologyClass feature) {
         return PhenotypicFeature.newBuilder().setType(feature).build();
     }
 
-    public static PhenotypicFeature of(String id, String label) {
-        OntologyClass ontologyClass = OntologyClassBuilder.of(id, label);
-        return of(ontologyClass);
+    public static PhenotypicFeature phenotypicFeature(String id, String label) {
+        OntologyClass ontologyClass = OntologyClassBuilder.ontologyClass(id, label);
+        return phenotypicFeature(ontologyClass);
     }
 
     public static PhenotypicFeatureBuilder builder(OntologyClass feature) {
@@ -35,7 +35,7 @@ public class PhenotypicFeatureBuilder {
     }
 
     public static PhenotypicFeatureBuilder builder(String id, String label) {
-        OntologyClass ontologyClass = OntologyClassBuilder.of(id, label);
+        OntologyClass ontologyClass = OntologyClassBuilder.ontologyClass(id, label);
         return builder(ontologyClass);
     }
 
@@ -81,7 +81,7 @@ public class PhenotypicFeatureBuilder {
     }
 
     public PhenotypicFeatureBuilder severity(String id, String label) {
-        OntologyClass severity = OntologyClassBuilder.of(id, label);
+        OntologyClass severity = OntologyClassBuilder.ontologyClass(id, label);
         builder.setSeverity(severity);
         return this;
     }

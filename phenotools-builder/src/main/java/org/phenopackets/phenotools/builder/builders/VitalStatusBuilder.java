@@ -35,7 +35,7 @@ public class VitalStatusBuilder {
     }
 
     public VitalStatusBuilder causeOfDeath(String id, String label) {
-        builder.setCauseOfDeath(OntologyClassBuilder.of(id, label));
+        builder.setCauseOfDeath(OntologyClassBuilder.ontologyClass(id, label));
         return this;
     }
 

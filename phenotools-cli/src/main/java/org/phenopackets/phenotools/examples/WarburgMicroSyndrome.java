@@ -8,7 +8,7 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 /**
  * Léonard A, et al. Prenatal diagnosis of fetal cataract: case report and review of the literature.
@@ -31,8 +31,8 @@ public class WarburgMicroSyndrome implements PhenopacketExample {
 
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
-                .disease(getDisease())
-                .allPhenotypicFeatures(getPhenotypicFeatures())
+                .addDisease(getDisease())
+                .addAllPhenotypicFeatures(getPhenotypicFeatures())
                 .build();
     }
 
@@ -93,7 +93,7 @@ tile: 16 mm; 95th centile: 21 mm) [
 
 
     Disease getDisease() {
-        var warburgMS = of("MONDO:0016649", "Warburg micro syndrome");
+        var warburgMS = ontologyClass("MONDO:0016649", "Warburg micro syndrome");
         return DiseaseBuilder.builder(warburgMS)
                 .onset(age4days)
                 .build();

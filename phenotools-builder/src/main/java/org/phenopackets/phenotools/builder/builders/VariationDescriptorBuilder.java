@@ -91,19 +91,19 @@ public class VariationDescriptorBuilder {
     }
 
     public VariationDescriptorBuilder heterozygous() {
-        OntologyClass heterozygous = OntologyClassBuilder.of("GENO:0000135", "heterozygous");
+        OntologyClass heterozygous = OntologyClassBuilder.ontologyClass("GENO:0000135", "heterozygous");
         builder.setAllelicState(heterozygous);
         return this;
     }
 
     public VariationDescriptorBuilder homozygous() {
-        OntologyClass heterozygous = OntologyClassBuilder.of("GENO:0000136", "homozygous");
+        OntologyClass heterozygous = OntologyClassBuilder.ontologyClass("GENO:0000136", "homozygous");
         builder.setAllelicState(heterozygous);
         return this;
     }
 
     public VariationDescriptorBuilder hemizygous() {
-        OntologyClass heterozygous = OntologyClassBuilder.of("GENO:0000134", "hemizygous");
+        OntologyClass heterozygous = OntologyClassBuilder.ontologyClass("GENO:0000134", "hemizygous");
         builder.setAllelicState(heterozygous);
         return this;
     }

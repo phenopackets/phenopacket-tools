@@ -8,7 +8,7 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 class Covid implements PhenopacketExample {
 
@@ -16,17 +16,17 @@ class Covid implements PhenopacketExample {
 
     private static final String RETURN_TO_HOSPITAL_TIME = "2020-03-20T00:00:00Z";
 
-    private static final OntologyClass stage3kidney = of("HP:0012625", "Stage 3 chronic kidney disease");
-    private static final OntologyClass obesity = of("HP:0001513", "Obesity");
-    private static final OntologyClass giBleeding = of("HP:0002239", "Gastrointestinal hemorrhage");
-    private static final OntologyClass vtach = of("HP:0004756", "Ventricular tachycardia");
-    private static final OntologyClass rvFailure = of("HP:0001708", "Right ventricular failure");
+    private static final OntologyClass stage3kidney = ontologyClass("HP:0012625", "Stage 3 chronic kidney disease");
+    private static final OntologyClass obesity = ontologyClass("HP:0001513", "Obesity");
+    private static final OntologyClass giBleeding = ontologyClass("HP:0002239", "Gastrointestinal hemorrhage");
+    private static final OntologyClass vtach = ontologyClass("HP:0004756", "Ventricular tachycardia");
+    private static final OntologyClass rvFailure = ontologyClass("HP:0001708", "Right ventricular failure");
     private static final Disease notDiabetesMellitus = Disease.newBuilder()
-            .setTerm(of("MONDO:0005015", "diabetes mellitus"))
+            .setTerm(ontologyClass("MONDO:0005015", "diabetes mellitus"))
             .setExcluded(true)
             .build();
 
-    private static final OntologyClass CONTINUOUS = of("PATO:0000689", "continuous");
+    private static final OntologyClass CONTINUOUS = ontologyClass("PATO:0000689", "continuous");
 
     private final Phenopacket phenopacket;
 
@@ -43,9 +43,9 @@ class Covid implements PhenopacketExample {
                 .builder("MONDO:0100096", "COVID-19")
                 .onset(TimeElements.timestamp("2020-03-17T00:00:00Z"))
                 .build();
-        var bloodGroupA = PhenotypicFeatureBuilder.of("HP:0032370", "Blood group A");
-        var rhesusPositive = PhenotypicFeatureBuilder.of("NCIT:C76251", "Rh Positive Blood Group");
-        var obesityPhenotype = PhenotypicFeatureBuilder.of(obesity);
+        var bloodGroupA = PhenotypicFeatureBuilder.phenotypicFeature("HP:0032370", "Blood group A");
+        var rhesusPositive = PhenotypicFeatureBuilder.phenotypicFeature("NCIT:C76251", "Rh Positive Blood Group");
+        var obesityPhenotype = PhenotypicFeatureBuilder.phenotypicFeature(obesity);
         var externalRef = ExternalReferenceBuilder.builder()
                 .id("DOI:10.1016/j.jaccas.2020.04.001")
                 .builder("PMID:32292915")
@@ -60,19 +60,19 @@ class Covid implements PhenopacketExample {
 
         phenopacket = PhenopacketBuilder.create("arbitrary.phenopacket.id", metaData)
                 .individual(patient)
-                .allPhenotypicFeatures(getAllPhenotypicFeatures())
-                .allMeasurements(getAllMeasurements())
+                .addAllPhenotypicFeatures(getAllPhenotypicFeatures())
+                .addAllMeasurements(getAllMeasurements())
                 // .addMeasurements(initialBloodLymphocyteCount)
                 // .addMeasurements(hoD0bloodLymphocyteCount)
-                .medicalAction(lvadImplant())
-                .medicalAction(nasalOxygenAdministered())
-                .medicalAction(dexamethasone())
-                .medicalAction(trachealIntubation())
-                .medicalAction(peepOxygenAdministered())
-                .medicalAction(tocilizumabAdministered())
-                .disease(notDiabetesMellitus)
-                .disease(cardiomyopathy)
-                .disease(covid)
+                .addMedicalAction(lvadImplant())
+                .addMedicalAction(nasalOxygenAdministered())
+                .addMedicalAction(dexamethasone())
+                .addMedicalAction(trachealIntubation())
+                .addMedicalAction(peepOxygenAdministered())
+                .addMedicalAction(tocilizumabAdministered())
+                .addDisease(notDiabetesMellitus)
+                .addDisease(cardiomyopathy)
+                .addDisease(covid)
                 .build();
 
     }
@@ -129,13 +129,13 @@ class Covid implements PhenopacketExample {
 
     private List<Measurement> getAllMeasurements() {
         List<Measurement> measurements = new ArrayList<>();
-        Value value = ValueBuilder.of(QuantityBuilder.of("NCIT:C67245", "Thousand Cells", 1.4));
-        var assay = of("LOINC:26474-7", "Lymphocytes [#/volume] in Blood");
+        Value value = ValueBuilder.value(QuantityBuilder.quantity("NCIT:C67245", "Thousand Cells", 1.4));
+        var assay = ontologyClass("LOINC:26474-7", "Lymphocytes [#/volume] in Blood");
         var initialBloodLymphocyteCount = MeasurementBuilder.value(assay, value)
                 .timeObserved(TimeElements.interval("2019-09-01T00:00:00Z", "2020-03-01T00:00:00Z"))
                 .build();
         measurements.add(initialBloodLymphocyteCount);
-        Value value2 = ValueBuilder.of(QuantityBuilder.of("NCIT:C67245", "Thousand Cells", 0.7));
+        Value value2 = ValueBuilder.value(QuantityBuilder.quantity("NCIT:C67245", "Thousand Cells", 0.7));
 
         var hoD0bloodLymphocyteCount = MeasurementBuilder.value(assay, value2)
                 .timeObserved(TimeElements.timestamp(RETURN_TO_HOSPITAL_TIME))
@@ -145,16 +145,16 @@ class Covid implements PhenopacketExample {
     }
 
     private MedicalAction nasalOxygenAdministered() {
-        Quantity twoLperMin = QuantityBuilder.of("NCIT:C67388", "Liter per Minute", 2);
-        var interval1 = DoseIntervalBuilder.of(twoLperMin,
+        Quantity twoLperMin = QuantityBuilder.quantity("NCIT:C67388", "Liter per Minute", 2);
+        var interval1 = DoseIntervalBuilder.doseInterval(twoLperMin,
                 CONTINUOUS,
-                TimeIntervalBuilder.of("2021-02-01T18:58:43Z", "2021-02-02T08:22:42Z"));
-        Quantity fiftyLperMin = QuantityBuilder.of("NCIT:C67388", "Liter per Minute", 50);
-        var interval2 = DoseIntervalBuilder.of(fiftyLperMin,
+                TimeIntervalBuilder.timeInterval("2021-02-01T18:58:43Z", "2021-02-02T08:22:42Z"));
+        Quantity fiftyLperMin = QuantityBuilder.quantity("NCIT:C67388", "Liter per Minute", 50);
+        var interval2 = DoseIntervalBuilder.doseInterval(fiftyLperMin,
                 CONTINUOUS,
-                TimeIntervalBuilder.of("2021-02-02T08:22:42Z", "2021-02-02T12:22:42Z"));
+                TimeIntervalBuilder.timeInterval("2021-02-02T08:22:42Z", "2021-02-02T12:22:42Z"));
         Treatment nasalOxygen = TreatmentBuilder.builder("NCIT:C722", "Oxygen")
-                .routeOfAdministration(of("NCIT:C38284", "Nasal Route of Administration"))
+                .routeOfAdministration(ontologyClass("NCIT:C38284", "Nasal Route of Administration"))
                 .doseInterval(interval1)
                 .doseInterval(interval2)
                 .build();
@@ -174,19 +174,19 @@ class Covid implements PhenopacketExample {
     }
 
     private MedicalAction peepOxygenAdministered() {
-        Quantity quantity = QuantityBuilder.of("NCIT:C91060", "Centimeters of Water", 14);
-        var doseInterval = DoseIntervalBuilder.of(quantity, CONTINUOUS, "2020-03-22", "2020-03-28");
-        Treatment oxygen = TreatmentBuilder.builder(of("NCIT:C722", "Oxygen"))
-                .routeOfAdministration(of("NCIT:C50254", "Positive end Expiratory Pressure Valve Device"))
+        Quantity quantity = QuantityBuilder.quantity("NCIT:C91060", "Centimeters of Water", 14);
+        var doseInterval = DoseIntervalBuilder.doseInterval(quantity, CONTINUOUS, "2020-03-22", "2020-03-28");
+        Treatment oxygen = TreatmentBuilder.builder(ontologyClass("NCIT:C722", "Oxygen"))
+                .routeOfAdministration(ontologyClass("NCIT:C50254", "Positive end Expiratory Pressure Valve Device"))
                 .doseInterval(doseInterval)
                 .build();
         return MedicalActionBuilder.treatment(oxygen);
     }
 
     private MedicalAction tocilizumabAdministered() {
-        Quantity quantity = QuantityBuilder.of("NCIT:C124458", "Milligram per Kilogram per Dose", 4);
-        OntologyClass q4weeks = of("NCIT:C64529", "Every Four Weeks");
-        var doseInterval = DoseIntervalBuilder.of(quantity, q4weeks, "2020-03-24", "2020-03-28");
+        Quantity quantity = QuantityBuilder.quantity("NCIT:C124458", "Milligram per Kilogram per Dose", 4);
+        OntologyClass q4weeks = ontologyClass("NCIT:C64529", "Every Four Weeks");
+        var doseInterval = DoseIntervalBuilder.doseInterval(quantity, q4weeks, "2020-03-24", "2020-03-28");
         var treatment = TreatmentBuilder.builder("NCIT:C84217", "Tocilizumab")
                 .doseInterval(doseInterval)
                 .build();
@@ -195,9 +195,9 @@ class Covid implements PhenopacketExample {
 
     private MedicalAction dexamethasone() {
         // ten days, 6 mg once a day
-        Quantity quantity = QuantityBuilder.of("UO:0000022", "milligram", 6);
-        OntologyClass onceDaily = of("NCIT:C125004", "Once Daily");
-        var doseInterval = DoseIntervalBuilder.of(quantity, onceDaily, "2020-03-20", "2020-03-30");
+        Quantity quantity = QuantityBuilder.quantity("UO:0000022", "milligram", 6);
+        OntologyClass onceDaily = ontologyClass("NCIT:C125004", "Once Daily");
+        var doseInterval = DoseIntervalBuilder.doseInterval(quantity, onceDaily, "2020-03-20", "2020-03-30");
 
         Treatment dexa = TreatmentBuilder.builder("CHEBI:41879", "dexamethasone")
                 .doseInterval(doseInterval)

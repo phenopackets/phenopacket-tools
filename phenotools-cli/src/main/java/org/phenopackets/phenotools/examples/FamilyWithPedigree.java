@@ -57,7 +57,7 @@ public class FamilyWithPedigree {
                         .onset(congenital)
                         .build();
         PhenopacketBuilder phpBuilder = PhenopacketBuilder.create(phenopacketId, metadata)
-                .phenotypicFeature(hearingImpairment)
+                .addPhenotypicFeature(hearingImpairment)
                 .individual(proband);
         return phpBuilder.build();
     }

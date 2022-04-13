@@ -41,21 +41,22 @@ public class BiosampleBuilder {
         return this;
     }
 
-    public BiosampleBuilder phenotypicFeature(PhenotypicFeature feature) {
+    public BiosampleBuilder addPhenotypicFeature(PhenotypicFeature feature) {
         builder.addPhenotypicFeatures(feature);
         return this;
     }
-    public BiosampleBuilder allPhenotypicFeatureS(List<PhenotypicFeature> features) {
+
+    public BiosampleBuilder addAllPhenotypicFeatures(List<PhenotypicFeature> features) {
         builder.addAllPhenotypicFeatures(features);
         return this;
     }
 
-    public BiosampleBuilder measurement(Measurement measurement) {
+    public BiosampleBuilder addMeasurement(Measurement measurement) {
         builder.addMeasurements(measurement);
         return this;
     }
 
-    public BiosampleBuilder allMeasurements(List<Measurement> measurements) {
+    public BiosampleBuilder addAllMeasurements(List<Measurement> measurements) {
         builder.addAllMeasurements(measurements);
         return this;
     }
@@ -68,8 +69,8 @@ public class BiosampleBuilder {
         return this;
     }
 
-    public BiosampleBuilder histologicalDiagnosis(OntologyClass dx) {
-        builder.setHistologicalDiagnosis(dx);
+    public BiosampleBuilder histologicalDiagnosis(OntologyClass histologicalDiagnosis) {
+        builder.setHistologicalDiagnosis(histologicalDiagnosis);
         return this;
     }
 
@@ -87,20 +88,20 @@ public class BiosampleBuilder {
         builder.setPathologicalStage(stage);
         return this;
     }
-    public BiosampleBuilder pathologicalTnmFinding(OntologyClass tnmFinding) {
+    public BiosampleBuilder addPathologicalTnmFinding(OntologyClass tnmFinding) {
         builder.addPathologicalTnmFinding(tnmFinding);
         return this;
     }
 
-    public BiosampleBuilder allPathologicalTnmFindings(List<OntologyClass> tnmFindings) {
+    public BiosampleBuilder addAllPathologicalTnmFindings(List<OntologyClass> tnmFindings) {
         builder.addAllPathologicalTnmFinding(tnmFindings);
         return this;
     }
-    public BiosampleBuilder diagnosticMarker(OntologyClass marker) {
+    public BiosampleBuilder addDiagnosticMarker(OntologyClass marker) {
         builder.addDiagnosticMarkers(marker);
         return this;
     }
-    public BiosampleBuilder allDiagnosticMarker(List<OntologyClass> markers) {
+    public BiosampleBuilder addAllDiagnosticMarkers(List<OntologyClass> markers) {
         builder.addAllDiagnosticMarkers(markers);
         return this;
     }
@@ -110,12 +111,12 @@ public class BiosampleBuilder {
         return this;
     }
 
-    public BiosampleBuilder file(File file) {
+    public BiosampleBuilder addFile(File file) {
         builder.addFiles(file);
         return this;
     }
 
-    public BiosampleBuilder allFile(List<File> files) {
+    public BiosampleBuilder addAllFiles(List<File> files) {
         builder.addAllFiles(files);
         return this;
     }

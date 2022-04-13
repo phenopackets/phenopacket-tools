@@ -10,7 +10,7 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 import static org.phenopackets.phenotools.builder.builders.TimeElements.gestationalAge;
 
 /**
@@ -22,7 +22,7 @@ import static org.phenopackets.phenotools.builder.builders.TimeElements.gestatio
 class NemalineMyopathyPrenatal implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
-    private final OntologyClass nemalineMyopathy8 = of("MONDO:0014138", "nemaline myopathy 8");
+    private final OntologyClass nemalineMyopathy8 = ontologyClass("MONDO:0014138", "nemaline myopathy 8");
 
     private final Phenopacket phenopacket;
 
@@ -41,12 +41,12 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
                 .vitalStatus(vitalStatus).build();
         PhenopacketBuilder builder = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(individual)
-                .phenotypicFeature(decreasedFetalMovement())
-                 .biosample(muscleBiopsy())
-                .interpretation(interpretation());
+                .addPhenotypicFeature(decreasedFetalMovement())
+                 .addBiosample(muscleBiopsy())
+                .addInterpretation(interpretation());
 
-        builder.allPhenotypicFeatures(sonography33weeks());
-        builder.allPhenotypicFeatures(apgar());
+        builder.addAllPhenotypicFeatures(sonography33weeks());
+        builder.addAllPhenotypicFeatures(apgar());
         phenopacket = builder.build();
     }
 
@@ -75,7 +75,7 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
     List<PhenotypicFeature> sonography33weeks() {
         List<PhenotypicFeature> phenotypicFeatureList = new ArrayList<>();
         TimeElement onset = gestationalAge(32,4);
-        OntologyClass borderline = of("HP:0012827", "Borderline");
+        OntologyClass borderline = ontologyClass("HP:0012827", "Borderline");
         PhenotypicFeature edema = PhenotypicFeatureBuilder.builder("HP:0025672", "Fetal skin edema")
                 .onset(onset).build();
         PhenotypicFeature overlapping = PhenotypicFeatureBuilder.builder("HP:0010557", "Overlapping fingers")
@@ -99,10 +99,10 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
     Biosample muscleBiopsy() {
         String biosampleId = "biosample.1";
         BiosampleBuilder builder = BiosampleBuilder.builder(biosampleId);
-        OntologyClass abdominalMuscle = of("UBERON:0002378", "muscle of abdomen");
+        OntologyClass abdominalMuscle = ontologyClass("UBERON:0002378", "muscle of abdomen");
         builder.sampledTissue(abdominalMuscle);
         PhenotypicFeature nemalineRods = PhenotypicFeatureBuilder.builder("HP:0003798","Nemaline bodies").build();
-        builder.phenotypicFeature(nemalineRods);
+        builder.addPhenotypicFeature(nemalineRods);
         ProcedureBuilder pbuilder = ProcedureBuilder.builder("NCIT:C51895", "Muscle Biopsy");
         TimeElement age = TimeElements.age("P1D");
         pbuilder.bodySite(abdominalMuscle).performed(age);
@@ -112,7 +112,7 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
 
     Interpretation interpretation() {
         InterpretationBuilder ibuilder = InterpretationBuilder.solved("interpretation.id");
-        OntologyClass nm8 = of("MONDO:0014138", "nemaline myopathy 8");
+        OntologyClass nm8 = ontologyClass("MONDO:0014138", "nemaline myopathy 8");
         DiagnosisBuilder dbuilder = DiagnosisBuilder.builder(nm8);
         dbuilder.genomicInterpretation(klhl40InterpretationV1());
         dbuilder.genomicInterpretation(klhl40InterpretationV2());

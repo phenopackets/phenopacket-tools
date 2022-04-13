@@ -12,20 +12,20 @@ public class ComplexValueBuilder {
     private ComplexValueBuilder() {
     }
 
-    public static ComplexValue of(TypedQuantity typedQuantity) {
+    public static ComplexValue complexValue(TypedQuantity typedQuantity) {
         return ComplexValue.newBuilder().addTypedQuantities(typedQuantity).build();
     }
 
-    public static ComplexValue of(TypedQuantity... typedQuantities) {
+    public static ComplexValue complexValue(TypedQuantity... typedQuantities) {
         return ComplexValue.newBuilder().addAllTypedQuantities(List.of(typedQuantities)).build();
     }
 
-    public static ComplexValue of(List<TypedQuantity> typedQuantities) {
+    public static ComplexValue complexValue(List<TypedQuantity> typedQuantities) {
         return ComplexValue.newBuilder().addAllTypedQuantities(typedQuantities).build();
     }
 
-    public static ComplexValue of(OntologyClass type, Quantity quantity) {
-        TypedQuantity typedQuantity = TypedQuantityBuilder.of(type, quantity);
-        return of(typedQuantity);
+    public static ComplexValue complexValue(OntologyClass type, Quantity quantity) {
+        TypedQuantity typedQuantity = TypedQuantityBuilder.typedQuantity(type, quantity);
+        return complexValue(typedQuantity);
     }
 }

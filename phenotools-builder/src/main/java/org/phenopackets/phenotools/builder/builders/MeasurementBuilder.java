@@ -14,11 +14,11 @@ public class MeasurementBuilder {
         builder = Measurement.newBuilder().setAssay(assay).setComplexValue(complexValue);
     }
 
-    public static Measurement of(OntologyClass assay, Value value) {
+    public static Measurement measurement(OntologyClass assay, Value value) {
         return Measurement.newBuilder().setAssay(assay).setValue(value).build();
     }
 
-    public static Measurement of(OntologyClass assay, ComplexValue complexValue) {
+    public static Measurement measurement(OntologyClass assay, ComplexValue complexValue) {
         return Measurement.newBuilder().setAssay(assay).setComplexValue(complexValue).build();
     }
 

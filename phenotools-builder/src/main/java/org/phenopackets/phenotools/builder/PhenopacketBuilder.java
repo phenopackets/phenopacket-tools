@@ -22,47 +22,52 @@ public class PhenopacketBuilder {
         return this;
     }
 
-    public PhenopacketBuilder phenotypicFeature(PhenotypicFeature feature) {
+    public PhenopacketBuilder addPhenotypicFeature(PhenotypicFeature feature) {
         builder.addPhenotypicFeatures(feature);
         return this;
     }
 
-    public PhenopacketBuilder allPhenotypicFeatures(List<PhenotypicFeature> features) {
+    public PhenopacketBuilder addAllPhenotypicFeatures(List<PhenotypicFeature> features) {
         builder.addAllPhenotypicFeatures(features);
         return this;
     }
 
-    public PhenopacketBuilder measurement(Measurement measurement) {
+    public PhenopacketBuilder addMeasurement(Measurement measurement) {
         builder.addMeasurements(measurement);
         return this;
     }
 
-    public PhenopacketBuilder allMeasurements(List<Measurement> measurements) {
+    public PhenopacketBuilder addAllMeasurements(List<Measurement> measurements) {
         builder.addAllMeasurements(measurements);
         return this;
     }
 
-    public PhenopacketBuilder biosample(Biosample biosample) {
+    public PhenopacketBuilder addBiosample(Biosample biosample) {
         builder.addBiosamples(biosample);
         return this;
     }
 
-    public PhenopacketBuilder interpretation(Interpretation interpretation) {
+    public PhenopacketBuilder addAllBiosamples(List<Biosample> biosample) {
+        builder.addAllBiosamples(biosample);
+        return this;
+    }
+
+    public PhenopacketBuilder addInterpretation(Interpretation interpretation) {
         builder.addInterpretations(interpretation);
         return this;
     }
 
-    public PhenopacketBuilder disease(Disease disease) {
+    public PhenopacketBuilder addDisease(Disease disease) {
         builder.addDiseases(disease);
         return this;
     }
 
-    public PhenopacketBuilder medicalAction(MedicalAction medicalAction) {
+    public PhenopacketBuilder addMedicalAction(MedicalAction medicalAction) {
         builder.addMedicalActions(medicalAction);
         return this;
     }
 
-    public PhenopacketBuilder file(File file) {
+    public PhenopacketBuilder addFile(File file) {
         builder.addFiles(file);
         return this;
     }

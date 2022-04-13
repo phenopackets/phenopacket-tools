@@ -17,7 +17,7 @@ public class ProcedureBuilder {
     }
 
     public static Procedure procedure(String id, String label) {
-        return procedure(OntologyClassBuilder.of(id, label));
+        return procedure(OntologyClassBuilder.ontologyClass(id, label));
     }
 
     public static ProcedureBuilder builder(OntologyClass procedure) {
@@ -25,7 +25,7 @@ public class ProcedureBuilder {
     }
 
     public static ProcedureBuilder builder(String id, String label) {
-        return new ProcedureBuilder(OntologyClassBuilder.of(id, label));
+        return new ProcedureBuilder(OntologyClassBuilder.ontologyClass(id, label));
     }
 
     public ProcedureBuilder bodySite(OntologyClass site) {

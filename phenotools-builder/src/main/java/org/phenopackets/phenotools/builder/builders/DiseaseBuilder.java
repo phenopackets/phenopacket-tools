@@ -17,7 +17,7 @@ public class DiseaseBuilder {
     }
 
     public static Disease disease(String id, String label) {
-        OntologyClass term = OntologyClassBuilder.of(id, label);
+        OntologyClass term = OntologyClassBuilder.ontologyClass(id, label);
         return disease(term);
     }
 
@@ -26,7 +26,7 @@ public class DiseaseBuilder {
     }
 
     public static DiseaseBuilder builder(String id, String label) {
-        OntologyClass term = OntologyClassBuilder.of(id, label);
+        OntologyClass term = OntologyClassBuilder.ontologyClass(id, label);
         return builder(term);
     }
 

@@ -9,20 +9,20 @@ import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 public class Retinoblastoma implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
     private static final String BIOSAMPLE_ID = "biosample.1";
-    private static final OntologyClass BIOPSY = of("NCIT:C15189", "Biopsy");
-    private static final OntologyClass RETINOBLASTOMA = of("NCIT:C7541", "Retinoblastoma");
-    private static final OntologyClass PRIMARY_NEOPLASM = of("NCIT:C8509", "Primary Neoplasm");
+    private static final OntologyClass BIOPSY = ontologyClass("NCIT:C15189", "Biopsy");
+    private static final OntologyClass RETINOBLASTOMA = ontologyClass("NCIT:C7541", "Retinoblastoma");
+    private static final OntologyClass PRIMARY_NEOPLASM = ontologyClass("NCIT:C8509", "Primary Neoplasm");
 
     // Organs
-    private static final OntologyClass EYE = of("UBERON:0000970", "eye");
-    private static final OntologyClass CURE = of("NCIT:C62220", "Cure");
-    private final OntologyClass leftEye = of("UBERON:0004548", "left eye");
+    private static final OntologyClass EYE = ontologyClass("UBERON:0000970", "eye");
+    private static final OntologyClass CURE = ontologyClass("NCIT:C62220", "Cure");
+    private static final OntologyClass LEFT_EYE = ontologyClass("UBERON:0004548", "left eye");
 
     private final Phenopacket phenopacket;
     public Retinoblastoma() {
@@ -38,19 +38,19 @@ public class Retinoblastoma implements PhenopacketExample {
                 XX().
                 build();
         // VCF file with results of germline whole-genome sequencing
-        File wgsFile = FileBuilder.of("file://data/germlineWgs.vcf.gz");
+        File wgsFile = FileBuilder.file("file://data/germlineWgs.vcf.gz");
 
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
-                .allMeasurements(getMeasurements())
-                .allPhenotypicFeatures(getPhenotypicFeatures())
-                .disease(getDisease())
-                .medicalAction(melphalan())
-                .medicalAction(chemoRegimen())
-                .medicalAction(enucleation())
-                .biosample(enucleatedEye())
-                .interpretation(interpretation())
-                .file(wgsFile)
+                .addAllMeasurements(getMeasurements())
+                .addAllPhenotypicFeatures(getPhenotypicFeatures())
+                .addDisease(getDisease())
+                .addMedicalAction(melphalan())
+                .addMedicalAction(chemoRegimen())
+                .addMedicalAction(enucleation())
+                .addBiosample(enucleatedEye())
+                .addInterpretation(interpretation())
+                .addFile(wgsFile)
                 .build();
     }
 
@@ -154,48 +154,47 @@ public class Retinoblastoma implements PhenopacketExample {
         return pbuilder.build();
     }
 
-
     Biosample enucleatedEye() {
         TimeElement age = TimeElements.age("P8M2W");
         BiosampleBuilder builder = BiosampleBuilder.builder(BIOSAMPLE_ID);
         builder.sampledTissue(EYE);
         //Retinoblastoma with tumor invading optic nerve past lamina cribrosa but not to surgical resection line and exhibiting massive choroidal invasion.
-        builder.pathologicalTnmFinding(of("NCIT:C88735", "Retinoblastoma pT3b TNM Finding v7"));
+        builder.addPathologicalTnmFinding(ontologyClass("NCIT:C88735", "Retinoblastoma pT3b TNM Finding v7"));
         //Retinoblastoma with no regional lymph node involvement.
-        builder.pathologicalTnmFinding(of("NCIT:C88741","Retinoblastoma pN0 TNM Finding v7"));
+        builder.addPathologicalTnmFinding(ontologyClass("NCIT:C88741","Retinoblastoma pN0 TNM Finding v7"));
 
         //
-        PhenotypicFeature pfRosette = PhenotypicFeatureBuilder.of("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
-        builder.phenotypicFeature(pfRosette);
-        PhenotypicFeature pfApoptosis = PhenotypicFeatureBuilder.of("NCIT:C132485", "Apoptosis and Necrosis");
-        builder.phenotypicFeature(pfApoptosis);
-        OntologyClass maxTumorSizeTest = OntologyClassBuilder.of("LOINC:33728-7", "Size.maximum dimension in Tumor");
-        Value maxTumorSize = ValueBuilder.of(Unit.mm(), 15);
+        PhenotypicFeature pfRosette = PhenotypicFeatureBuilder.phenotypicFeature("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
+        builder.addPhenotypicFeature(pfRosette);
+        PhenotypicFeature pfApoptosis = PhenotypicFeatureBuilder.phenotypicFeature("NCIT:C132485", "Apoptosis and Necrosis");
+        builder.addPhenotypicFeature(pfApoptosis);
+        OntologyClass maxTumorSizeTest = OntologyClassBuilder.ontologyClass("LOINC:33728-7", "Size.maximum dimension in Tumor");
+        Value maxTumorSize = ValueBuilder.value(Unit.mm(), 15);
         Measurement maxTumorSizeMeasurement = MeasurementBuilder.value(maxTumorSizeTest, maxTumorSize).timeObserved(age).build();
-        builder.measurement(maxTumorSizeMeasurement);
+        builder.addMeasurement(maxTumorSizeMeasurement);
 
         ProcedureBuilder pbuilder = ProcedureBuilder.builder("NCIT:C48601", "Enucleation");
 
-        pbuilder.bodySite(leftEye).performed(age);
+        pbuilder.bodySite(LEFT_EYE).performed(age);
         builder.procedure(pbuilder.build());
         builder.tumorProgression(PRIMARY_NEOPLASM);
         // VCF file with results of whole-genome sequencing on this tumor
-        File wgsFile = FileBuilder.of("file://data/fileSomaticWgs.vcf.gz");
-        builder.file(wgsFile);
+        File wgsFile = FileBuilder.file("file://data/fileSomaticWgs.vcf.gz");
+        builder.addFile(wgsFile);
         return builder.build();
     }
 
 
 
     MedicalAction melphalan() {
-        OntologyClass melphalan = of("DrugCentral:1678", "melphalan");
-        OntologyClass administration = of("NCIT:C38222",  "Intraarterial Route of Administration");
+        OntologyClass melphalan = ontologyClass("DrugCentral:1678", "melphalan");
+        OntologyClass administration = ontologyClass("NCIT:C38222",  "Intraarterial Route of Administration");
        //0.4 mg/kg (up to a starting dose of 5 mg)
-        Quantity quantity = QuantityBuilder.of(Unit.mgPerKg(), 0.4);
-        TimeInterval interval = TimeIntervalBuilder.of("2020-09-02", "2020-09-02");
-        OntologyClass once = of("NCIT:C64576", "Once");
+        Quantity quantity = QuantityBuilder.quantity(Unit.mgPerKg(), 0.4);
+        TimeInterval interval = TimeIntervalBuilder.timeInterval("2020-09-02", "2020-09-02");
+        OntologyClass once = ontologyClass("NCIT:C64576", "Once");
 
-        DoseInterval doseInterval = DoseIntervalBuilder.of(quantity, once, interval);
+        DoseInterval doseInterval = DoseIntervalBuilder.doseInterval(quantity, once, interval);
 
 
         Treatment treatment = TreatmentBuilder.builder(melphalan)
@@ -203,10 +202,10 @@ public class Retinoblastoma implements PhenopacketExample {
                 .doseInterval(doseInterval).build();
 
         return MedicalActionBuilder.builder(treatment)
-                .adverseEvent(of("HP:0025637", "Vasospasm"))
+                .adverseEvent(ontologyClass("HP:0025637", "Vasospasm"))
                 .treatmentTarget(RETINOBLASTOMA)
                 .treatmentIntent(CURE)
-                .treatmentTerminationReason(of("NCIT:C41331", "Adverse Event"))
+                .treatmentTerminationReason(ontologyClass("NCIT:C41331", "Adverse Event"))
                 .build();
     }
 
@@ -214,7 +213,7 @@ public class Retinoblastoma implements PhenopacketExample {
     MedicalAction enucleation() {
         ProcedureBuilder builder = ProcedureBuilder.builder("NCIT:C48601", "Enucleation");
         TimeElement age = TimeElements.age("P8M2W");
-        builder.bodySite(leftEye).performed(age);
+        builder.bodySite(LEFT_EYE).performed(age);
         MedicalActionBuilder mabuilder = MedicalActionBuilder.builder(builder.build())
                 .treatmentTarget(RETINOBLASTOMA)
                 .treatmentIntent(CURE);
@@ -246,15 +245,15 @@ public class Retinoblastoma implements PhenopacketExample {
         // Retinoblastoma ,  NCIT:C7541
         // No metastasis is NCIT:C140678, Retinoblastoma cM0 TNM Finding v8
         //Retinoblastoma with no signs or symptoms of intracranial or distant metastasis. (from AJCC 8th Ed.) [ NCI ]
-        OntologyClass stageE = of("LOINC:LA24739-7", "Group E");
-        OntologyClass noMetastasis = of("NCIT:C140678", "Retinoblastoma cM0 TNM Finding v8");
+        OntologyClass stageE = ontologyClass("LOINC:LA24739-7", "Group E");
+        OntologyClass noMetastasis = ontologyClass("NCIT:C140678", "Retinoblastoma cM0 TNM Finding v8");
 
         TimeElement age4m = TimeElements.age("P4M");
         return DiseaseBuilder.builder(RETINOBLASTOMA)
                 .onset(age4m)
                 .diseaseStage(stageE)
                 .clinicalTnmFinding(noMetastasis)
-                .primarySite(leftEye)
+                .primarySite(LEFT_EYE)
                 .build();
     }
 
@@ -295,14 +294,14 @@ public class Retinoblastoma implements PhenopacketExample {
     measured with the Perkins tonometer.
      */
     List<Measurement> getMeasurements() {
-        OntologyClass iop = of("56844-4","Intraocular pressure of Eye");
-        ReferenceRange ref = ReferenceRangeBuilder.of(iop, 10, 21);
+        OntologyClass iop = ontologyClass("56844-4","Intraocular pressure of Eye");
+        ReferenceRange ref = ReferenceRangeBuilder.referenceRange(iop, 10, 21);
         OntologyClass leftEyeIop =
-                OntologyClassBuilder.of("LOINC:79893-4", "Left eye Intraocular pressure");
-        Value leftEyeValue = ValueBuilder.of(Unit.mmHg(), 25, ref);
+                OntologyClassBuilder.ontologyClass("LOINC:79893-4", "Left eye Intraocular pressure");
+        Value leftEyeValue = ValueBuilder.value(Unit.mmHg(), 25, ref);
         OntologyClass rightEyeIop =
-                OntologyClassBuilder.of("LOINC:79892-6", "Right eye Intraocular pressure");
-        Value rightEyeValue = ValueBuilder.of(Unit.mmHg(), 15, ref);
+                OntologyClassBuilder.ontologyClass("LOINC:79892-6", "Right eye Intraocular pressure");
+        Value rightEyeValue = ValueBuilder.value(Unit.mmHg(), 15, ref);
         TimeElement age = TimeElements.age("P6M");
 
         Measurement leftEyeMeasurement = MeasurementBuilder.value(leftEyeIop, leftEyeValue).timeObserved(age).build();

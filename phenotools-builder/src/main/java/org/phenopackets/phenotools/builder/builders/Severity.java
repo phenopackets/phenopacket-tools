@@ -2,7 +2,7 @@ package org.phenopackets.phenotools.builder.builders;
 
 import org.phenopackets.schema.v2.core.OntologyClass;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 
 public class Severity {
@@ -10,11 +10,11 @@ public class Severity {
     private Severity() {
     }
 
-    private static final OntologyClass BORDERLINE = of("HP:0012827", "Borderline");
-    private static final OntologyClass MILD = of("HP:0012825", "Mild");
-    private static final OntologyClass MODERATE = of("HP:0012826", "Moderate");
-    private static final OntologyClass SEVERE = of("HP:0012828", "Severe");
-    private static final OntologyClass PROFOUND = of("HP:0012829", "Profound");
+    private static final OntologyClass BORDERLINE = ontologyClass("HP:0012827", "Borderline");
+    private static final OntologyClass MILD = ontologyClass("HP:0012825", "Mild");
+    private static final OntologyClass MODERATE = ontologyClass("HP:0012826", "Moderate");
+    private static final OntologyClass SEVERE = ontologyClass("HP:0012828", "Severe");
+    private static final OntologyClass PROFOUND = ontologyClass("HP:0012829", "Profound");
 
     /**
      * Having a minor degree of severity that is considered to be on the boundary between the normal and the abnormal ranges. For quantitative traits, a deviation of that is less than two standard deviations from the appropriate population mean.

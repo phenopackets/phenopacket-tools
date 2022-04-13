@@ -2,13 +2,13 @@ package org.phenopackets.phenotools.builder.builders;
 
 import org.phenopackets.schema.v2.core.OntologyClass;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 public class Unit {
 
-    private static final OntologyClass MILLIMETRES_OF_MERCURY = of("UO:0000272", "millimetres of mercury");
-    private static final OntologyClass MILLIMETER = of("UO:0000016", "millimeter");
-    private static final OntologyClass MILLIGRAM_PER_KILOGRAM = of("UO:0000308", "milligram per kilogram");
+    private static final OntologyClass MILLIMETRES_OF_MERCURY = ontologyClass("UO:0000272", "millimetres of mercury");
+    private static final OntologyClass MILLIMETER = ontologyClass("UO:0000016", "millimeter");
+    private static final OntologyClass MILLIGRAM_PER_KILOGRAM = ontologyClass("UO:0000308", "milligram per kilogram");
 
     private Unit() {
     }

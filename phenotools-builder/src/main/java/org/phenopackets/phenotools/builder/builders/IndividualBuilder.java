@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class IndividualBuilder {
 
-    public static final OntologyClass HOMO_SAPIENS = OntologyClassBuilder.of("NCBI:txid9606", "Homo sapiens");
+    public static final OntologyClass HOMO_SAPIENS = OntologyClassBuilder.ontologyClass("NCBI:txid9606", "Homo sapiens");
 
     private final Individual.Builder builder;
 

@@ -6,7 +6,7 @@ import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 class BethlehamMyopathy implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary proband id";
@@ -17,7 +17,7 @@ class BethlehamMyopathy implements PhenopacketExample {
 
     BethlehamMyopathy() {
         var authorAssertion = EvidenceBuilder.authorStatementEvidence("PMID:30808312", "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report");
-        var bethlehamMyopathy = of("OMIM:158810", "Bethlem myopathy 1");
+        var bethlehamMyopathy = ontologyClass("OMIM:158810", "Bethlem myopathy 1");
         var individual = IndividualBuilder.builder(PROBAND_ID).male().ageAtLastEncounter("P6Y3M").build();
         var metaData = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .resource(Resources.hpoVersion("2021-08-02"))
@@ -30,7 +30,7 @@ class BethlehamMyopathy implements PhenopacketExample {
                         .hgvs("NM_001848.2:c.877G>A")
                         .build();
         var col6a1VariantInterpretation =
-                VariantInterpretationBuilder.of(variationDescriptor, Status.pathogenic());
+                VariantInterpretationBuilder.variantInterpretation(variationDescriptor, Status.pathogenic());
         var genomicInterpretation =
                 GenomicInterpretationBuilder.builder(INTERPRETATION_ID)
                         .causative()
@@ -88,17 +88,17 @@ class BethlehamMyopathy implements PhenopacketExample {
                         .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)
-                .phenotypicFeature(ventricularSeptalDefect)
-                .phenotypicFeature(coarseFacial)
-                .phenotypicFeature(cryptorchidism)
-                .phenotypicFeature(polyhydramnios)
-                .phenotypicFeature(micropenis)
-                .phenotypicFeature(anonychia)
-                .phenotypicFeature(vermisHypoplasia)
-                .phenotypicFeature(cataract)
-                .phenotypicFeature(dilatedFourthVentricle)
-                .phenotypicFeature(unilateralCleftLip)
-                .interpretation(interpretation)
+                .addPhenotypicFeature(ventricularSeptalDefect)
+                .addPhenotypicFeature(coarseFacial)
+                .addPhenotypicFeature(cryptorchidism)
+                .addPhenotypicFeature(polyhydramnios)
+                .addPhenotypicFeature(micropenis)
+                .addPhenotypicFeature(anonychia)
+                .addPhenotypicFeature(vermisHypoplasia)
+                .addPhenotypicFeature(cataract)
+                .addPhenotypicFeature(dilatedFourthVentricle)
+                .addPhenotypicFeature(unilateralCleftLip)
+                .addInterpretation(interpretation)
                 .build();
     }
 

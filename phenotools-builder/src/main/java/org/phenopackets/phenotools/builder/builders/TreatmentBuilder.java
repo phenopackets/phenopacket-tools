@@ -17,7 +17,7 @@ public class TreatmentBuilder {
     }
 
     public static Treatment treatment(String agentId, String agentLabel) {
-        return treatment(OntologyClassBuilder.of(agentId, agentLabel));
+        return treatment(OntologyClassBuilder.ontologyClass(agentId, agentLabel));
     }
 
     public static TreatmentBuilder builder(OntologyClass agent) {
@@ -25,7 +25,7 @@ public class TreatmentBuilder {
     }
 
     public static TreatmentBuilder builder(String id, String label) {
-        return new TreatmentBuilder(OntologyClassBuilder.of(id, label));
+        return new TreatmentBuilder(OntologyClassBuilder.ontologyClass(id, label));
     }
 
     public TreatmentBuilder routeOfAdministration(OntologyClass route) {
