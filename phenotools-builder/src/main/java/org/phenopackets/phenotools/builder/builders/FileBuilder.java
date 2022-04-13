@@ -14,11 +14,11 @@ public class FileBuilder {
         return File.newBuilder().setUri(uri).build();
     }
 
-    public static FileBuilder create(String uri) {
+    public static FileBuilder builder(String uri) {
         return new FileBuilder(uri);
     }
 
-    public FileBuilder fileAttribute(String k, String v) {
+    public FileBuilder addFileAttribute(String k, String v) {
         builder.putFileAttributes(k, v);
         return this;
     }
@@ -34,15 +34,21 @@ public class FileBuilder {
 
     public static FileBuilder hg38vcf(String uri) {
         FileBuilder fb = new FileBuilder(uri);
-        fb.fileAttribute("genomeAssembly", "GRCh38");
-        fb.fileAttribute("fileFormat", "VCF");
+        fb.addFileAttribute("genomeAssembly", "GRCh38");
+        fb.addFileAttribute("fileFormat", "VCF");
         return fb;
     }
 
     public static FileBuilder hg37vcf(String uri) {
         FileBuilder fb = new FileBuilder(uri);
-        fb.fileAttribute("genomeAssembly", "GRCh37");
-        fb.fileAttribute("fileFormat", "VCF");
+        fb.addFileAttribute("genomeAssembly", "GRCh37");
+        fb.addFileAttribute("fileFormat", "VCF");
         return fb;
+    }
+
+
+    public FileBuilder description(String description) {
+        builder.putFileAttributes("description", description);
+        return this;
     }
 }

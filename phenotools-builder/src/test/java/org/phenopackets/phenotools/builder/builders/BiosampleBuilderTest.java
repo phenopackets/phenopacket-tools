@@ -2,7 +2,6 @@ package org.phenopackets.phenotools.builder.builders;
 
 import org.junit.jupiter.api.Test;
 import org.phenopackets.schema.v2.core.Biosample;
-import org.phenopackets.schema.v2.core.OntologyClass;
 
 import java.util.List;
 
@@ -14,16 +13,16 @@ class BiosampleBuilderTest {
 
     @Test
     void biosampleTest() {
-        Biosample biosample = BiosampleBuilder.biosample("sample1");
+        Biosample biosample = BiosampleBuilder.builder("sample1").build();
         assertThat(biosample.getId(), equalTo("sample1"));
     }
 
     /**
-     * https://phenopacket-schema.readthedocs.io/en/v2/biosample.html#example
+     * <a href="https://phenopacket-schema.readthedocs.io/en/v2/biosample.html#example">https://phenopacket-schema.readthedocs.io/en/v2/biosample.html#example</a>
      */
     @Test
     void biosampleBuilderTest() {
-        Biosample biosample = BiosampleBuilder.create("sample1")
+        Biosample biosample = BiosampleBuilder.builder("sample1")
                 .individualId("patient1")
                 .description("Additional information can go here")
                 .sampledTissue(ontologyClass("UBERON_0001256", "wall of urinary bladder"))
@@ -31,17 +30,17 @@ class BiosampleBuilderTest {
                 .tumorProgression(ontologyClass("NCIT:C84509", "Primary Malignant Neoplasm"))
                 .tumorGrade(ontologyClass("NCIT:C36136", "Grade 2 Lesion"))
                 .procedure(ProcedureBuilder.procedure("NCIT:C5189", "Radical Cystoprostatectomy"))
-                .file(FileBuilder.create("file:///data/genomes/urothelial_ca_wgs.vcf.gz")
+                .addFile(FileBuilder.builder("file:///data/genomes/urothelial_ca_wgs.vcf.gz")
                         .individualToFileIdentifier("patient1", "NA12345")
-                        .fileAttribute("genomeAssembly", "GRCh38")
-                        .fileAttribute("fileFormat", "VCF")
+                        .addFileAttribute("genomeAssembly", "GRCh38")
+                        .addFileAttribute("fileFormat", "VCF")
                         .build())
                 .materialSample(ontologyClass("EFO:0009655", "abnormal sample"))
                 .timeOfCollection(TimeElements.age("P52Y2M"))
                 .pathologicalStage(ontologyClass("NCIT:C28054", "Stage II"))
-                .pathologicalTnmFinding(ontologyClass("NCIT:C48726", "T2b Stage Finding"))
-                .pathologicalTnmFinding(ontologyClass("NCIT:C48705", "N0 Stage Finding"))
-                .pathologicalTnmFinding(ontologyClass("NCIT:C48699", "M0 Stage Finding"))
+                .addPathologicalTnmFinding(ontologyClass("NCIT:C48726", "T2b Stage Finding"))
+                .addPathologicalTnmFinding(ontologyClass("NCIT:C48705", "N0 Stage Finding"))
+                .addPathologicalTnmFinding(ontologyClass("NCIT:C48699", "M0 Stage Finding"))
                 .build();
         assertThat(biosample.getId(), equalTo("sample1"));
         assertThat(biosample.getDescription(), equalTo("Additional information can go here"));
@@ -50,10 +49,10 @@ class BiosampleBuilderTest {
         assertThat(biosample.getTumorProgression(), equalTo(ontologyClass("NCIT:C84509", "Primary Malignant Neoplasm")));
         assertThat(biosample.getTumorGrade(), equalTo(ontologyClass("NCIT:C36136", "Grade 2 Lesion")));
         assertThat(biosample.getProcedure(), equalTo(ProcedureBuilder.procedure("NCIT:C5189", "Radical Cystoprostatectomy")));
-        assertThat(biosample.getFilesList(), equalTo(List.of(FileBuilder.create("file:///data/genomes/urothelial_ca_wgs.vcf.gz")
+        assertThat(biosample.getFilesList(), equalTo(List.of(FileBuilder.builder("file:///data/genomes/urothelial_ca_wgs.vcf.gz")
                 .individualToFileIdentifier("patient1", "NA12345")
-                .fileAttribute("genomeAssembly", "GRCh38")
-                .fileAttribute("fileFormat", "VCF")
+                .addFileAttribute("genomeAssembly", "GRCh38")
+                .addFileAttribute("fileFormat", "VCF")
                 .build())));
         assertThat(biosample.getMaterialSample(), equalTo(ontologyClass("EFO:0009655", "abnormal sample")));
         assertThat(biosample.getTimeOfCollection(), equalTo(TimeElements.age("P52Y2M")));

@@ -16,7 +16,7 @@ public class GeneDescriptorBuilder {
         return GeneDescriptor.newBuilder().setValueId(identifier).setSymbol(symbol).build();
     }
 
-    public static GeneDescriptorBuilder create(String identifier, String symbol) {
+    public static GeneDescriptorBuilder builder(String identifier, String symbol) {
         return new GeneDescriptorBuilder(identifier, symbol);
     }
 

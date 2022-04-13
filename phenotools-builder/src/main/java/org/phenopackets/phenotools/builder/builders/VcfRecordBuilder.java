@@ -25,7 +25,7 @@ public class VcfRecordBuilder {
                 .build();
     }
 
-    public static VcfRecordBuilder create(String assembly, String chromosome, int position, String ref, String alt) {
+    public static VcfRecordBuilder builder(String assembly, String chromosome, int position, String ref, String alt) {
         return new VcfRecordBuilder(assembly, chromosome, position, ref, alt);
     }
 

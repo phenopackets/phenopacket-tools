@@ -4,8 +4,6 @@ import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-
 public class TreatmentBuilder {
 
     private final Treatment.Builder builder;
@@ -19,15 +17,15 @@ public class TreatmentBuilder {
     }
 
     public static Treatment treatment(String agentId, String agentLabel) {
-        return treatment(ontologyClass(agentId, agentLabel));
+        return treatment(OntologyClassBuilder.ontologyClass(agentId, agentLabel));
     }
 
-    public static TreatmentBuilder create(OntologyClass agent) {
+    public static TreatmentBuilder builder(OntologyClass agent) {
         return new TreatmentBuilder(agent);
     }
 
-    public static TreatmentBuilder create(String id, String label) {
-        return new TreatmentBuilder(ontologyClass(id, label));
+    public static TreatmentBuilder builder(String id, String label) {
+        return new TreatmentBuilder(OntologyClassBuilder.ontologyClass(id, label));
     }
 
     public TreatmentBuilder routeOfAdministration(OntologyClass route) {

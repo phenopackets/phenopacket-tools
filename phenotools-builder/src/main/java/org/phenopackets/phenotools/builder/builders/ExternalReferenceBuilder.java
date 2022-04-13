@@ -14,7 +14,7 @@ public class ExternalReferenceBuilder {
         return ExternalReference.newBuilder().setId(id).setDescription(description).build();
     }
 
-    public static ExternalReferenceBuilder create() {
+    public static ExternalReferenceBuilder builder() {
         return new ExternalReferenceBuilder();
     }
 
@@ -23,7 +23,7 @@ public class ExternalReferenceBuilder {
         return this;
     }
 
-    public ExternalReferenceBuilder reference(String ref) {
+    public ExternalReferenceBuilder builder(String ref) {
         builder.setReference(ref);
         return this;
     }

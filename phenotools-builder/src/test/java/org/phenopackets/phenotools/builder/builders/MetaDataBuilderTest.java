@@ -13,7 +13,7 @@ public class MetaDataBuilderTest {
     public void testCreation() {
         String creationDate = "2020-03-17T00:00:00Z";
         String creator = "anonymous biocurator";
-        MetaData metaData = MetaDataBuilder.create(creationDate, creator).build();
+        MetaData metaData = MetaDataBuilder.builder(creationDate, creator).build();
         assertTrue(metaData.hasCreated());
         assertEquals(creator, metaData.getCreatedBy());
     }

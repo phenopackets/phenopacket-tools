@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 class TimeIntervalBuilderTest {
 
     /**
-     * https://phenopacket-schema.readthedocs.io/en/v2/time-interval.html#example
+     * <a href="https://phenopacket-schema.readthedocs.io/en/v2/time-interval.html#example">https://phenopacket-schema.readthedocs.io/en/v2/time-interval.html#example</a>
      */
     @Test
     void timeIntervalFromStringTest() {
