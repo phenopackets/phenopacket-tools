@@ -10,7 +10,7 @@ public class DoseIntervalBuilder {
     private DoseIntervalBuilder() {
     }
 
-    public static DoseInterval doseInterval(Quantity quantity, OntologyClass scheduleFrequency, TimeInterval interval) {
+    public static DoseInterval of(Quantity quantity, OntologyClass scheduleFrequency, TimeInterval interval) {
         return DoseInterval.newBuilder()
                 .setQuantity(quantity)
                 .setScheduleFrequency(scheduleFrequency)
@@ -18,8 +18,8 @@ public class DoseIntervalBuilder {
                 .build();
     }
 
-    public static DoseInterval doseInterval(Quantity quantity, OntologyClass scheduleFrequency, String start, String end) {
-        var interval = TimeIntervalBuilder.timeInterval(start, end);
+    public static DoseInterval of(Quantity quantity, OntologyClass scheduleFrequency, String start, String end) {
+        var interval = TimeIntervalBuilder.of(start, end);
         return DoseInterval.newBuilder()
                 .setQuantity(quantity)
                 .setScheduleFrequency(scheduleFrequency)

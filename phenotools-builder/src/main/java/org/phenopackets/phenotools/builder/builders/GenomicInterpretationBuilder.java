@@ -11,12 +11,12 @@ public class GenomicInterpretationBuilder {
 
     private final GenomicInterpretation.Builder builder;
 
-    private GenomicInterpretationBuilder(String id){
-        builder = GenomicInterpretation.newBuilder().setSubjectOrBiosampleId(id);
+    private GenomicInterpretationBuilder(String subjectOrBiosampleId){
+        builder = GenomicInterpretation.newBuilder().setSubjectOrBiosampleId(subjectOrBiosampleId);
     }
 
-    public static GenomicInterpretationBuilder create(String id) {
-        return new GenomicInterpretationBuilder(id);
+    public static GenomicInterpretationBuilder builder(String subjectOrBiosampleId) {
+        return new GenomicInterpretationBuilder(subjectOrBiosampleId);
     }
 
     public GenomicInterpretationBuilder rejected() {

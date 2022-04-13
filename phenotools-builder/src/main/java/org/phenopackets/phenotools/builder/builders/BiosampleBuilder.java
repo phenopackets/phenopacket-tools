@@ -16,7 +16,7 @@ public class BiosampleBuilder {
         return Biosample.newBuilder().setId(id).build();
     }
 
-    public static BiosampleBuilder create(String id) {
+    public static BiosampleBuilder builder(String id) {
         return new BiosampleBuilder(id);
     }
 

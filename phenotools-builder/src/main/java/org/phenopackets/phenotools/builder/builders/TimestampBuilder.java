@@ -29,14 +29,14 @@ public class TimestampBuilder {
                 .build();
     }
 
-    public static Timestamp timestamp(int y, int m, int d) {
+    public static Timestamp of(int y, int m, int d) {
         LocalDateTime timeNow = LocalDate.of(y, m, d).atTime(0, 0);
         return Timestamp.newBuilder()
                 .setSeconds(timeNow.toEpochSecond(ZoneOffset.UTC))
                 .build();
     }
 
-    public static Timestamp timestamp(int y, int m, int d, int h, int min) {
+    public static Timestamp of(int y, int m, int d, int h, int min) {
         LocalDateTime timeNow = LocalDate.of(y, m, d).atTime(h, min);
         return Timestamp.newBuilder()
                 .setSeconds(timeNow.toEpochSecond(ZoneOffset.UTC))

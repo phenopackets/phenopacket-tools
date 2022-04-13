@@ -58,7 +58,7 @@ public class AlleleBuilder {
     }
 
 
-    public static AlleleBuilder create() {
+    public static AlleleBuilder builder() {
         return new AlleleBuilder();
     }
 

@@ -12,30 +12,22 @@ public class InterpretationBuilder {
     private final Interpretation.Builder builder;
     private final List<GenomicInterpretation> genomicInterpretations;
 
-    private InterpretationBuilder(String id, Interpretation.ProgressStatus status) {
-        builder = Interpretation.newBuilder().setId(id).setProgressStatus(status);
+    private InterpretationBuilder(String interpretationId, Interpretation.ProgressStatus status) {
+        builder = Interpretation.newBuilder().setId(interpretationId).setProgressStatus(status);
         genomicInterpretations = new ArrayList<>();
     }
 
-    public static Interpretation interpretation(String id, Interpretation.ProgressStatus status) {
-        return Interpretation.newBuilder().setId(id).setProgressStatus(status).build();
+    public static Interpretation interpretation(String interpretationId, Interpretation.ProgressStatus status, Diagnosis dx, String summary) {
+        return Interpretation.newBuilder().setId(interpretationId).setProgressStatus(status).setDiagnosis(dx).setSummary(summary).build();
     }
 
-    public static Interpretation interpretation(String id, Interpretation.ProgressStatus status, Diagnosis dx) {
-        return Interpretation.newBuilder().setId(id).setProgressStatus(status).setDiagnosis(dx).build();
-    }
-
-    public static Interpretation interpretation(String id, Interpretation.ProgressStatus status, Diagnosis dx, String summary) {
-        return Interpretation.newBuilder().setId(id).setProgressStatus(status).setDiagnosis(dx).setSummary(summary).build();
-    }
-
-    public static InterpretationBuilder create(String id, Interpretation.ProgressStatus status) {
-        return new InterpretationBuilder(id, status);
+    public static InterpretationBuilder builder(String interpretationId, Interpretation.ProgressStatus status) {
+        return new InterpretationBuilder(interpretationId, status);
     }
 
 
-    public InterpretationBuilder summary(String sm) {
-        builder.setSummary(sm);
+    public InterpretationBuilder summary(String summary) {
+        builder.setSummary(summary);
         return this;
     }
 
@@ -44,20 +36,20 @@ public class InterpretationBuilder {
         return this;
     }
 
-    public static InterpretationBuilder inProgress(String id) {
-        return create(id, Interpretation.ProgressStatus.IN_PROGRESS);
+    public static InterpretationBuilder inProgress(String interpretationId) {
+        return builder(interpretationId, Interpretation.ProgressStatus.IN_PROGRESS);
     }
 
-    public static InterpretationBuilder completed(String id) {
-        return create(id, Interpretation.ProgressStatus.COMPLETED);
+    public static InterpretationBuilder completed(String interpretationId) {
+        return builder(interpretationId, Interpretation.ProgressStatus.COMPLETED);
     }
 
-    public static InterpretationBuilder solved(String id) {
-        return create(id, Interpretation.ProgressStatus.SOLVED);
+    public static InterpretationBuilder solved(String interpretationId) {
+        return builder(interpretationId, Interpretation.ProgressStatus.SOLVED);
     }
 
-    public static InterpretationBuilder unsolved(String id) {
-        return create(id, Interpretation.ProgressStatus.UNSOLVED);
+    public static InterpretationBuilder unsolved(String interpretationId) {
+        return builder(interpretationId, Interpretation.ProgressStatus.UNSOLVED);
     }
 
     public Interpretation build() {

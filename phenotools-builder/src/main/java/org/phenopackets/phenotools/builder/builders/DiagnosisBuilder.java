@@ -17,7 +17,7 @@ public class DiagnosisBuilder {
         return this;
     }
 
-    public static DiagnosisBuilder create(OntologyClass disease) {
+    public static DiagnosisBuilder builder(OntologyClass disease) {
         return new DiagnosisBuilder(disease);
     }
 

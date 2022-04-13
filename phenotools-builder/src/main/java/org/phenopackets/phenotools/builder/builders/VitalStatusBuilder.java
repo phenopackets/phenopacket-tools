@@ -4,8 +4,6 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.TimeElement;
 import org.phenopackets.schema.v2.core.VitalStatus;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-
 public class VitalStatusBuilder {
 
     private final VitalStatus.Builder builder;
@@ -14,7 +12,7 @@ public class VitalStatusBuilder {
         builder = VitalStatus.newBuilder().setStatus(status);
     }
 
-    public static VitalStatus vitalStatus(VitalStatus.Status status) {
+    public static VitalStatus of(VitalStatus.Status status) {
         return VitalStatus.newBuilder().setStatus(status).build();
     }
 
@@ -37,7 +35,7 @@ public class VitalStatusBuilder {
     }
 
     public VitalStatusBuilder causeOfDeath(String id, String label) {
-        builder.setCauseOfDeath(ontologyClass(id, label));
+        builder.setCauseOfDeath(OntologyClassBuilder.of(id, label));
         return this;
     }
 

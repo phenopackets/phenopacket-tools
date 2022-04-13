@@ -12,11 +12,11 @@ public class GeneDescriptorBuilder {
         builder = GeneDescriptor.newBuilder().setValueId(identifier).setSymbol(symbol);
     }
 
-    public static GeneDescriptor geneDescriptor(String identifier, String symbol) {
+    public static GeneDescriptor of(String identifier, String symbol) {
         return GeneDescriptor.newBuilder().setValueId(identifier).setSymbol(symbol).build();
     }
 
-    public static GeneDescriptorBuilder create(String identifier, String symbol) {
+    public static GeneDescriptorBuilder builder(String identifier, String symbol) {
         return new GeneDescriptorBuilder(identifier, symbol);
     }
 

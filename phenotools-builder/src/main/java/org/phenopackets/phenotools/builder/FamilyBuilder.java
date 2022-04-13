@@ -1,4 +1,4 @@
-package org.phenopackets.phenotools.builder.builders;
+package org.phenopackets.phenotools.builder;
 
 import org.phenopackets.phenotools.builder.exceptions.PhenotoolsRuntimeException;
 import org.phenopackets.schema.v2.Family;
@@ -49,8 +49,8 @@ public class FamilyBuilder {
         return this;
     }
 
-    public static FamilyBuilder create(String id) {
-        return new FamilyBuilder(id);
+    public static FamilyBuilder create(String familyId) {
+        return new FamilyBuilder(familyId);
     }
 
 

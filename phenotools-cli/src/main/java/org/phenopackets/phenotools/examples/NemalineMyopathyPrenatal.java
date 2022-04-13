@@ -10,7 +10,7 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.of;
 import static org.phenopackets.phenotools.builder.builders.TimeElements.gestationalAge;
 
 /**
@@ -22,19 +22,20 @@ import static org.phenopackets.phenotools.builder.builders.TimeElements.gestatio
 class NemalineMyopathyPrenatal implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
-    private final OntologyClass nemalineMyopathy8 = ontologyClass("MONDO:0014138", "nemaline myopathy 8");
+    private final OntologyClass nemalineMyopathy8 = of("MONDO:0014138", "nemaline myopathy 8");
 
     private final Phenopacket phenopacket;
 
     NemalineMyopathyPrenatal() {
 
-        var metadata = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
+        var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .resource(Resources.ncitVersion("21.05d"))
                 .resource(Resources.hpoVersion("2022-02"))
+                .resource(Resources.mondoVersion("v2022-04-04"))
                 .resource(Resources.uberonVersion("2021-07-27"))
                 .build();
         var vitalStatus = VitalStatusBuilder.deceased().causeOfDeath(nemalineMyopathy8).build();
-        var individual = IndividualBuilder.create(PROBAND_ID)
+        var individual = IndividualBuilder.builder(PROBAND_ID)
                 .male()
                 .ageAtLastEncounter("P1D")
                 .vitalStatus(vitalStatus).build();
@@ -52,15 +53,15 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
     List<PhenotypicFeature> apgar() {
         List<PhenotypicFeature> phenotypicFeatureList = new ArrayList<>();
         TimeElement newbornTime = TimeElements.congenitalOnset();
-        PhenotypicFeature apgar1 = PhenotypicFeatureBuilder.create("HP:0030931", "1-minute APGAR score of 4")
+        PhenotypicFeature apgar1 = PhenotypicFeatureBuilder.builder("HP:0030931", "1-minute APGAR score of 4")
                 .onset(newbornTime).build();
-        PhenotypicFeature apgar5 = PhenotypicFeatureBuilder.create("HP:0030922", "5-minute APGAR score of 2")
+        PhenotypicFeature apgar5 = PhenotypicFeatureBuilder.builder("HP:0030922", "5-minute APGAR score of 2")
                 .onset(newbornTime).build();
-        PhenotypicFeature apgar10 = PhenotypicFeatureBuilder.create("HP:0033469", "10-minute APGAR score of 1")
+        PhenotypicFeature apgar10 = PhenotypicFeatureBuilder.builder("HP:0033469", "10-minute APGAR score of 1")
                 .onset(newbornTime).build();
-        PhenotypicFeature laryngealEdema = PhenotypicFeatureBuilder.create("HP:0012027", "Laryngeal edema")
+        PhenotypicFeature laryngealEdema = PhenotypicFeatureBuilder.builder("HP:0012027", "Laryngeal edema")
                 .onset(newbornTime).build();
-        PhenotypicFeature generalizedHypotonia = PhenotypicFeatureBuilder.create("HP:0001290", "Generalized hypotonia")
+        PhenotypicFeature generalizedHypotonia = PhenotypicFeatureBuilder.builder("HP:0001290", "Generalized hypotonia")
                 .onset(newbornTime).build();
 
         phenotypicFeatureList.add(apgar1);
@@ -74,12 +75,12 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
     List<PhenotypicFeature> sonography33weeks() {
         List<PhenotypicFeature> phenotypicFeatureList = new ArrayList<>();
         TimeElement onset = gestationalAge(32,4);
-        OntologyClass borderline = ontologyClass("HP:0012827", "Borderline");
-        PhenotypicFeature edema = PhenotypicFeatureBuilder.create("HP:0025672", "Fetal skin edema")
+        OntologyClass borderline = of("HP:0012827", "Borderline");
+        PhenotypicFeature edema = PhenotypicFeatureBuilder.builder("HP:0025672", "Fetal skin edema")
                 .onset(onset).build();
-        PhenotypicFeature overlapping = PhenotypicFeatureBuilder.create("HP:0010557", "Overlapping fingers")
+        PhenotypicFeature overlapping = PhenotypicFeatureBuilder.builder("HP:0010557", "Overlapping fingers")
                 .onset(onset).build();
-        PhenotypicFeature polyhydram = PhenotypicFeatureBuilder.create("HP:0001561", "Polyhydramnios")
+        PhenotypicFeature polyhydram = PhenotypicFeatureBuilder.builder("HP:0001561", "Polyhydramnios")
                 .onset(onset).modifier(borderline).build();
         phenotypicFeatureList.add(edema);
         phenotypicFeatureList.add(overlapping);
@@ -89,7 +90,7 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
 
 
     PhenotypicFeature decreasedFetalMovement() {
-        PhenotypicFeatureBuilder builder = PhenotypicFeatureBuilder.create("HP:0001558", "Decreased fetal movement");
+        PhenotypicFeatureBuilder builder = PhenotypicFeatureBuilder.builder("HP:0001558", "Decreased fetal movement");
         TimeElement onset = gestationalAge(23);
         builder.onset(onset);
         return builder.build();
@@ -97,12 +98,12 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
 
     Biosample muscleBiopsy() {
         String biosampleId = "biosample.1";
-        BiosampleBuilder builder = BiosampleBuilder.create(biosampleId);
-        OntologyClass abdominalMuscle = ontologyClass("UBERON:0002378", "muscle of abdomen");
+        BiosampleBuilder builder = BiosampleBuilder.builder(biosampleId);
+        OntologyClass abdominalMuscle = of("UBERON:0002378", "muscle of abdomen");
         builder.sampledTissue(abdominalMuscle);
-        PhenotypicFeature nemalineRods = PhenotypicFeatureBuilder.create("HP:0003798","Nemaline bodies").build();
+        PhenotypicFeature nemalineRods = PhenotypicFeatureBuilder.builder("HP:0003798","Nemaline bodies").build();
         builder.phenotypicFeature(nemalineRods);
-        ProcedureBuilder pbuilder = ProcedureBuilder.create("NCIT:C51895", "Muscle Biopsy");
+        ProcedureBuilder pbuilder = ProcedureBuilder.builder("NCIT:C51895", "Muscle Biopsy");
         TimeElement age = TimeElements.age("P1D");
         pbuilder.bodySite(abdominalMuscle).performed(age);
         builder.procedure(pbuilder.build());
@@ -111,8 +112,8 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
 
     Interpretation interpretation() {
         InterpretationBuilder ibuilder = InterpretationBuilder.solved("interpretation.id");
-        OntologyClass nm8 = ontologyClass("MONDO:0014138", "nemaline myopathy 8");
-        DiagnosisBuilder dbuilder = DiagnosisBuilder.create(nm8);
+        OntologyClass nm8 = of("MONDO:0014138", "nemaline myopathy 8");
+        DiagnosisBuilder dbuilder = DiagnosisBuilder.builder(nm8);
         dbuilder.genomicInterpretation(klhl40InterpretationV1());
         dbuilder.genomicInterpretation(klhl40InterpretationV2());
         ibuilder.diagnosis(dbuilder.build());
@@ -136,30 +137,28 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
         //    NC_000003.12:42686219:G:A
         // rs397509420
         //HGNC:30372
-        AlleleBuilder abuilder = AlleleBuilder.create();
+        AlleleBuilder abuilder = AlleleBuilder.builder();
         //abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
         abuilder.startEnd( 42686219, 42686220);
         abuilder.chromosomeLocation("chr3");
         abuilder.setAltAllele("A");
-        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create("rs397509420");
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs397509420");
         vbuilder.variation(abuilder.buildVariation());
         vbuilder.genomic();
         vbuilder.heterozygous();
         vbuilder.label("NM_152393.4(KLHL40):c.602G>A (p.Trp201Ter)");
         vbuilder.transcript();
-        GeneDescriptor geneDescriptor = GeneDescriptorBuilder.create("HGNC:30372", "KLHL40").build();
+        GeneDescriptor geneDescriptor = GeneDescriptorBuilder.builder("HGNC:30372", "KLHL40").build();
         vbuilder.geneContext(geneDescriptor);
         Expression hgvs = Expressions.hgvsCdna("NM_152393.4(KLHL40):c.602G>A");
         Expression transcriptReference = Expressions.transcriptReference("NM_152393.4");
         vbuilder.expression(hgvs);
         vbuilder.expression(transcriptReference);
         // wrap in VariantInterpretation
-        VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.create(vbuilder);
+        VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.builder(vbuilder);
         vibuilder.pathogenic();
-       // vibuilder.actionable();
 
-
-        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.create("interpretation.1");
+        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.builder("interpretation.1");
         gbuilder.causative();
         gbuilder.variantInterpretation(vibuilder);
         return gbuilder.build();
@@ -177,30 +176,28 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
         //    NC_000003.12:42688962:A:C
         //         dbSNP: rs778022582
         //HGNC:30372
-        AlleleBuilder abuilder = AlleleBuilder.create();
+        AlleleBuilder abuilder = AlleleBuilder.builder();
         //abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
         abuilder.startEnd( 42688962, 42688963);
         abuilder.chromosomeLocation("chr3");
         abuilder.setAltAllele("C");
-        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create("rs778022582");
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs778022582");
         vbuilder.variation(abuilder.buildVariation());
         vbuilder.genomic();
         vbuilder.heterozygous();
         vbuilder.label("NM_152393.4(KLHL40):c.1516A>C (p.Thr506Pro)");
         vbuilder.transcript();
-        GeneDescriptor geneDescriptor = GeneDescriptorBuilder.create("HGNC:30372", "KLHL40").build();
+        GeneDescriptor geneDescriptor = GeneDescriptorBuilder.builder("HGNC:30372", "KLHL40").build();
         vbuilder.geneContext(geneDescriptor);
         Expression hgvs = Expressions.hgvsCdna("NM_152393.4(KLHL40):c.1516A>C");
         Expression transcriptReference = Expressions.transcriptReference("NM_152393.4");
         vbuilder.expression(hgvs);
         vbuilder.expression(transcriptReference);
         // wrap in VariantInterpretation
-        VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.create(vbuilder);
+        VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.builder(vbuilder);
         vibuilder.pathogenic();
-     //   vibuilder.actionable();
 
-
-        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.create("interpretation.2");
+        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.builder("interpretation.2");
         gbuilder.causative();
         gbuilder.variantInterpretation(vibuilder);
         return gbuilder.build();

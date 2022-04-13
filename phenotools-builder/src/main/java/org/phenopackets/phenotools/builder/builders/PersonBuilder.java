@@ -51,15 +51,19 @@ public class PersonBuilder {
     }
 
 
-    public static PersonBuilder create(String family_id,
-                                       String individual_id,
-                                       String paternal_id,
-                                       String maternal_id) {
+    public static PersonBuilder builder(String family_id,
+                                        String individual_id,
+                                        String paternal_id,
+                                        String maternal_id) {
         return new PersonBuilder(family_id, individual_id, paternal_id, maternal_id);
     }
 
-    public static PersonBuilder createWithUnknownParentId(String family_id,
-                                       String individual_id) {
+    /**
+     * Founders are persons in a PED file whose parents are not included. These parents are
+     * indicated by "0". This function creates a personBuilder with prepopulated father/mother ids of "0"
+     */
+    public static PersonBuilder builderWithParentsAsFounders(String family_id,
+                                                             String individual_id) {
         return new PersonBuilder(family_id, individual_id,
                 parental_id_not_available, parental_id_not_available);
     }

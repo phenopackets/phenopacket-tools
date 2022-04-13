@@ -14,7 +14,7 @@ class TimeIntervalBuilderTest {
      */
     @Test
     void timeIntervalFromStringTest() {
-        TimeInterval instance = TimeIntervalBuilder.timeInterval("2020-03-15T13:00:00Z", "2020-03-25T09:00:00Z");
+        TimeInterval instance = TimeIntervalBuilder.of("2020-03-15T13:00:00Z", "2020-03-25T09:00:00Z");
         assertThat(instance.getStart().getSeconds(), equalTo(1584277200L));
         assertThat(instance.getEnd().getSeconds(), equalTo(1585126800L));
     }
@@ -23,7 +23,7 @@ class TimeIntervalBuilderTest {
     void timeIntervalFromTimestampTest() {
         Timestamp start = TimestampBuilder.fromISO8601("2020-03-15T13:00:00Z");
         Timestamp end = TimestampBuilder.fromISO8601("2020-03-25T09:00:00Z");
-        TimeInterval instance = TimeIntervalBuilder.timeInterval(start, end);
+        TimeInterval instance = TimeIntervalBuilder.of(start, end);
         assertThat(instance.getStart(), equalTo(start));
         assertThat(instance.getEnd(), equalTo(end));
     }

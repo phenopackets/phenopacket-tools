@@ -3,8 +3,6 @@ package org.phenopackets.phenotools.builder.builders;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.ReferenceRange;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-
 /**
  * Simple wrapper for a ReferenceRange
  *  unit:
@@ -19,13 +17,13 @@ public class ReferenceRangeBuilder {
     private ReferenceRangeBuilder() {
     }
 
-    public static ReferenceRange referenceRange(OntologyClass unit, double low, double high) {
+    public static ReferenceRange of(OntologyClass unit, double low, double high) {
         return ReferenceRange.newBuilder().setUnit(unit).setLow(low).setHigh(high).build();
     }
 
-    public static ReferenceRange referenceRange(String id, String label, double low, double high) {
-        OntologyClass unit = ontologyClass(id, label);
-        return referenceRange(unit, low, high);
+    public static ReferenceRange of(String id, String label, double low, double high) {
+        OntologyClass unit = OntologyClassBuilder.of(id, label);
+        return of(unit, low, high);
     }
 
 }

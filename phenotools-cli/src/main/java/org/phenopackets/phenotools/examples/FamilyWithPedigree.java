@@ -1,6 +1,7 @@
 package org.phenopackets.phenotools.examples;
 
 
+import org.phenopackets.phenotools.builder.FamilyBuilder;
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
 import org.phenopackets.schema.v2.Family;
@@ -26,7 +27,7 @@ public class FamilyWithPedigree {
 
     public FamilyWithPedigree() {
         FamilyBuilder builder = FamilyBuilder.create(FAMILY_ID);
-        var metadata = MetaDataBuilder.create("2022-04-17T10:35:00Z", "biocurator")
+        var metadata = MetaDataBuilder.builder("2022-04-17T10:35:00Z", "biocurator")
                 .build();
         builder.metaData(metadata);
         builder.pedigree(pedigree());
@@ -43,16 +44,16 @@ public class FamilyWithPedigree {
 
     public Phenopacket proband() {
         String phenopacketId = "phenopacket.id.1";
-        var metadata = MetaDataBuilder.create("2022-04-17T10:35:00Z", "biocurator")
+        var metadata = MetaDataBuilder.builder("2022-04-17T10:35:00Z", "biocurator")
                 .resource(Resources.hpoVersion("2022-04-15"))
                 .build();
-        Individual proband = IndividualBuilder.create(SON_ID).
+        Individual proband = IndividualBuilder.builder(SON_ID).
                 ageAtLastEncounter("P10Y2M4D").
                 male().
                 build();
         TimeElement congenital = TimeElements.congenitalOnset();
         PhenotypicFeature hearingImpairment =
-                PhenotypicFeatureBuilder.create("HP:0000407", "Sensorineural hearing impairment ")
+                PhenotypicFeatureBuilder.builder("HP:0000407", "Sensorineural hearing impairment ")
                         .onset(congenital)
                         .build();
         PhenopacketBuilder phpBuilder = PhenopacketBuilder.create(phenopacketId, metadata)
@@ -75,12 +76,12 @@ public class FamilyWithPedigree {
 
 
     public Pedigree pedigree() {
-        PedigreeBuilder pbuilder = PedigreeBuilder.create();
-        Pedigree.Person father = PersonBuilder.createWithUnknownParentId(FAMILY_ID, PATERNAL_ID).male().unaffected().build();
-        Pedigree.Person mother = PersonBuilder.createWithUnknownParentId(FAMILY_ID, MATERNAL_ID).female().unaffected().build();
-        Pedigree.Person daughter1 = PersonBuilder.create(FAMILY_ID, DAUGHTER1_ID, PATERNAL_ID, MATERNAL_ID).female().unaffected().build();
-        Pedigree.Person son = PersonBuilder.create(FAMILY_ID, SON_ID, PATERNAL_ID, MATERNAL_ID).male().affected().build();
-        Pedigree.Person daughter2 = PersonBuilder.create(FAMILY_ID, DAUGHTER2_ID, PATERNAL_ID, MATERNAL_ID).female().unaffected().build();
+        PedigreeBuilder pbuilder = PedigreeBuilder.builder();
+        Pedigree.Person father = PersonBuilder.builderWithParentsAsFounders(FAMILY_ID, PATERNAL_ID).male().unaffected().build();
+        Pedigree.Person mother = PersonBuilder.builderWithParentsAsFounders(FAMILY_ID, MATERNAL_ID).female().unaffected().build();
+        Pedigree.Person daughter1 = PersonBuilder.builder(FAMILY_ID, DAUGHTER1_ID, PATERNAL_ID, MATERNAL_ID).female().unaffected().build();
+        Pedigree.Person son = PersonBuilder.builder(FAMILY_ID, SON_ID, PATERNAL_ID, MATERNAL_ID).male().affected().build();
+        Pedigree.Person daughter2 = PersonBuilder.builder(FAMILY_ID, DAUGHTER2_ID, PATERNAL_ID, MATERNAL_ID).female().unaffected().build();
         return pbuilder.person(father).person(mother).person(daughter1).person(son).person(daughter2).build();
     }
 
