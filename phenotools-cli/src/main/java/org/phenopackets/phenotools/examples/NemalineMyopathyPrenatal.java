@@ -1,5 +1,6 @@
 package org.phenopackets.phenotools.examples;
 
+import org.ga4gh.vrs.v1.Variation;
 import org.ga4gh.vrsatile.v1.Expression;
 import org.ga4gh.vrsatile.v1.GeneDescriptor;
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
@@ -136,17 +137,17 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
         //    NC_000003.12:42686219:G:A
         // rs397509420
         //HGNC:30372
-        AlleleBuilder abuilder = AlleleBuilder.create();
-        //abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
-        abuilder.startEnd( 42686219, 42686220);
-        abuilder.chromosomeLocation("chr3");
-        abuilder.setAltAllele("A");
-        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create("rs397509420");
-        vbuilder.variation(abuilder.buildVariation());
-        vbuilder.genomic();
-        vbuilder.heterozygous();
-        vbuilder.label("NM_152393.4(KLHL40):c.602G>A (p.Trp201Ter)");
-        vbuilder.transcript();
+        Variation variation = AlleleBuilder.create()
+            .setSequenceId("NC_000003.12")
+            .startEnd(42686219, 42686220)
+            .setAltAllele("A")
+            .buildVariation();
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create("rs397509420")
+                .variation(variation)
+                .genomic()
+                .heterozygous()
+                .label("NM_152393.4(KLHL40):c.602G>A (p.Trp201Ter)")
+                .transcript();
         GeneDescriptor geneDescriptor = GeneDescriptorBuilder.create("HGNC:30372", "KLHL40").build();
         vbuilder.geneContext(geneDescriptor);
         Expression hgvs = Expressions.hgvsCdna("NM_152393.4(KLHL40):c.602G>A");
@@ -177,17 +178,17 @@ class NemalineMyopathyPrenatal implements PhenopacketExample {
         //    NC_000003.12:42688962:A:C
         //         dbSNP: rs778022582
         //HGNC:30372
-        AlleleBuilder abuilder = AlleleBuilder.create();
-        //abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
-        abuilder.startEnd( 42688962, 42688963);
-        abuilder.chromosomeLocation("chr3");
-        abuilder.setAltAllele("C");
-        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create("rs778022582");
-        vbuilder.variation(abuilder.buildVariation());
-        vbuilder.genomic();
-        vbuilder.heterozygous();
-        vbuilder.label("NM_152393.4(KLHL40):c.1516A>C (p.Thr506Pro)");
-        vbuilder.transcript();
+        // ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM
+        AlleleBuilder abuilder = AlleleBuilder.create()
+                .setSequenceId("NC_000003.12")
+                .startEnd( 42688962, 42688963)
+                .setAltAllele("C");
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.create("rs778022582")
+                .variation(abuilder.buildVariation())
+                .genomic()
+                .heterozygous()
+                .label("NM_152393.4(KLHL40):c.1516A>C (p.Thr506Pro)")
+                .transcript();
         GeneDescriptor geneDescriptor = GeneDescriptorBuilder.create("HGNC:30372", "KLHL40").build();
         vbuilder.geneContext(geneDescriptor);
         Expression hgvs = Expressions.hgvsCdna("NM_152393.4(KLHL40):c.1516A>C");

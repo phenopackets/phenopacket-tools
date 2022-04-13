@@ -34,7 +34,8 @@ public class AlleleBuilder {
     }
 
     public AlleleBuilder chromosomeLocation(String chrom) {
-        builder.setChromosomeLocation(ChromosomeLocation.newBuilder().setChr(chrom));
+        ChromosomeLocation chromosomalLocation = ChromosomeLocation.newBuilder().setChr(chrom).build();
+        builder.setChromosomeLocation(chromosomalLocation);
         return this;
     }
 
@@ -74,9 +75,7 @@ public class AlleleBuilder {
      * @return The constructed Variant message that contains the Allele and if provided SequenceLocation information.
      */
     public Variation buildVariation() {
-        if (slbuilder.hasSequenceInterval()) {
-            builder.setSequenceLocation(slbuilder);
-        }
-        return Variation.newBuilder().setAllele(builder.build()).build();
+        Allele allele = build();
+        return Variation.newBuilder().setAllele(allele).build();
     }
 }
