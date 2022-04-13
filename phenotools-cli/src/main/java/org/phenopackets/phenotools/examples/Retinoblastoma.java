@@ -195,7 +195,7 @@ public class Retinoblastoma implements PhenopacketExample {
         OntologyClass melphalan = of("DrugCentral:1678", "melphalan");
         OntologyClass administration = of("NCIT:C38222",  "Intraarterial Route of Administration");
        //0.4 mg/kg (up to a starting dose of 5 mg)
-        Quantity quantity = QuantityBuilder.of( mm_per_kg(), 0.4);
+        Quantity quantity = QuantityBuilder.of(Unit.mgPerKg(), 0.4);
         TimeInterval interval = TimeIntervalBuilder.of("2020-09-02", "2020-09-02");
         OntologyClass once = of("NCIT:C64576", "Once");
 
