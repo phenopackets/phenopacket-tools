@@ -4,6 +4,8 @@ import org.ga4gh.vrsatile.v1.Expression;
 import org.ga4gh.vrsatile.v1.GeneDescriptor;
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
+import org.phenopackets.phenotools.builder.builders.constants.Laterality;
+import org.phenopackets.phenotools.builder.builders.constants.Unit;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 

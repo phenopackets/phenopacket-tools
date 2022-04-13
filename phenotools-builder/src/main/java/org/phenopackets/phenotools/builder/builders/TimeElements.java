@@ -1,12 +1,13 @@
 package org.phenopackets.phenotools.builder.builders;
 
 import com.google.protobuf.Timestamp;
+import org.phenopackets.phenotools.builder.builders.constants.Onset;
 import org.phenopackets.schema.v2.core.*;
 
 import java.time.Instant;
 
-import static org.phenopackets.phenotools.builder.builders.Onset.late;
-import static org.phenopackets.phenotools.builder.builders.Onset.middleAge;
+import static org.phenopackets.phenotools.builder.builders.constants.Onset.late;
+import static org.phenopackets.phenotools.builder.builders.constants.Onset.middleAge;
 
 /**
  * The TimeElement is used in many places in the Phenopacket. It is defined as being one of the

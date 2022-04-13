@@ -1,5 +1,6 @@
 package org.phenopackets.phenotools.builder.builders;
 
+import org.phenopackets.phenotools.builder.builders.constants.Severity;
 import org.phenopackets.schema.v2.core.Evidence;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;

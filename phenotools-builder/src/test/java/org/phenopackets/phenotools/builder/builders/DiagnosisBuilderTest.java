@@ -1,6 +1,7 @@
 package org.phenopackets.phenotools.builder.builders;
 
 import org.junit.jupiter.api.Test;
+import org.phenopackets.phenotools.builder.builders.constants.Status;
 import org.phenopackets.schema.v2.core.Diagnosis;
 import org.phenopackets.schema.v2.core.GenomicInterpretation;
 

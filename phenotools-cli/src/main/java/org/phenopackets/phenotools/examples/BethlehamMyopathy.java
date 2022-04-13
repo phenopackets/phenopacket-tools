@@ -3,6 +3,7 @@ package org.phenopackets.phenotools.examples;
 
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
+import org.phenopackets.phenotools.builder.builders.constants.Status;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
