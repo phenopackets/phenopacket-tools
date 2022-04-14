@@ -4,24 +4,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.phenopackets.phenotools</groupId>
-    <artifactId>phenotools</artifactId>
+    <groupId>org.phenopackets.phenopackettools</groupId>
+    <artifactId>phenopacket-tools</artifactId>
     <version>1.0.0</version>
 
     <packaging>pom</packaging>
 
     <modules>
-        <module>phenotools-builder</module>
-        <module>phenotools-validator-core</module>
-        <module>phenotools-validator-jsonschema</module>
-        <module>phenotools-converter</module>
-        <module>phenotools-cli</module>
+        <module>phenopacket-tools-builder</module>
+        <module>phenopacket-tools-validator-core</module>
+        <module>phenopacket-tools-validator-jsonschema</module>
+        <module>phenopacket-tools-converter</module>
+        <module>phenopacket-tools-cli</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.4</version>
+        <version>2.6.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -97,7 +97,6 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.5.4</version>
                 </plugin>
             </plugins>
         </pluginManagement>
