@@ -45,12 +45,12 @@ public class DiseaseBuilder {
         return this;
     }
 
-    public DiseaseBuilder diseaseStage(OntologyClass stage) {
+    public DiseaseBuilder addDiseaseStage(OntologyClass stage) {
         builder.addDiseaseStage(stage);
         return this;
     }
 
-    public DiseaseBuilder clinicalTnmFinding(OntologyClass tnmFinding) {
+    public DiseaseBuilder addClinicalTnmFinding(OntologyClass tnmFinding) {
         builder.addClinicalTnmFinding(tnmFinding);
         return this;
     }

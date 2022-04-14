@@ -52,9 +52,9 @@ class Covid implements PhenopacketExample {
                 .description("The Imperfect Cytokine Storm: Severe COVID-19 With ARDS in a Patient on Durable LVAD Support")
                 .build();
         var metaData = MetaDataBuilder.builder("2021-08-17T00:00:00Z", "anonymous biocurator")
-                .resource(Resources.ncitVersion("2019-11-26"))
-                .resource(Resources.mondoVersion("2021-11-26"))
-                .externalReference(externalRef)
+                .addResource(Resources.ncitVersion("2019-11-26"))
+                .addResource(Resources.mondoVersion("2021-11-26"))
+                .addExternalReference(externalRef)
                 .build();
 
 
@@ -155,8 +155,8 @@ class Covid implements PhenopacketExample {
                 TimeIntervalBuilder.timeInterval("2021-02-02T08:22:42Z", "2021-02-02T12:22:42Z"));
         Treatment nasalOxygen = TreatmentBuilder.builder("NCIT:C722", "Oxygen")
                 .routeOfAdministration(ontologyClass("NCIT:C38284", "Nasal Route of Administration"))
-                .doseInterval(interval1)
-                .doseInterval(interval2)
+                .addDoseInterval(interval1)
+                .addDoseInterval(interval2)
                 .build();
         return MedicalActionBuilder.treatment(nasalOxygen);
     }
@@ -178,7 +178,7 @@ class Covid implements PhenopacketExample {
         var doseInterval = DoseIntervalBuilder.doseInterval(quantity, CONTINUOUS, "2020-03-22", "2020-03-28");
         Treatment oxygen = TreatmentBuilder.builder(ontologyClass("NCIT:C722", "Oxygen"))
                 .routeOfAdministration(ontologyClass("NCIT:C50254", "Positive end Expiratory Pressure Valve Device"))
-                .doseInterval(doseInterval)
+                .addDoseInterval(doseInterval)
                 .build();
         return MedicalActionBuilder.treatment(oxygen);
     }
@@ -188,7 +188,7 @@ class Covid implements PhenopacketExample {
         OntologyClass q4weeks = ontologyClass("NCIT:C64529", "Every Four Weeks");
         var doseInterval = DoseIntervalBuilder.doseInterval(quantity, q4weeks, "2020-03-24", "2020-03-28");
         var treatment = TreatmentBuilder.builder("NCIT:C84217", "Tocilizumab")
-                .doseInterval(doseInterval)
+                .addDoseInterval(doseInterval)
                 .build();
         return MedicalActionBuilder.treatment(treatment);
     }
@@ -200,7 +200,7 @@ class Covid implements PhenopacketExample {
         var doseInterval = DoseIntervalBuilder.doseInterval(quantity, onceDaily, "2020-03-20", "2020-03-30");
 
         Treatment dexa = TreatmentBuilder.builder("CHEBI:41879", "dexamethasone")
-                .doseInterval(doseInterval)
+                .addDoseInterval(doseInterval)
                 .build();
         return MedicalActionBuilder.treatment(dexa);
     }

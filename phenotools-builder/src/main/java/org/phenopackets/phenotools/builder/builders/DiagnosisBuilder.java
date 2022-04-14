@@ -12,7 +12,7 @@ public class DiagnosisBuilder {
         builder = Diagnosis.newBuilder().setDisease(disease);
     }
 
-    public DiagnosisBuilder genomicInterpretation(GenomicInterpretation interpretation) {
+    public DiagnosisBuilder addGenomicInterpretation(GenomicInterpretation interpretation) {
         builder.addGenomicInterpretations(interpretation);
         return this;
     }

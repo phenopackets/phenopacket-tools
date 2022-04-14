@@ -29,25 +29,24 @@ public class MetaDataBuilder {
         return this;
     }
 
-    public MetaDataBuilder resource(Resource r) {
+    public MetaDataBuilder addResource(Resource r) {
         builder.addResources(r);
         return this;
     }
 
-    public MetaDataBuilder update(Update u) {
+    public MetaDataBuilder addUpdate(Update u) {
         builder.addUpdates(u);
         return this;
     }
 
-    public MetaDataBuilder externalReference(ExternalReference er) {
+    public MetaDataBuilder addExternalReference(ExternalReference er) {
         builder.addExternalReferences(er);
         return this;
     }
 
-    public MetaDataBuilder externalReference(String id, String description) {
+    public MetaDataBuilder addExternalReference(String id, String description) {
         ExternalReference er = ExternalReference.newBuilder().setId(id).setDescription(description).build();
-        builder.addExternalReferences(er);
-        return this;
+        return addExternalReference(er);
     }
 
     public MetaData build() {

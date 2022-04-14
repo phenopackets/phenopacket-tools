@@ -37,12 +37,12 @@ public class IndividualBuilder {
         return new IndividualBuilder(id);
     }
 
-    public IndividualBuilder alternateId(String altId) {
+    public IndividualBuilder addAlternateId(String altId) {
         builder.addAlternateIds(altId);
         return this;
     }
 
-    public IndividualBuilder alternateId(List<String> altIdList) {
+    public IndividualBuilder addAllAlternateIds(List<String> altIdList) {
         builder.addAllAlternateIds(altIdList);
         return this;
     }

@@ -25,7 +25,7 @@ public class GeneDescriptorBuilder {
         return this;
     }
 
-    public GeneDescriptorBuilder alternateId(String altId) {
+    public GeneDescriptorBuilder addAlternateId(String altId) {
         builder.addAlternateIds(altId);
         return this;
     }
@@ -35,7 +35,7 @@ public class GeneDescriptorBuilder {
         return this;
     }
 
-    public GeneDescriptorBuilder xref(String xref) {
+    public GeneDescriptorBuilder addXref(String xref) {
         builder.addXrefs(xref);
         return this;
     }
@@ -45,7 +45,7 @@ public class GeneDescriptorBuilder {
         return this;
     }
 
-    public GeneDescriptorBuilder alternateSymbol(String altSymbol) {
+    public GeneDescriptorBuilder addAlternateSymbol(String altSymbol) {
         builder.addAlternateSymbols(altSymbol);
         return this;
     }

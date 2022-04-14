@@ -2,7 +2,7 @@ package org.phenopackets.phenotools.examples;
 
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
-import org.phenopackets.phenotools.builder.builders.constants.Status;
+import org.phenopackets.phenotools.builder.constants.Status;
 import org.phenopackets.schema.v2.Phenopacket;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
@@ -19,9 +19,9 @@ class Thrombocytopenia2 implements PhenopacketExample {
         var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
         var individual = IndividualBuilder.builder(PROBAND_ID).female().ageAtLastEncounter("P20Y").build();
         var metaData = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .resource(Resources.hpoVersion("2021-08-02"))
-                .resource(Resources.genoVersion("2020-03-08"))
-                .externalReference(authorAssertion.getReference())
+                .addResource(Resources.hpoVersion("2021-08-02"))
+                .addResource(Resources.genoVersion("2020-03-08"))
+                .addExternalReference(authorAssertion.getReference())
                 .build();
         var variationDescriptor =
                 VariationDescriptorBuilder.builder("variant id")
@@ -34,17 +34,16 @@ class Thrombocytopenia2 implements PhenopacketExample {
                     .causative()
                         .variantInterpretation(col6a1VariantInterpretation)
                         .build();
-        var diagnosis = DiagnosisBuilder.builder(thrombocytopenia2).genomicInterpretation(genomicInterpretation).build();
-        var interpretation = InterpretationBuilder.builder(INTERPRETATION_ID, Status.completed())
-                .diagnosis(diagnosis).build();
+        var diagnosis = DiagnosisBuilder.builder(thrombocytopenia2).addGenomicInterpretation(genomicInterpretation).build();
+        var interpretation = InterpretationBuilder.builder(INTERPRETATION_ID).completed(diagnosis);
         var excludedAbnormalPlateletSize =
                 PhenotypicFeatureBuilder.builder("HP:0011876", "Abnormal platelet volume")
                         .excluded()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var brusing =
                 PhenotypicFeatureBuilder.builder("HP:0000978", "Bruising susceptibility")
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)

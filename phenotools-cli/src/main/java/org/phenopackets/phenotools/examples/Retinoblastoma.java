@@ -1,11 +1,9 @@
 package org.phenopackets.phenotools.examples;
 
-import org.ga4gh.vrsatile.v1.Expression;
-import org.ga4gh.vrsatile.v1.GeneDescriptor;
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
-import org.phenopackets.phenotools.builder.builders.constants.Laterality;
-import org.phenopackets.phenotools.builder.builders.constants.Unit;
+import org.phenopackets.phenotools.builder.constants.Laterality;
+import org.phenopackets.phenotools.builder.constants.Unit;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
@@ -29,10 +27,10 @@ public class Retinoblastoma implements PhenopacketExample {
     private final Phenopacket phenopacket;
     public Retinoblastoma() {
         var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .resource(Resources.ncitVersion("21.05d"))
-                .resource(Resources.efoVersion("3.34.0"))
-                .resource(Resources.uberonVersion("2021-07-27"))
-                .resource(Resources.ncbiTaxonVersion("2021-06-10"))
+                .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.efoVersion("3.34.0"))
+                .addResource(Resources.uberonVersion("2021-07-27"))
+                .addResource(Resources.ncbiTaxonVersion("2021-06-10"))
                 .build();
         Individual proband = IndividualBuilder.builder(PROBAND_ID).
                 ageAtLastEncounter("P6M").
@@ -58,13 +56,11 @@ public class Retinoblastoma implements PhenopacketExample {
 
 
     Interpretation interpretation() {
-        InterpretationBuilder ibuilder = InterpretationBuilder.solved("interpretation.id");
-        GenomicInterpretation somatic = somaticRb1Missense();
-         DiagnosisBuilder dbuilder = DiagnosisBuilder.builder(RETINOBLASTOMA);
-         dbuilder.genomicInterpretation(somatic);
-         dbuilder.genomicInterpretation(germlineRb1Deletion());
-         ibuilder.diagnosis(dbuilder.build());
-         return ibuilder.build();
+        Diagnosis diagnosis = DiagnosisBuilder.builder(RETINOBLASTOMA)
+                .addGenomicInterpretation(somaticRb1Missense())
+                .addGenomicInterpretation(germlineRb1Deletion())
+                .build();
+        return InterpretationBuilder.builder("interpretation.id").solved(diagnosis);
     }
 
 
@@ -77,20 +73,17 @@ public class Retinoblastoma implements PhenopacketExample {
         abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
         abuilder.startEnd( 48941647, 48941648);
         abuilder.setAltAllele("T");
-        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs121913300");
-        vbuilder.variation(abuilder.buildVariation())
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs121913300")
+                .variation(abuilder.buildVariation())
                 .genomic()
                 .heterozygous()
                 .label("RB1 c.958C>T (p.Arg320Ter)")
-                .transcript();
-        vbuilder.vcfHg38("NC_000013.11", 48367512, "C", "T");
-        vbuilder.alleleFrequency(25.0);
-        GeneDescriptor geneDescriptor = GeneDescriptorBuilder.builder("HGNC:9884", "RB1").build();
-        vbuilder.geneContext(geneDescriptor);
-        Expression hgvs = Expressions.hgvsCdna("NM_000321.2:c.958C>T");
-        Expression transcriptReference = Expressions.transcriptReference("NM_000321.2");
-        vbuilder.expression(hgvs);
-        vbuilder.expression(transcriptReference);
+                .transcript()
+                .vcfHg38("NC_000013.11", 48367512, "C", "T")
+                .alleleFrequency(25.0)
+                .geneContext(GeneDescriptorBuilder.geneDescriptor("HGNC:9884", "RB1"))
+                .addExpression(Expressions.hgvsCdna("NM_000321.2:c.958C>T"))
+                .addExpression(Expressions.transcriptReference("NM_000321.2"));
         // wrap in VariantInterpretation
         VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.builder(vbuilder);
         vibuilder.pathogenic();
@@ -150,40 +143,38 @@ public class Retinoblastoma implements PhenopacketExample {
                 .affected()
                 .build();
         PedigreeBuilder pbuilder = PedigreeBuilder.builder();
-        pbuilder.person(father);
-        pbuilder.person(mother);
-        pbuilder.person(child);
+        pbuilder.addPerson(father);
+        pbuilder.addPerson(mother);
+        pbuilder.addPerson(child);
         return pbuilder.build();
     }
 
     Biosample enucleatedEye() {
         TimeElement age = TimeElements.age("P8M2W");
-        BiosampleBuilder builder = BiosampleBuilder.builder(BIOSAMPLE_ID);
-        builder.sampledTissue(EYE);
+        BiosampleBuilder biosampleBuilder = BiosampleBuilder.builder(BIOSAMPLE_ID);
+        biosampleBuilder.sampledTissue(EYE);
         //Retinoblastoma with tumor invading optic nerve past lamina cribrosa but not to surgical resection line and exhibiting massive choroidal invasion.
-        builder.addPathologicalTnmFinding(ontologyClass("NCIT:C88735", "Retinoblastoma pT3b TNM Finding v7"));
+        biosampleBuilder.addPathologicalTnmFinding(ontologyClass("NCIT:C88735", "Retinoblastoma pT3b TNM Finding v7"));
         //Retinoblastoma with no regional lymph node involvement.
-        builder.addPathologicalTnmFinding(ontologyClass("NCIT:C88741","Retinoblastoma pN0 TNM Finding v7"));
+        biosampleBuilder.addPathologicalTnmFinding(ontologyClass("NCIT:C88741","Retinoblastoma pN0 TNM Finding v7"));
 
-        //
-        PhenotypicFeature pfRosette = PhenotypicFeatureBuilder.phenotypicFeature("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
-        builder.addPhenotypicFeature(pfRosette);
-        PhenotypicFeature pfApoptosis = PhenotypicFeatureBuilder.phenotypicFeature("NCIT:C132485", "Apoptosis and Necrosis");
-        builder.addPhenotypicFeature(pfApoptosis);
+        biosampleBuilder.addPhenotypicFeature("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
+        biosampleBuilder.addPhenotypicFeature("NCIT:C132485", "Apoptosis and Necrosis");
         OntologyClass maxTumorSizeTest = OntologyClassBuilder.ontologyClass("LOINC:33728-7", "Size.maximum dimension in Tumor");
         Value maxTumorSize = ValueBuilder.value(Unit.mm(), 15);
         Measurement maxTumorSizeMeasurement = MeasurementBuilder.value(maxTumorSizeTest, maxTumorSize).timeObserved(age).build();
-        builder.addMeasurement(maxTumorSizeMeasurement);
+        biosampleBuilder.addMeasurement(maxTumorSizeMeasurement);
 
-        ProcedureBuilder pbuilder = ProcedureBuilder.builder("NCIT:C48601", "Enucleation");
-
-        pbuilder.bodySite(LEFT_EYE).performed(age);
-        builder.procedure(pbuilder.build());
-        builder.tumorProgression(PRIMARY_NEOPLASM);
+        Procedure enucleation = ProcedureBuilder.builder("NCIT:C48601", "Enucleation")
+                .bodySite(LEFT_EYE)
+                .performed(age)
+                .build();
+        biosampleBuilder.procedure(enucleation);
+        biosampleBuilder.tumorProgression(PRIMARY_NEOPLASM);
         // VCF file with results of whole-genome sequencing on this tumor
         File wgsFile = FileBuilder.file("file://data/fileSomaticWgs.vcf.gz");
-        builder.addFile(wgsFile);
-        return builder.build();
+        biosampleBuilder.addFile(wgsFile);
+        return biosampleBuilder.build();
     }
 
 
@@ -201,10 +192,10 @@ public class Retinoblastoma implements PhenopacketExample {
 
         Treatment treatment = TreatmentBuilder.builder(melphalan)
                 .routeOfAdministration(administration)
-                .doseInterval(doseInterval).build();
+                .addDoseInterval(doseInterval).build();
 
         return MedicalActionBuilder.builder(treatment)
-                .adverseEvent(ontologyClass("HP:0025637", "Vasospasm"))
+                .addAdverseEvent(ontologyClass("HP:0025637", "Vasospasm"))
                 .treatmentTarget(RETINOBLASTOMA)
                 .treatmentIntent(CURE)
                 .treatmentTerminationReason(ontologyClass("NCIT:C41331", "Adverse Event"))
@@ -253,8 +244,8 @@ public class Retinoblastoma implements PhenopacketExample {
         TimeElement age4m = TimeElements.age("P4M");
         return DiseaseBuilder.builder(RETINOBLASTOMA)
                 .onset(age4m)
-                .diseaseStage(stageE)
-                .clinicalTnmFinding(noMetastasis)
+                .addDiseaseStage(stageE)
+                .addClinicalTnmFinding(noMetastasis)
                 .primarySite(LEFT_EYE)
                 .build();
     }
@@ -266,25 +257,25 @@ public class Retinoblastoma implements PhenopacketExample {
         TimeElement age3months = TimeElements.age("P3M");
         PhenotypicFeature clinodactyly = PhenotypicFeatureBuilder.
                 builder("HP:0030084", "Clinodactyly").
-                modifier(Laterality.right()).
+                addModifier(Laterality.right()).
                 onset(age3months).
                 build();
         TimeElement age4months = TimeElements.age("P4M");
         PhenotypicFeature leukocoria = PhenotypicFeatureBuilder.
                 builder("HP:0000555", "Leukocoria")
-                .modifier(Laterality.unilateral())
+                .addModifier(Laterality.unilateral())
                 .onset(age4months)
                 .build();
         TimeElement age5months = TimeElements.age("P5M15D");
         PhenotypicFeature strabismus = PhenotypicFeatureBuilder.
                 builder("HP:0000486", "Strabismus")
-                .modifier(Laterality.unilateral())
+                .addModifier(Laterality.unilateral())
                 .onset(age5months)
                 .build();
         TimeElement age6months = TimeElements.age("P6M");
         PhenotypicFeature retinalDetachment = PhenotypicFeatureBuilder
                 .builder("HP:0000541", "Retinal detachment")
-                .modifier(Laterality.unilateral())
+                .addModifier(Laterality.unilateral())
                 .onset(age6months)
                 .build();
         return List.of(clinodactyly, leukocoria, strabismus, retinalDetachment);

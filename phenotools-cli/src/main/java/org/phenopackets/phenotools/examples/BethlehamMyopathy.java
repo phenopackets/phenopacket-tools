@@ -3,9 +3,8 @@ package org.phenopackets.phenotools.examples;
 
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
-import org.phenopackets.phenotools.builder.builders.constants.Status;
+import org.phenopackets.phenotools.builder.constants.Status;
 import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.schema.v2.core.*;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
 
@@ -21,9 +20,9 @@ class BethlehamMyopathy implements PhenopacketExample {
         var bethlehamMyopathy = ontologyClass("OMIM:158810", "Bethlem myopathy 1");
         var individual = IndividualBuilder.builder(PROBAND_ID).male().ageAtLastEncounter("P6Y3M").build();
         var metaData = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .resource(Resources.hpoVersion("2021-08-02"))
-                .resource(Resources.genoVersion("2020-03-08"))
-                .externalReference(authorAssertion.getReference())
+                .addResource(Resources.hpoVersion("2021-08-02"))
+                .addResource(Resources.genoVersion("2020-03-08"))
+                .addExternalReference(authorAssertion.getReference())
                 .build();
         var variationDescriptor =
                 VariationDescriptorBuilder.builder("variant id")
@@ -36,56 +35,54 @@ class BethlehamMyopathy implements PhenopacketExample {
                 GenomicInterpretationBuilder.builder(INTERPRETATION_ID)
                         .causative()
                         .variantInterpretation(col6a1VariantInterpretation).build();
-        var diagnosis = Diagnosis.newBuilder()
-                .setDisease(bethlehamMyopathy).addGenomicInterpretations(genomicInterpretation).build();
-        var interpretation = InterpretationBuilder.builder(INTERPRETATION_ID, Status.completed())
-                .diagnosis(diagnosis).build();
+        var diagnosis = DiagnosisBuilder.builder(bethlehamMyopathy).addGenomicInterpretation(genomicInterpretation).build();
+        var interpretation = InterpretationBuilder.builder(INTERPRETATION_ID).completed(diagnosis);
         var ventricularSeptalDefect =
                 PhenotypicFeatureBuilder.builder("HP:0001629", "Ventricular septal defect")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var coarseFacial =
                 PhenotypicFeatureBuilder.builder("HP:0000280", "Coarse facial features")
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var cryptorchidism =
                 PhenotypicFeatureBuilder.builder("HP:0008689", "Bilateral cryptorchidism")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var polyhydramnios =
                 PhenotypicFeatureBuilder.builder("HP:0001561", "Polyhydramnios")
                         .fetalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var micropenis =
                 PhenotypicFeatureBuilder.builder("HP:0000054", "Micropenis")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var anonychia =
                 PhenotypicFeatureBuilder.builder("HP:0001798", "Anonychia")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var vermisHypoplasia =
                 PhenotypicFeatureBuilder.builder("HP:0001320", "Cerebellar vermis hypoplasia")
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var cataract =
                 PhenotypicFeatureBuilder.builder("HP:0000518", "Cataract")
                         .infantileOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var dilatedFourthVentricle =
                 PhenotypicFeatureBuilder.builder("HP:0002198", "Dilated fourth ventricle")
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var unilateralCleftLip =
                 PhenotypicFeatureBuilder.builder("HP:0100333", "Unilateral cleft lip")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)

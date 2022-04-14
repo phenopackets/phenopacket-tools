@@ -24,6 +24,14 @@ public class VariationDescriptorBuilder {
         builder = VariationDescriptor.newBuilder().setId(id);
     }
 
+    public static VariationDescriptorBuilder builder() {
+        return new VariationDescriptorBuilder();
+    }
+
+    public static VariationDescriptorBuilder builder(String variantId) {
+        return new VariationDescriptorBuilder(variantId);
+    }
+
     public VariationDescriptorBuilder label(String lbl) {
         builder.setLabel(lbl);
         return this;
@@ -44,12 +52,12 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
-    public VariationDescriptorBuilder vcfVecord(VcfRecord vcf) {
+    public VariationDescriptorBuilder vcfRecord(VcfRecord vcf) {
         builder.setVcfRecord(vcf);
         return this;
     }
 
-    public VariationDescriptorBuilder xref(String xref) {
+    public VariationDescriptorBuilder addXref(String xref) {
         builder.addXrefs(xref);
         return this;
     }
@@ -59,7 +67,7 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
-    public VariationDescriptorBuilder alternateLabels(String altLabel) {
+    public VariationDescriptorBuilder addAlternateLabel(String altLabel) {
         builder.addAlternateLabels(altLabel);
         return this;
     }
@@ -85,8 +93,8 @@ public class VariationDescriptorBuilder {
     }
 
 
-    public VariationDescriptorBuilder structuralType(OntologyClass clz) {
-        builder.setStructuralType(clz);
+    public VariationDescriptorBuilder structuralType(OntologyClass structuralType) {
+        builder.setStructuralType(structuralType);
         return this;
     }
 
@@ -135,7 +143,7 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
-    public VariationDescriptorBuilder expression(Expression expression) {
+    public VariationDescriptorBuilder addExpression(Expression expression) {
         builder.addExpressions(expression);
         return this;
     }
@@ -158,8 +166,7 @@ public class VariationDescriptorBuilder {
      * @param percentage estimated percentage of cells affected by mosaic variant, e.g., 40%
      */
     public VariationDescriptorBuilder mosaicism(double percentage) {
-       Extension expression =
-               Extensions.mosaicism(percentage);
+       Extension expression = Extensions.mosaicism(percentage);
        builder.addExtensions(expression);
        return this;
     }
@@ -177,13 +184,5 @@ public class VariationDescriptorBuilder {
 
     public VariationDescriptor build() {
         return builder.build();
-    }
-
-    public static VariationDescriptorBuilder builder(String variantId) {
-        return new VariationDescriptorBuilder(variantId);
-    }
-
-    public static VariationDescriptorBuilder builder() {
-        return new VariationDescriptorBuilder();
     }
 }

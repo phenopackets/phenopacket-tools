@@ -71,7 +71,7 @@ public class MedicalActionBuilder {
         return this;
     }
 
-    public MedicalActionBuilder adverseEvent(OntologyClass event) {
+    public MedicalActionBuilder addAdverseEvent(OntologyClass event) {
         builder.addAdverseEvents(event);
         return this;
     }

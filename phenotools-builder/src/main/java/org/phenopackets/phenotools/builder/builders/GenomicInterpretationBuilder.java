@@ -44,7 +44,7 @@ public class GenomicInterpretationBuilder {
         return this;
     }
 
-    public GenomicInterpretationBuilder geneDescriptor( GeneDescriptor geneDescriptor) {
+    public GenomicInterpretationBuilder geneDescriptor(GeneDescriptor geneDescriptor) {
         builder.setGene(geneDescriptor);
         return this;
     }

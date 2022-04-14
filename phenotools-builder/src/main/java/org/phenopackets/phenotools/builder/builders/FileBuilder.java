@@ -2,6 +2,8 @@ package org.phenopackets.phenotools.builder.builders;
 
 import org.phenopackets.schema.v2.core.File;
 
+import java.util.Map;
+
 public class FileBuilder {
 
     private final File.Builder builder;
@@ -20,6 +22,11 @@ public class FileBuilder {
 
     public FileBuilder addFileAttribute(String k, String v) {
         builder.putFileAttributes(k, v);
+        return this;
+    }
+
+    public FileBuilder addAllFileAttributes(Map<String, String> values) {
+        builder.putAllFileAttributes(values);
         return this;
     }
 
