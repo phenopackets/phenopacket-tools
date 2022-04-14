@@ -9,7 +9,7 @@ The cli application works in a standard UNIX-like manner.
 
 ```shell
 mvn package
-alias pfx-tools='java -jar phenotools-cli/target/phenotools-cli-0.0.2-SNAPSHOT.jar'
+alias pfx-tools='java -jar phenopacket-tools/phenopacket-tools-cli/target/phenopacket-tools-cli-1.0.0.jar'
 ```
 
 ### Example Phenopackets
