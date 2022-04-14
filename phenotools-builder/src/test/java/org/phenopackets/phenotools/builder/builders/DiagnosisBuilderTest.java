@@ -1,7 +1,7 @@
 package org.phenopackets.phenotools.builder.builders;
 
 import org.junit.jupiter.api.Test;
-import org.phenopackets.phenotools.builder.builders.constants.Status;
+import org.phenopackets.phenotools.builder.constants.Status;
 import org.phenopackets.schema.v2.core.Diagnosis;
 import org.phenopackets.schema.v2.core.GenomicInterpretation;
 
@@ -27,7 +27,7 @@ class DiagnosisBuilderTest {
         var expectedGenomicInterpretation = genomicInterpretationBuilder.build();
         var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
         Diagnosis diagnosis = DiagnosisBuilder.builder(thrombocytopenia2).
-                genomicInterpretation(expectedGenomicInterpretation)
+                addGenomicInterpretation(expectedGenomicInterpretation)
                 .build();
         assertThat(diagnosis.getDisease(), equalTo(thrombocytopenia2));
         assertEquals(1, diagnosis.getGenomicInterpretationsCount());

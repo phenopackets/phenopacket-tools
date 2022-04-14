@@ -13,7 +13,7 @@ public class PedigreeBuilder {
         builder = Pedigree.newBuilder();
     }
 
-    public PedigreeBuilder person(Pedigree.Person person) {
+    public PedigreeBuilder addPerson(Pedigree.Person person) {
         builder.addPersons(person);
         return this;
     }

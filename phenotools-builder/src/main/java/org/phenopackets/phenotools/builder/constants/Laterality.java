@@ -1,4 +1,4 @@
-package org.phenopackets.phenotools.builder.builders.constants;
+package org.phenopackets.phenotools.builder.constants;
 
 import org.phenopackets.phenotools.builder.builders.OntologyClassBuilder;
 import org.phenopackets.schema.v2.core.OntologyClass;

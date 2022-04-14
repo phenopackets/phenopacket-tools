@@ -45,7 +45,7 @@ public class FamilyWithPedigree {
     public Phenopacket proband() {
         String phenopacketId = "phenopacket.id.1";
         var metadata = MetaDataBuilder.builder("2022-04-17T10:35:00Z", "biocurator")
-                .resource(Resources.hpoVersion("2022-04-15"))
+                .addResource(Resources.hpoVersion("2022-04-15"))
                 .build();
         Individual proband = IndividualBuilder.builder(SON_ID).
                 ageAtLastEncounter("P10Y2M4D").
@@ -82,7 +82,7 @@ public class FamilyWithPedigree {
         Pedigree.Person daughter1 = PersonBuilder.builder(FAMILY_ID, DAUGHTER1_ID, PATERNAL_ID, MATERNAL_ID).female().unaffected().build();
         Pedigree.Person son = PersonBuilder.builder(FAMILY_ID, SON_ID, PATERNAL_ID, MATERNAL_ID).male().affected().build();
         Pedigree.Person daughter2 = PersonBuilder.builder(FAMILY_ID, DAUGHTER2_ID, PATERNAL_ID, MATERNAL_ID).female().unaffected().build();
-        return pbuilder.person(father).person(mother).person(daughter1).person(son).person(daughter2).build();
+        return pbuilder.addPerson(father).addPerson(mother).addPerson(daughter1).addPerson(son).addPerson(daughter2).build();
     }
 
 

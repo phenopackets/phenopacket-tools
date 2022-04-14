@@ -1,5 +1,6 @@
 package org.phenopackets.phenotools.builder;
 
+import org.phenopackets.phenotools.builder.builders.PhenotypicFeatureBuilder;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
@@ -20,6 +21,11 @@ public class PhenopacketBuilder {
     public PhenopacketBuilder individual(Individual subject) {
         builder.setSubject(subject);
         return this;
+    }
+
+    public PhenopacketBuilder addPhenotypicFeature(String id, String label) {
+        PhenotypicFeature phenotypicFeature = PhenotypicFeatureBuilder.phenotypicFeature(id, label);
+        return addPhenotypicFeature(phenotypicFeature);
     }
 
     public PhenopacketBuilder addPhenotypicFeature(PhenotypicFeature feature) {

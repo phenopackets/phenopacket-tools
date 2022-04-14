@@ -18,16 +18,16 @@ class SquamousCellCancer implements PhenopacketExample {
     SquamousCellCancer() {
         Individual proband = IndividualBuilder.builder(PROBAND_ID).male().ageAtLastEncounter("P38Y").build();
         var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .resource(Resources.ncitVersion("21.05d"))
-                .resource(Resources.efoVersion("3.34.0"))
-                .resource(Resources.uberonVersion("2021-07-27"))
-                .resource(Resources.ncbiTaxonVersion("2021-06-10"))
+                .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.efoVersion("3.34.0"))
+                .addResource(Resources.uberonVersion("2021-07-27"))
+                .addResource(Resources.ncbiTaxonVersion("2021-06-10"))
                 .build();
         var esophagealSCC = ontologyClass("NCIT:C4024", "Esophageal Squamous Cell Carcinoma");
         var disease = DiseaseBuilder.builder(esophagealSCC)
-                .clinicalTnmFinding(ontologyClass("NCIT:C48724", "T2 Stage Finding"))
-                .clinicalTnmFinding(ontologyClass("NCIT:C48706", "N1 Stage Finding"))
-                .clinicalTnmFinding(ontologyClass("NCIT:C48699", "M0 Stage Finding"))
+                .addClinicalTnmFinding(ontologyClass("NCIT:C48724", "T2 Stage Finding"))
+                .addClinicalTnmFinding(ontologyClass("NCIT:C48706", "N1 Stage Finding"))
+                .addClinicalTnmFinding(ontologyClass("NCIT:C48699", "M0 Stage Finding"))
                 .build();
         var esophagusBiopsy = BiosampleBuilder.builder("biosample 1")
                 .individualId(PROBAND_ID)

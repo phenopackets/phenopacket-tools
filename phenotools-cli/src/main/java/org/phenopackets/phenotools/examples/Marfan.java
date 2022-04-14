@@ -27,12 +27,12 @@ class Marfan implements PhenopacketExample {
         var dosage = DoseIntervalBuilder.doseInterval(quantity, bid, interval);
         var losartanTreatment = TreatmentBuilder
                 .builder(losartan)
-                .doseInterval(dosage)
+                .addDoseInterval(dosage)
                 .routeOfAdministration(administration)
                 .build();
         var medicalAction = MedicalActionBuilder.treatment(losartanTreatment);
         var metaData = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .resource(Resources.hpoVersion("2021-08-02"))
+                .addResource(Resources.hpoVersion("2021-08-02"))
                 .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)

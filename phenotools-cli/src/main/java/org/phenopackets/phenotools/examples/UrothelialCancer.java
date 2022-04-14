@@ -3,6 +3,7 @@ package org.phenopackets.phenotools.examples;
 
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
+import org.phenopackets.phenotools.builder.constants.Severity;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
@@ -18,15 +19,15 @@ class UrothelialCancer implements PhenopacketExample {
 
     UrothelialCancer() {
         var individual = IndividualBuilder.builder(PROBAND_ID).male().dateOfBirth("1964-03-15T00:00:00Z").build();
-        var hematuria = PhenotypicFeatureBuilder.builder("HP:0000790","Hematuria").build();
-        var dsyuria = PhenotypicFeatureBuilder.builder("HP:0100518","Dysuria")
-                .severe()
+        var hematuria = PhenotypicFeatureBuilder.phenotypicFeature("HP:0000790","Hematuria");
+        var dsyuria = PhenotypicFeatureBuilder.builder("HP:0100518", "Dysuria")
+                .severity(Severity.severe())
                 .build();
         var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .resource(Resources.ncitVersion("21.05d"))
-                .resource(Resources.efoVersion("3.34.0"))
-                .resource(Resources.uberonVersion("2021-07-27"))
-                .resource(Resources.ncbiTaxonVersion("2021-06-10"))
+                .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.efoVersion("3.34.0"))
+                .addResource(Resources.uberonVersion("2021-07-27"))
+                .addResource(Resources.ncbiTaxonVersion("2021-06-10"))
                 .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(individual)
@@ -56,16 +57,16 @@ class UrothelialCancer implements PhenopacketExample {
     private Disease infiltratingUrothelialCarcinoma() {
         return DiseaseBuilder.builder("NCIT:C39853", "Infiltrating Urothelial Carcinoma")
                 // Disease stage here is calculated based on the TMN findings
-                .diseaseStage(ontologyClass("NCIT:C27971", "Stage IV"))
+                .addDiseaseStage(ontologyClass("NCIT:C27971", "Stage IV"))
                 // The tumor was staged as pT2b, meaning infiltration into the outer muscle layer of the bladder wall
                 // pT2b Stage Finding (Code C48766)
-                .clinicalTnmFinding(ontologyClass("NCIT:C48766", "pT2b Stage Finding"))
+                .addClinicalTnmFinding(ontologyClass("NCIT:C48766", "pT2b Stage Finding"))
                 //pN2 Stage Finding (Code C48750)
                 // cancer has spread to 2 or more lymph nodes in the true pelvis (N2)
-                .clinicalTnmFinding(ontologyClass("NCIT:C48750", "pN2 Stage Finding"))
+                .addClinicalTnmFinding(ontologyClass("NCIT:C48750", "pN2 Stage Finding"))
                 // M1 Stage Finding
                 // the tumour has spread from the original site (Metastatic Neoplasm in lymph node - sample5)
-                .clinicalTnmFinding(ontologyClass("NCIT:C48700", "M1 Stage Finding"))
+                .addClinicalTnmFinding(ontologyClass("NCIT:C48700", "M1 Stage Finding"))
                 .build();
     }
 

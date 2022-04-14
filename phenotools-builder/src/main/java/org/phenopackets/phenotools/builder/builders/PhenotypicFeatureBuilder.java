@@ -1,6 +1,5 @@
 package org.phenopackets.phenotools.builder.builders;
 
-import org.phenopackets.phenotools.builder.builders.constants.Severity;
 import org.phenopackets.schema.v2.core.Evidence;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
@@ -83,12 +82,12 @@ public class PhenotypicFeatureBuilder {
 
     public PhenotypicFeatureBuilder severity(String id, String label) {
         OntologyClass severity = OntologyClassBuilder.ontologyClass(id, label);
-        builder.setSeverity(severity);
-        return this;
+        return severity(severity);
+
     }
 
-    public PhenotypicFeatureBuilder severe() {
-        builder.setSeverity(Severity.severe());
+    public PhenotypicFeatureBuilder severity(OntologyClass severity) {
+        builder.setSeverity(severity);
         return this;
     }
 
@@ -97,22 +96,22 @@ public class PhenotypicFeatureBuilder {
         return this;
     }
 
-    public PhenotypicFeatureBuilder evidence(Evidence evidence) {
+    public PhenotypicFeatureBuilder addEvidence(Evidence evidence) {
         builder.addEvidence(evidence);
         return this;
     }
 
-    public PhenotypicFeatureBuilder allEvidence(List<Evidence> evidenceList) {
+    public PhenotypicFeatureBuilder addAllEvidence(List<Evidence> evidenceList) {
         builder.addAllEvidence(evidenceList);
         return this;
     }
 
-    public PhenotypicFeatureBuilder modifier(OntologyClass clz) {
-        builder.addModifiers(clz);
+    public PhenotypicFeatureBuilder addModifier(OntologyClass modifier) {
+        builder.addModifiers(modifier);
         return this;
     }
 
-    public PhenotypicFeatureBuilder allModifiers(List<OntologyClass> modifiers) {
+    public PhenotypicFeatureBuilder addAllModifiers(List<OntologyClass> modifiers) {
         builder.addAllModifiers(modifiers);
         return this;
     }

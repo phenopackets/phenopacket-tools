@@ -9,15 +9,15 @@ public class PersonBuilder {
 
     private final org.phenopackets.schema.v2.core.Pedigree.Person.Builder builder;
 
-    private PersonBuilder(String family_id,
-                         String individual_id,
-                         String paternal_id,
-                         String maternal_id) {
+    private PersonBuilder(String familyId,
+                         String individualId,
+                         String paternalId,
+                         String maternalId) {
         builder = Pedigree.Person.newBuilder();
-        builder.setFamilyId(family_id);
-        builder.setIndividualId(individual_id);
-        builder.setPaternalId(paternal_id);
-        builder.setMaternalId(maternal_id);
+        builder.setFamilyId(familyId);
+        builder.setIndividualId(individualId);
+        builder.setPaternalId(paternalId);
+        builder.setMaternalId(maternalId);
     }
 
     public PersonBuilder male() {
@@ -50,21 +50,19 @@ public class PersonBuilder {
         return this;
     }
 
-
-    public static PersonBuilder builder(String family_id,
-                                        String individual_id,
-                                        String paternal_id,
-                                        String maternal_id) {
-        return new PersonBuilder(family_id, individual_id, paternal_id, maternal_id);
+    public static PersonBuilder builder(String familyId,
+                                        String individualId,
+                                        String paternalId,
+                                        String maternalId) {
+        return new PersonBuilder(familyId, individualId, paternalId, maternalId);
     }
 
     /**
      * Founders are persons in a PED file whose parents are not included. These parents are
      * indicated by "0". This function creates a personBuilder with prepopulated father/mother ids of "0"
      */
-    public static PersonBuilder builderWithParentsAsFounders(String family_id,
-                                                             String individual_id) {
-        return new PersonBuilder(family_id, individual_id,
+    public static PersonBuilder builderWithParentsAsFounders(String familyId, String individualId) {
+        return new PersonBuilder(familyId, individualId,
                 parental_id_not_available, parental_id_not_available);
     }
 

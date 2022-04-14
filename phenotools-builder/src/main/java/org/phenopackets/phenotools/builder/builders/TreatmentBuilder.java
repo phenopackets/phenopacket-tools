@@ -33,12 +33,12 @@ public class TreatmentBuilder {
         return this;
     }
 
-    public TreatmentBuilder doseInterval(DoseInterval interval) {
+    public TreatmentBuilder addDoseInterval(DoseInterval interval) {
         builder.addDoseIntervals(interval);
         return this;
     }
 
-    public TreatmentBuilder allDoseIntervals(List<DoseInterval> intervals) {
+    public TreatmentBuilder addAllDoseIntervals(List<DoseInterval> intervals) {
         builder.addAllDoseIntervals(intervals);
         return this;
     }

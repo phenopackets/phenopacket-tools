@@ -41,6 +41,11 @@ public class BiosampleBuilder {
         return this;
     }
 
+    public BiosampleBuilder addPhenotypicFeature(String id, String label) {
+        PhenotypicFeature phenotypicFeature = PhenotypicFeatureBuilder.phenotypicFeature(id, label);
+        return addPhenotypicFeature(phenotypicFeature);
+    }
+
     public BiosampleBuilder addPhenotypicFeature(PhenotypicFeature feature) {
         builder.addPhenotypicFeatures(feature);
         return this;
