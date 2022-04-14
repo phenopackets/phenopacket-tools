@@ -80,7 +80,7 @@ public class PhenopacketUtil {
         private final String label;
         private OntologyClass onset = null;
         private OntologyClass severity = null;
-        private List<OntologyClass> modifiers = new ArrayList<>();
+        private final List<OntologyClass> modifiers = new ArrayList<>();
 
         public PhenotypicFeatureBuilder(String id, String label) {
             this.termid = id;

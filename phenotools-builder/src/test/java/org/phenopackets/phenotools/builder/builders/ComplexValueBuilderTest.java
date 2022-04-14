@@ -14,7 +14,7 @@ import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.
 class ComplexValueBuilderTest {
 
     /**
-     * https://phenopacket-schema.readthedocs.io/en/v2/complex-value.html#example
+     * <a href="https://phenopacket-schema.readthedocs.io/en/v2/complex-value.html#example">https://phenopacket-schema.readthedocs.io/en/v2/complex-value.html#example</a>
      */
     @Test
     void testComplexValue() {

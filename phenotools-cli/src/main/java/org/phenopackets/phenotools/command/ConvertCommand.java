@@ -31,7 +31,7 @@ public class ConvertCommand implements Callable<Integer> {
     private String outVersion = "2.0";
 
     @Override
-    public Integer call() throws Exception {
+    public Integer call() {
         if (input == null) {
             System.err.println("Error! No input file provided");
             return 1;

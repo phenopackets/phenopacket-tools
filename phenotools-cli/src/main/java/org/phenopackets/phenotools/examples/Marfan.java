@@ -15,7 +15,7 @@ class Marfan implements PhenopacketExample {
 
     Marfan() {
         var marfan = DiseaseBuilder.disease("OMIM:154700 ", "Marfan syndrome");
-        var individual = IndividualBuilder.create(PROBAND_ID).female().ageAtLastEncounter("P27Y").build();
+        var individual = IndividualBuilder.builder(PROBAND_ID).female().ageAtLastEncounter("P27Y").build();
         var losartan = ontologyClass("DrugCentral:1610", "losartan");
         var mg = ontologyClass("UO:0000022", "milligram");
         var aorticAneurysm =
@@ -26,18 +26,18 @@ class Marfan implements PhenopacketExample {
         var interval = TimeIntervalBuilder.timeInterval("2019-03-20T00:00:00Z", "2021-03-20T00:00:00Z");
         var dosage = DoseIntervalBuilder.doseInterval(quantity, bid, interval);
         var losartanTreatment = TreatmentBuilder
-                .create(losartan)
-                .doseInterval(dosage)
+                .builder(losartan)
+                .addDoseInterval(dosage)
                 .routeOfAdministration(administration)
                 .build();
         var medicalAction = MedicalActionBuilder.treatment(losartanTreatment);
-        var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .resource(Resources.hpoVersion("2021-08-02"))
+        var metaData = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
+                .addResource(Resources.hpoVersion("2021-08-02"))
                 .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)
-                .disease(marfan)
-                .medicalAction(medicalAction)
+                .addDisease(marfan)
+                .addMedicalAction(medicalAction)
                 .build();
     }
 

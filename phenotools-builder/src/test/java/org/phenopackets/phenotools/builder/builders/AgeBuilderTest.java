@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 class AgeBuilderTest {
 
     /**
-     * https://phenopacket-schema.readthedocs.io/en/v2/age.html#example
+     * <a href="https://phenopacket-schema.readthedocs.io/en/v2/age.html#example">https://phenopacket-schema.readthedocs.io/en/v2/age.html#example</a>
      */
     @Test
     void testAge() {
@@ -20,7 +20,7 @@ class AgeBuilderTest {
     }
 
     /**
-     * https://phenopacket-schema.readthedocs.io/en/v2/age.html#id3
+     * <a href="https://phenopacket-schema.readthedocs.io/en/v2/age.html#id3">https://phenopacket-schema.readthedocs.io/en/v2/age.html#id3</a>
      */
     @Test
     void testAgeRange() {
@@ -30,7 +30,7 @@ class AgeBuilderTest {
     }
 
     /**
-     * https://phenopacket-schema.readthedocs.io/en/v2/gestational-age.html
+     * <a href="https://phenopacket-schema.readthedocs.io/en/v2/gestational-age.html">https://phenopacket-schema.readthedocs.io/en/v2/gestational-age.html</a>
      */
     @Test
     void testGestationalAge() {

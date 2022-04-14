@@ -7,53 +7,53 @@ public class InterpretationBuilder {
 
     private final Interpretation.Builder builder;
 
-    private InterpretationBuilder(String id, Interpretation.ProgressStatus status) {
-        builder = Interpretation.newBuilder().setId(id).setProgressStatus(status);
+    private InterpretationBuilder(String interpretationId, Interpretation.ProgressStatus status) {
+        builder = Interpretation.newBuilder().setId(interpretationId).setProgressStatus(status);
     }
 
-    public static Interpretation interpretation(String id, Interpretation.ProgressStatus status) {
-        return Interpretation.newBuilder().setId(id).setProgressStatus(status).build();
+    public static Interpretation interpretation(String interpretationId, Interpretation.ProgressStatus status, Diagnosis diagnosis, String summary) {
+        return Interpretation.newBuilder().setId(interpretationId).setProgressStatus(status).setDiagnosis(diagnosis).setSummary(summary).build();
     }
 
-    public static Interpretation interpretation(String id, Interpretation.ProgressStatus status, Diagnosis dx) {
-        return Interpretation.newBuilder().setId(id).setProgressStatus(status).setDiagnosis(dx).build();
+    public static InterpretationBuilder builder(String interpretationId) {
+        return new InterpretationBuilder(interpretationId, Interpretation.ProgressStatus.UNKNOWN_PROGRESS);
     }
 
-    public static Interpretation interpretation(String id, Interpretation.ProgressStatus status, Diagnosis dx, String summary) {
-        return Interpretation.newBuilder().setId(id).setProgressStatus(status).setDiagnosis(dx).setSummary(summary).build();
-    }
+//    public static InterpretationBuilder builder(String interpretationId, Interpretation.ProgressStatus status) {
+//        return new InterpretationBuilder(interpretationId, status);
+//    }
 
-    public static InterpretationBuilder create(String id, Interpretation.ProgressStatus status) {
-        return new InterpretationBuilder(id, status);
-    }
-
-    public InterpretationBuilder diagnosis(Diagnosis dx) {
-        builder.setDiagnosis(dx);
+    public InterpretationBuilder summary(String summary) {
+        builder.setSummary(summary);
         return this;
     }
+//
+//    public InterpretationBuilder diagnosis(Diagnosis diagnosis) {
+//        builder.setDiagnosis(diagnosis);
+//        return this;
+//    }
 
-    public InterpretationBuilder summary(String sm) {
-        builder.setSummary(sm);
-        return this;
-    }
-
-    public static InterpretationBuilder inProgress(String id) {
-        return create(id, Interpretation.ProgressStatus.IN_PROGRESS);
-    }
-
-    public static InterpretationBuilder completed(String id) {
-        return create(id, Interpretation.ProgressStatus.COMPLETED);
-    }
-
-    public static InterpretationBuilder solved(String id) {
-        return create(id, Interpretation.ProgressStatus.SOLVED);
-    }
-
-    public static InterpretationBuilder unsolved(String id) {
-        return create(id, Interpretation.ProgressStatus.UNSOLVED);
-    }
-
-    public Interpretation build() {
+    public Interpretation inProgress() {
+        builder.setProgressStatus(Interpretation.ProgressStatus.IN_PROGRESS);
         return builder.build();
     }
+
+    public Interpretation completed(Diagnosis diagnosis) {
+        builder.setProgressStatus(Interpretation.ProgressStatus.COMPLETED);
+        builder.setDiagnosis(diagnosis);
+        return builder.build();
+    }
+
+    public Interpretation solved(Diagnosis diagnosis) {
+        builder.setProgressStatus(Interpretation.ProgressStatus.SOLVED);
+        builder.setDiagnosis(diagnosis);
+        return builder.build();
+    }
+
+    public Interpretation unsolved() {
+        builder.setProgressStatus(Interpretation.ProgressStatus.UNSOLVED);
+        builder.clearDiagnosis();
+        return builder.build();
+    }
+
 }

@@ -47,12 +47,4 @@ public class PhenopacketConverter {
     public static List<Phenopacket> toV2Phenopackets(List<org.phenopackets.schema.v1.Phenopacket> v1Phenopackets) {
         return v1Phenopackets.stream().map(PhenopacketConverter::toV2Phenopacket).collect(Collectors.toUnmodifiableList());
     }
-
-    // TODO: Attempt to convert genes and variants into an interpretation
-//    public static Phenopacket toPhenopacket(org.phenopackets.schema.v1.Interpretation interpretation) {
-//
-//        return Phenopacket.newBuilder()
-//                .build();
-//    }
-
 }

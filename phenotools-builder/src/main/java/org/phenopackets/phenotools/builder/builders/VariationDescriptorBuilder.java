@@ -6,14 +6,30 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-
 public class VariationDescriptorBuilder {
 
     final VariationDescriptor.Builder builder;
 
+    /**
+     * Constructor if no identifier is to be used
+     */
+    private VariationDescriptorBuilder() {
+        builder = VariationDescriptor.newBuilder();
+    }
+
+    /**
+     * @param id an arbitrary identifier
+     */
     private VariationDescriptorBuilder(String id) {
         builder = VariationDescriptor.newBuilder().setId(id);
+    }
+
+    public static VariationDescriptorBuilder builder() {
+        return new VariationDescriptorBuilder();
+    }
+
+    public static VariationDescriptorBuilder builder(String variantId) {
+        return new VariationDescriptorBuilder(variantId);
     }
 
     public VariationDescriptorBuilder label(String lbl) {
@@ -36,12 +52,12 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
-    public VariationDescriptorBuilder vcfVecord(VcfRecord vcf) {
+    public VariationDescriptorBuilder vcfRecord(VcfRecord vcf) {
         builder.setVcfRecord(vcf);
         return this;
     }
 
-    public VariationDescriptorBuilder xref(String xref) {
+    public VariationDescriptorBuilder addXref(String xref) {
         builder.addXrefs(xref);
         return this;
     }
@@ -51,7 +67,7 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
-    public VariationDescriptorBuilder alternateLabels(String altLabel) {
+    public VariationDescriptorBuilder addAlternateLabel(String altLabel) {
         builder.addAlternateLabels(altLabel);
         return this;
     }
@@ -71,25 +87,31 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
-    public VariationDescriptorBuilder structuralType(OntologyClass clz) {
-        builder.setStructuralType(clz);
+    public VariationDescriptorBuilder transcript() {
+        builder.setMoleculeContext(MoleculeContext.transcript);
+        return this;
+    }
+
+
+    public VariationDescriptorBuilder structuralType(OntologyClass structuralType) {
+        builder.setStructuralType(structuralType);
         return this;
     }
 
     public VariationDescriptorBuilder heterozygous() {
-        OntologyClass heterozygous = ontologyClass("GENO:0000135", "heterozygous");
+        OntologyClass heterozygous = OntologyClassBuilder.ontologyClass("GENO:0000135", "heterozygous");
         builder.setAllelicState(heterozygous);
         return this;
     }
 
     public VariationDescriptorBuilder homozygous() {
-        OntologyClass heterozygous = ontologyClass("GENO:0000136", "homozygous");
+        OntologyClass heterozygous = OntologyClassBuilder.ontologyClass("GENO:0000136", "homozygous");
         builder.setAllelicState(heterozygous);
         return this;
     }
 
     public VariationDescriptorBuilder hemizygous() {
-        OntologyClass heterozygous = ontologyClass("GENO:0000134", "hemizygous");
+        OntologyClass heterozygous = OntologyClassBuilder.ontologyClass("GENO:0000134", "hemizygous");
         builder.setAllelicState(heterozygous);
         return this;
     }
@@ -121,12 +143,46 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
+    public VariationDescriptorBuilder addExpression(Expression expression) {
+        builder.addExpressions(expression);
+        return this;
+    }
+
+    public VariationDescriptorBuilder vcfHg38(String chromosome, int position, String ref, String alt) {
+        VcfRecord vcf = VcfRecordBuilder.vcfRecord("GRCh38", chromosome, position, ref, alt);
+        builder.setVcfRecord(vcf);
+        return this;
+    }
+
+    public VariationDescriptorBuilder vcfHg37(String chromosome, int position, String ref, String alt) {
+        VcfRecord vcf = VcfRecordBuilder.vcfRecord("GRCh37", chromosome, position, ref, alt);
+        builder.setVcfRecord(vcf);
+        return this;
+    }
+
+
+
+    /**
+     * @param percentage estimated percentage of cells affected by mosaic variant, e.g., 40%
+     */
+    public VariationDescriptorBuilder mosaicism(double percentage) {
+       Extension expression = Extensions.mosaicism(percentage);
+       builder.addExtensions(expression);
+       return this;
+    }
+
+    /**
+     * @param percentage estimated frequency of an allele (generally a somatic mutation) 25%
+     */
+    public VariationDescriptorBuilder alleleFrequency(double percentage) {
+        Expression expression =
+                Expression.newBuilder().setSyntax("allele-frequency").setValue(String.format("%.1f%%", percentage)).build();
+        builder.addExpressions(expression);
+        return this;
+    }
+
 
     public VariationDescriptor build() {
         return builder.build();
-    }
-
-    public static VariationDescriptorBuilder create(String id) {
-        return new VariationDescriptorBuilder(id);
     }
 }

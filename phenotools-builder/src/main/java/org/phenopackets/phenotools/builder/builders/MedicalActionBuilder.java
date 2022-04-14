@@ -40,19 +40,19 @@ public class MedicalActionBuilder {
         return MedicalAction.newBuilder().setTherapeuticRegimen(regimen).build();
     }
 
-    public static MedicalActionBuilder create(Procedure procedure) {
+    public static MedicalActionBuilder builder(Procedure procedure) {
         return new MedicalActionBuilder(procedure);
     }
 
-    public static MedicalActionBuilder create(Treatment treatment) {
+    public static MedicalActionBuilder builder(Treatment treatment) {
         return new MedicalActionBuilder(treatment);
     }
 
-    public static MedicalActionBuilder create(RadiationTherapy rxTherapy) {
+    public static MedicalActionBuilder builder(RadiationTherapy rxTherapy) {
         return new MedicalActionBuilder(rxTherapy);
     }
 
-    public static MedicalActionBuilder create(TherapeuticRegimen regimen) {
+    public static MedicalActionBuilder builder(TherapeuticRegimen regimen) {
         return new MedicalActionBuilder(regimen);
     }
 
@@ -71,7 +71,7 @@ public class MedicalActionBuilder {
         return this;
     }
 
-    public MedicalActionBuilder adverseEvent(OntologyClass event) {
+    public MedicalActionBuilder addAdverseEvent(OntologyClass event) {
         builder.addAdverseEvents(event);
         return this;
     }

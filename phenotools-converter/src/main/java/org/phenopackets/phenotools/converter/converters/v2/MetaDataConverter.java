@@ -1,7 +1,6 @@
 package org.phenopackets.phenotools.converter.converters.v2;
 
 import org.phenopackets.schema.v2.core.MetaData;
-import org.phenopackets.schema.v2.core.Resource;
 import org.phenopackets.schema.v2.core.Update;
 
 import java.util.List;

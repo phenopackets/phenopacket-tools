@@ -4,8 +4,6 @@ import org.phenopackets.schema.v2.core.Disease;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.TimeElement;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-
 public class DiseaseBuilder {
 
     private final Disease.Builder builder;
@@ -19,17 +17,17 @@ public class DiseaseBuilder {
     }
 
     public static Disease disease(String id, String label) {
-        OntologyClass term = ontologyClass(id, label);
+        OntologyClass term = OntologyClassBuilder.ontologyClass(id, label);
         return disease(term);
     }
 
-    public static DiseaseBuilder create(OntologyClass term) {
+    public static DiseaseBuilder builder(OntologyClass term) {
         return new DiseaseBuilder(term);
     }
 
-    public static DiseaseBuilder create(String id, String label) {
-        OntologyClass term = ontologyClass(id, label);
-        return create(term);
+    public static DiseaseBuilder builder(String id, String label) {
+        OntologyClass term = OntologyClassBuilder.ontologyClass(id, label);
+        return builder(term);
     }
 
     public DiseaseBuilder excluded() {
@@ -47,12 +45,12 @@ public class DiseaseBuilder {
         return this;
     }
 
-    public DiseaseBuilder diseaseStage(OntologyClass stage) {
+    public DiseaseBuilder addDiseaseStage(OntologyClass stage) {
         builder.addDiseaseStage(stage);
         return this;
     }
 
-    public DiseaseBuilder clinicalTnmFinding(OntologyClass tnmFinding) {
+    public DiseaseBuilder addClinicalTnmFinding(OntologyClass tnmFinding) {
         builder.addClinicalTnmFinding(tnmFinding);
         return this;
     }

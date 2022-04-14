@@ -1,12 +1,11 @@
 package org.phenopackets.phenotools.builder.builders;
 
 import com.google.protobuf.Timestamp;
+import org.phenopackets.phenotools.builder.constants.Onset;
 import org.phenopackets.schema.v2.core.*;
 
 import java.time.Instant;
 
-import static org.phenopackets.phenotools.builder.builders.Onset.late;
-import static org.phenopackets.phenotools.builder.builders.Onset.middleAge;
 
 /**
  * The TimeElement is used in many places in the Phenopacket. It is defined as being one of the
@@ -33,8 +32,8 @@ public class TimeElements {
     private static final TimeElement JUVENILE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.juvenile()).build();
     private static final TimeElement INFANTILE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.infantile()).build();
     private static final TimeElement ADULT_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.adult()).build();
-    private static final TimeElement LATE_ONSET = TimeElement.newBuilder().setOntologyClass(late()).build();
-    private static final TimeElement MIDDLE_AGE_ONSET = TimeElement.newBuilder().setOntologyClass(middleAge()).build();
+    private static final TimeElement LATE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.late()).build();
+    private static final TimeElement MIDDLE_AGE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.middleAge()).build();
     private static final TimeElement YOUNG_ADULT_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.youngAdult()).build();
 
     private TimeElements() {

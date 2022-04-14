@@ -3,11 +3,10 @@ package org.phenopackets.phenotools.examples;
 
 import org.phenopackets.phenotools.builder.PhenopacketBuilder;
 import org.phenopackets.phenotools.builder.builders.*;
+import org.phenopackets.phenotools.builder.constants.Status;
 import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.schema.v2.core.*;
 
 import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
-import static org.phenopackets.schema.v2.core.GenomicInterpretation.InterpretationStatus.*;
 
 class BethlehamMyopathy implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary proband id";
@@ -19,84 +18,85 @@ class BethlehamMyopathy implements PhenopacketExample {
     BethlehamMyopathy() {
         var authorAssertion = EvidenceBuilder.authorStatementEvidence("PMID:30808312", "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report");
         var bethlehamMyopathy = ontologyClass("OMIM:158810", "Bethlem myopathy 1");
-        var individual = IndividualBuilder.create(PROBAND_ID).male().ageAtLastEncounter("P6Y3M").build();
-        var metaData = MetaDataBuilder.create("2021-05-14T10:35:00Z", "anonymous biocurator")
-                .resource(Resources.hpoVersion("2021-08-02"))
-                .resource(Resources.genoVersion("2020-03-08"))
-                .externalReference(authorAssertion.getReference())
+        var individual = IndividualBuilder.builder(PROBAND_ID).male().ageAtLastEncounter("P6Y3M").build();
+        var metaData = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
+                .addResource(Resources.hpoVersion("2021-08-02"))
+                .addResource(Resources.genoVersion("2020-03-08"))
+                .addExternalReference(authorAssertion.getReference())
                 .build();
         var variationDescriptor =
-                VariationDescriptorBuilder.create("variant id")
+                VariationDescriptorBuilder.builder("variant id")
                         .heterozygous()
                         .hgvs("NM_001848.2:c.877G>A")
                         .build();
         var col6a1VariantInterpretation =
                 VariantInterpretationBuilder.variantInterpretation(variationDescriptor, Status.pathogenic());
         var genomicInterpretation =
-                GenomicInterpretationBuilder.genomicInterpretation(INTERPRETATION_ID, CAUSATIVE, col6a1VariantInterpretation);
-        var diagnosis = Diagnosis.newBuilder()
-                .setDisease(bethlehamMyopathy).addGenomicInterpretations(genomicInterpretation).build();
-        var interpretation = InterpretationBuilder.interpretation(INTERPRETATION_ID, Status.completed(), diagnosis);
+                GenomicInterpretationBuilder.builder(INTERPRETATION_ID)
+                        .causative()
+                        .variantInterpretation(col6a1VariantInterpretation).build();
+        var diagnosis = DiagnosisBuilder.builder(bethlehamMyopathy).addGenomicInterpretation(genomicInterpretation).build();
+        var interpretation = InterpretationBuilder.builder(INTERPRETATION_ID).completed(diagnosis);
         var ventricularSeptalDefect =
-                PhenotypicFeatureBuilder.create("HP:0001629", "Ventricular septal defect")
+                PhenotypicFeatureBuilder.builder("HP:0001629", "Ventricular septal defect")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var coarseFacial =
-                PhenotypicFeatureBuilder.create("HP:0000280", "Coarse facial features")
-                        .evidence(authorAssertion)
+                PhenotypicFeatureBuilder.builder("HP:0000280", "Coarse facial features")
+                        .addEvidence(authorAssertion)
                         .build();
         var cryptorchidism =
-                PhenotypicFeatureBuilder.create("HP:0008689", "Bilateral cryptorchidism")
+                PhenotypicFeatureBuilder.builder("HP:0008689", "Bilateral cryptorchidism")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var polyhydramnios =
-                PhenotypicFeatureBuilder.create("HP:0001561", "Polyhydramnios")
+                PhenotypicFeatureBuilder.builder("HP:0001561", "Polyhydramnios")
                         .fetalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var micropenis =
-                PhenotypicFeatureBuilder.create("HP:0000054", "Micropenis")
+                PhenotypicFeatureBuilder.builder("HP:0000054", "Micropenis")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var anonychia =
-                PhenotypicFeatureBuilder.create("HP:0001798", "Anonychia")
+                PhenotypicFeatureBuilder.builder("HP:0001798", "Anonychia")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var vermisHypoplasia =
-                PhenotypicFeatureBuilder.create("HP:0001320", "Cerebellar vermis hypoplasia")
-                        .evidence(authorAssertion)
+                PhenotypicFeatureBuilder.builder("HP:0001320", "Cerebellar vermis hypoplasia")
+                        .addEvidence(authorAssertion)
                         .build();
         var cataract =
-                PhenotypicFeatureBuilder.create("HP:0000518", "Cataract")
+                PhenotypicFeatureBuilder.builder("HP:0000518", "Cataract")
                         .infantileOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         var dilatedFourthVentricle =
-                PhenotypicFeatureBuilder.create("HP:0002198", "Dilated fourth ventricle")
-                        .evidence(authorAssertion)
+                PhenotypicFeatureBuilder.builder("HP:0002198", "Dilated fourth ventricle")
+                        .addEvidence(authorAssertion)
                         .build();
         var unilateralCleftLip =
-                PhenotypicFeatureBuilder.create("HP:0100333", "Unilateral cleft lip")
+                PhenotypicFeatureBuilder.builder("HP:0100333", "Unilateral cleft lip")
                         .congenitalOnset()
-                        .evidence(authorAssertion)
+                        .addEvidence(authorAssertion)
                         .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)
-                .phenotypicFeature(ventricularSeptalDefect)
-                .phenotypicFeature(coarseFacial)
-                .phenotypicFeature(cryptorchidism)
-                .phenotypicFeature(polyhydramnios)
-                .phenotypicFeature(micropenis)
-                .phenotypicFeature(anonychia)
-                .phenotypicFeature(vermisHypoplasia)
-                .phenotypicFeature(cataract)
-                .phenotypicFeature(dilatedFourthVentricle)
-                .phenotypicFeature(unilateralCleftLip)
-                .interpretation(interpretation)
+                .addPhenotypicFeature(ventricularSeptalDefect)
+                .addPhenotypicFeature(coarseFacial)
+                .addPhenotypicFeature(cryptorchidism)
+                .addPhenotypicFeature(polyhydramnios)
+                .addPhenotypicFeature(micropenis)
+                .addPhenotypicFeature(anonychia)
+                .addPhenotypicFeature(vermisHypoplasia)
+                .addPhenotypicFeature(cataract)
+                .addPhenotypicFeature(dilatedFourthVentricle)
+                .addPhenotypicFeature(unilateralCleftLip)
+                .addInterpretation(interpretation)
                 .build();
     }
 

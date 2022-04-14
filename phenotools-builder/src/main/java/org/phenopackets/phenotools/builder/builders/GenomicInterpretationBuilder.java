@@ -8,14 +8,60 @@ import org.phenopackets.schema.v2.core.VariantInterpretation;
 
 public class GenomicInterpretationBuilder {
 
-    private GenomicInterpretationBuilder(){
+
+    private final GenomicInterpretation.Builder builder;
+
+    private GenomicInterpretationBuilder(String subjectOrBiosampleId){
+        builder = GenomicInterpretation.newBuilder().setSubjectOrBiosampleId(subjectOrBiosampleId);
     }
 
-    public static GenomicInterpretation genomicInterpretation(String id, InterpretationStatus status, GeneDescriptor geneDescriptor) {
-        return GenomicInterpretation.newBuilder().setSubjectOrBiosampleId(id).setInterpretationStatus(status).setGene(geneDescriptor).build();
+    public static GenomicInterpretationBuilder builder(String subjectOrBiosampleId) {
+        return new GenomicInterpretationBuilder(subjectOrBiosampleId);
     }
 
-    public static GenomicInterpretation genomicInterpretation(String id, InterpretationStatus status, VariantInterpretation variantInterpretation) {
-        return GenomicInterpretation.newBuilder().setSubjectOrBiosampleId(id).setInterpretationStatus(status).setVariantInterpretation(variantInterpretation).build();
+    public GenomicInterpretationBuilder rejected() {
+        builder.setInterpretationStatus(InterpretationStatus.REJECTED);
+        return this;
     }
+
+    public GenomicInterpretationBuilder candidate() {
+        builder.setInterpretationStatus(InterpretationStatus.CANDIDATE);
+        return this;
+    }
+
+    public GenomicInterpretationBuilder contributory() {
+        builder.setInterpretationStatus(InterpretationStatus.CONTRIBUTORY);
+        return this;
+    }
+
+    public GenomicInterpretationBuilder causative() {
+        builder.setInterpretationStatus(InterpretationStatus.CAUSATIVE);
+        return this;
+    }
+
+    public GenomicInterpretationBuilder unknown() {
+        builder.setInterpretationStatus(InterpretationStatus.UNKNOWN_STATUS);
+        return this;
+    }
+
+    public GenomicInterpretationBuilder geneDescriptor(GeneDescriptor geneDescriptor) {
+        builder.setGene(geneDescriptor);
+        return this;
+    }
+
+    public GenomicInterpretationBuilder variantInterpretation(VariantInterpretation variantInterpretation) {
+        builder.setVariantInterpretation(variantInterpretation);
+        return this;
+    }
+
+
+    public GenomicInterpretationBuilder variantInterpretation(VariantInterpretationBuilder vibuilder) {
+        builder.setVariantInterpretation(vibuilder.build());
+        return this;
+    }
+
+    public GenomicInterpretation build() {
+        return builder.build();
+    }
+
 }

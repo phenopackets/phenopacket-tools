@@ -29,8 +29,12 @@ public class VariantInterpretationBuilder {
                 .build();
     }
 
-    public static VariantInterpretationBuilder create(VariationDescriptor descriptor) {
+    public static VariantInterpretationBuilder builder(VariationDescriptor descriptor) {
         return new VariantInterpretationBuilder(descriptor);
+    }
+
+    public static VariantInterpretationBuilder builder(VariationDescriptorBuilder builder) {
+        return new VariantInterpretationBuilder(builder.build());
     }
 
     public VariantInterpretationBuilder benign() {

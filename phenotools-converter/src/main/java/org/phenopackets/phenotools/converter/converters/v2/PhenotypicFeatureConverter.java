@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import static org.phenopackets.phenotools.converter.converters.v2.AgeConverter.toAge;
 import static org.phenopackets.phenotools.converter.converters.v2.AgeConverter.toAgeRange;
 import static org.phenopackets.phenotools.converter.converters.v2.EvidenceConverter.toEvidences;
-import static org.phenopackets.phenotools.converter.converters.v2.ExternalReferenceConverter.toExternalReference;
 import static org.phenopackets.phenotools.converter.converters.v2.OntologyClassConverter.toOntologyClass;
 import static org.phenopackets.phenotools.converter.converters.v2.OntologyClassConverter.toOntologyClassList;
 
