@@ -57,8 +57,8 @@ public class Retinoblastoma implements PhenopacketExample {
 
     Interpretation interpretation() {
         Diagnosis diagnosis = DiagnosisBuilder.builder(RETINOBLASTOMA)
-                .addGenomicInterpretation(somaticRb1Missense())
                 .addGenomicInterpretation(germlineRb1Deletion())
+                .addGenomicInterpretation(somaticRb1Missense())
                 .build();
         return InterpretationBuilder.builder("interpretation.id").solved(diagnosis);
     }
@@ -70,7 +70,8 @@ public class Retinoblastoma implements PhenopacketExample {
      */
     GenomicInterpretation somaticRb1Missense() {
         AlleleBuilder abuilder = AlleleBuilder.builder();
-        abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
+       // abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
+        abuilder.setSequenceId("refseq:NC_000013.14");
         abuilder.startEnd( 48941647, 48941648);
         abuilder.setAltAllele("T");
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs121913300")
@@ -90,7 +91,7 @@ public class Retinoblastoma implements PhenopacketExample {
         vibuilder.actionable();
 
 
-        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.builder(PROBAND_ID);
+        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.builder(BIOSAMPLE_ID);
         gbuilder.causative();
         gbuilder.variantInterpretation(vibuilder);
 
@@ -100,18 +101,18 @@ public class Retinoblastoma implements PhenopacketExample {
 
     GenomicInterpretation germlineRb1Deletion() {
         CopyNumberBuilder abuilder = CopyNumberBuilder.builder();
-        abuilder.copyNumberId("ga4gh:VCN.AFfJws1M4Lg8w1O3XknmHYc9TU2hHYpp");
+        //abuilder.copyNumberId("ga4gh:VCN.AFfJws1M4Lg8w1O3XknmHYc9TU2hHYpp");
         abuilder.alleleLocation("refseq:NC_000013.14",26555377, 62280955);//VRS uses inter-residue coordinates
         abuilder.oneCopy();
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder();
         vbuilder.variation(abuilder.buildVariation());
-        vbuilder.mosaicism(40.0);
+       // vbuilder.mosaicism(40.0);
         VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.builder(vbuilder);
         vibuilder.pathogenic();
         vibuilder.actionable();
 
 
-        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.builder(BIOSAMPLE_ID);
+        GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.builder(PROBAND_ID);
         gbuilder.causative();
         gbuilder.variantInterpretation(vibuilder);
 
