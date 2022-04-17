@@ -1,9 +1,12 @@
 package org.phenopackets.phenopackettools.builder.builders;
 
+import com.google.protobuf.Timestamp;
 import org.phenopackets.schema.v2.core.ExternalReference;
 import org.phenopackets.schema.v2.core.MetaData;
 import org.phenopackets.schema.v2.core.Resource;
 import org.phenopackets.schema.v2.core.Update;
+
+import java.time.Instant;
 
 import static org.phenopackets.phenopackettools.builder.builders.TimestampBuilder.fromISO8601;
 
@@ -20,8 +23,29 @@ public class MetaDataBuilder {
                 .setPhenopacketSchemaVersion(SCHEMA_VERSION); // only one option for schema version!
     }
 
+    private MetaDataBuilder(Timestamp createdTimeStamp, String createdBy) {
+        builder = MetaData.newBuilder()
+                .setCreated(createdTimeStamp)
+                .setCreatedBy(createdBy)
+                .setPhenopacketSchemaVersion(SCHEMA_VERSION); // only one option for schema version!
+    }
+
     public static MetaDataBuilder builder(String created, String createdBy) {
         return new MetaDataBuilder(created, createdBy);
+    }
+
+    public static MetaDataBuilder builder(Timestamp createdTimeStamp, String createdBy) {
+        return new MetaDataBuilder(createdTimeStamp, createdBy);
+    }
+
+    /**
+     * Create a new MetaDataBuilder with time set to now.
+     */
+    public static MetaDataBuilder builder(String createdBy) {
+        Instant time = Instant.now();
+        Timestamp timestamp = Timestamp.newBuilder().setSeconds(time.getEpochSecond())
+                .setNanos(time.getNano()).build();
+        return new MetaDataBuilder(timestamp, createdBy);
     }
 
     public MetaDataBuilder submittedBy(String submitter) {
