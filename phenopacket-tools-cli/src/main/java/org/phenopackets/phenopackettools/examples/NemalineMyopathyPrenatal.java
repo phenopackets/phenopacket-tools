@@ -11,7 +11,6 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.List;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
-import static org.phenopackets.phenopackettools.builder.builders.PhenotypicFeatureBuilder.phenotypicFeature;
 import static org.phenopackets.phenopackettools.builder.builders.TimeElements.gestationalAge;
 
 /**

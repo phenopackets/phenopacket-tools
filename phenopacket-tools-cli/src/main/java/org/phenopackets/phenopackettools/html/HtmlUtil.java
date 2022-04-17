@@ -1,7 +1,9 @@
 package org.phenopackets.phenopackettools.html;
 
-import java.util.List;
-
+/**
+ * Some CSS and boilerplate HTML for writing phenopackets.
+ * @author Peter N Robinson
+ */
 public class HtmlUtil {
 
 
@@ -211,36 +213,17 @@ public class HtmlUtil {
     public static String htmlTop() {
         return "<body>\n" +
                 "<header class=\"banner\">\n" +
-                "<h1><font color=\"#FFDA1A\">Isopret</font></h1>\n" +
+                "<h1><font color=\"#FFDA1A\">Phenopacket-Tools</font></h1>\n" +
                 "</header>\n" +
                 "<main>\n";
     }
 
-
-    public static String bottom() {
+    public static String htmlBottom() {
         return " <span id=\"tooltip\" display=\"none\" style=\"position: absolute; display: none;\"></span>\n" +
                 "</main>\n" +
                 "</body>\n" +
                 "</html>";
     }
 
-
-    public static String tableHeader(String tableClass, List<Integer> widths, List<String> headerFields) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<table class=\"").append(tableClass).append("\">");
-        if (widths.size() == headerFields.size()) {
-            for (int i=0; i<widths.size(); i++) {
-                int w = widths.get(i);
-                String head = headerFields.get(i);
-                sb.append("<th width=\"").append(w).append("px\";>").append(head).append("</th>");
-            }
-        } else {
-            for (String head: headerFields) {
-                sb.append("<th>").append(head).append("</th>");
-            }
-        }
-        sb.append("</tr>\n");
-        return sb.toString();
-    }
 
 }
