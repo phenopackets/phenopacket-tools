@@ -1,7 +1,6 @@
 package org.phenopackets.phenopackettools.converter;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.util.JsonFormat;
 import org.junit.jupiter.api.Test;
 import org.phenopackets.phenopackettools.converter.converters.PhenopacketConverter;
 

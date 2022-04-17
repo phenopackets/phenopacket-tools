@@ -1,5 +1,7 @@
 package org.phenopackets.phenopackettools.html;
 
+import com.google.protobuf.Timestamp;
+import com.google.protobuf.util.Timestamps;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
@@ -8,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Class to display information contained in a Phenopacket in HTML
@@ -33,7 +34,7 @@ public class HtmlOutputter {
             writer.write(HtmlUtil.htmlTop());
             wrap(Section.PROBAND, writer);
             wrap(Section.PHENOTYPICFEATURE, writer);
-            writer.write(HtmlUtil.bottom());
+            writer.write(HtmlUtil.htmlBottom());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,17 +60,47 @@ public class HtmlOutputter {
     private void outputProband(Writer writer) throws IOException {
         Individual proband = phenopacket.getSubject();
         String probandId = proband.getId(); // required
-        Map<String, String> kv = new TreeMap<>();
-        kv.put("id", probandId);
-        kv.put("sex", proband.getSex().name());
+
+        List<String> thisRow = new ArrayList<>();
+        thisRow.add(probandId);
+        thisRow.add(proband.getSex().toString());
+        if (proband.hasDateOfBirth()) {
+            Timestamp dob = proband.getDateOfBirth();
+            thisRow.add(Timestamps.toString(dob));
+        } else {
+            thisRow.add("-");
+        }
+        if (proband.hasTimeAtLastEncounter()) {
+            String age = getTimeAge(proband.getTimeAtLastEncounter());
+            thisRow.add(age);
+        } else {
+            thisRow.add("-");
+        }
         if (proband.hasVitalStatus()) {
-            kv.put("vital status", proband.getVitalStatus().getStatus().name());
+            thisRow.add( proband.getVitalStatus().getStatus().name());
+        } else {
+            thisRow.add("-");
+        }
+        if (proband.getKaryotypicSex().getNumber() >0) {
+            thisRow.add(proband.getKaryotypicSex().toString());
+        } else {
+            thisRow.add("-");
+        }
+        if (proband.hasGender()) {
+            OntologyClass clz = proband.getGender();
+            thisRow.add(String.format("%s (%s)", clz.getLabel(), clz.getId()));
+        } else {
+            thisRow.add("-");
         }
         writer.write("<h2>Proband</h2>\n");
         writer.write("<table class=\"minimalistBlack\">\n");
-        for (var e : kv.entrySet()) {
-            writer.write(row2(e.getKey(), e.getValue()));
+        writer.write("<thead>");
+        List<String> fields = List.of("id", "sex", "birthdate", "age", "vital status", "karyotypic_sex", "gender");
+        for (var f: fields) {
+            writer.write("<th>" + f + "</th>");
         }
+        writer.write("</thead>\n");
+        writer.write(row(thisRow));
         writer.write("</table>\n");
     }
 
@@ -152,14 +183,29 @@ public class HtmlOutputter {
     private String getTimeAge(TimeElement onset) {
         if (onset.hasAge()) {
             return onset.getAge().getIso8601Duration();
+        } else if (onset.hasGestationalAge()) {
+            GestationalAge ga = onset.getGestationalAge();
+            return String.format("GA: %dW+%d D", ga.getWeeks(), ga.getDays());
+        } else if (onset.hasAgeRange()) {
+            AgeRange ar = onset.getAgeRange();
+            String start = ar.getStart().getIso8601Duration();
+            String end = ar.getEnd().getIso8601Duration();
+            return String.format("%s - %s", start, end);
+        } else if (onset.hasTimestamp()) {
+            Timestamp ts = onset.getTimestamp();
+            return Timestamps.toString(ts);
+        } else if (onset.hasOntologyClass()) {
+            OntologyClass clz = onset.getOntologyClass();
+            return String.format("%s (%s)", clz.getLabel(), clz.getId());
+        } else if (onset.hasInterval()) {
+            TimeInterval ti = onset.getInterval();
+            String start = Timestamps.toString(ti.getStart());
+            String end = Timestamps.toString(ti.getEnd());
+            return String.format("%s - %s", start, end);
+        } else {
+            // we have exhausted all possibilities and should never get here, but...
+            return "N/A";
         }
-
-        return "todo";
-    }
-
-
-    private String row2(String s1, String s2) {
-        return String.format("<tr><td>%s</td><td>%s</td></tr>\n", s1, s2);
     }
 
     private String row(List<String> fields) {

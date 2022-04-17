@@ -19,19 +19,10 @@ public class InterpretationBuilder {
         return new InterpretationBuilder(interpretationId, Interpretation.ProgressStatus.UNKNOWN_PROGRESS);
     }
 
-//    public static InterpretationBuilder builder(String interpretationId, Interpretation.ProgressStatus status) {
-//        return new InterpretationBuilder(interpretationId, status);
-//    }
-
     public InterpretationBuilder summary(String summary) {
         builder.setSummary(summary);
         return this;
     }
-//
-//    public InterpretationBuilder diagnosis(Diagnosis diagnosis) {
-//        builder.setDiagnosis(diagnosis);
-//        return this;
-//    }
 
     public Interpretation inProgress() {
         builder.setProgressStatus(Interpretation.ProgressStatus.IN_PROGRESS);
