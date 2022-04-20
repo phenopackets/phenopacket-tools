@@ -2,6 +2,7 @@ package org.phenopackets.phenopackettools;
 
 import org.phenopackets.phenopackettools.command.ConvertCommand;
 import org.phenopackets.phenopackettools.command.ExamplesCommand;
+import org.phenopackets.phenopackettools.command.HtmlOutputCommand;
 import org.phenopackets.phenopackettools.command.ValidateCommand;
 import picocli.AutoComplete;
 
@@ -15,6 +16,7 @@ import static picocli.CommandLine.*;
                 AutoComplete.GenerateCompletion.class,
                 ExamplesCommand.class,
                 ConvertCommand.class,
+                HtmlOutputCommand.class,
                 ValidateCommand.class
         }
 )
