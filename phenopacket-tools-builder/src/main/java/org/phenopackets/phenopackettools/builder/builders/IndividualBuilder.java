@@ -91,6 +91,16 @@ public class IndividualBuilder {
         return this;
     }
 
+    public IndividualBuilder unknownSex() {
+        builder.setSex(Sex.UNKNOWN_SEX);
+        return this;
+    }
+
+    public IndividualBuilder otherSex() {
+        builder.setSex(Sex.OTHER_SEX);
+        return this;
+    }
+
     public IndividualBuilder XX() {
         builder.setKaryotypicSex(KaryotypicSex.XX);
         return this;
