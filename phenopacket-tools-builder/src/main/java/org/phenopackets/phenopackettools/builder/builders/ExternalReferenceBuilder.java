@@ -10,11 +10,11 @@ public class ExternalReferenceBuilder {
         builder = ExternalReference.newBuilder();
     }
 
-    public static ExternalReference externalReference(String id, String description) {
+    public static ExternalReference of(String id, String description) {
         return ExternalReference.newBuilder().setId(id).setDescription(description).build();
     }
 
-    public static ExternalReferenceBuilder builder() {
+    public static ExternalReferenceBuilder reference() {
         return new ExternalReferenceBuilder();
     }
 
@@ -23,7 +23,7 @@ public class ExternalReferenceBuilder {
         return this;
     }
 
-    public ExternalReferenceBuilder builder(String ref) {
+    public ExternalReferenceBuilder reference(String ref) {
         builder.setReference(ref);
         return this;
     }

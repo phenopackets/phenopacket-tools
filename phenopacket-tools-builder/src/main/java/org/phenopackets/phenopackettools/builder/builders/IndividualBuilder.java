@@ -29,7 +29,7 @@ public class IndividualBuilder {
         builder = Individual.newBuilder().setId(id);
     }
 
-    public static Individual individual(String id) {
+    public static Individual of(String id) {
         return Individual.newBuilder().setId(id).build();
     }
 

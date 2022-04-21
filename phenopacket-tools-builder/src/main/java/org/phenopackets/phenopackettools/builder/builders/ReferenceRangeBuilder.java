@@ -17,13 +17,13 @@ public class ReferenceRangeBuilder {
     private ReferenceRangeBuilder() {
     }
 
-    public static ReferenceRange referenceRange(OntologyClass unit, double low, double high) {
+    public static ReferenceRange of(OntologyClass unit, double low, double high) {
         return ReferenceRange.newBuilder().setUnit(unit).setLow(low).setHigh(high).build();
     }
 
-    public static ReferenceRange referenceRange(String id, String label, double low, double high) {
+    public static ReferenceRange of(String id, String label, double low, double high) {
         OntologyClass unit = OntologyClassBuilder.ontologyClass(id, label);
-        return referenceRange(unit, low, high);
+        return of(unit, low, high);
     }
 
 }

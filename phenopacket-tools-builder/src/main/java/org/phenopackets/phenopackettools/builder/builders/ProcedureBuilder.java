@@ -12,12 +12,12 @@ public class ProcedureBuilder {
         builder = Procedure.newBuilder().setCode(procedure);
     }
 
-    public static Procedure procedure(OntologyClass procedure) {
+    public static Procedure of(OntologyClass procedure) {
         return Procedure.newBuilder().setCode(procedure).build();
     }
 
-    public static Procedure procedure(String id, String label) {
-        return procedure(OntologyClassBuilder.ontologyClass(id, label));
+    public static Procedure of(String id, String label) {
+        return of(OntologyClassBuilder.ontologyClass(id, label));
     }
 
     public static ProcedureBuilder builder(OntologyClass procedure) {

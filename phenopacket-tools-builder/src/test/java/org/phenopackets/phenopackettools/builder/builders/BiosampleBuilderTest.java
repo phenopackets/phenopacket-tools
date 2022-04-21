@@ -29,7 +29,7 @@ class BiosampleBuilderTest {
                 .histologicalDiagnosis(ontologyClass("NCIT:C39853", "Infiltrating Urothelial Carcinoma"))
                 .tumorProgression(ontologyClass("NCIT:C84509", "Primary Malignant Neoplasm"))
                 .tumorGrade(ontologyClass("NCIT:C36136", "Grade 2 Lesion"))
-                .procedure(ProcedureBuilder.procedure("NCIT:C5189", "Radical Cystoprostatectomy"))
+                .procedure(ProcedureBuilder.of("NCIT:C5189", "Radical Cystoprostatectomy"))
                 .addFile(FileBuilder.builder("file:///data/genomes/urothelial_ca_wgs.vcf.gz")
                         .individualToFileIdentifier("patient1", "NA12345")
                         .addFileAttribute("genomeAssembly", "GRCh38")
@@ -48,7 +48,7 @@ class BiosampleBuilderTest {
         assertThat(biosample.getHistologicalDiagnosis(), equalTo(ontologyClass("NCIT:C39853", "Infiltrating Urothelial Carcinoma")));
         assertThat(biosample.getTumorProgression(), equalTo(ontologyClass("NCIT:C84509", "Primary Malignant Neoplasm")));
         assertThat(biosample.getTumorGrade(), equalTo(ontologyClass("NCIT:C36136", "Grade 2 Lesion")));
-        assertThat(biosample.getProcedure(), equalTo(ProcedureBuilder.procedure("NCIT:C5189", "Radical Cystoprostatectomy")));
+        assertThat(biosample.getProcedure(), equalTo(ProcedureBuilder.of("NCIT:C5189", "Radical Cystoprostatectomy")));
         assertThat(biosample.getFilesList(), equalTo(List.of(FileBuilder.builder("file:///data/genomes/urothelial_ca_wgs.vcf.gz")
                 .individualToFileIdentifier("patient1", "NA12345")
                 .addFileAttribute("genomeAssembly", "GRCh38")

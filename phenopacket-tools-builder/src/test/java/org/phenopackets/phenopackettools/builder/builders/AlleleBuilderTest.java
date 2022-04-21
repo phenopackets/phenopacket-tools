@@ -12,10 +12,10 @@ class AlleleBuilderTest {
     @Test
     void testBuild() {
         Variation variation = AlleleBuilder.builder()
-                .setSequenceId("NC_000003.12")
+                .sequenceId("NC_000003.12")
                 .startEnd(42686219, 42686220)
                 .chromosomeLocation("chr3")
-                .setAltAllele("A")
+                .altAllele("A")
                 .buildVariation();
         assertThat(variation.hasAllele(), equalTo(true));
 

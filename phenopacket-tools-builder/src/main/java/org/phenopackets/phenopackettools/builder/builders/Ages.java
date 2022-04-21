@@ -8,9 +8,9 @@ import org.phenopackets.schema.v2.core.GestationalAge;
 import java.time.Period;
 import java.time.format.DateTimeParseException;
 
-public class AgeBuilder {
+public class Ages {
 
-    private AgeBuilder() {
+    private Ages() {
     }
 
     public static Age age(String iso8601duration) {

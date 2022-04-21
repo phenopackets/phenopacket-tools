@@ -14,19 +14,19 @@ public class MeasurementBuilder {
         builder = Measurement.newBuilder().setAssay(assay).setComplexValue(complexValue);
     }
 
-    public static Measurement measurement(OntologyClass assay, Value value) {
+    public static Measurement of(OntologyClass assay, Value value) {
         return Measurement.newBuilder().setAssay(assay).setValue(value).build();
     }
 
-    public static Measurement measurement(OntologyClass assay, ComplexValue complexValue) {
+    public static Measurement of(OntologyClass assay, ComplexValue complexValue) {
         return Measurement.newBuilder().setAssay(assay).setComplexValue(complexValue).build();
     }
 
-    public static MeasurementBuilder value(OntologyClass assay, Value value) {
+    public static MeasurementBuilder builder(OntologyClass assay, Value value) {
         return new MeasurementBuilder(assay, value);
     }
 
-    public static MeasurementBuilder complexValue(OntologyClass assay, ComplexValue complexValue) {
+    public static MeasurementBuilder builder(OntologyClass assay, ComplexValue complexValue) {
         return new MeasurementBuilder(assay, complexValue);
     }
 

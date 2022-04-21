@@ -28,7 +28,7 @@ class Thrombocytopenia2 implements PhenopacketExample {
                         .heterozygous()
                         .hgvs("NM_014915.2:c.-128G>A")
                         .build();
-        var col6a1VariantInterpretation = VariantInterpretationBuilder.variantInterpretation(variationDescriptor, Status.pathogenic());
+        var col6a1VariantInterpretation = VariantInterpretationBuilder.of(variationDescriptor, Status.pathogenic());
         var genomicInterpretation =
                 GenomicInterpretationBuilder.builder("genomic interpretation id")
                     .causative()

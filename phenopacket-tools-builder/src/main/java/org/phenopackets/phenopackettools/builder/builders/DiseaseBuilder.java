@@ -12,13 +12,13 @@ public class DiseaseBuilder {
         builder = Disease.newBuilder().setTerm(term);
     }
 
-    public static Disease disease(OntologyClass term) {
+    public static Disease of(OntologyClass term) {
         return Disease.newBuilder().setTerm(term).build();
     }
 
-    public static Disease disease(String id, String label) {
+    public static Disease of(String id, String label) {
         OntologyClass term = OntologyClassBuilder.ontologyClass(id, label);
-        return disease(term);
+        return of(term);
     }
 
     public static DiseaseBuilder builder(OntologyClass term) {

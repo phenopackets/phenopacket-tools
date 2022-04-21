@@ -38,7 +38,9 @@ public class Retinoblastoma implements PhenopacketExample {
                 XX().
                 build();
         // VCF file with results of germline whole-genome sequencing
-        File wgsFile = FileBuilder.file("file://data/germlineWgs.vcf.gz");
+        File wgsFile = FileBuilder.hg38vcf("file://data/germlineWgs.vcf.gz")
+                .individualToFileIdentifier(PROBAND_ID, "sample1")
+                .build();
 
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
@@ -70,10 +72,9 @@ public class Retinoblastoma implements PhenopacketExample {
      */
     GenomicInterpretation somaticRb1Missense() {
         AlleleBuilder abuilder = AlleleBuilder.builder();
-       // abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
-        abuilder.setSequenceId("refseq:NC_000013.14");
+        abuilder.sequenceId("refseq:NC_000013.14");
         abuilder.startEnd( 48941647, 48941648);
-        abuilder.setAltAllele("T");
+        abuilder.altAllele("T");
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs121913300")
                 .variation(abuilder.buildVariation())
                 .genomic()
@@ -82,14 +83,13 @@ public class Retinoblastoma implements PhenopacketExample {
                 .transcript()
                 .vcfHg38("NC_000013.11", 48367512, "C", "T")
                 .alleleFrequency(25.0)
-                .geneContext(GeneDescriptorBuilder.geneDescriptor("HGNC:9884", "RB1"))
+                .geneContext(GeneDescriptorBuilder.of("HGNC:9884", "RB1"))
                 .addExpression(Expressions.hgvsCdna("NM_000321.2:c.958C>T"))
                 .addExpression(Expressions.transcriptReference("NM_000321.2"));
         // wrap in VariantInterpretation
         VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.builder(vbuilder);
         vibuilder.pathogenic();
         vibuilder.actionable();
-
 
         GenomicInterpretationBuilder gbuilder = GenomicInterpretationBuilder.builder(BIOSAMPLE_ID);
         gbuilder.causative();
@@ -102,11 +102,14 @@ public class Retinoblastoma implements PhenopacketExample {
     GenomicInterpretation germlineRb1Deletion() {
         CopyNumberBuilder abuilder = CopyNumberBuilder.builder();
         //abuilder.copyNumberId("ga4gh:VCN.AFfJws1M4Lg8w1O3XknmHYc9TU2hHYpp");
-        abuilder.alleleLocation("refseq:NC_000013.14",26555377, 62280955);//VRS uses inter-residue coordinates
+        // original coordinates in paper were given as 13q12.13q21.2(26,555,387–62,280,955 for hg19
+        //chr13	25981249	61706822 -- lifted over to hg38
+
+        abuilder.alleleLocation("refseq:NC_000013.14",25981249, 61706822);//VRS uses inter-residue coordinates
         abuilder.oneCopy();
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder();
         vbuilder.variation(abuilder.buildVariation());
-       // vbuilder.mosaicism(40.0);
+        vbuilder.mosaicism(40.0);
         VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.builder(vbuilder);
         vibuilder.pathogenic();
         vibuilder.actionable();
@@ -162,8 +165,8 @@ public class Retinoblastoma implements PhenopacketExample {
         biosampleBuilder.addPhenotypicFeature("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
         biosampleBuilder.addPhenotypicFeature("NCIT:C132485", "Apoptosis and Necrosis");
         OntologyClass maxTumorSizeTest = OntologyClassBuilder.ontologyClass("LOINC:33728-7", "Size.maximum dimension in Tumor");
-        Value maxTumorSize = ValueBuilder.value(Unit.mm(), 15);
-        Measurement maxTumorSizeMeasurement = MeasurementBuilder.value(maxTumorSizeTest, maxTumorSize).timeObserved(age).build();
+        Value maxTumorSize = ValueBuilder.of(Unit.mm(), 15);
+        Measurement maxTumorSizeMeasurement = MeasurementBuilder.builder(maxTumorSizeTest, maxTumorSize).timeObserved(age).build();
         biosampleBuilder.addMeasurement(maxTumorSizeMeasurement);
 
         Procedure enucleation = ProcedureBuilder.builder("NCIT:C48601", "Enucleation")
@@ -173,7 +176,9 @@ public class Retinoblastoma implements PhenopacketExample {
         biosampleBuilder.procedure(enucleation);
         biosampleBuilder.tumorProgression(PRIMARY_NEOPLASM);
         // VCF file with results of whole-genome sequencing on this tumor
-        File wgsFile = FileBuilder.file("file://data/fileSomaticWgs.vcf.gz");
+        File wgsFile = FileBuilder.hg38vcf("file://data/fileSomaticWgs.vcf.gz")
+                        .individualToFileIdentifier(BIOSAMPLE_ID, "specimen.1")
+                                .build();
         biosampleBuilder.addFile(wgsFile);
         return biosampleBuilder.build();
     }
@@ -184,11 +189,11 @@ public class Retinoblastoma implements PhenopacketExample {
         OntologyClass melphalan = ontologyClass("DrugCentral:1678", "melphalan");
         OntologyClass administration = ontologyClass("NCIT:C38222",  "Intraarterial Route of Administration");
        //0.4 mg/kg (up to a starting dose of 5 mg)
-        Quantity quantity = QuantityBuilder.quantity(Unit.mgPerKg(), 0.4);
-        TimeInterval interval = TimeIntervalBuilder.timeInterval("2020-09-02", "2020-09-02");
+        Quantity quantity = QuantityBuilder.of(Unit.mgPerKg(), 0.4);
+        TimeInterval interval = TimeIntervalBuilder.of("2020-09-02", "2020-09-02");
         OntologyClass once = ontologyClass("NCIT:C64576", "Once");
 
-        DoseInterval doseInterval = DoseIntervalBuilder.doseInterval(quantity, once, interval);
+        DoseInterval doseInterval = DoseIntervalBuilder.of(quantity, once, interval);
 
 
         Treatment treatment = TreatmentBuilder.builder(melphalan)
@@ -289,17 +294,17 @@ public class Retinoblastoma implements PhenopacketExample {
      */
     List<Measurement> getMeasurements() {
         OntologyClass iop = ontologyClass("56844-4","Intraocular pressure of Eye");
-        ReferenceRange ref = ReferenceRangeBuilder.referenceRange(iop, 10, 21);
+        ReferenceRange ref = ReferenceRangeBuilder.of(iop, 10, 21);
         OntologyClass leftEyeIop =
                 OntologyClassBuilder.ontologyClass("LOINC:79893-4", "Left eye Intraocular pressure");
-        Value leftEyeValue = ValueBuilder.value(Unit.mmHg(), 25, ref);
+        Value leftEyeValue = ValueBuilder.of(Unit.mmHg(), 25, ref);
         OntologyClass rightEyeIop =
                 OntologyClassBuilder.ontologyClass("LOINC:79892-6", "Right eye Intraocular pressure");
-        Value rightEyeValue = ValueBuilder.value(Unit.mmHg(), 15, ref);
+        Value rightEyeValue = ValueBuilder.of(Unit.mmHg(), 15, ref);
         TimeElement age = TimeElements.age("P6M");
 
-        Measurement leftEyeMeasurement = MeasurementBuilder.value(leftEyeIop, leftEyeValue).timeObserved(age).build();
-        Measurement rightEyeMeasurement = MeasurementBuilder.value(rightEyeIop, rightEyeValue).timeObserved(age).build();
+        Measurement leftEyeMeasurement = MeasurementBuilder.builder(leftEyeIop, leftEyeValue).timeObserved(age).build();
+        Measurement rightEyeMeasurement = MeasurementBuilder.builder(rightEyeIop, rightEyeValue).timeObserved(age).build();
        //33728-7 Size.maximum dimension in Tumor
         //14 × 13 × 11 mm left eye tumor
         return List.of(leftEyeMeasurement, rightEyeMeasurement);

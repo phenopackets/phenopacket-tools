@@ -11,7 +11,7 @@ class DiseaseBuilderTest {
 
     @Test
     void testMinimalData() {
-        Disease disease = DiseaseBuilder.disease("MONDO:0004994", "cardiomyopathy");
+        Disease disease = DiseaseBuilder.of("MONDO:0004994", "cardiomyopathy");
         assertThat(disease.getTerm(), equalTo(ontologyClass("MONDO:0004994", "cardiomyopathy")));
     }
 

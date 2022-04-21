@@ -30,7 +30,7 @@ class BethlehamMyopathy implements PhenopacketExample {
                         .hgvs("NM_001848.2:c.877G>A")
                         .build();
         var col6a1VariantInterpretation =
-                VariantInterpretationBuilder.variantInterpretation(variationDescriptor, Status.pathogenic());
+                VariantInterpretationBuilder.of(variationDescriptor, Status.pathogenic());
         var genomicInterpretation =
                 GenomicInterpretationBuilder.builder(INTERPRETATION_ID)
                         .causative()

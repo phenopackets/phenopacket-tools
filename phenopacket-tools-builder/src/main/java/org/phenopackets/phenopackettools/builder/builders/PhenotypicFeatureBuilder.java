@@ -21,13 +21,13 @@ public class PhenotypicFeatureBuilder {
         builder = PhenotypicFeature.newBuilder().setType(feature);
     }
 
-    public static PhenotypicFeature phenotypicFeature(OntologyClass feature) {
+    public static PhenotypicFeature of(OntologyClass feature) {
         return PhenotypicFeature.newBuilder().setType(feature).build();
     }
 
-    public static PhenotypicFeature phenotypicFeature(String id, String label) {
+    public static PhenotypicFeature of(String id, String label) {
         OntologyClass ontologyClass = OntologyClassBuilder.ontologyClass(id, label);
-        return phenotypicFeature(ontologyClass);
+        return of(ontologyClass);
     }
 
     public static PhenotypicFeatureBuilder builder(OntologyClass feature) {
