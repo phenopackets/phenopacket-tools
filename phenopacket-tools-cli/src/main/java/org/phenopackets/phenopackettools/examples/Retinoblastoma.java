@@ -264,19 +264,19 @@ public class Retinoblastoma implements PhenopacketExample {
         TimeElement age4months = TimeElements.age("P4M");
         PhenotypicFeature leukocoria = PhenotypicFeatureBuilder.
                 builder("HP:0000555", "Leukocoria")
-                .addModifier(Laterality.unilateral())
+                .addModifier(Laterality.left())
                 .onset(age4months)
                 .build();
         TimeElement age5months = TimeElements.age("P5M15D");
         PhenotypicFeature strabismus = PhenotypicFeatureBuilder.
                 builder("HP:0000486", "Strabismus")
-                .addModifier(Laterality.unilateral())
+                .addModifier(Laterality.left())
                 .onset(age5months)
                 .build();
         TimeElement age6months = TimeElements.age("P6M");
         PhenotypicFeature retinalDetachment = PhenotypicFeatureBuilder
                 .builder("HP:0000541", "Retinal detachment")
-                .addModifier(Laterality.unilateral())
+                .addModifier(Laterality.left())
                 .onset(age6months)
                 .build();
         return List.of(clinodactyly, leukocoria, strabismus, retinalDetachment);
