@@ -13,16 +13,16 @@ public class EvidenceBuilder {
         builder = Evidence.newBuilder().setEvidenceCode(evidenceCode);
     }
 
-    public static Evidence evidence(String id, String label) {
+    public static Evidence of(String id, String label) {
         OntologyClass evidenceCode = OntologyClassBuilder.ontologyClass(id, label);
         return new EvidenceBuilder(evidenceCode).build();
     }
 
-    public static Evidence evidence(OntologyClass evidenceCode) {
+    public static Evidence of(OntologyClass evidenceCode) {
         return new EvidenceBuilder(evidenceCode).build();
     }
 
-    public static Evidence evidence(OntologyClass evidenceCode, ExternalReference externalReference) {
+    public static Evidence of(OntologyClass evidenceCode, ExternalReference externalReference) {
         return new EvidenceBuilder(evidenceCode).reference(externalReference).build();
     }
 
@@ -39,8 +39,8 @@ public class EvidenceBuilder {
         String id = "ECO:0000033";
         String label = "author statement supported by traceable reference";
         OntologyClass evidenceCode = OntologyClassBuilder.ontologyClass(id, label);
-        ExternalReference externalReference = ExternalReferenceBuilder.externalReference(pmid, title);
-        return evidence(evidenceCode, externalReference);
+        ExternalReference externalReference = ExternalReferenceBuilder.of(pmid, title);
+        return of(evidenceCode, externalReference);
     }
 
     public EvidenceBuilder reference(ExternalReference externalReference) {

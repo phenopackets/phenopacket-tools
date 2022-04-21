@@ -219,11 +219,4 @@ public class HtmlOutputter {
     }
 
 
-    private void outputSection(Writer writer, String Title, Map<String, String> kv) {
-
-    }
-
-
-
-
 }

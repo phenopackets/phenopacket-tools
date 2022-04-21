@@ -24,7 +24,7 @@ public class PhenopacketBuilder {
     }
 
     public PhenopacketBuilder addPhenotypicFeature(String id, String label) {
-        PhenotypicFeature phenotypicFeature = PhenotypicFeatureBuilder.phenotypicFeature(id, label);
+        PhenotypicFeature phenotypicFeature = PhenotypicFeatureBuilder.of(id, label);
         return addPhenotypicFeature(phenotypicFeature);
     }
 

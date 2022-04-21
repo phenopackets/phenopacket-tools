@@ -13,7 +13,7 @@ public class VariantInterpretationBuilder {
         builder = VariantInterpretation.newBuilder().setVariationDescriptor(descriptor);
     }
 
-    public static VariantInterpretation variantInterpretation(VariationDescriptor descriptor, AcmgPathogenicityClassification acmgPathogenicityClassification) {
+    public static VariantInterpretation of(VariationDescriptor descriptor, AcmgPathogenicityClassification acmgPathogenicityClassification) {
         return VariantInterpretation.newBuilder()
                 .setVariationDescriptor(descriptor)
                 .setAcmgPathogenicityClassification(acmgPathogenicityClassification)
@@ -21,7 +21,7 @@ public class VariantInterpretationBuilder {
                 .build();
     }
 
-    public static VariantInterpretation variantInterpretation(VariationDescriptor descriptor, AcmgPathogenicityClassification acmgPathogenicityClassification, TherapeuticActionability therapeuticActionability) {
+    public static VariantInterpretation of(VariationDescriptor descriptor, AcmgPathogenicityClassification acmgPathogenicityClassification, TherapeuticActionability therapeuticActionability) {
         return VariantInterpretation.newBuilder()
                 .setVariationDescriptor(descriptor)
                 .setAcmgPathogenicityClassification(acmgPathogenicityClassification)

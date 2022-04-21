@@ -11,7 +11,7 @@ public class InterpretationBuilder {
         builder = Interpretation.newBuilder().setId(interpretationId).setProgressStatus(status);
     }
 
-    public static Interpretation interpretation(String interpretationId, Interpretation.ProgressStatus status, Diagnosis diagnosis, String summary) {
+    public static Interpretation of(String interpretationId, Interpretation.ProgressStatus status, Diagnosis diagnosis, String summary) {
         return Interpretation.newBuilder().setId(interpretationId).setProgressStatus(status).setDiagnosis(diagnosis).setSummary(summary).build();
     }
 

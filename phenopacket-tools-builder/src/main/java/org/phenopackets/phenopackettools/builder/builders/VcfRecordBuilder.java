@@ -15,7 +15,7 @@ public class VcfRecordBuilder {
                 .setAlt(alt);
     }
 
-    public static VcfRecord vcfRecord(String assembly, String chromosome, int position, String ref, String alt) {
+    public static VcfRecord of(String assembly, String chromosome, int position, String ref, String alt) {
         return VcfRecord.newBuilder()
                 .setGenomeAssembly(assembly)
                 .setChrom(chromosome)

@@ -149,13 +149,13 @@ public class VariationDescriptorBuilder {
     }
 
     public VariationDescriptorBuilder vcfHg38(String chromosome, int position, String ref, String alt) {
-        VcfRecord vcf = VcfRecordBuilder.vcfRecord("GRCh38", chromosome, position, ref, alt);
+        VcfRecord vcf = VcfRecordBuilder.of("GRCh38", chromosome, position, ref, alt);
         builder.setVcfRecord(vcf);
         return this;
     }
 
     public VariationDescriptorBuilder vcfHg37(String chromosome, int position, String ref, String alt) {
-        VcfRecord vcf = VcfRecordBuilder.vcfRecord("GRCh37", chromosome, position, ref, alt);
+        VcfRecord vcf = VcfRecordBuilder.of("GRCh37", chromosome, position, ref, alt);
         builder.setVcfRecord(vcf);
         return this;
     }
@@ -166,18 +166,18 @@ public class VariationDescriptorBuilder {
      * @param percentage estimated percentage of cells affected by mosaic variant, e.g., 40%
      */
     public VariationDescriptorBuilder mosaicism(double percentage) {
-       Extension expression = Extensions.mosaicism(percentage);
-       builder.addExtensions(expression);
+       Extension percentageExtension = Extensions.mosaicism(percentage);
+       builder.addExtensions(percentageExtension);
        return this;
     }
 
+
     /**
-     * @param percentage estimated frequency of an allele (generally a somatic mutation) 25%
+     * @param frequency estimated frequency (IN PERCENT) of an allele (generally a somatic mutation)
      */
-    public VariationDescriptorBuilder alleleFrequency(double percentage) {
-        Expression expression =
-                Expression.newBuilder().setSyntax("allele-frequency").setValue(String.format("%.1f%%", percentage)).build();
-        builder.addExpressions(expression);
+    public VariationDescriptorBuilder alleleFrequency(double frequency) {
+        Extension alleleFrequencyExtension = Extensions.alleleFrequency(frequency);
+        builder.addExtensions(alleleFrequencyExtension);
         return this;
     }
 

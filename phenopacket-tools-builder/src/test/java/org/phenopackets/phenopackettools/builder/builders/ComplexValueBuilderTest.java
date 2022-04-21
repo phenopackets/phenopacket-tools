@@ -19,9 +19,9 @@ class ComplexValueBuilderTest {
     @Test
     void testComplexValue() {
         OntologyClass millimeterOfMercury = ontologyClass("NCIT:C49670", "Millimeter of Mercury");
-        TypedQuantity systolicBloodPressure = TypedQuantityBuilder.typedQuantity(ontologyClass("NCIT:C25298", "Systolic Blood Pressure"), QuantityBuilder.quantity(millimeterOfMercury, 120));
-        TypedQuantity diastolicBloodPressure = TypedQuantityBuilder.typedQuantity(ontologyClass("NCIT:C25299", "Diastolic Blood Pressure"), QuantityBuilder.quantity(millimeterOfMercury, 70));
-        ComplexValue complexValue = ComplexValueBuilder.complexValue(systolicBloodPressure, diastolicBloodPressure);
+        TypedQuantity systolicBloodPressure = TypedQuantityBuilder.of(ontologyClass("NCIT:C25298", "Systolic Blood Pressure"), QuantityBuilder.of(millimeterOfMercury, 120));
+        TypedQuantity diastolicBloodPressure = TypedQuantityBuilder.of(ontologyClass("NCIT:C25299", "Diastolic Blood Pressure"), QuantityBuilder.of(millimeterOfMercury, 70));
+        ComplexValue complexValue = ComplexValueBuilder.of(systolicBloodPressure, diastolicBloodPressure);
 
         assertThat(complexValue.getTypedQuantitiesList(), equalTo(List.of(systolicBloodPressure, diastolicBloodPressure)));
     }

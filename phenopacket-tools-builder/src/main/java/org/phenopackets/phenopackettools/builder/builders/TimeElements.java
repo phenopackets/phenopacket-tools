@@ -48,12 +48,12 @@ public class TimeElements {
     }
 
     public static TimeElement age(String iso8601duration) {
-        Age age = AgeBuilder.age(iso8601duration);
+        Age age = Ages.age(iso8601duration);
         return TimeElement.newBuilder().setAge(age).build();
     }
 
     public static TimeElement ageRange(String iso8601start, String iso8601End) {
-        AgeRange ageRange = AgeBuilder.ageRange(iso8601start, iso8601End);
+        AgeRange ageRange = Ages.ageRange(iso8601start, iso8601End);
         return TimeElement.newBuilder().setAgeRange(ageRange).build();
     }
 

@@ -15,7 +15,7 @@ class AgeBuilderTest {
      */
     @Test
     void testAge() {
-        Age age = AgeBuilder.age("P25Y3M2D");
+        Age age = Ages.age("P25Y3M2D");
         assertThat(age.getIso8601Duration(), equalTo("P25Y3M2D"));
     }
 
@@ -24,9 +24,9 @@ class AgeBuilderTest {
      */
     @Test
     void testAgeRange() {
-        AgeRange ageRange = AgeBuilder.ageRange("P45Y", "P49Y");
-        assertThat(ageRange.getStart(), equalTo(AgeBuilder.age("P45Y")));
-        assertThat(ageRange.getEnd(), equalTo(AgeBuilder.age("P49Y")));
+        AgeRange ageRange = Ages.ageRange("P45Y", "P49Y");
+        assertThat(ageRange.getStart(), equalTo(Ages.age("P45Y")));
+        assertThat(ageRange.getEnd(), equalTo(Ages.age("P49Y")));
     }
 
     /**
@@ -34,7 +34,7 @@ class AgeBuilderTest {
      */
     @Test
     void testGestationalAge() {
-        GestationalAge gestationalAge = AgeBuilder.gestationalAge(33, 2);
+        GestationalAge gestationalAge = Ages.gestationalAge(33, 2);
         assertThat(gestationalAge.getWeeks(), equalTo(33));
         assertThat(gestationalAge.getDays(), equalTo(2));
     }

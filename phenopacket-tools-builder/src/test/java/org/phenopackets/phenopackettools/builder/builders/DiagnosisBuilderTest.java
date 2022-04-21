@@ -19,7 +19,7 @@ class DiagnosisBuilderTest {
                         .heterozygous()
                         .hgvs("NM_014915.2:c.-128G>A")
                         .build();
-        var col6a1VariantInterpretation = VariantInterpretationBuilder.variantInterpretation(variationDescriptor, Status.pathogenic());
+        var col6a1VariantInterpretation = VariantInterpretationBuilder.of(variationDescriptor, Status.pathogenic());
         var genomicInterpretationBuilder =
                 GenomicInterpretationBuilder.builder("genomic interpretation id");
         genomicInterpretationBuilder.causative();
