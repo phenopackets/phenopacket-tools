@@ -158,9 +158,9 @@ public class Retinoblastoma implements PhenopacketExample {
         BiosampleBuilder biosampleBuilder = BiosampleBuilder.builder(BIOSAMPLE_ID);
         biosampleBuilder.sampledTissue(EYE);
         //Retinoblastoma with tumor invading optic nerve past lamina cribrosa but not to surgical resection line and exhibiting massive choroidal invasion.
-        biosampleBuilder.addPathologicalTnmFinding(ontologyClass("NCIT:C88735", "Retinoblastoma pT3b TNM Finding v7"));
+        biosampleBuilder.addPathologicalTnmFinding(ontologyClass("NCIT:C140720", "Retinoblastoma pT3 TNM Finding v8"));
         //Retinoblastoma with no regional lymph node involvement.
-        biosampleBuilder.addPathologicalTnmFinding(ontologyClass("NCIT:C88741","Retinoblastoma pN0 TNM Finding v7"));
+        biosampleBuilder.addPathologicalTnmFinding(ontologyClass("NCIT:C140711","Retinoblastoma pN0 TNM Finding v8"));
 
         biosampleBuilder.addPhenotypicFeature("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
         biosampleBuilder.addPhenotypicFeature("NCIT:C132485", "Apoptosis and Necrosis");
