@@ -72,8 +72,8 @@ public class Retinoblastoma implements PhenopacketExample {
      */
     GenomicInterpretation somaticRb1Missense() {
         AlleleBuilder abuilder = AlleleBuilder.builder();
-        abuilder.sequenceId("refseq:NC_000013.14");
-        abuilder.startEnd( 48941647, 48941648);
+        abuilder.sequenceId("refseq:NC_000013.11");
+        abuilder.startEnd( 48367511, 48367512);
         abuilder.altAllele("T");
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs121913300")
                 .variation(abuilder.buildVariation())
