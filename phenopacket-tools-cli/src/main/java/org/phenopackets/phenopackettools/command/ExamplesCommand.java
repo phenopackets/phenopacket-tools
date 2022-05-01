@@ -120,6 +120,7 @@ public class ExamplesCommand implements Callable<Integer> {
             output(PhenopacketExamples.thrombocytopenia2(), outDirectory, "thrombocytopenia2");
             output(PhenopacketExamples.marfanSyndrome(), outDirectory, "marfan");
             output(PhenopacketExamples.acuteMyeloidLeukemia(), outDirectory, "nemalineMyopathy");
+            output(PhenopacketExamples.GLAUCOMA, outDirectory, "glaucoma");
             output(PhenopacketExamples.squamousCellEsophagealCarcinoma(), outDirectory, "squamous-cell-esophageal-carcinoma");
             output(PhenopacketExamples.urothelialCarcinoma(), outDirectory, "urothelial-cancer");
             output(PhenopacketExamples.covid19(), outDirectory, "covid");
