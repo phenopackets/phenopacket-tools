@@ -13,6 +13,8 @@ public class PhenopacketExamples {
     public static final Phenopacket COVID_19 = new Covid().getPhenopacket();
     public static final Phenopacket RETINOBLASTOMA = new Retinoblastoma().getPhenopacket();
     public static final Phenopacket NEMALINE_MYOPATHY = new NemalineMyopathyPrenatal().getPhenopacket();
+    public static final Phenopacket GLAUCOMA = new GlaucomaSurgery().getPhenopacket();
+
 
     private PhenopacketExamples() {
     }
