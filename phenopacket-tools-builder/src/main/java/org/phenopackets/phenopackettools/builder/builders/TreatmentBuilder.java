@@ -12,12 +12,12 @@ public class TreatmentBuilder {
         builder = Treatment.newBuilder().setAgent(agent);
     }
 
-    public static Treatment treatment(OntologyClass agent) {
+    public static Treatment of(OntologyClass agent) {
         return Treatment.newBuilder().setAgent(agent).build();
     }
 
-    public static Treatment treatment(String agentId, String agentLabel) {
-        return treatment(OntologyClassBuilder.ontologyClass(agentId, agentLabel));
+    public static Treatment of(String agentId, String agentLabel) {
+        return of(OntologyClassBuilder.ontologyClass(agentId, agentLabel));
     }
 
     public static TreatmentBuilder builder(OntologyClass agent) {

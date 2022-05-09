@@ -19,7 +19,7 @@ class UrothelialCancer implements PhenopacketExample {
 
     UrothelialCancer() {
         var individual = IndividualBuilder.builder(PROBAND_ID).male().dateOfBirth("1964-03-15T00:00:00Z").build();
-        var hematuria = PhenotypicFeatureBuilder.phenotypicFeature("HP:0000790","Hematuria");
+        var hematuria = PhenotypicFeatureBuilder.of("HP:0000790","Hematuria");
         var dsyuria = PhenotypicFeatureBuilder.builder("HP:0100518", "Dysuria")
                 .severity(Severity.severe())
                 .build();

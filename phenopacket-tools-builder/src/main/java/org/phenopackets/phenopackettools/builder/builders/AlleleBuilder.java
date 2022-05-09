@@ -54,12 +54,12 @@ public class AlleleBuilder {
         return this;
     }
 
-    public AlleleBuilder setAltAllele(String alt) {
+    public AlleleBuilder altAllele(String alt) {
         builder.setLiteralSequenceExpression(LiteralSequenceExpression.newBuilder().setSequence(alt));
         return this;
     }
 
-    public AlleleBuilder setSequenceId(String sequenceId) {
+    public AlleleBuilder sequenceId(String sequenceId) {
         slbuilder.setSequenceId(sequenceId);
         return this;
     }

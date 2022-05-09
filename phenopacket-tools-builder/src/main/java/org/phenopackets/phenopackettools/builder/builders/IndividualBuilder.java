@@ -29,7 +29,7 @@ public class IndividualBuilder {
         builder = Individual.newBuilder().setId(id);
     }
 
-    public static Individual individual(String id) {
+    public static Individual of(String id) {
         return Individual.newBuilder().setId(id).build();
     }
 
@@ -88,6 +88,16 @@ public class IndividualBuilder {
 
     public IndividualBuilder female() {
         builder.setSex(Sex.FEMALE);
+        return this;
+    }
+
+    public IndividualBuilder unknownSex() {
+        builder.setSex(Sex.UNKNOWN_SEX);
+        return this;
+    }
+
+    public IndividualBuilder otherSex() {
+        builder.setSex(Sex.OTHER_SEX);
         return this;
     }
 

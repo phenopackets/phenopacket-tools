@@ -9,7 +9,7 @@ public class TypedQuantityBuilder {
     private TypedQuantityBuilder() {
     }
 
-    public static TypedQuantity typedQuantity(OntologyClass type, Quantity quantity) {
+    public static TypedQuantity of(OntologyClass type, Quantity quantity) {
         return TypedQuantity.newBuilder().setType(type).setQuantity(quantity).build();
     }
 
