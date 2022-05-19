@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-class AlleleBuilderTest {
+public class AlleleBuilderTest {
 
     @Test
-    void testBuild() {
+    public void testBuild() {
         Variation variation = AlleleBuilder.builder()
                 .sequenceId("NC_000003.12")
                 .startEnd(42686219, 42686220)

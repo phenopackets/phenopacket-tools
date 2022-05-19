@@ -10,10 +10,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-class DiagnosisBuilderTest {
+public class DiagnosisBuilderTest {
 
     @Test
-    void testDiagnosisBuilder() {
+    public void testDiagnosisBuilder() {
         var variationDescriptor =
                 VariationDescriptorBuilder.builder("variant id")
                         .heterozygous()
@@ -36,7 +36,7 @@ class DiagnosisBuilderTest {
     }
 
     @Test
-    void testDiagnosisBuilderMinimalData() {
+    public void testDiagnosisBuilderMinimalData() {
         var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
         Diagnosis diagnosis = DiagnosisBuilder.builder(thrombocytopenia2).build();
         assertThat(diagnosis.getDisease(), equalTo(thrombocytopenia2));

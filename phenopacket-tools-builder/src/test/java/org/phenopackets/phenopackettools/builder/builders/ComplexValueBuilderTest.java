@@ -11,13 +11,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-class ComplexValueBuilderTest {
+public class ComplexValueBuilderTest {
 
     /**
      * <a href="https://phenopacket-schema.readthedocs.io/en/v2/complex-value.html#example">https://phenopacket-schema.readthedocs.io/en/v2/complex-value.html#example</a>
      */
     @Test
-    void testComplexValue() {
+    public void testComplexValue() {
         OntologyClass millimeterOfMercury = ontologyClass("NCIT:C49670", "Millimeter of Mercury");
         TypedQuantity systolicBloodPressure = TypedQuantityBuilder.of(ontologyClass("NCIT:C25298", "Systolic Blood Pressure"), QuantityBuilder.of(millimeterOfMercury, 120));
         TypedQuantity diastolicBloodPressure = TypedQuantityBuilder.of(ontologyClass("NCIT:C25299", "Diastolic Blood Pressure"), QuantityBuilder.of(millimeterOfMercury, 70));
