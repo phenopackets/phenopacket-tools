@@ -7,16 +7,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-class DiseaseBuilderTest {
+public class DiseaseBuilderTest {
 
     @Test
-    void testMinimalData() {
+    public void testMinimalData() {
         Disease disease = DiseaseBuilder.of("MONDO:0004994", "cardiomyopathy");
         assertThat(disease.getTerm(), equalTo(ontologyClass("MONDO:0004994", "cardiomyopathy")));
     }
 
     @Test
-    void testBuilder() {
+    public void testBuilder() {
         Disease disease = DiseaseBuilder.builder("OMIM:164400", "Spinocerebellar ataxia 1")
                 .onset(TimeElements.age("P38Y7M"))
                 .build();

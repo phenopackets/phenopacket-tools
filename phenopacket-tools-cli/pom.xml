@@ -30,7 +30,6 @@
             <groupId>org.phenopackets.phenopackettools</groupId>
             <artifactId>phenopacket-tools-validator-jsonschema</artifactId>
             <version>${project.parent.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>info.picocli</groupId>
@@ -48,6 +47,10 @@
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
         </dependency>
     </dependencies>
 

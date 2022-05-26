@@ -109,7 +109,6 @@
                 <groupId>org.phenopackets</groupId>
                 <artifactId>phenopacket-schema</artifactId>
                 <version>${phenopacket-schema.version}</version>
-                <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>
@@ -126,6 +125,12 @@
                         <artifactId>guava</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>info.picocli</groupId>
+                <artifactId>picocli</artifactId>
+                <version>4.6.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

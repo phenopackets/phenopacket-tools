@@ -9,10 +9,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-class BiosampleBuilderTest {
+public class BiosampleBuilderTest {
 
     @Test
-    void biosampleTest() {
+    public void biosampleTest() {
         Biosample biosample = BiosampleBuilder.builder("sample1").build();
         assertThat(biosample.getId(), equalTo("sample1"));
     }
@@ -21,7 +21,7 @@ class BiosampleBuilderTest {
      * <a href="https://phenopacket-schema.readthedocs.io/en/v2/biosample.html#example">https://phenopacket-schema.readthedocs.io/en/v2/biosample.html#example</a>
      */
     @Test
-    void biosampleBuilderTest() {
+    public void biosampleBuilderTest() {
         Biosample biosample = BiosampleBuilder.builder("sample1")
                 .individualId("patient1")
                 .description("Additional information can go here")
