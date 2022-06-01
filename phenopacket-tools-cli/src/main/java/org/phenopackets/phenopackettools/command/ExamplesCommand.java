@@ -11,9 +11,7 @@ import com.google.protobuf.Message;
 import com.google.protobuf.util.JsonFormat;
 
 import org.phenopackets.phenopackettools.builder.exceptions.PhenotoolsRuntimeException;
-import org.phenopackets.phenopackettools.examples.FamilyWithPedigree;
-import org.phenopackets.phenopackettools.examples.PhenopacketExamples;
-import org.phenopackets.phenopackettools.examples.WarburgMicroSyndrome;
+import org.phenopackets.phenopackettools.examples.*;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
@@ -116,15 +114,16 @@ public class ExamplesCommand implements Callable<Integer> {
         Path outDir = Path.of(output);
         Path outDirectory = createOutdirectoryIfNeeded(outDir);
         try {
-            output(PhenopacketExamples.bethlemMyopathy(), outDirectory, "bethleham-myopathy");
-            output(PhenopacketExamples.thrombocytopenia2(), outDirectory, "thrombocytopenia2");
-            output(PhenopacketExamples.marfanSyndrome(), outDirectory, "marfan");
-            output(PhenopacketExamples.acuteMyeloidLeukemia(), outDirectory, "nemalineMyopathy");
-            output(PhenopacketExamples.GLAUCOMA, outDirectory, "glaucoma");
-            output(PhenopacketExamples.squamousCellEsophagealCarcinoma(), outDirectory, "squamous-cell-esophageal-carcinoma");
-            output(PhenopacketExamples.urothelialCarcinoma(), outDirectory, "urothelial-cancer");
-            output(PhenopacketExamples.covid19(), outDirectory, "covid");
-            output(PhenopacketExamples.retinoblastoma(), outDirectory, "retinoblastoma");
+            output(new BethlehamMyopathy().getPhenopacket(), outDirectory, "bethleham-myopathy");
+            output(new Thrombocytopenia2().getPhenopacket(), outDirectory, "thrombocytopenia2");
+            output(new Marfan().getPhenopacket(), outDirectory, "marfan");
+            output(new NemalineMyopathyPrenatal().getPhenopacket(), outDirectory, "nemalineMyopathy");
+            output(new GlaucomaSurgery().getPhenopacket(),  outDirectory,"glaucoma");
+            output(new SleKidneyTransplantation().getPhenopacket(), outDirectory, "lupus");
+            output(new SquamousCellCancer().getPhenopacket(), outDirectory, "squamous-cell-esophageal-carcinoma");
+            output(new UrothelialCancer().getPhenopacket(), outDirectory, "urothelial-cancer");
+            output(new Covid().getPhenopacket(), outDirectory, "covid");
+            output(new Retinoblastoma().getPhenopacket(), outDirectory, "retinoblastoma");
             output(new WarburgMicroSyndrome().getPhenopacket(), outDirectory, "warburg-micro-syndrome");
             outputFamily(new FamilyWithPedigree().getFamily(), outDirectory, "family");
         } catch (Exception e) {

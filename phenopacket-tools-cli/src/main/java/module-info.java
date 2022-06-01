@@ -8,4 +8,6 @@ module org.phenopacket.tools.cli {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.dataformat.yaml;
     requires info.picocli;
+
+    opens org.phenopackets.phenopackettools.command to info.picocli;
 }

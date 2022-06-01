@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-class Covid implements PhenopacketExample {
+public class Covid implements PhenopacketExample {
 
     private static final String ONSET_OF_COVID = "2021-02-01T05:00:00Z";
 
@@ -31,7 +31,7 @@ class Covid implements PhenopacketExample {
     private final Phenopacket phenopacket;
 
 
-    Covid() {
+    public Covid() {
         Individual patient = IndividualBuilder.builder("P123542")
                 .male()
                 .ageAtLastEncounter("P70Y")

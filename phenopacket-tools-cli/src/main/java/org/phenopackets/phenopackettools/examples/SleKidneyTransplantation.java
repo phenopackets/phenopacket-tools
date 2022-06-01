@@ -1,10 +1,9 @@
 package org.phenopackets.phenopackettools.examples;
 
 import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
-import org.phenopackets.phenopackettools.builder.builders.IndividualBuilder;
-import org.phenopackets.phenopackettools.builder.builders.MetaDataBuilder;
-import org.phenopackets.phenopackettools.builder.builders.Resources;
+import org.phenopackets.phenopackettools.builder.builders.*;
 import org.phenopackets.schema.v2.Phenopacket;
+import org.phenopackets.schema.v2.core.Disease;
 import org.phenopackets.schema.v2.core.Individual;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
@@ -43,6 +42,19 @@ public class SleKidneyTransplantation implements PhenopacketExample {
                 build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
+                .addDisease(sle())
+                .build();
+    }
+
+
+    /**
+     * A 39-year-old female patient was referred to our Nephrology Department during late 2009.
+     * She was newly diagnosed with SLE after a spontaneous miscarriage during the second trimester of pregnancy.
+     * @return
+     */
+    Disease sle() {
+        return DiseaseBuilder.builder(SYSTEMIC_LUPUS)
+                .onset(TimeElements.age("P39Y"))
                 .build();
     }
 
