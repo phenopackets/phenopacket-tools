@@ -1,5 +1,5 @@
-module org.phenopacket.tools.validator.jsonschema {
-    requires transitive org.phenopacket.tools.validator.core;
+module org.phenopackets.phenopackettools.validator.jsonschema {
+    requires transitive org.phenopackets.phenopackettools.validator.core;
 
     requires com.fasterxml.jackson.databind;
     requires json.schema.validator;

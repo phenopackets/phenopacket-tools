@@ -1,8 +1,6 @@
-module org.phenopacket.tools.builder {
-    // TODO - needs to be fixed after modular phenopacket schema is deployed to MC
-    requires transitive phenopacket.schema;
-
-    requires com.google.protobuf;
+module org.phenopackets.phenopackettools.builder {
+    requires transitive org.phenopackets.schema;
+    requires transitive com.google.protobuf; // TODO - investigate
 
     exports org.phenopackets.phenopackettools.builder;
     exports org.phenopackets.phenopackettools.builder.builders;

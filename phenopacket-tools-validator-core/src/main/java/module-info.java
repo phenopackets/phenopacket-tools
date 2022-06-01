@@ -1,4 +1,4 @@
-module org.phenopacket.tools.validator.core {
+module org.phenopackets.phenopackettools.validator.core {
     requires org.slf4j;
 
     exports org.phenopackets.phenopackettools.validator.core;
