@@ -19,14 +19,14 @@ import static org.phenopackets.phenopackettools.builder.builders.TimeElements.ge
  * doi: 10.31083/j.ceog.2020.06.209
  * (Not in PubMed)
  */
-class NemalineMyopathyPrenatal implements PhenopacketExample {
+public class NemalineMyopathyPrenatal implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
     private static final OntologyClass NEMALINE_MYOPATHY_8 = ontologyClass("MONDO:0014138", "nemaline myopathy 8");
 
     private final Phenopacket phenopacket;
 
-    NemalineMyopathyPrenatal() {
+    public NemalineMyopathyPrenatal() {
 
         var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .addResource(Resources.ncitVersion("21.05d"))

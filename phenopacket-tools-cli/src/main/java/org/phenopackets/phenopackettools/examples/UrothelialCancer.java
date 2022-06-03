@@ -9,7 +9,7 @@ import org.phenopackets.schema.v2.core.*;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-class UrothelialCancer implements PhenopacketExample {
+public class UrothelialCancer implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "patient1";
     private static final TimeElement AGE_AT_BIOPSY = TimeElements.age("P52Y2M");
@@ -17,7 +17,7 @@ class UrothelialCancer implements PhenopacketExample {
 
     private final Phenopacket phenopacket;
 
-    UrothelialCancer() {
+    public UrothelialCancer() {
         var individual = IndividualBuilder.builder(PROBAND_ID).male().dateOfBirth("1964-03-15T00:00:00Z").build();
         var hematuria = PhenotypicFeatureBuilder.of("HP:0000790","Hematuria");
         var dsyuria = PhenotypicFeatureBuilder.builder("HP:0100518", "Dysuria")

@@ -8,14 +8,14 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-class SquamousCellCancer implements PhenopacketExample {
+public class SquamousCellCancer implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
     private static final OntologyClass BIOPSY = ontologyClass("NCIT:C15189", "Biopsy");
 
     private final Phenopacket phenopacket;
 
-    SquamousCellCancer() {
+    public SquamousCellCancer() {
         Individual proband = IndividualBuilder.builder(PROBAND_ID).male().ageAtLastEncounter("P38Y").build();
         var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .addResource(Resources.ncitVersion("21.05d"))

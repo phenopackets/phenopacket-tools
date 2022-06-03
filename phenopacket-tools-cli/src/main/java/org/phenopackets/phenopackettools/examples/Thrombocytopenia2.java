@@ -7,14 +7,14 @@ import org.phenopackets.schema.v2.Phenopacket;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
-class Thrombocytopenia2 implements PhenopacketExample {
+public class Thrombocytopenia2 implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "id-C";
     private static final String INTERPRETATION_ID = "arbitrary interpretation id";
     private static final String PROBAND_ID = "family 10 proband";
 
     private final Phenopacket phenopacket;
 
-    Thrombocytopenia2() {
+    public Thrombocytopenia2() {
         var authorAssertion = EvidenceBuilder.authorStatementEvidence("PMID:21211618", "Mutations in the 5' UTR of ANKRD26, the ankirin repeat domain 26 gene, cause an autosomal-dominant form of inherited thrombocytopenia, THC2");
         var thrombocytopenia2 = ontologyClass("OMIM:188000", "Thrombocytopenia 2");
         var individual = IndividualBuilder.builder(PROBAND_ID).female().ageAtLastEncounter("P20Y").build();
