@@ -3,12 +3,10 @@ package org.phenopackets.phenopackettools.examples;
 import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
 import org.phenopackets.phenopackettools.builder.builders.MetaDataBuilder;
 import org.phenopackets.phenopackettools.builder.builders.Resources;
-import org.phenopackets.phenopackettools.builder.constants.Onset;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.phenopackettools.builder.builders.*;
 import org.phenopackets.phenopackettools.builder.constants.Laterality;
 import org.phenopackets.phenopackettools.builder.constants.Unit;
-import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
@@ -16,7 +14,7 @@ import java.util.List;
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 
-public class GlaucomaSurgery implements PhenopacketExample {
+public class Pseudoexfoliation implements PhenopacketExample {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String PROBAND_ID = "proband A";
     private static final String BIOSAMPLE_ID = "biosample.1";
@@ -31,7 +29,7 @@ public class GlaucomaSurgery implements PhenopacketExample {
     private final Phenopacket phenopacket;
 
 
-    public GlaucomaSurgery() {
+    public Pseudoexfoliation() {
         // hallo
         var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .addResource(Resources.ncitVersion("21.05d"))
