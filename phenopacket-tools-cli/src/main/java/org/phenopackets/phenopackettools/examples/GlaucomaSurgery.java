@@ -85,32 +85,58 @@ public class GlaucomaSurgery implements PhenopacketExample {
     }
 
     /*
-      The intraocular pressure was 25 mmHg in the right eye and 15 mmHg in the left eye,
-      measured with the Perkins tonometer.
-       */
+     The intraocular pressure was 25 mmHg in the right eye and 15 mmHg in the left eye,
+     measured with the Perkins tonometer.
+      */
     List<Measurement> getMeasurements() {
-        OntologyClass visusPercent = ontologyClass("NCIT:C48570", "Percent Unit");
-        // -0.25/-0.5/110 degreees
-        TypedQuantity  visus100 = TypedQuantityBuilder.of(ontologyClass("NCIT:C87149", "Visual Acuity"),
-                QuantityBuilder.of(visusPercent, 100));
-        var visionAssessment = ontologyClass("NCIT:C156778", "Vision Assessment");
-        Measurement visusMeasurement = MeasurementBuilder
-                .builder(visionAssessment, ComplexValueBuilder.of(visus100)).build();
-        // NCIT:C117889  Astigmatism Axis - A measurement of the location, in degrees, of the flatter principal meridian on a 180-degree scale, where 90 degrees designates the vertical meridian and 180 degrees designates the horizontal meridian. [ NCI ]
+        OntologyClass iop = ontologyClass("56844-4","Intraocular pressure of Eye");
+        ReferenceRange ref = ReferenceRangeBuilder.of(iop, 10, 21);
+        OntologyClass leftEyeIop =
+                OntologyClassBuilder.ontologyClass("LOINC:79893-4", "Left eye Intraocular pressure");
+        Value leftEyeValue = ValueBuilder.of(Unit.mmHg(), 25, ref);
+        OntologyClass rightEyeIop =
+                OntologyClassBuilder.ontologyClass("LOINC:79892-6", "Right eye Intraocular pressure");
+        Value rightEyeValue = ValueBuilder.of(Unit.mmHg(), 15, ref);
+        TimeElement age = TimeElements.age("P6M");
 
-        return List.of(visusMeasurement);
+        Measurement leftEyeMeasurement = MeasurementBuilder.builder(leftEyeIop, leftEyeValue).timeObserved(age).build();
+        Measurement rightEyeMeasurement = MeasurementBuilder.builder(rightEyeIop, rightEyeValue).timeObserved(age).build();
+        //33728-7 Size.maximum dimension in Tumor
+        //14 × 13 × 11 mm left eye tumor
+        return List.of(leftEyeMeasurement, rightEyeMeasurement);
     }
 
+
+    /*
+Pseudophakia HP:0500081
+Cataract HP:0000518
+Shallow anterior chamber HP:0000594
+Pseudophakia HP:0500081
+Asymmetry of intraocular pressure HP:0012633
+Ocular hypertension HP:0007906
+PseudoexfoliationHP:0012627
+GlaucomaOMIT:0007096
+Pseudoexfoliation glaucoma (disorder)111514006
+http://snomed.info/id/111514006
+Pseudoexfoliation glaucoma of left eye (disorder)338481000119100
+http://snomed.info/id/338481000119100
+Pseudoexfoliation glaucoma of bilateral eyes (disorder)344251000119103
+http://snomed.info/id/344251000119103
+Pseudoexfoliation glaucoma of right eye (disorder)332871000119103
+http://snomed.info/id/332871000119103
+*/
+
+
     List<PhenotypicFeature> getPhenotypicFeatures() {
-        TimeElement age3months = TimeElements.age("P3M");
+        TimeElement age70years = TimeElements.age("P70J");
         PhenotypicFeature clinodactyly = PhenotypicFeatureBuilder.
-                builder("HP:0030084", "Clinodactyly").
+                builder("HP:0012108", "Open angle glaucoma ").
                 addModifier(Laterality.right()).
-                onset(age3months).
+                onset(age70years).
                 build();
         TimeElement age4months = TimeElements.age("P4M");
         PhenotypicFeature leukocoria = PhenotypicFeatureBuilder.
-                builder("HP:0000555", "Leukocoria")
+                builder("HP:0500081", "Pseudophakia")
                 .addModifier(Laterality.left())
                 .onset(age4months)
                 .build();
@@ -120,18 +146,13 @@ public class GlaucomaSurgery implements PhenopacketExample {
                 .addModifier(Laterality.left())
                 .onset(age5months)
                 .build();
-        PhenotypicFeature excludedPhacodonesis = PhenotypicFeatureBuilder.
-                builder("HP:0012629", "Phakodonesis")
-                .excluded()
-                .build();
-
         TimeElement age6months = TimeElements.age("P6M");
         PhenotypicFeature retinalDetachment = PhenotypicFeatureBuilder
                 .builder("HP:0000541", "Retinal detachment")
                 .addModifier(Laterality.left())
                 .onset(age6months)
                 .build();
-        return List.of(clinodactyly, leukocoria, strabismus, retinalDetachment, excludedPhacodonesis);
+        return List.of(clinodactyly, leukocoria, strabismus, retinalDetachment);
     }
 
 }
