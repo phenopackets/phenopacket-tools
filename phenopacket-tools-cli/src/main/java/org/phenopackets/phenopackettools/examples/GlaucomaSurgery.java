@@ -3,6 +3,7 @@ package org.phenopackets.phenopackettools.examples;
 import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
 import org.phenopackets.phenopackettools.builder.builders.MetaDataBuilder;
 import org.phenopackets.phenopackettools.builder.builders.Resources;
+import org.phenopackets.phenopackettools.builder.constants.Onset;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.phenopackettools.builder.builders.*;
 import org.phenopackets.phenopackettools.builder.constants.Laterality;
@@ -39,7 +40,7 @@ public class GlaucomaSurgery implements PhenopacketExample {
                 .addResource(Resources.ncbiTaxonVersion("2021-06-10"))
                 .build();
         Individual proband = IndividualBuilder.builder(PROBAND_ID).
-                ageAtLastEncounter("P6M").
+                ageAtLastEncounter("P70Y").
                 female().
                 XX().
                 build();
@@ -88,21 +89,16 @@ public class GlaucomaSurgery implements PhenopacketExample {
       measured with the Perkins tonometer.
        */
     List<Measurement> getMeasurements() {
-        OntologyClass iop = ontologyClass("56844-4","Intraocular pressure of Eye");
-        ReferenceRange ref = ReferenceRangeBuilder.of(iop, 10, 21);
-        OntologyClass leftEyeIop =
-                OntologyClassBuilder.ontologyClass("LOINC:79893-4", "Left eye Intraocular pressure");
-        Value leftEyeValue = ValueBuilder.of(Unit.mmHg(), 25, ref);
-        OntologyClass rightEyeIop =
-                OntologyClassBuilder.ontologyClass("LOINC:79892-6", "Right eye Intraocular pressure");
-        Value rightEyeValue = ValueBuilder.of(Unit.mmHg(), 15, ref);
-        TimeElement age = TimeElements.age("P6M");
+        OntologyClass visusPercent = ontologyClass("NCIT:C48570", "Percent Unit");
+        // -0.25/-0.5/110 degreees
+        TypedQuantity  visus100 = TypedQuantityBuilder.of(ontologyClass("NCIT:C87149", "Visual Acuity"),
+                QuantityBuilder.of(visusPercent, 100));
+        var visionAssessment = ontologyClass("NCIT:C156778", "Vision Assessment");
+        Measurement visusMeasurement = MeasurementBuilder
+                .builder(visionAssessment, ComplexValueBuilder.of(visus100)).build();
+        // NCIT:C117889  Astigmatism Axis - A measurement of the location, in degrees, of the flatter principal meridian on a 180-degree scale, where 90 degrees designates the vertical meridian and 180 degrees designates the horizontal meridian. [ NCI ]
 
-        Measurement leftEyeMeasurement = MeasurementBuilder.builder(leftEyeIop, leftEyeValue).timeObserved(age).build();
-        Measurement rightEyeMeasurement = MeasurementBuilder.builder(rightEyeIop, rightEyeValue).timeObserved(age).build();
-        //33728-7 Size.maximum dimension in Tumor
-        //14 × 13 × 11 mm left eye tumor
-        return List.of(leftEyeMeasurement, rightEyeMeasurement);
+        return List.of(visusMeasurement);
     }
 
     List<PhenotypicFeature> getPhenotypicFeatures() {
@@ -124,13 +120,18 @@ public class GlaucomaSurgery implements PhenopacketExample {
                 .addModifier(Laterality.left())
                 .onset(age5months)
                 .build();
+        PhenotypicFeature excludedPhacodonesis = PhenotypicFeatureBuilder.
+                builder("HP:0012629", "Phakodonesis")
+                .excluded()
+                .build();
+
         TimeElement age6months = TimeElements.age("P6M");
         PhenotypicFeature retinalDetachment = PhenotypicFeatureBuilder
                 .builder("HP:0000541", "Retinal detachment")
                 .addModifier(Laterality.left())
                 .onset(age6months)
                 .build();
-        return List.of(clinodactyly, leukocoria, strabismus, retinalDetachment);
+        return List.of(clinodactyly, leukocoria, strabismus, retinalDetachment, excludedPhacodonesis);
     }
 
 }
