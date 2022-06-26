@@ -101,7 +101,18 @@ public class Pseudoexfoliation implements PhenopacketExample {
         Measurement rightEyeMeasurement = MeasurementBuilder.builder(rightEyeIop, rightEyeValue).timeObserved(age).build();
         //33728-7 Size.maximum dimension in Tumor
         //14 × 13 × 11 mm left eye tumor
-        return List.of(leftEyeMeasurement, rightEyeMeasurement);
+
+        OntologyClass visusPercent = ontologyClass("NCIT:C48570", "Percent Unit");
+        // -0.25/-0.5/110 degreees
+        TypedQuantity  visus100 = TypedQuantityBuilder.of(ontologyClass("NCIT:C87149", "Visual Acuity"),
+                QuantityBuilder.of(visusPercent, 100));
+        var visionAssessment = ontologyClass("NCIT:C156778", "Vision Assessment");
+        Measurement visusMeasurement = MeasurementBuilder
+                .builder(visionAssessment, ComplexValueBuilder.of(visus100)).build();
+        // NCIT:C117889  Astigmatism Axis - A measurement of the location, in degrees, of the flatter principal meridian on a 180-degree scale, where 90 degrees designates the vertical meridian and 180 degrees designates the horizontal meridian. [ NCI ]
+
+
+        return List.of(leftEyeMeasurement, rightEyeMeasurement, visusMeasurement);
     }
 
 
@@ -150,7 +161,11 @@ http://snomed.info/id/332871000119103
                 .addModifier(Laterality.left())
                 .onset(age6months)
                 .build();
-        return List.of(clinodactyly, leukocoria, strabismus, retinalDetachment);
+        PhenotypicFeature excludedPhacodonesis = PhenotypicFeatureBuilder.
+                builder("HP:0012629", "Phakodonesis")
+                .excluded()
+                .build();
+        return List.of(clinodactyly, leukocoria, strabismus, retinalDetachment, excludedPhacodonesis);
     }
 
 }
