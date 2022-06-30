@@ -80,7 +80,7 @@ public class Retinoblastoma implements PhenopacketExample {
                 .genomic()
                 .heterozygous()
                 .label("RB1 c.958C>T (p.Arg320Ter)")
-                .transcript()
+                .genomic()
                 .vcfHg38("NC_000013.11", 48367512, "C", "T")
                 .alleleFrequency(25.0)
                 .geneContext(GeneDescriptorBuilder.of("HGNC:9884", "RB1"))
