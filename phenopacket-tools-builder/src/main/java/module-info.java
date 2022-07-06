@@ -1,6 +1,7 @@
 module org.phenopackets.phenopackettools.builder {
     requires transitive org.phenopackets.schema;
-    requires transitive com.google.protobuf; // TODO - investigate
+    // Required due to `TimestampBuilder`.
+    requires transitive com.google.protobuf;
 
     exports org.phenopackets.phenopackettools.builder;
     exports org.phenopackets.phenopackettools.builder.builders;
