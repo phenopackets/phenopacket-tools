@@ -70,6 +70,20 @@ public class Resources {
             .setUrl("http://purl.obolibrary.org/obo/ncbitaxon.owl")
             .setIriPrefix("http://purl.obolibrary.org/obo/NCBITaxon_");
 
+    private static final Resource.Builder SO_BUILDER = Resource.newBuilder()
+            .setId("so")
+            .setName("Sequence types and features ontology")
+            .setNamespacePrefix("SO")
+            .setUrl("http://purl.obolibrary.org/obo/so.owl")
+            .setIriPrefix("http://purl.obolibrary.org/obo/SO_");
+
+    private static final Resource.Builder UO_BUILDER = Resource.newBuilder()
+            .setId("uo")
+            .setName("Units of measurement ontology")
+            .setNamespacePrefix("UO")
+            .setUrl("http://purl.obolibrary.org/obo/uo.owl")
+            .setIriPrefix("http://purl.obolibrary.org/obo/UO_");
+
     public static Resource hpoVersion(String version) {
         return HPO_BUILDER.setVersion(version).build();
     }
@@ -106,4 +120,11 @@ public class Resources {
         return NCBI_TAXON_BUILDER.setVersion(version).build();
     }
 
+    public static Resource soVersion(String version) {
+        return SO_BUILDER.setVersion(version).build();
+    }
+
+    public static Resource uoVersion(String version) {
+        return UO_BUILDER.setVersion(version).build();
+    }
 }
