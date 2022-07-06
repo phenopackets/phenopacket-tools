@@ -11,8 +11,9 @@ Multimodule Java library/app that contains a "streamlined builder" module, a v1 
 The cli application works in a standard UNIX-like manner. 
 
 ```shell
-mvn package
-alias pfx-tools='java -jar phenopacket-tools/phenopacket-tools-cli/target/phenopacket-tools-cli-1.0.0.jar'
+cd phenopacket-tools
+./mvnw package
+alias pfx-tools='java -jar $(pwd)/phenopacket-tools-cli/target/phenopacket-tools-cli-*.jar'
 ```
 
 ### Example Phenopackets
