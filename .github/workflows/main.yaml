@@ -1,10 +1,22 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    env:
+      JDK_VERSION: ${{ matrix.jdk }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest, macOS-latest, ubuntu-latest ]
+        jdk: [ 11 ]
 
     steps:
       - uses: actions/checkout@v2

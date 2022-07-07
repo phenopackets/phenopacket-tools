@@ -7,7 +7,6 @@ import org.phenopackets.schema.v2.core.TimeElement;
 import org.phenopackets.schema.v2.core.VitalStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.phenopackets.phenopackettools.builder.builders.IndividualBuilder.HOMO_SAPIENS;
 import static org.phenopackets.phenopackettools.builder.builders.TimestampBuilder.fromISO8601;
 
 
@@ -56,8 +55,8 @@ public class IndividualBuilderTest {
         assertEquals(musMusculus, individual.getTaxonomy());
 
         Individual individual2 = IndividualBuilder.builder("human").homoSapiens().build();
-        assertEquals(HOMO_SAPIENS, individual2.getTaxonomy());
-        assertNotEquals(HOMO_SAPIENS, individual.getTaxonomy());
+        assertEquals(OntologyClassBuilder.ontologyClass("NCBITaxon:9606", "Homo sapiens"), individual2.getTaxonomy());
+        assertNotEquals(OntologyClassBuilder.ontologyClass("NCBITaxon:9606", "Homo sapiens"), individual.getTaxonomy());
     }
 
     @Test
