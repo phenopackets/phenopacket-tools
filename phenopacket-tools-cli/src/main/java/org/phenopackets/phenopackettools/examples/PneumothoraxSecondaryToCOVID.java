@@ -1,13 +1,16 @@
-package org.phenopackets.phenotools.examples;
+package org.phenopackets.phenopackettools.examples;
 
-import org.phenopackets.phenotools.builder.PhenopacketBuilder;
-import org.phenopackets.phenotools.builder.builders.*;
+
+import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
+import org.phenopackets.phenopackettools.builder.builders.*;
+import org.phenopackets.phenopackettools.builder.constants.Laterality;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
-import static org.phenopackets.phenotools.builder.builders.OntologyClassBuilder.ontologyClass;
+import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
+
 
 public class PneumothoraxSecondaryToCOVID {
 
@@ -18,20 +21,20 @@ public class PneumothoraxSecondaryToCOVID {
 
     public PneumothoraxSecondaryToCOVID() {
 
-        var externalRef = ExternalReferenceBuilder.builder()
+        var externalRef = ExternalReferenceBuilder.reference()
                 .id("DOI:10.1136/bcr-2020-235861")
-                .builder("PMID:32423911")
+               // .builder("PMID:32423911")
                 .description("Tension pneumothorax in a patient with COVID-19")
                 .build();
 
         //TODO: Fix ontology versions
         var metadata = MetaDataBuilder.builder("2022-04-21T10:35:00Z", "anonymous biocurator")
-                .resource(Resources.ncitVersion("21.05d"))
-                .resource(Resources.hpoVersion("2021-08-02"))
-                .resource(Resources.efoVersion("3.34.0"))
-                .resource(Resources.uberonVersion("2021-07-27"))
-                .resource(Resources.ncbiTaxonVersion("2021-06-10"))
-                .externalReference(externalRef)
+                .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.hpoVersion("2021-08-02"))
+                .addResource(Resources.efoVersion("3.34.0"))
+                .addResource(Resources.uberonVersion("2021-07-27"))
+                .addResource(Resources.ncbiTaxonVersion("2021-06-10"))
+                .addExternalReference(externalRef)
                 .build();
 
         Individual proband = IndividualBuilder.builder(INDIVIDUAL).
@@ -92,10 +95,10 @@ public class PneumothoraxSecondaryToCOVID {
      * Diagnosis: tension pneumothorax, secondary to underlying COVID-19
      */
     private Interpretation interpretation() {
-        InterpretationBuilder ibuilder = InterpretationBuilder.solved("interpretation.id");
+      //  InterpretationBuilder ibuilder = InterpretationBuilder.solved("interpretation.id");
         DiagnosisBuilder dbuilder = DiagnosisBuilder.builder(ontologyClass("SCTID:233645004", "Tension pneumothorax (disorder)"));
-        ibuilder.diagnosis(dbuilder.build());
-        return ibuilder.build();
+        //ibuilder.diagnosis(dbuilder.build());
+        return null;//ibuilder.build();
     }
 
     /**
@@ -111,21 +114,21 @@ public class PneumothoraxSecondaryToCOVID {
     private List<PhenotypicFeature> getChestRadiograph() {
         PhenotypicFeature pneumothorax = PhenotypicFeatureBuilder
                 .builder("HP:0002107", "Pneumothorax")
-                .modifier(OntologyClassBuilder.ontologyClass("PATO:0000600", "increased width"))
-                .modifier(Laterality.left())
+                .addModifier(ontologyClass("PATO:0000600", "increased width"))
+                .addModifier(Laterality.left())
                 .build();
 
         PhenotypicFeature rightLungNormal = PhenotypicFeatureBuilder
                 .builder("HP:0031983", "Abnormal pulmonary thoracic imaging finding")
-                .modifier(Laterality.right())
+                .addModifier(Laterality.right())
                 .excluded()
                 .build();
 
         PhenotypicFeature rightLungConsolidated = PhenotypicFeatureBuilder
                 .builder("SCTID:95436008", "Lung consolidation (disorder)")     // Probably incorrect
-                .modifier(Laterality.right())
-                .modifier(OntologyClassBuilder.ontologyClass("PATO:0001630", "dispersed"))
-                .modifier(OntologyClassBuilder.ontologyClass("PATO:0001608", "patchy"))
+                .addModifier(Laterality.right())
+                .addModifier(ontologyClass("PATO:0001630", "dispersed"))
+                .addModifier(ontologyClass("PATO:0001608", "patchy"))
                 .build();
 
         return List.of(pneumothorax, rightLungNormal, rightLungConsolidated);
@@ -142,41 +145,38 @@ public class PneumothoraxSecondaryToCOVID {
      * - blood pressure of 110/65 mm Hg
      */
     private List<Measurement> getMeasurementsOnPresentation() {
-        OntologyClass respiratoryRate = OntologyClassBuilder.ontologyClass("LOINC:9279-1", "Respiratory rate");
-
+        OntologyClass respiratoryRate = ontologyClass("LOINC:9279-1", "Respiratory rate");
+/*
         // Couldn't find 'breaths per minute' as a measurement unit and UCUM has not been published.
         // This applies to all measurements below
-        Value respiratoryRateValue = ValueBuilder.value("UCUM:{breaths}/min", "Breaths/minute", 50);
+        Value respiratoryRateValue = ValueBuilder.of("UCUM:{breaths}/min", "Breaths/minute", 50);
 
         // Time observed: on presentation? This applies to all measurements below
         Measurement respiratoryRateMeasurement = MeasurementBuilder.
-                value(respiratoryRate, respiratoryRateValue).
+                of(respiratoryRate, respiratoryRateValue).
                 build();
 
-        OntologyClass heartRate = OntologyClassBuilder.ontologyClass("LOINC:8867-4", "Heart rate");
-        Value heartRateValue = ValueBuilder.value("UCUM:{beats}/min", "Beats/minute", 150);
+        OntologyClass heartRate = ontologyClass("LOINC:8867-4", "Heart rate");
+        Value heartRateValue = ValueBuilder.of("UCUM:{beats}/min", "Beats/minute", 150);
         Measurement heartRateMeasurement = MeasurementBuilder.
-                value(heartRate, heartRateValue).
+                of(heartRate, heartRateValue).
                 build();
 
-        OntologyClass systBloodPressure = OntologyClassBuilder.ontologyClass("LOINC:8480-6", "Systolic blood pressure");
-        Value systBloodPressureValue = ValueBuilder.value("UCUM:mm[Hg]", "mm[Hg]", 110);
+        OntologyClass systBloodPressure = ontologyClass("LOINC:8480-6", "Systolic blood pressure");
+        Value systBloodPressureValue = ValueBuilder.of("UCUM:mm[Hg]", "mm[Hg]", 110);
         Measurement systBloodPressureMeasurement = MeasurementBuilder.
-                value(systBloodPressure, systBloodPressureValue).
+                of(systBloodPressure, systBloodPressureValue).
                 build();
 
-        OntologyClass diastBloodPressure = OntologyClassBuilder.ontologyClass("LOINC:8480-6", "Systolic blood pressure");
+        OntologyClass diastBloodPressure = ontologyClass("LOINC:8480-6", "Systolic blood pressure");
         Value diastBloodPressureValue = ValueBuilder.value("UCUM:mm[Hg]", "mm[Hg]", 65);
         Measurement diastBloodPressureMeasurement = MeasurementBuilder.
                 value(diastBloodPressure, diastBloodPressureValue).
                 build();
 
 
-        /**
-         * TODO: How to associate SpO2 of 88% on 15L/min oxygen with the 'intervention' 'non rebreather mask oxygen delivery'?
-         */
 
-        OntologyClass spO2 = OntologyClassBuilder.ontologyClass("LOINC:20564-1", "Oxygen saturation in Blood");
+        OntologyClass spO2 = ontologyClass("LOINC:20564-1", "Oxygen saturation in Blood");
         Value spO2Value = ValueBuilder.value("UCUM:%", "%", 88);
         Measurement spO2Measurement = MeasurementBuilder.
                 value(spO2, spO2Value).
@@ -188,6 +188,8 @@ public class PneumothoraxSecondaryToCOVID {
                 systBloodPressureMeasurement,
                 diastBloodPressureMeasurement,
                 spO2Measurement);
+        */
+        return null;
     }
 
     /**
@@ -215,7 +217,7 @@ public class PneumothoraxSecondaryToCOVID {
 
         PhenotypicFeature chestPain = PhenotypicFeatureBuilder.
                 builder("HP:0033771", "Pleuritic chest pain").
-                modifier(Laterality.left()).
+                //modifier(Laterality.left()).
                 build();
 
         PhenotypicFeature trachea = PhenotypicFeatureBuilder.

@@ -15,4 +15,20 @@
     <name>phenopacket-tools-validator-core</name>
     <description>Validator utilities for phenopackets</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.phenopackets</groupId>
+            <artifactId>phenopacket-schema</artifactId>
+
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

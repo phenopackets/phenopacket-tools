@@ -1,7 +1,7 @@
 package org.phenopackets.phenopackettools.validator.core;
 
 
-public enum ValidationAspect {
+public enum ValidationAspectOLD {
 
     // This enum is supposed to be used instead of the ErrorType
     // TODO - elaborate the categories

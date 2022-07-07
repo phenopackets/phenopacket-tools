@@ -14,7 +14,7 @@ public interface ValidationItem {
     ValidatorInfo validatorInfo();
 
     // TODO - decide which enum to use here - either ErrorType or ValidationAspect
-    ErrorType errorType();
+    ErrorTypeOLD errorType();
 
     /**
      * @return string with description of the issue intended for human consumption.

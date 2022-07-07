@@ -2,8 +2,8 @@ package org.phenopackets.phenopackettools.validator.jsonschema;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.phenopackets.phenopackettools.validator.core.ErrorType;
-import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
+import org.phenopackets.phenopackettools.validator.core.ErrorTypeOLD;
+import org.phenopackets.phenopackettools.validator.core.PhenopacketValidatorOld;
 import org.phenopackets.phenopackettools.validator.core.ValidationItem;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.testdatagen.RareDiseasePhenopacket;
@@ -29,7 +29,7 @@ public class JsonSchemaValidatorTest {
 
     @Test
     public void testValidationOfSimpleValidPhenopacket() throws Exception {
-        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
+        PhenopacketValidatorOld validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
         Phenopacket phenopacket = simplePhenopacket.getPhenopacket();
         String json =  JsonFormat.printer().print(phenopacket);
         List<? extends ValidationItem> errors = validator.validate(json);
@@ -40,7 +40,7 @@ public class JsonSchemaValidatorTest {
         errors = validator.validate(json);
         assertEquals(1, errors.size());
         ValidationItem error = errors.get(0);
-        assertEquals(ErrorType.JSON_REQUIRED, error.errorType());
+        assertEquals(ErrorTypeOLD.JSON_REQUIRED, error.errorType());
         assertEquals("$.id: is missing but it is required", error.message());
     }
 
@@ -50,7 +50,7 @@ public class JsonSchemaValidatorTest {
      */
     @Test
     public void testValidationOfSimpleInValidPhenopacket() {
-        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
+        PhenopacketValidatorOld validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
 
         String invalidPhenopacketJson = "{\"disney\" : \"donald\"}";
 
@@ -58,19 +58,19 @@ public class JsonSchemaValidatorTest {
 
         assertEquals(3, errors.size());
         ValidationItem error = errors.get(0);
-        assertEquals(ErrorType.JSON_REQUIRED, error.errorType());
+        assertEquals(ErrorTypeOLD.JSON_REQUIRED, error.errorType());
         assertEquals("$.id: is missing but it is required", error.message());
         error = errors.get(1);
-        assertEquals(ErrorType.JSON_REQUIRED, error.errorType());
+        assertEquals(ErrorTypeOLD.JSON_REQUIRED, error.errorType());
         assertEquals("$.metaData: is missing but it is required", error.message());
         error = errors.get(2);
-        assertEquals(ErrorType.JSON_ADDITIONAL_PROPERTIES, error.errorType());
+        assertEquals(ErrorTypeOLD.JSON_ADDITIONAL_PROPERTIES, error.errorType());
         assertEquals("$.disney: is not defined in the schema and the schema does not allow additional properties", error.message());
     }
 
     @Test
     public void testRareDiseaseBethlemahmValidPhenopacket() throws Exception {
-        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.rareDiseaseValidation()).get();
+        PhenopacketValidatorOld validator = FACTORY.getValidatorForType(ValidatorInfo.rareDiseaseValidation()).get();
 
         Phenopacket bethlehamMyopathy = rareDiseasePhenopacket.getPhenopacket();
         String json =  JsonFormat.printer().print(bethlehamMyopathy);
@@ -82,7 +82,7 @@ public class JsonSchemaValidatorTest {
     @Test
     @Disabled // TODO - we should rework the testing strategy to invalidate a valid phenopacket and check that it raises the expected error
     public void testRareDiseaseBethlemahmInvalidValidPhenopacket() throws IOException {
-        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.rareDiseaseValidation()).get();
+        PhenopacketValidatorOld validator = FACTORY.getValidatorForType(ValidatorInfo.rareDiseaseValidation()).get();
 
         File invalidMyopathyPhenopacket = Path.of("src/test/resources/json/bethlehamMyopathyInvalidExample.json").toFile();
         List<ValidationItem> validationItems = validator.validate(invalidMyopathyPhenopacket);
@@ -91,7 +91,7 @@ public class JsonSchemaValidatorTest {
         }
         assertEquals(1, validationItems.size());
         ValidationItem validationItem = validationItems.get(0);
-        assertEquals(ErrorType.JSON_REQUIRED, validationItem.errorType());
+        assertEquals(ErrorTypeOLD.JSON_REQUIRED, validationItem.errorType());
         assertEquals("$.phenotypicFeatures: is missing but it is required", validationItem.message());
     }
 

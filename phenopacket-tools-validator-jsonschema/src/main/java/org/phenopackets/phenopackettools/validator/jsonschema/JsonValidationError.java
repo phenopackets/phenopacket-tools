@@ -1,7 +1,7 @@
 package org.phenopackets.phenopackettools.validator.jsonschema;
 
 import com.networknt.schema.ValidationMessage;
-import org.phenopackets.phenopackettools.validator.core.ErrorType;
+import org.phenopackets.phenopackettools.validator.core.ErrorTypeOLD;
 import org.phenopackets.phenopackettools.validator.core.ValidationItem;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 
@@ -15,12 +15,12 @@ import java.util.Objects;
 public final class JsonValidationError implements ValidationItem {
 
     private final ValidatorInfo validatorInfo;
-    private final ErrorType errorType;
+    private final ErrorTypeOLD errorType;
     private final String message;
 
     public JsonValidationError(ValidatorInfo validatorInfo, ValidationMessage validationMessage) {
         this.validatorInfo = validatorInfo;
-        this.errorType = ErrorType.stringToErrorType(validationMessage.getType());
+        this.errorType = ErrorTypeOLD.stringToErrorType(validationMessage.getType());
         this.message = validationMessage.getMessage();
     }
 
@@ -30,7 +30,7 @@ public final class JsonValidationError implements ValidationItem {
     }
 
     @Override
-    public ErrorType errorType() {
+    public ErrorTypeOLD errorType() {
         return this.errorType;
     }
 

@@ -4,8 +4,8 @@ package org.phenopackets.phenopackettools.validator.jsonschema;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import org.junit.jupiter.api.Test;
-import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
-import org.phenopackets.phenopackettools.validator.core.ErrorType;
+import org.phenopackets.phenopackettools.validator.core.PhenopacketValidatorOld;
+import org.phenopackets.phenopackettools.validator.core.ErrorTypeOLD;
 import org.phenopackets.phenopackettools.validator.core.ValidationItem;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.testdatagen.PhenopacketUtil;
@@ -65,7 +65,7 @@ public class JsonSchemaDiseaseValidatorTest {
 
     @Test
     public void testPhenopacketValidity() throws InvalidProtocolBufferException {
-        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
+        PhenopacketValidatorOld validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
         String json = JsonFormat.printer().print(phenopacket);
         List<ValidationItem> errors = validator.validate(json);
         assertTrue(errors.isEmpty());
@@ -73,7 +73,7 @@ public class JsonSchemaDiseaseValidatorTest {
 
     @Test
     public void testLacksId() throws InvalidProtocolBufferException {
-        PhenopacketValidator validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
+        PhenopacketValidatorOld validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
         // the Phenopacket is not valid if we remove the id
         Phenopacket p1 = Phenopacket.newBuilder(phenopacket).clearId().build();
         String json = JsonFormat.printer().print(p1);
@@ -82,7 +82,7 @@ public class JsonSchemaDiseaseValidatorTest {
 //        System.out.println(errors);
         assertEquals(1, errors.size());
         ValidationItem error = errors.get(0);
-        assertEquals(ErrorType.JSON_REQUIRED, error.errorType());
+        assertEquals(ErrorTypeOLD.JSON_REQUIRED, error.errorType());
         assertEquals("$.id: is missing but it is required", error.message());
     }
 

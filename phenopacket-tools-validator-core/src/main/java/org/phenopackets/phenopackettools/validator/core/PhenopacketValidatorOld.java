@@ -14,7 +14,7 @@ import java.util.List;
  * @author Daniel Danis
  * @author Peter N Robinson
  */
-public interface PhenopacketValidator {
+public interface PhenopacketValidatorOld {
 
     ValidatorInfo info();
 
