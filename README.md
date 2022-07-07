@@ -5,6 +5,7 @@
 
 Multimodule Java library/app that contains a "streamlined builder" module, a v1 to v2 converter app, a validator API and a JSON validator. 
 
+Both library and app requires Java 17 or better to run.
 
 ## Phenopacket tools CLI
 
