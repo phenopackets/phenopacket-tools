@@ -9,6 +9,7 @@ public class Unit {
     private static final OntologyClass MILLIMETRES_OF_MERCURY = ontologyClass("UO:0000272", "millimetres of mercury");
     private static final OntologyClass MILLIMETER = ontologyClass("UO:0000016", "millimeter");
     private static final OntologyClass MILLIGRAM_PER_KILOGRAM = ontologyClass("UO:0000308", "milligram per kilogram");
+    private static final OntologyClass DIOPTER = ontologyClass("NCIT:C100899", "Diopter");
 
     private Unit() {
     }
@@ -27,4 +28,7 @@ public class Unit {
     public static OntologyClass mgPerKg() {
         return MILLIGRAM_PER_KILOGRAM;
     }
+
+    //A unit of measurement of the optical power of a curved mirror or lens represented by the inverse of the focal length in meters.
+    public static OntologyClass diop() {return DIOPTER; }
 }
