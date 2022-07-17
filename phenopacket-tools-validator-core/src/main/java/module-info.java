@@ -7,4 +7,6 @@ module org.phenopackets.phenopackettools.validator.core {
     requires com.google.protobuf;
     requires com.google.protobuf.util;
     requires org.phenopackets.schema;
+
+    opens org.phenopackets.phenopackettools.validator.core;
 }
