@@ -5,9 +5,9 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import org.junit.jupiter.api.Test;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidatorOld;
-import org.phenopackets.phenopackettools.validator.core.ErrorTypeOLD;
 import org.phenopackets.phenopackettools.validator.core.ValidationItem;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
+import org.phenopackets.phenopackettools.validator.core.errors.JsonError;
 import org.phenopackets.phenopackettools.validator.testdatagen.PhenopacketUtil;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.Disease;
@@ -82,8 +82,8 @@ public class JsonSchemaDiseaseValidatorTest {
 //        System.out.println(errors);
         assertEquals(1, errors.size());
         ValidationItem error = errors.get(0);
-        assertEquals(ErrorTypeOLD.JSON_REQUIRED, error.errorType());
-        assertEquals("$.id: is missing but it is required", error.message());
+        assertEquals(JsonError.REQUIRED, error.errorType().subcategory());
+        assertEquals("$.id: is missing but it is required", error.errorType().message());
     }
 
 

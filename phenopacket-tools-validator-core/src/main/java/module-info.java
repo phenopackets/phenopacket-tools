@@ -9,4 +9,6 @@ module org.phenopackets.phenopackettools.validator.core {
     requires org.phenopackets.schema;
 
     opens org.phenopackets.phenopackettools.validator.core;
+    exports org.phenopackets.phenopackettools.validator.core.errors;
+    opens org.phenopackets.phenopackettools.validator.core.errors;
 }

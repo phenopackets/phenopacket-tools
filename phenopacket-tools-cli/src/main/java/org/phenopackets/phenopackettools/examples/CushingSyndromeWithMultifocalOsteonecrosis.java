@@ -1,13 +1,8 @@
 package org.phenopackets.phenopackettools.examples;
 
-import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
-import org.phenopackets.phenopackettools.builder.builders.*;
-import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
-
-import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 public class CushingSyndromeWithMultifocalOsteonecrosis {
 

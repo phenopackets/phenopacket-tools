@@ -2,6 +2,7 @@ package org.phenopackets.phenopackettools.validator.core;
 
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorRuntimeException;
 
+@Deprecated(forRemoval = true)
 public enum ErrorTypeOLD {
     /** JSON schema error meaning that the JSON code contained a property not present in the schema. */
     JSON_ADDITIONAL_PROPERTIES("additionalProperties"),
