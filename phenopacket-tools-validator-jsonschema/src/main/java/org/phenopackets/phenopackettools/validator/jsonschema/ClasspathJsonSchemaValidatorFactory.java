@@ -1,14 +1,11 @@
 package org.phenopackets.phenopackettools.validator.jsonschema;
 
-import org.phenopackets.phenopackettools.validator.core.PhenopacketValidatorOld;
-import org.phenopackets.phenopackettools.validator.core.PhenopacketValidatorFactory;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorRuntimeException;
 
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Validator factory that uses JSON schema definitions that are bundled within the application (on classpath).
@@ -16,8 +13,10 @@ import java.util.Optional;
  *
  * @author Daniel Danis
  * @author Peter N Robinson
+ * /// implements PhenopacketValidatorFactory
  */
-public class ClasspathJsonSchemaValidatorFactory implements PhenopacketValidatorFactory {
+@Deprecated(forRemoval = true)
+public class ClasspathJsonSchemaValidatorFactory  {
 
     private final Map<ValidatorInfo, JsonSchemaValidator> validatorMap;
 
@@ -28,7 +27,7 @@ public class ClasspathJsonSchemaValidatorFactory implements PhenopacketValidator
 
     private static Map<ValidatorInfo, JsonSchemaValidator> makeValidatorMap() {
         return Map.of(
-                ValidatorInfo.generic(), makeJsonValidator("/schema/phenopacket-schema-2-0.json", ValidatorInfo.generic()),
+                ValidatorInfo.genericJsonSchema(), makeJsonValidator("/schema/phenopacket-schema-2-0.json", ValidatorInfo.genericJsonSchema()),
                 ValidatorInfo.rareDiseaseValidation(), makeJsonValidator("/schema/hpo-rare-disease-schema.json", ValidatorInfo.rareDiseaseValidation())
         );
     }
@@ -45,10 +44,10 @@ public class ClasspathJsonSchemaValidatorFactory implements PhenopacketValidator
         this.validatorMap = validatorMap;
     }
 
-    @Override
-    public Optional<PhenopacketValidatorOld> getValidatorForType(ValidatorInfo type) {
-        return Optional.ofNullable(validatorMap.get(type));
-    }
+//    @Override
+//    public Optional<PhenopacketValidatorOld> getValidatorForType(ValidatorInfo type) {
+//        return Optional.ofNullable(validatorMap.get(type));
+//    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,11 +1,10 @@
 package org.phenopackets.phenopackettools.command;
 
 
-import org.phenopackets.phenopackettools.validator.core.PhenopacketValidatorFactory;
-import org.phenopackets.phenopackettools.validator.core.ValidationItem;
+import org.phenopackets.phenopackettools.validator.core.ValidationResult;
+import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
-import org.phenopackets.phenopackettools.validator.core.ValidatorRunner;
-import org.phenopackets.phenopackettools.validator.jsonschema.ClasspathJsonSchemaValidatorFactory;
+import org.phenopackets.phenopackettools.validator.core.DefaultValidatorRunner;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -17,6 +16,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+
+import static org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidator.makeGenericJsonValidator;
 
 @Command(name = "validate",
         mixinStandardHelpOptions = true)
@@ -32,24 +33,23 @@ public class ValidateCommand implements Callable<Integer> {
     public Integer call() {
         // What type of validation do we run?
         List<ValidatorInfo> validationTypes = new ArrayList<>();
-        validationTypes.add(ValidatorInfo.generic()); // we run this by default
+        validationTypes.add(ValidatorInfo.genericJsonSchema()); // we run this by default
         if (rareHpoConstraints) {
             validationTypes.add(ValidatorInfo.rareDiseaseValidation());
         }
-
-        PhenopacketValidatorFactory phenopacketValidatorFactory = ClasspathJsonSchemaValidatorFactory.defaultValidators();
-        ValidatorRunner validatorRunner = new ValidatorRunner(List.of(), List.of());
+        var messageValidators = List.of(makeGenericJsonValidator());
+        DefaultValidatorRunner validatorRunner = new DefaultValidatorRunner(messageValidators, List.of());
 
         for (Path phenopacket : phenopackets) {
             try (InputStream in = Files.newInputStream(phenopacket)) {
-                List<ValidationItem> validationItems = validatorRunner.validate(in, List.of());
+                List<ValidationResult> validationItems = validatorRunner.validate(in);
                 Path fileName = phenopacket.getFileName();
                 if (validationItems.isEmpty()) {
                     System.out.printf("%s - OK%n", fileName);
                     printSeparator();
                 } else {
-                    for (ValidationItem item : validationItems) {
-                        System.out.printf("%s - (%s) %n", fileName, item.errorType());
+                    for (ValidationResult item : validationItems) {
+                        System.out.printf("%s - (%s) %n", fileName, item.category());
                     }
                     printSeparator();
                 }

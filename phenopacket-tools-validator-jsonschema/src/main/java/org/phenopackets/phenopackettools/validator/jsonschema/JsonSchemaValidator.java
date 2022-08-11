@@ -3,26 +3,29 @@ package org.phenopackets.phenopackettools.validator.jsonschema;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.google.protobuf.Message;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
-import org.phenopackets.phenopackettools.validator.core.PhenopacketValidatorOld;
+import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
+import org.phenopackets.phenopackettools.validator.core.ValidationResult;
+import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorRuntimeException;
-import org.phenopackets.phenopackettools.validator.core.ValidationItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 
-public class JsonSchemaValidator implements PhenopacketValidatorOld {
+public class JsonSchemaValidator implements PhenopacketValidator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonSchemaValidator.class);
 
@@ -34,6 +37,14 @@ public class JsonSchemaValidator implements PhenopacketValidatorOld {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final ValidatorInfo validatorInfo;
 
+
+    public static JsonSchemaValidator makeGenericJsonValidator() {
+        String schemaPath = "/schema/phenopacket-schema-2-0.json";
+        InputStream inputStream = JsonSchemaValidator.class.getResourceAsStream(schemaPath);
+        if (inputStream == null)
+            throw new PhenopacketValidatorRuntimeException("Invalid JSON schema path `" + schemaPath + '`');
+        return JsonSchemaValidator.of(inputStream, ValidatorInfo.genericJsonSchema());
+    }
 
     /**
      * @param jsonSchema path to JSON schema specification file
@@ -62,32 +73,8 @@ public class JsonSchemaValidator implements PhenopacketValidatorOld {
         this.validatorInfo = validatorInfo;
     }
 
-    @Override
-    public ValidatorInfo info() {
-        return validatorInfo;
-    }
 
-    /**
-     * Validate the {@code inputStream} content (assumed to be a Phenopacket formated in JSON)
-     *
-     * @return List of {@link ValidationItem} objects (empty list if there were no errors)
-     */
-    @Override
-    public List<ValidationItem> validate(InputStream inputStream) {
-        try {
-            JsonNode json = objectMapper.readTree(inputStream);
-            String s = "LL";
-           // json = objectMapper.readTree(s);
-            return jsonSchema.validate(json).stream()
-                    .map(e -> new JsonValidationError(validatorInfo, e))
-                    .collect(Collectors.toUnmodifiableList());
-        } catch (IOException e) {
-            LOGGER.warn("Error while decoding JSON content: {}", e.getMessage(), e);
-        } catch (RuntimeException e) {
-            LOGGER.warn("Error while validating: {}", e.getMessage());
-        }
-        return List.of();
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -100,5 +87,22 @@ public class JsonSchemaValidator implements PhenopacketValidatorOld {
     @Override
     public int hashCode() {
         return Objects.hash(jsonSchema, objectMapper, validatorInfo);
+    }
+
+
+    @Override
+    public List<? extends ValidationResult> validateJson(JsonNode jsonNode) {
+        return jsonSchema.validate(jsonNode).stream()
+                .map(e -> new JsonValidationError(validatorInfo, e)).toList();
+    }
+
+    /**
+     * This validator does not work on protobuf messages
+     * @param message
+     * @return empty list
+     */
+    @Override
+    public List<ValidationResult> validateMessage(Message message) {
+        return List.of();
     }
 }

@@ -1,10 +1,9 @@
 package org.phenopackets.phenopackettools.validator.jsonschema;
 
 import com.networknt.schema.ValidationMessage;
-import org.phenopackets.phenopackettools.validator.core.ValidationErrorType;
-import org.phenopackets.phenopackettools.validator.core.ValidationItem;
+import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
+import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
-import org.phenopackets.phenopackettools.validator.core.errors.JsonError;
 
 import java.util.Objects;
 
@@ -13,34 +12,28 @@ import java.util.Objects;
  *
  * @author Peter N Robinson
  */
-public final class JsonValidationError implements ValidationItem {
-
-    String CATEGORY = "JSON";
+public final class JsonValidationError implements ValidationResult  {
 
     private final ValidatorInfo validatorInfo;
-    private final ValidationErrorType errorType;
+    private final ValidationLevel level;
+    private final String category;
+    private final String message;
+
 
     public JsonValidationError(ValidatorInfo validatorInfo, ValidationMessage validationMessage) {
         this.validatorInfo = validatorInfo;
-        String subcat = validationMessage.getType();
-        switch (subcat) {
-            case JsonError.REQUIRED -> errorType = JsonError.required(validationMessage.getMessage());
-            case JsonError.ADDITIONAL_PROPERTIES -> errorType = JsonError.additionalProperties(validationMessage.getMessage());
-            default -> errorType = JsonError.unknown(validationMessage.getType());
-        }
-
+        this.category = validationMessage.getType();
+        this.message = validationMessage.getMessage();
+        this.level = ValidationLevel.VALIDATION_ERROR;
     }
 
 
     @Override
-    public ValidatorInfo validatorInfo() {
+    public ValidatorInfo validationInfo() {
         return validatorInfo;
     }
 
-    @Override
-    public ValidationErrorType errorType() {
-        return this.errorType;
-    }
+
 
 
 
@@ -49,19 +42,41 @@ public final class JsonValidationError implements ValidationItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JsonValidationError that = (JsonValidationError) o;
-        return Objects.equals(validatorInfo, that.validatorInfo) && errorType == that.errorType;
+        return Objects.equals(validatorInfo, that.validatorInfo) &&
+                this.level.equals(that.level) &&
+                this.category.equals(that.category) &&
+                this.message.equals(that.message);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(validatorInfo, errorType);
+        return Objects.hash(validatorInfo, level, category, message);
     }
 
     @Override
     public String toString() {
         return "JsonValidationError{" +
                 "validatorInfo='" + validatorInfo + '\'' +
-                ", errorType=" + errorType +
+                "category='" + category + '\'' +
+                "message='" + message + '\'' +
+                ", level=" + level +
                 '}';
+    }
+
+
+
+    @Override
+    public ValidationLevel level() {
+        return ValidationLevel.VALIDATION_ERROR;
+    }
+
+    @Override
+    public String category() {
+        return this.category;
+    }
+
+    @Override
+    public String message() {
+        return this.message;
     }
 }

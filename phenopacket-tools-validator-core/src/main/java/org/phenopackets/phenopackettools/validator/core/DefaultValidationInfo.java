@@ -7,6 +7,9 @@ class DefaultValidationInfo implements ValidatorInfo {
     private static final DefaultValidationInfo GENERIC = of("GENERIC", "Validation of a generic Phenopacket");
     private static final DefaultValidationInfo RARE_DISEASE_VALIDATOR = of("RARE_DISEASE_VALIDATOR", "Validation of rare disease Phenopacket constraints");
 
+    private static final DefaultValidationInfo INPUT_VALIDATOR = of("Input", "Input of phenopacket data");
+
+
     static ValidatorInfo generic() {
         return GENERIC;
     }
@@ -14,6 +17,8 @@ class DefaultValidationInfo implements ValidatorInfo {
     static ValidatorInfo rareDiseaseValidator() {
         return RARE_DISEASE_VALIDATOR;
     }
+
+    static ValidatorInfo inputValidator() { return INPUT_VALIDATOR; }
 
     private final String validatorId;
     private final String validatorName;

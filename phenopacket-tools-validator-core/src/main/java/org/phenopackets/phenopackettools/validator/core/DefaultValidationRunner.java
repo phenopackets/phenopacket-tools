@@ -2,12 +2,29 @@ package org.phenopackets.phenopackettools.validator.core;
 
 
 
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 
 public class DefaultValidationRunner implements ValidationWorkflowRunner {
 
-    public DefaultValidationRunner(List<JsonPhenopacketValidator> sds, List<PhenopacketMessageValidator> v1) {
+    public DefaultValidationRunner(List<ValidationWorkflowRunner> sds) {
 
+    }
+
+    @Override
+    public List<ValidationResult> validate(InputStream io) {
+        return null;
+    }
+
+    @Override
+    public List<ValidationResult> validate(byte[] content) {
+        return null;
+    }
+
+    @Override
+    public List<ValidationResult> validate(byte[] content, Charset charset) {
+        return null;
     }
 
     /**
@@ -23,8 +40,10 @@ public class DefaultValidationRunner implements ValidationWorkflowRunner {
      * @return
      */
     @Override
-    public List<ValidationItem> run(String input) {
+    public List<ValidationResult> validate(String input) {
         //
         return null;
     }
+
+
 }

@@ -1,8 +1,10 @@
 package org.phenopackets.phenopackettools.validator.core.errors;
 
-import org.phenopackets.phenopackettools.validator.core.ValidationErrorType;
+import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
+import org.phenopackets.phenopackettools.validator.core.ValidationResult;
+import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 
-public class JsonError implements ValidationErrorType {
+public class JsonError implements ValidationResult {
 
     public static final String CATEGORY = "JSON";
     /** JSON schema error meaning that the JSON code contained a property not present in the schema. */
@@ -25,13 +27,23 @@ public class JsonError implements ValidationErrorType {
         this.message = message;
     }
 
+//    @Override
+//    public String category() {
+//        return this.category;
+//    }
+
     @Override
-    public String category() {
-        return this.category;
+    public ValidatorInfo validationInfo() {
+        return null;
     }
 
     @Override
-    public String subcategory() {
+    public ValidationLevel level() {
+        return null;
+    }
+
+    @Override
+    public String category() {
         return this.subcategory;
     }
 
