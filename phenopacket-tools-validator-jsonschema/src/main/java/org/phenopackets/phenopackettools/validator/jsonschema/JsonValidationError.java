@@ -1,9 +1,10 @@
 package org.phenopackets.phenopackettools.validator.jsonschema;
 
 import com.networknt.schema.ValidationMessage;
-import org.phenopackets.phenopackettools.validator.core.ErrorTypeOLD;
+import org.phenopackets.phenopackettools.validator.core.ValidationErrorType;
 import org.phenopackets.phenopackettools.validator.core.ValidationItem;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
+import org.phenopackets.phenopackettools.validator.core.errors.JsonError;
 
 import java.util.Objects;
 
@@ -14,15 +15,22 @@ import java.util.Objects;
  */
 public final class JsonValidationError implements ValidationItem {
 
+    String CATEGORY = "JSON";
+
     private final ValidatorInfo validatorInfo;
-    private final ErrorTypeOLD errorType;
-    private final String message;
+    private final ValidationErrorType errorType;
 
     public JsonValidationError(ValidatorInfo validatorInfo, ValidationMessage validationMessage) {
         this.validatorInfo = validatorInfo;
-        this.errorType = ErrorTypeOLD.stringToErrorType(validationMessage.getType());
-        this.message = validationMessage.getMessage();
+        String subcat = validationMessage.getType();
+        switch (subcat) {
+            case JsonError.REQUIRED -> errorType = JsonError.required(validationMessage.getMessage());
+            case JsonError.ADDITIONAL_PROPERTIES -> errorType = JsonError.additionalProperties(validationMessage.getMessage());
+            default -> errorType = JsonError.unknown(validationMessage.getType());
+        }
+
     }
+
 
     @Override
     public ValidatorInfo validatorInfo() {
@@ -30,26 +38,23 @@ public final class JsonValidationError implements ValidationItem {
     }
 
     @Override
-    public ErrorTypeOLD errorType() {
+    public ValidationErrorType errorType() {
         return this.errorType;
     }
 
-    @Override
-    public String message() {
-        return message;
-    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JsonValidationError that = (JsonValidationError) o;
-        return Objects.equals(validatorInfo, that.validatorInfo) && errorType == that.errorType && Objects.equals(message, that.message);
+        return Objects.equals(validatorInfo, that.validatorInfo) && errorType == that.errorType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(validatorInfo, errorType, message);
+        return Objects.hash(validatorInfo, errorType);
     }
 
     @Override
@@ -57,7 +62,6 @@ public final class JsonValidationError implements ValidationItem {
         return "JsonValidationError{" +
                 "validatorInfo='" + validatorInfo + '\'' +
                 ", errorType=" + errorType +
-                ", message='" + message + '\'' +
                 '}';
     }
 }

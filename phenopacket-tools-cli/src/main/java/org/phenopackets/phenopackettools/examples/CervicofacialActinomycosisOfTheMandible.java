@@ -1,16 +1,9 @@
 package org.phenopackets.phenopackettools.examples;
 
-import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
-import org.phenopackets.phenopackettools.builder.builders.*;
-import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.schema.v2.core.Individual;
-import org.phenopackets.schema.v2.core.Interpretation;
 import org.phenopackets.schema.v2.core.MedicalAction;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
 
 import java.util.List;
-
-import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 public class CervicofacialActinomycosisOfTheMandible {
 

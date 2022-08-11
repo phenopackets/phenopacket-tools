@@ -1,8 +1,6 @@
 package org.phenopackets.phenopackettools.examples;
 
 import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
-import org.phenopackets.phenopackettools.builder.builders.MetaDataBuilder;
-import org.phenopackets.phenopackettools.builder.builders.Resources;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.phenopackettools.builder.builders.*;
 import org.phenopackets.phenopackettools.builder.constants.Laterality;

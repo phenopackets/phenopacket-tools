@@ -1,6 +1,5 @@
 package org.phenopackets.phenopackettools.validator.core;
 
-import org.phenopackets.schema.v2.Phenopacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

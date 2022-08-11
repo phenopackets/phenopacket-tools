@@ -8,6 +8,7 @@ import java.util.Optional;
  * @author Daniel Danis
  * @author Peter N Robinson
  */
+@Deprecated(forRemoval = true)
 public interface PhenopacketValidatorFactory {
     // TODO probably simplify/delete
     Optional<PhenopacketValidatorOld> getValidatorForType(ValidatorInfo type);

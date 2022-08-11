@@ -49,7 +49,7 @@ public class ValidateCommand implements Callable<Integer> {
                     printSeparator();
                 } else {
                     for (ValidationItem item : validationItems) {
-                        System.out.printf("%s - (%s) %s%n", fileName, item.errorType(), item.message());
+                        System.out.printf("%s - (%s) %n", fileName, item.errorType());
                     }
                     printSeparator();
                 }
