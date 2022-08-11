@@ -2,7 +2,6 @@ package org.phenopackets.phenopackettools.command;
 
 
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.core.DefaultValidatorRunner;
 import picocli.CommandLine.Command;

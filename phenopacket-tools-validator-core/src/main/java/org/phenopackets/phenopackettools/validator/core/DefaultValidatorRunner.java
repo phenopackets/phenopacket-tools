@@ -3,13 +3,11 @@ package org.phenopackets.phenopackettools.validator.core;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.protobuf.Message;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorException;
-import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorRuntimeException;
 import org.phenopackets.phenopackettools.validator.core.impl.DefaultPhenopacketIngestor;
 import org.phenopackets.phenopackettools.validator.core.impl.Ingestor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;

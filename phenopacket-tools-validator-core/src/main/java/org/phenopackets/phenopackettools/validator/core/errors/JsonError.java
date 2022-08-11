@@ -14,23 +14,14 @@ public class JsonError implements ValidationResult {
     /** Another kind of JSON error. */
     public static final String UNKNOWN = "unknown";
 
-
-
     private final String category;
-    private final String subcategory;
     private final String message;
 
 
     public JsonError(String subcategory, String message) {
-        this.category = CATEGORY;
-        this.subcategory = subcategory;
+        this.category = subcategory;
         this.message = message;
     }
-
-//    @Override
-//    public String category() {
-//        return this.category;
-//    }
 
     @Override
     public ValidatorInfo validationInfo() {
@@ -44,7 +35,7 @@ public class JsonError implements ValidationResult {
 
     @Override
     public String category() {
-        return this.subcategory;
+        return this.category;
     }
 
     @Override

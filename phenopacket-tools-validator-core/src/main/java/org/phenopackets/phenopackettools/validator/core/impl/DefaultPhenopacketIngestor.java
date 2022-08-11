@@ -1,12 +1,10 @@
 package org.phenopackets.phenopackettools.validator.core.impl;
 
-import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorInputException;
-import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorRuntimeException;
 import org.phenopackets.schema.v2.Phenopacket;
 
 import java.io.IOException;
