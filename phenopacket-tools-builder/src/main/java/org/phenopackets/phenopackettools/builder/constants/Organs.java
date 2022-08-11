@@ -1,6 +1,5 @@
 package org.phenopackets.phenopackettools.builder.constants;
 
-import org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;

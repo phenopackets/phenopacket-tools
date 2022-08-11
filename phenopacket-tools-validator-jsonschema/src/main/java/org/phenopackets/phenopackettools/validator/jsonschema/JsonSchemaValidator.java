@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
-import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
+import org.phenopackets.phenopackettools.validator.core.PhenopacketValidatorOld;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorRuntimeException;
 import org.phenopackets.phenopackettools.validator.core.ValidationItem;
@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 
-public class JsonSchemaValidator implements PhenopacketValidator {
+public class JsonSchemaValidator implements PhenopacketValidatorOld {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonSchemaValidator.class);
 
@@ -76,6 +76,8 @@ public class JsonSchemaValidator implements PhenopacketValidator {
     public List<ValidationItem> validate(InputStream inputStream) {
         try {
             JsonNode json = objectMapper.readTree(inputStream);
+            String s = "LL";
+           // json = objectMapper.readTree(s);
             return jsonSchema.validate(json).stream()
                     .map(e -> new JsonValidationError(validatorInfo, e))
                     .collect(Collectors.toUnmodifiableList());

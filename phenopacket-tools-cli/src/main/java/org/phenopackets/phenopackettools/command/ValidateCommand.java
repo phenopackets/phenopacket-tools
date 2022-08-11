@@ -38,18 +38,18 @@ public class ValidateCommand implements Callable<Integer> {
         }
 
         PhenopacketValidatorFactory phenopacketValidatorFactory = ClasspathJsonSchemaValidatorFactory.defaultValidators();
-        ValidatorRunner validatorRunner = new ValidatorRunner(phenopacketValidatorFactory);
+        ValidatorRunner validatorRunner = new ValidatorRunner(List.of(), List.of());
 
         for (Path phenopacket : phenopackets) {
             try (InputStream in = Files.newInputStream(phenopacket)) {
-                List<ValidationItem> validationItems = validatorRunner.validate(in, validationTypes);
+                List<ValidationItem> validationItems = validatorRunner.validate(in, List.of());
                 Path fileName = phenopacket.getFileName();
                 if (validationItems.isEmpty()) {
                     System.out.printf("%s - OK%n", fileName);
                     printSeparator();
                 } else {
                     for (ValidationItem item : validationItems) {
-                        System.out.printf("%s - (%s) %s%n", fileName, item.errorType(), item.message());
+                        System.out.printf("%s - (%s) %n", fileName, item.errorType());
                     }
                     printSeparator();
                 }

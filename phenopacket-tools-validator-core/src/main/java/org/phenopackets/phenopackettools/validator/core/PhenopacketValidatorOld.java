@@ -11,10 +11,12 @@ import java.util.List;
 /**
  * Phenopacket validator applies rules to check that the provided data meets the requirements for a valid Phenopacket.
  * <p>
+ *     REPLACED BY ValidatorRunner ...
  * @author Daniel Danis
  * @author Peter N Robinson
  */
-public interface PhenopacketValidator {
+@Deprecated(forRemoval = true)
+public interface PhenopacketValidatorOld {
 
     ValidatorInfo info();
 

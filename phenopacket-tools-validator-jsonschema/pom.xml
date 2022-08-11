@@ -26,17 +26,15 @@
             <groupId>com.networknt</groupId>
             <artifactId>json-schema-validator</artifactId>
         </dependency>
-
-        <!-- To load the test cases-->
         <dependency>
             <groupId>org.phenopackets</groupId>
             <artifactId>phenopacket-schema</artifactId>
-            <scope>test</scope>
+
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <scope>test</scope>
+
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
