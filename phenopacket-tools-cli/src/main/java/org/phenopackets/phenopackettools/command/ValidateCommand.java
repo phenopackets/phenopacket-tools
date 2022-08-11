@@ -1,8 +1,8 @@
 package org.phenopackets.phenopackettools.command;
 
 
+import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.core.DefaultValidatorRunner;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -30,14 +29,12 @@ public class ValidateCommand implements Callable<Integer> {
 
     @Override
     public Integer call() {
-        // What type of validation do we run?
-        List<ValidatorInfo> validationTypes = new ArrayList<>();
-        validationTypes.add(ValidatorInfo.genericJsonSchema()); // we run this by default
+        var jsonValidators = List.of(makeGenericJsonValidator());
+        DefaultValidatorRunner validatorRunner = new DefaultValidatorRunner(jsonValidators, List.of());
+        List<? extends PhenopacketValidator> messageValidators = List.of();
         if (rareHpoConstraints) {
-            validationTypes.add(ValidatorInfo.rareDiseaseValidation());
+            // add HPO validator
         }
-        var messageValidators = List.of(makeGenericJsonValidator());
-        DefaultValidatorRunner validatorRunner = new DefaultValidatorRunner(messageValidators, List.of());
 
         for (Path phenopacket : phenopackets) {
             try (InputStream in = Files.newInputStream(phenopacket)) {
@@ -48,7 +45,7 @@ public class ValidateCommand implements Callable<Integer> {
                     printSeparator();
                 } else {
                     for (ValidationResult item : validationItems) {
-                        System.out.printf("%s - (%s) %n", fileName, item.category());
+                        System.out.printf("%s - %s:%s%n ", fileName, item.category(), item.message());
                     }
                     printSeparator();
                 }

@@ -5,6 +5,7 @@ import com.google.protobuf.Message;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorException;
 import org.phenopackets.phenopackettools.validator.core.impl.DefaultPhenopacketIngestor;
 import org.phenopackets.phenopackettools.validator.core.impl.Ingestor;
+import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
