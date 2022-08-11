@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
+import com.google.protobuf.TextFormat;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorInputException;
 import org.phenopackets.schema.v2.Phenopacket;
 
@@ -75,6 +76,17 @@ public class DefaultPhenopacketIngestor implements Ingestor {
         }
     }
 
+    public Message fromString(String msg) throws PhenopacketValidatorInputException {
+        try {
+            Phenopacket.Builder builder = Phenopacket.newBuilder();
+            TextFormat.Parser parser = TextFormat.Parser.newBuilder().build();
+            parser.merge(msg, builder);
+            return builder.build();
+        } catch (TextFormat.ParseException e ) {
+            throw new PhenopacketValidatorInputException("Could not decode Message: " + e.getMessage());
+        }
+    }
+
     public DefaultPhenopacketIngestor(String jsonString) throws PhenopacketValidatorInputException {
         if (jsonString == null) {
             throw new PhenopacketValidatorInputException("input (\"String jsonString\" was null");
@@ -85,11 +97,9 @@ public class DefaultPhenopacketIngestor implements Ingestor {
         } catch (IOException e) {
             throw new PhenopacketValidatorInputException("Could not read input stream: " + e.getMessage());
         }
-        try {
-            message = Phenopacket.parseFrom(jsonString.getBytes());
-        } catch (InvalidProtocolBufferException e) {
-            throw new PhenopacketValidatorInputException("Invalid Phenopacket Message: " + e.getMessage());
-        }
+
+        message = fromString(jsonString);
+
     }
 
 
