@@ -80,6 +80,11 @@ public class PhenotypicFeatureBuilder {
         return this;
     }
 
+    public PhenotypicFeatureBuilder resolution(TimeElement time) {
+        builder.setResolution(time);
+        return this;
+    }
+
     public PhenotypicFeatureBuilder severity(String id, String label) {
         OntologyClass severity = OntologyClassBuilder.ontologyClass(id, label);
         return severity(severity);
@@ -113,6 +118,11 @@ public class PhenotypicFeatureBuilder {
 
     public PhenotypicFeatureBuilder addAllModifiers(List<OntologyClass> modifiers) {
         builder.addAllModifiers(modifiers);
+        return this;
+    }
+
+    public PhenotypicFeatureBuilder description(String text) {
+        builder.setDescription(text);
         return this;
     }
 
