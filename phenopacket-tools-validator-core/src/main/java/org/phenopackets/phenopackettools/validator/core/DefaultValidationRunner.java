@@ -2,6 +2,7 @@ package org.phenopackets.phenopackettools.validator.core;
 
 
 
+import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -42,6 +43,11 @@ public class DefaultValidationRunner implements ValidationWorkflowRunner {
     @Override
     public List<ValidationResult> validate(String input) {
         //
+        return null;
+    }
+
+    @Override
+    public List<ValidationResult> validate(File file) {
         return null;
     }
 

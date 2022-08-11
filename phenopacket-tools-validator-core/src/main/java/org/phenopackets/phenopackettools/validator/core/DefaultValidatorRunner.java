@@ -8,8 +8,11 @@ import org.phenopackets.phenopackettools.validator.core.impl.Ingestor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +74,22 @@ public class DefaultValidatorRunner implements ValidationWorkflowRunner{
             Message message = ingestor.message();
             return validateImpl(jsonNode, message);
         } catch (PhenopacketValidatorException e) {
+            return List.of(ValidationResult.inputError(e.getMessage()));
+        }
+    }
+
+    @Override
+    public List<ValidationResult> validate(File file) {
+        if (file == null) {
+            return List.of(ValidationResult.inputError("Null file pointer passed"));
+        } else if (! file.isFile()) {
+            String msg = String.format("%s (%s) is not a valid File", file.getName(), file.getAbsolutePath());
+            return List.of(ValidationResult.inputError(msg));
+        }
+        try {
+            String payload = Files.readString(file.toPath());
+            return validate(payload);
+        } catch (IOException e) {
             return List.of(ValidationResult.inputError(e.getMessage()));
         }
     }

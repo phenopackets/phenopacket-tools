@@ -21,11 +21,10 @@ public class DefaultPhenopacketIngestor implements Ingestor {
     private final Message message;
 
 
-
     public DefaultPhenopacketIngestor(InputStream stream) throws PhenopacketValidatorInputException {
-        byte[] content = null;
+        byte[] content;
         try {
-           content = stream.readAllBytes();
+            content = stream.readAllBytes();
             ObjectMapper mapper = new ObjectMapper();
             this.jsonNode = mapper.readTree(content);
         } catch (IOException e) {

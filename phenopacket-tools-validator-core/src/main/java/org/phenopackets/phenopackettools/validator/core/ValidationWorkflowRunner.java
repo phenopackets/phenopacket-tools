@@ -1,5 +1,6 @@
 package org.phenopackets.phenopackettools.validator.core;
 
+import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -25,6 +26,8 @@ public interface ValidationWorkflowRunner {
     public List<ValidationResult> validate(byte[] content, Charset charset);
 
     public List<ValidationResult> validate(String content);
+
+    public List<ValidationResult> validate(File file);
 
 
 
