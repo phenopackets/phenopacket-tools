@@ -6,11 +6,12 @@ import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 
 public class JsonError implements ValidationResult {
 
-    public static final String CATEGORY = "JSON";
     /** JSON schema error meaning that the JSON code contained a property not present in the schema. */
     public static final String ADDITIONAL_PROPERTIES = "additionalProperties";
     /** JSON schema error meaning that the JSON code failed to contain a property required by the schema. */
     public static final String REQUIRED = "required";
+    /** JSON schema error meaning that a field is used that is not defined in the corresponding enum. */
+    public static final String ENUM = "enum";
     /** Another kind of JSON error. */
     public static final String UNKNOWN = "unknown";
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.errors.JsonError;
 import org.phenopackets.phenopackettools.validator.testdatagen.RareDiseasePhenopacket;
@@ -82,6 +83,48 @@ public class JsonSchemaValidatorTest {
         JsonNode jsonNode = mapper.readTree(json);
         List<? extends ValidationResult> errors = validator.validateJson(jsonNode);
         assertTrue(errors.isEmpty());
+    }
+
+    /**
+     * This line is erroneous because it does not correspond to the enumeration
+     *  "sex": "random text here"
+     */
+    @Test
+    public void invalidEnum() throws JsonProcessingException {
+        String invalidJson = """
+                {
+                  "id": "id-C",
+                  "subject": {
+                    "id": "proband C",
+                    "timeAtLastEncounter": {
+                      "age": {
+                        "iso8601duration": "P27Y"
+                      }
+                    },
+                    "sex": "random text here"
+                  },
+                  "metaData": {
+                    "created": "2021-05-14T10:35:00Z",
+                    "createdBy": "anonymous biocurator",
+                    "resources": [{
+                      "id": "hp",
+                      "name": "human phenotype ontology",
+                      "url": "http://purl.obolibrary.org/obo/hp.owl",
+                      "version": "2021-08-02",
+                      "namespacePrefix": "HP",
+                      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+                    }],
+                    "phenopacketSchemaVersion": "2.0"
+                  }
+                }""";
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(invalidJson);
+        List<? extends ValidationResult> errors = validator.validateJson(jsonNode);
+        assertEquals(1, errors.size());
+        ValidationResult error = errors.get(0);
+        assertEquals(JsonError.ENUM, error.category());
+        assertEquals("$.subject.sex: does not have a value in the enumeration [UNKNOWN_SEX, FEMALE, MALE]", error.message());
+        assertEquals(ValidationLevel.VALIDATION_ERROR, error.level());
     }
 
     @Test
