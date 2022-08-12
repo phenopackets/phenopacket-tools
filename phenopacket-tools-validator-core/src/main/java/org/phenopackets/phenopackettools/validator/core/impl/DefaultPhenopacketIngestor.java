@@ -4,15 +4,22 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
+import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorInputException;
 import org.phenopackets.schema.v2.Phenopacket;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Arrays;
 
 /**
- * To do, add Default Cohort Ingestor etc
+ * Parse a JsonNode object and a Message object from various input formats. This results in
+ * two standard objects for the actual validation code.
+ * @author peter.robinson@jax.org
  */
 public class DefaultPhenopacketIngestor implements Ingestor {
 
@@ -23,17 +30,21 @@ public class DefaultPhenopacketIngestor implements Ingestor {
 
     public DefaultPhenopacketIngestor(InputStream stream) throws PhenopacketValidatorInputException {
         byte[] content;
+        String jsonString;
         try {
-            content = stream.readAllBytes();
+            jsonString = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+           // content = stream.readAllBytes();
             ObjectMapper mapper = new ObjectMapper();
-            this.jsonNode = mapper.readTree(content);
+            this.jsonNode = mapper.readTree(jsonString);
         } catch (IOException e) {
             throw new PhenopacketValidatorInputException("Could not read input stream: " + e.getMessage());
         }
         // read the protobuf message if possible
         // if we get here, content is not null;
         try {
-            message = Phenopacket.parseFrom(content);
+            Phenopacket.Builder builder = Phenopacket.newBuilder();
+            JsonFormat.parser().merge(jsonString, builder);
+            message = builder.build();
         } catch (InvalidProtocolBufferException e) {
             throw new PhenopacketValidatorInputException("Invalid Phenopacket Message: " + e.getMessage());
         }
@@ -43,14 +54,17 @@ public class DefaultPhenopacketIngestor implements Ingestor {
         if (content == null) {
             throw new PhenopacketValidatorInputException("input (\"byte[] content\" was null");
         }
+        String jsonText = new String(content);
         try {
             ObjectMapper mapper = new ObjectMapper();
-            this.jsonNode = mapper.readTree(content);
+            this.jsonNode = mapper.readTree(jsonText);
         } catch (IOException e) {
             throw new PhenopacketValidatorInputException("Could not read input stream: " + e.getMessage());
         }
         try {
-            message = Phenopacket.parseFrom(content);
+            Phenopacket.Builder builder = Phenopacket.newBuilder();
+            JsonFormat.parser().merge(jsonText, builder);
+            message = builder.build();
         } catch (InvalidProtocolBufferException e) {
             throw new PhenopacketValidatorInputException("Invalid Phenopacket Message: " + e.getMessage());
         }
@@ -69,7 +83,9 @@ public class DefaultPhenopacketIngestor implements Ingestor {
             throw new PhenopacketValidatorInputException("Could not read input stream: " + e.getMessage());
         }
         try {
-            message = Phenopacket.parseFrom(content);
+            Phenopacket.Builder builder = Phenopacket.newBuilder();
+            JsonFormat.parser().merge(Arrays.toString(content), builder);
+            message = builder.build();
         } catch (InvalidProtocolBufferException e) {
             throw new PhenopacketValidatorInputException("Invalid Phenopacket Message: " + e.getMessage());
         }
@@ -86,7 +102,39 @@ public class DefaultPhenopacketIngestor implements Ingestor {
             throw new PhenopacketValidatorInputException("Could not read input stream: " + e.getMessage());
         }
         try {
-            message = Phenopacket.parseFrom(jsonString.getBytes());
+            Phenopacket.Builder builder = Phenopacket.newBuilder();
+            JsonFormat.parser().merge(jsonString, builder);
+            message = builder.build();
+        } catch (InvalidProtocolBufferException e) {
+            throw new PhenopacketValidatorInputException("Invalid Phenopacket Message: " + e.getMessage());
+        }
+    }
+
+    public DefaultPhenopacketIngestor(File file) throws PhenopacketValidatorInputException {
+        if (file == null) {
+            throw new PhenopacketValidatorInputException("Null file handle passed.");
+        } else if (! file.isFile()) {
+            throw new PhenopacketValidatorInputException(String.format("Invalid file path (%s) passed.",
+                    file.getAbsolutePath()));
+        }
+        String jsonString;
+        try {
+            jsonString = Files.readString(file.toPath());
+
+        } catch (IOException e) {
+            throw new PhenopacketValidatorInputException("I/O error while reading " +
+                    file.getName() +": " + e.getMessage());
+        }
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            this.jsonNode = mapper.readTree(jsonString);
+        } catch (IOException e) {
+            throw new PhenopacketValidatorInputException("Could not read input stream: " + e.getMessage());
+        }
+        try {
+            Phenopacket.Builder builder = Phenopacket.newBuilder();
+            JsonFormat.parser().merge(jsonString, builder);
+            message = builder.build();
         } catch (InvalidProtocolBufferException e) {
             throw new PhenopacketValidatorInputException("Invalid Phenopacket Message: " + e.getMessage());
         }

@@ -212,18 +212,21 @@ public class HtmlUtil {
 
 
     public static String htmlTop() {
-        return "<body>\n" +
-                "<header class=\"banner\">\n" +
-                "<h1><font color=\"#FFDA1A\">Phenopacket-Tools</font></h1>\n" +
-                "</header>\n" +
-                "<main>\n";
+        return """
+                <body>
+                <header class="banner">
+                <h1><font color="#FFDA1A">Phenopacket-Tools</font></h1>
+                </header>
+                <main>
+                """;
     }
 
     public static String htmlBottom() {
-        return " <span id=\"tooltip\" display=\"none\" style=\"position: absolute; display: none;\"></span>\n" +
-                "</main>\n" +
-                "</body>\n" +
-                "</html>";
+        return """
+                 <span id="tooltip" display="none" style="position: absolute; display: none;"></span>
+                </main>
+                </body>
+                </html>""";
     }
 
 
