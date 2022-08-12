@@ -38,7 +38,7 @@ public class ValidateCommand implements Callable<Integer> {
 
         for (Path phenopacket : phenopackets) {
             try (InputStream in = Files.newInputStream(phenopacket)) {
-                List<ValidationResult> validationItems = validatorRunner.validate(in);
+                List<ValidationResult> validationItems = validatorRunner.validate(phenopacket.toFile());
                 Path fileName = phenopacket.getFileName();
                 if (validationItems.isEmpty()) {
                     System.out.printf("%s - OK%n", fileName);
