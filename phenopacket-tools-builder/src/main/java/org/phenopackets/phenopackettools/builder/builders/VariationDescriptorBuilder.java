@@ -9,7 +9,7 @@ import java.util.List;
 
 public class VariationDescriptorBuilder {
 
-    final VariationDescriptor.Builder builder;
+    final private VariationDescriptor.Builder builder;
 
     /**
      * Constructor if no identifier is to be used
