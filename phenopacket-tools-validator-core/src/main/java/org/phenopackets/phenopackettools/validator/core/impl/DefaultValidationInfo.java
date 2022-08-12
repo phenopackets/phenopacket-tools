@@ -1,8 +1,10 @@
-package org.phenopackets.phenopackettools.validator.core;
+package org.phenopackets.phenopackettools.validator.core.impl;
+
+import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 
 import java.util.Objects;
 
-class DefaultValidationInfo implements ValidatorInfo {
+public class DefaultValidationInfo implements ValidatorInfo {
 
     private static final DefaultValidationInfo GENERIC = of("GENERIC", "Validation of a generic Phenopacket");
     private static final DefaultValidationInfo RARE_DISEASE_VALIDATOR = of("RARE_DISEASE_VALIDATOR", "Validation of rare disease Phenopacket constraints");
@@ -10,20 +12,20 @@ class DefaultValidationInfo implements ValidatorInfo {
     private static final DefaultValidationInfo INPUT_VALIDATOR = of("Input", "Input of phenopacket data");
 
 
-    static ValidatorInfo generic() {
+    public static ValidatorInfo generic() {
         return GENERIC;
     }
 
-    static ValidatorInfo rareDiseaseValidator() {
+    public static ValidatorInfo rareDiseaseValidator() {
         return RARE_DISEASE_VALIDATOR;
     }
 
-    static ValidatorInfo inputValidator() { return INPUT_VALIDATOR; }
+    public static ValidatorInfo inputValidator() { return INPUT_VALIDATOR; }
 
     private final String validatorId;
     private final String validatorName;
 
-    static DefaultValidationInfo of(String validatorId, String validatorName) {
+    public static DefaultValidationInfo of(String validatorId, String validatorName) {
         return new DefaultValidationInfo(validatorId, validatorName);
     }
 

@@ -19,8 +19,8 @@ public class JsonError implements ValidationResult {
     private final String message;
 
 
-    public JsonError(String subcategory, String message) {
-        this.category = subcategory;
+    public JsonError(String category, String message) {
+        this.category = category;
         this.message = message;
     }
 

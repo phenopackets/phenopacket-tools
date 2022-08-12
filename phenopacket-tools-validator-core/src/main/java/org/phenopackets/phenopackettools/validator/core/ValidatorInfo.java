@@ -1,5 +1,7 @@
 package org.phenopackets.phenopackettools.validator.core;
 
+import org.phenopackets.phenopackettools.validator.core.impl.DefaultValidationInfo;
+
 public interface ValidatorInfo {
 
     static ValidatorInfo genericJsonSchema() {
@@ -17,6 +19,7 @@ public interface ValidatorInfo {
     }
 
     static ValidatorInfo inputValidator() { return DefaultValidationInfo.inputValidator(); }
+
 
     static ValidatorInfo of(String validatorId, String validatorName) {
         return DefaultValidationInfo.of(validatorId, validatorName);

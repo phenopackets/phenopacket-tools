@@ -25,7 +25,7 @@ public class DefaultPhenopacketIngestor implements Ingestor {
 
     private final JsonNode jsonNode;
 
-    private final Message message;
+    private final Phenopacket message;
 
 
     public DefaultPhenopacketIngestor(InputStream stream) throws PhenopacketValidatorInputException {
@@ -147,7 +147,7 @@ public class DefaultPhenopacketIngestor implements Ingestor {
     }
 
     @Override
-    public Message message() {
+    public Phenopacket message() {
         return this.message;
     }
 

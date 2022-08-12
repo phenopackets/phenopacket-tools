@@ -8,6 +8,7 @@ module org.phenopackets.phenopackettools.validator.core {
     requires com.google.protobuf.util;
     requires org.phenopackets.schema;
     requires com.fasterxml.jackson.databind;
+    requires org.monarchinitiative.phenol.core;
 
 
     opens org.phenopackets.phenopackettools.validator.core;

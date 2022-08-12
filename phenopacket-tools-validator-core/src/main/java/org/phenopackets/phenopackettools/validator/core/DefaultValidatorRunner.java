@@ -6,6 +6,7 @@ import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValida
 import org.phenopackets.phenopackettools.validator.core.impl.DefaultPhenopacketIngestor;
 import org.phenopackets.phenopackettools.validator.core.impl.Ingestor;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
+import org.phenopackets.schema.v2.Phenopacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,7 @@ public class DefaultValidatorRunner implements ValidationWorkflowRunner{
         try {
             Ingestor ingestor = new DefaultPhenopacketIngestor(stream);
             JsonNode jsonNode = ingestor.jsonNode();
-            Message message = ingestor.message();
+            Phenopacket message = ingestor.message();
             return validateImpl(jsonNode, message);
         } catch (PhenopacketValidatorException e) {
             return List.of(ValidationResult.inputError(e.getMessage()));
@@ -48,7 +49,7 @@ public class DefaultValidatorRunner implements ValidationWorkflowRunner{
         try {
             Ingestor ingestor = new DefaultPhenopacketIngestor(content);
             JsonNode jsonNode = ingestor.jsonNode();
-            Message message = ingestor.message();
+            Phenopacket message = ingestor.message();
             return validateImpl(jsonNode, message);
         } catch (PhenopacketValidatorException e) {
             return List.of(ValidationResult.inputError(e.getMessage()));
@@ -60,7 +61,7 @@ public class DefaultValidatorRunner implements ValidationWorkflowRunner{
         try {
             Ingestor ingestor = new DefaultPhenopacketIngestor(content, charset);
             JsonNode jsonNode = ingestor.jsonNode();
-            Message message = ingestor.message();
+            Phenopacket message = ingestor.message();
             return validateImpl(jsonNode, message);
         } catch (PhenopacketValidatorException e) {
             return List.of(ValidationResult.inputError(e.getMessage()));
@@ -72,7 +73,7 @@ public class DefaultValidatorRunner implements ValidationWorkflowRunner{
         try {
             Ingestor ingestor = new DefaultPhenopacketIngestor(content);
             JsonNode jsonNode = ingestor.jsonNode();
-            Message message = ingestor.message();
+            Phenopacket message = ingestor.message();
             return validateImpl(jsonNode, message);
         } catch (PhenopacketValidatorException e) {
             return List.of(ValidationResult.inputError(e.getMessage()));
@@ -96,7 +97,7 @@ public class DefaultValidatorRunner implements ValidationWorkflowRunner{
     }
 
 
-    private List<ValidationResult> validateImpl(JsonNode jsonNode, Message message) {
+    private List<ValidationResult> validateImpl(JsonNode jsonNode, Phenopacket message) {
         List<ValidationResult> results = new ArrayList<>();
         for (var validator : jsonValidators) {
             results.addAll(validator.validateJson(jsonNode));

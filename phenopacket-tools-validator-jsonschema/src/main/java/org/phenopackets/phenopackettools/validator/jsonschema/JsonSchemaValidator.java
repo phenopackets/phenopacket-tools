@@ -11,6 +11,7 @@ import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorRuntimeException;
+import org.phenopackets.schema.v2.Phenopacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,7 +99,7 @@ public class JsonSchemaValidator implements PhenopacketValidator {
      * @return empty list
      */
     @Override
-    public List<ValidationResult> validateMessage(Message message) {
+    public List<ValidationResult> validateMessage(Phenopacket message) {
         return List.of();
     }
 }

@@ -1,7 +1,7 @@
 package org.phenopackets.phenopackettools.validator.core;
 
 import org.phenopackets.phenopackettools.validator.core.errors.InputError;
-import org.phenopackets.phenopackettools.validator.core.errors.OntologyError;
+import org.phenopackets.phenopackettools.validator.core.errors.OntologyValidationResult;
 
 public interface ValidationResult {
 
@@ -15,9 +15,6 @@ public interface ValidationResult {
     String message();
 
 
-    static ValidationResult ontologyError(String message) {
-        return OntologyError.of(message);
-    }
 
     static ValidationResult inputError(String message) {
         return new InputError(message);

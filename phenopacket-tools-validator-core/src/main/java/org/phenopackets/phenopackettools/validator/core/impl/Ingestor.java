@@ -1,11 +1,11 @@
 package org.phenopackets.phenopackettools.validator.core.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.google.protobuf.Message;
+import org.phenopackets.schema.v2.Phenopacket;
 
 public interface Ingestor {
 
     JsonNode jsonNode();
-    Message message();
+    Phenopacket message();
 
 }
