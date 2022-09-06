@@ -8,48 +8,37 @@ on:
   pull_request:
     branches: [ main ]
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-# permissions:
-#   contents: read
-#   pages: write
-#   id-token: write
-
-# Allow one concurrent deployment
-# concurrency:
-#   group: "pages"
-#   cancel-in-progress: true
-
 jobs:
   build-docs:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-        with:
-          fetch-depth: 0
+    - name: Checkout
+      uses: actions/checkout@master
+      with:
+        fetch-depth: 0
 
-      - name: Set up Python 3.
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.9
+    - name: Set up Python 3.
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.9
 
-      - name: Install dependencies
-        run: pip install sphinx
+    - name: Install dependencies
+      run: pip install sphinx
 
-      - name: Build documentation
-        run: | 
-          mkdir gh-pages
-          touch gh-pages/.nojekyll
-          cd docs/ 
-          sphinx-build -b html . _build
-          cp -r _build/* ../gh-pages/
+    - name: Build documentation
+      run: | 
+        mkdir gh-pages
+        touch gh-pages/.nojekyll
+        cd docs/ 
+        sphinx-build -b html . _build
+        cp -r _build/* ../gh-pages/
 
-      - name: Deploy documentation.
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
-        with:
-          branch: gh-pages
-          force: true
-          folder: gh-pages
+    - name: Deploy documentation.
+      if: ${{ github.event_name == 'pull_request' }}
+      uses: JamesIves/github-pages-deploy-action@v4.3.0
+      with:
+        branch: gh-pages
+        force: true
+        folder: gh-pages
 
 
