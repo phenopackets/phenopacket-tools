@@ -8,6 +8,9 @@ public class Unit {
 
     private static final OntologyClass MILLIMETRES_OF_MERCURY = ontologyClass("UO:0000272", "millimetres of mercury");
     private static final OntologyClass MILLIMETER = ontologyClass("UO:0000016", "millimeter");
+
+
+    private static final OntologyClass MILLIGRAM = ontologyClass("uom:mg", "milligram");
     private static final OntologyClass MILLIGRAM_PER_KILOGRAM = ontologyClass("UO:0000308", "milligram per kilogram");
     private static final OntologyClass DIOPTER = ontologyClass("NCIT:C100899", "Diopter");
 
@@ -24,6 +27,9 @@ public class Unit {
     public static OntologyClass mm() {
         return MILLIMETER;
     }
+
+    // mass
+    public static OntologyClass milligram() { return MILLIGRAM; }
 
     public static OntologyClass mgPerKg() {
         return MILLIGRAM_PER_KILOGRAM;

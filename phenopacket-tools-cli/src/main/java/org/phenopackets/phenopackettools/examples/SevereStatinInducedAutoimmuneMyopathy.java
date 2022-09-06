@@ -8,6 +8,9 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.List;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
+import static org.phenopackets.phenopackettools.builder.constants.MedicalActions.onceDaily;
+import static org.phenopackets.phenopackettools.builder.constants.MedicalActions.oralAdministration;
+import static org.phenopackets.phenopackettools.builder.constants.Unit.milligram;
 
 
 public class SevereStatinInducedAutoimmuneMyopathy {
@@ -66,6 +69,22 @@ public class SevereStatinInducedAutoimmuneMyopathy {
         return List.of(niddm, htn);
     }
 
+    List<MedicalAction> previousTreatments() {
+        TimeInterval interval = TimeIntervalBuilder.of("2010-09-02", "2020-09-02");
+        var atorvastatin = ontologyClass("DrugCentral:257","atorvastatin");
+        var tenMg = QuantityBuilder.builder(milligram(), 10).build();
+        var tenYearDoseInterval = DoseIntervalBuilder.of(tenMg, onceDaily(), interval);
+        var atorvastatinTreatment = TreatmentBuilder.builder(atorvastatin)
+                .routeOfAdministration(oralAdministration())
+                .addDoseInterval(tenYearDoseInterval)
+                .build();
+        var atorvastatinAction = MedicalActionBuilder.treatment(atorvastatinTreatment);
+
+        return List.of(atorvastatinAction);
+
+
+    }
+
     /**
      * Outcome:
      *
@@ -85,6 +104,8 @@ public class SevereStatinInducedAutoimmuneMyopathy {
      *  Following the fourth administration, CK was stable around 500 U/L and weakness in his limbs had been greatly improved.
      */
     private MedicalAction treatment() {
+
+
         return null;
     }
 
