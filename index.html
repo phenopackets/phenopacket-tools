@@ -35,6 +35,34 @@
             
   <section id="welcome-to-phenopacket-tools-s-documentation">
 <h1>Welcome to phenopacket-tools’s documentation!<a class="headerlink" href="#welcome-to-phenopacket-tools-s-documentation" title="Permalink to this heading">¶</a></h1>
+<p>The <a class="reference external" href="https://phenopacket-schema.readthedocs.io/en/latest/">Phenopacket Schema</a> of the
+<a class="reference external" href="https://www.ga4gh.org/">Global Alliance for Genomics and Health (GA4GH)</a> was
+approved by the GA4GH in 2022 and additional certified by the International Standards</p>
+<blockquote>
+<div><p>Organization (ISO) as <a class="reference external" href="https://www.iso.org/standard/79991.html">ISO 4454:2022</a>.</p>
+</div></blockquote>
+<p>A description of the schema was published in
+<a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/35705716/">Jacobsen JOB, et al. 2022</a> and a detailed tutorial
+appeared in <a href="#id1"><span class="problematic" id="id2">`Ladewig et al., 2022 &lt;  https://onlinelibrary.wiley.com/doi/full/10.1002/ggn2.202200016&gt;`_</span></a>.</p>
+<p>A Phenopacket characterizes an individual person or biosample, linking that individual to detailed phenotypic descriptions,
+genetic information, diagnoses, and treatments. The Phenopacket schema supports the FAIR principles
+(findable, accessible, interoperable, and reusable), and computability. Specifically,
+Phenopackets are designed to be both human and machine-interpretable, enabling computing operations and validation on
+the basis of defined relationships between diagnoses, lab measurements, and genotypic information.</p>
+<p>The phenopacket-tools library was written as a modular Java 17 library and has three main goals.</p>
+<ul class="simple">
+<li><p>To provide a simplified interface for creating GA4GH phenopackets with Java code</p></li>
+<li><p>To provide an extensible validation framework that can be used to check phenopackets for syntactical and semantic correctness.</p></li>
+<li><p>To enable developers to extend the validation framework to encode the specific requirements of consortia or projects using either JSON schema or programmatic tools.</p></li>
+</ul>
+<p>Additionally, phenopacket-tools provides code to convert version 1 to the version 2 (the current version) of the Schema.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>&lt;p&gt;</dt><dd><p>The Phenopacket provides a standardized way of reporting HPO terms and providing additional context. The image and some of the text on this page were adapted from this article.</p>
+</dd>
+</dl>
+<p>&lt;/p&gt;</p>
+</div></blockquote>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -43,14 +71,14 @@
 </li>
 </ul>
 </div>
-</section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
+<dl>
+<dt>I&lt;figure&gt;</dt><dd><blockquote>
+<div><p>&lt;img alt=”GA4GH Phenopacket” src=”<a class="reference external" href="https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg">https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg</a>”  width=”400”&gt;
+&lt;figcaption&gt;Phenopacket Schema overview. The GA4GH Phenopacket Schema is a hierarchical structure that consists of two required fields, id and MetaData, as well as eight optional fields, Individual, Disease, Interpretation, Biosample, PhenotypicFeature, Measurement, MedicalAction, and files. Figure and text from LAdewig et al., &lt;/figcaption&gt;</p>
+</div></blockquote>
+<p>&lt;/figure&gt;</p>
+</dd>
+</dl>
 </section>
 
 
