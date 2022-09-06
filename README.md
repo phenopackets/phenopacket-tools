@@ -42,3 +42,7 @@ pfx-tools validate ~/phenopacket-examples/covid.json
 # or all the json files in a directory
 pfx-tools validate ~/phenopacket-examples/*.json
 ```
+
+
+see this for VRS -- https://github.com/ga4gh/vrs/blob/76542a903b913110e67811885a8958625bbc3aae/schema/vrs.json
+import it like vrsatile
