@@ -37,7 +37,7 @@ provided that checks all ``PhenotypicFeature`` elements, ensures that they use H
 a wanring is emitted, because an annotation with a specific HPO term
 (e.g., `Perimembranous ventricular septal defect <https://hpo.jax.org/app/browse/term/HP:0011682>`_)
 implies all of the ancestors of the term (e.g., a patient with perimembranous VSD by necessity also has
- `Ventricular septal defect <https://hpo.jax.org/app/browse/term/HP:0001629>`_).
+`Ventricular septal defect <https://hpo.jax.org/app/browse/term/HP:0001629>`_).
 
 
 
