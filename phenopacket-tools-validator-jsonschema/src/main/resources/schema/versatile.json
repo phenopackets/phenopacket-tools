@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://www.ga4gh.org/phenopackets",
+  "title": "Phenopacket",
+  "description": "Schema for Global Alliance for Genomics and Health (GA4GH) Phenopacket",
+  "type": "object",
+  "definitions": {
+    "extension": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of an Extension attribute",
+          "type": "string"
+        },
+        "value": {
+          "description": "Value of the attribute",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "expression": {
+      "type": "object",
+      "properties": {
+        "syntax" : {
+          "description": "Name of an nomenclature/syntax (e.g., HGVS or ISCN)",
+          "type": "string"
+        },
+        "value": {
+          "description": "An expression in the indicated syntax, e.g., an HGVS string",
+          "type": "string"
+        },
+        "version": {
+          "description": "Version of the nomenclature/syntax ",
+          "type": "string"
+        }
+      },
+      "required": [
+        "syntax",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "vcfRecord": {
+      "type": "object",
+      "properties": {
+        "genomeAssembly": {
+          "description": "genome version, e.g. hg19, GRCh38",
+          "type": "string"
+        },
+        "chrom" : {
+          "description": "chromosome",
+          "type": "string"
+        },
+        "pos" : {
+          "description": "position on the chromosome (VCF convention)",
+          "type": "integer"
+        },
+        "id" : {
+          "description": "identifier as used in VCF line",
+          "type": "string"
+        },
+        "ref" : {
+          "description": "reference sequence",
+          "type": "string"
+        },
+        "alt" : {
+          "description": "alternate sequence",
+          "type": "string"
+        },
+        "qual" : {
+          "description": "PHRED quality of the variant",
+          "type": "string"
+        },
+        "filter" : {
+          "description": "filter (as per VCF specification)",
+          "type": "string"
+        },
+        "info" : {
+          "description": "information field of VCF line",
+          "type": "string"
+        }
+      },
+      "required": [
+        "genomeAssembly", "chrom", "pos", "ref", "alt"
+      ],
+      "additionalProperties": false
+    },
+    "variationDescriptor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "variation": {
+          "type": "object",
+          "description": "TODO IMPORT THIS"
+        },
+        "label": {
+          "type": "string"
+        },
+        "expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/expression"
+          },
+          "minItems": 0
+        },
+        "vcfRecord": {
+          "type": {
+            "$ref": "#/definitions/vcfRecord"
+          }
+        },
+        "xrefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        },
+        "alternateLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/extension"
+          },
+          "minItems": 0
+        },
+        "moleculeContext": {
+          "enum": [
+            "unspecified_molecule_context",
+            "genomic",
+            "transcript",
+            "protein"
+          ]
+        },
+        "structuralType" : {
+          "type": "object",
+          "description": "TODO IMPORT THIS OntologyClass"
+        },
+        "vrs_ref_allele_seq": {
+          "type": "string",
+          "description": "A Sequence corresponding to a “ref allele”, describing the sequence expected at a SequenceLocation reference"
+        },
+        "allelicState" : {
+          "type": "object",
+          "description": "TODO IMPORT THIS OntologyClass"
+        }
+      }
+    },
+    "geneDescriptor" : {
+      "type": "object",
+      "properties": {
+        "valueId": {
+          "type": "string",
+          "description": "The official gene identifier as designated by the organism gene nomenclature committee e.g. HGNC:3477 or MGI:2385071"
+        },
+        "symbol": {
+          "type": "string",
+          "description": "The primary gene symbol"
+        },
+        "description": {
+          "type": "string",
+          "description": "Free-text description"
+        },
+        "alternateIds" : {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        },
+        "alternateSymbols" : {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        },
+        "xrefs" : {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0
+        }
+      }
+    }
+  }
+}
