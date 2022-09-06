@@ -1,9 +1,15 @@
 package org.phenopackets.phenopackettools.examples;
 
+import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
+import org.phenopackets.phenopackettools.builder.builders.*;
+import org.phenopackets.schema.v2.Phenopacket;
+import org.phenopackets.schema.v2.core.Individual;
 import org.phenopackets.schema.v2.core.MedicalAction;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
 
 import java.util.List;
+
+import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
 public class CervicofacialActinomycosisOfTheMandible {
 
@@ -11,33 +17,28 @@ public class CervicofacialActinomycosisOfTheMandible {
     private static final String PHENOPACKET_ID = "arbitrary.id";
     private static final String INDIVIDUAL = "individual A";
 
-//    private final Phenopacket phenopacket;
+    private final Phenopacket phenopacket;
 
     public CervicofacialActinomycosisOfTheMandible() {
 
-//        var externalRef = ExternalReferenceBuilder.builder()
-//                .id("DOI:10.1136/bcr-2019-233681")
-//                .builder("PMID:32467116")
-//                .description("Cervicofacial actinomycosis of the mandible in a paediatric patient")
-//                .build();
-//
-//        //TODO: Fix ontology versions
-//        var metadata = MetaDataBuilder.builder("2022-04-21T10:35:00Z", "anonymous biocurator")
-//                .resource(Resources.ncitVersion("21.05d"))
-//                .resource(Resources.hpoVersion("2021-08-02"))
-//                .resource(Resources.efoVersion("3.34.0"))
-//                .resource(Resources.uberonVersion("2021-07-27"))
-//                .resource(Resources.ncbiTaxonVersion("2021-06-10"))
-//                .externalReference(externalRef)
-//                .build();
-//
-//        Individual proband = IndividualBuilder.builder(INDIVIDUAL).
-//                ageAtLastEncounter("P10Y").
-//                female().
-//                build();
-//
-//        phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
-//                .individual(proband)
+       var externalRef = ExternalReferenceBuilder.of("PMID:32467116",
+               "Cervicofacial actinomycosis of the mandible in a paediatric patient");
+
+        var metadata = MetaDataBuilder.builder("2022-04-21T10:35:00Z", "anonymous biocurator")
+               .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.hpoVersion("2022-06-11"))
+                .addResource(Resources.efoVersion("3.34.0"))
+                .addResource(Resources.uberonVersion("2021-07-27"))
+                .addExternalReference(externalRef)
+               .build();
+
+       Individual proband = IndividualBuilder.builder(INDIVIDUAL).
+               ageAtLastEncounter("P10Y").
+               female().
+                build();
+
+        phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
+                .individual(proband)
 //                .addAllPhenotypicFeatures(getMedicalHistory())
 //                .addAllPhenotypicFeatures(getLast8Monthsistory())
 //                .addMedicalAction(neckCT())
@@ -49,7 +50,7 @@ public class CervicofacialActinomycosisOfTheMandible {
 //                .addMedicalAction(tissueCultures())
 //                .addMedicalAction(anaerobicCultures())
 //                .addMedicalAction(treatment())
-//                .build();
+                .build();
     }
 
     /**
@@ -148,7 +149,12 @@ public class CervicofacialActinomycosisOfTheMandible {
      * - no significant medical history
      */
     private List<PhenotypicFeature> getMedicalHistory() {
-        return null;
+        var age9y4m = TimeElements.age("P9Y4M");
+        var mandiblePain = PhenotypicFeatureBuilder.builder("HP:0200025", "Mandibular pain")
+                .onset(age9y4m).build();
+        var fever = PhenotypicFeatureBuilder.builder("HP:0001954", "Recurrent fever")
+                .onset(age9y4m).build();
+        return List.of(mandiblePain, fever);
     }
 
     /**

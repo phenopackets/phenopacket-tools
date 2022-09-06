@@ -20,6 +20,10 @@ public class DiagnosisBuilder {
     public static DiagnosisBuilder builder(OntologyClass disease) {
         return new DiagnosisBuilder(disease);
     }
+    public static DiagnosisBuilder builder(String id, String label) {
+        OntologyClass dx = OntologyClass.newBuilder().setId(id).setLabel(label).build();
+        return new DiagnosisBuilder(dx);
+    }
 
     public Diagnosis build() {
         return builder.build();

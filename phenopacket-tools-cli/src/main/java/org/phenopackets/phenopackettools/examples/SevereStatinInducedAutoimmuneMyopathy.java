@@ -20,11 +20,8 @@ public class SevereStatinInducedAutoimmuneMyopathy {
 
     public SevereStatinInducedAutoimmuneMyopathy() {
 
-        var externalRef = ExternalReferenceBuilder.reference()
-                .id("DOI:10.1136/bcr-2020-234805")
-               // .builder("PMID:32444443")
-                .description("Severe statin-induced autoimmune myopathy successfully treated with intravenous immunoglobulin")
-                .build();
+        var externalRef = ExternalReferenceBuilder.of("PMID:32444443",
+                        "Severe statin-induced autoimmune myopathy successfully treated with intravenous immunoglobulin");
 
         //TODO: Fix ontology versions
         var metadata = MetaDataBuilder.builder("2022-04-21T10:35:00Z", "anonymous biocurator")
@@ -52,6 +49,14 @@ public class SevereStatinInducedAutoimmuneMyopathy {
                 .addInterpretation(interpretation())
                 .addMedicalAction(treatment())
                 .build();
+    }
+
+
+    List<Disease> getDiseases() {
+        var niddm = DiseaseBuilder.builder("MONDO:0005148", "type 2 diabetes mellitus").build();
+        var htn = DiseaseBuilder.builder("MONDO:0001134", "essential hypertension").build();
+
+        return List.of(niddm, htn);
     }
 
     /**
@@ -138,7 +143,12 @@ public class SevereStatinInducedAutoimmuneMyopathy {
      * - type 2 diabetes mellitus diagnosed 10 years back
      */
     private List<PhenotypicFeature> getMedicalHistory() {
-        return null;
+        var age65y = TimeElements.age("P65Y");
+        var proxLegWeakness = PhenotypicFeatureBuilder.builder("HP:0008994",
+                "Proximal muscle weakness in lower limbs").onset(age65y).build();
+        return List.of(proxLegWeakness);
+
+
     }
 
     /**
