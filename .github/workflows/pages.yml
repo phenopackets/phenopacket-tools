@@ -56,11 +56,11 @@ jobs:
           # Upload entire repository
       #    path: '.'
       - name: Deploy documentation.
-          if: ${{ github.event_name == 'pull_request' }}
-          uses: JamesIves/github-pages-deploy-action@v4.3.0
-          with:
-            branch: gh-pages
-            force: true
-            folder: gh-pages
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          branch: gh-pages
+          force: true
+          folder: gh-pages
 
 
