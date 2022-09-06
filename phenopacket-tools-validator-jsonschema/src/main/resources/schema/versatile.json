@@ -97,8 +97,7 @@
           "type": "string"
         },
         "variation": {
-          "type": "object",
-          "description": "TODO IMPORT THIS"
+          "$ref": "vrs.json#/definitions/Variation"
         },
         "label": {
           "type": "string"
@@ -145,16 +144,14 @@
           ]
         },
         "structuralType" : {
-          "type": "object",
-          "description": "TODO IMPORT THIS OntologyClass"
+          "$ref":"phenopacket-schema-2-0.json#/definitions/ontologyClass"
         },
         "vrs_ref_allele_seq": {
           "type": "string",
           "description": "A Sequence corresponding to a “ref allele”, describing the sequence expected at a SequenceLocation reference"
         },
-        "allelicState" : {
-          "type": "object",
-          "description": "TODO IMPORT THIS OntologyClass"
+        "allelicState" :  {
+          "$ref":"phenopacket-schema-2-0.json#/definitions/ontologyClass"
         }
       }
     },

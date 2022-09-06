@@ -300,8 +300,24 @@
         }
       ]
     },
+    "typedQuantity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "quantity": {
+          "$ref": "#/definitions/quantity"
+        }
+      }
+    },
     "complexValue": {
-      "type": "null"
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/typedQuantity"
+      },
+      "minItems": 1,
+      "uniqueItems": true
     },
     "measurement": {
     },
@@ -373,7 +389,29 @@
       "additionalProperties": false
     },
     "variantInterpretation": {
-      "type": "null"
+      "type": "object",
+      "properties": {
+        "acmgPathogenicityClassification": {
+          "enum": [
+            "NOT_PROVIDED",
+            "BENIGN",
+            "LIKELY_BENIGN",
+            "UNCERTAIN_SIGNIFICANCE",
+            "LIKELY_PATHOGENIC",
+            "PATHOGENIC"
+          ]
+        },
+        "therapeuticActionability": {
+          "enum": [
+            "UNKNOWN_ACTIONABILITY",
+            "NOT_ACTIONABLE",
+            "ACTIONABLE"
+          ]
+        },
+        "variationdescriptor": {
+          "$ref" : "versatile.json#/definitions/variationDescriptor"
+        }
+      }
     },
     "geneDescriptor": {
       "type": "object",
@@ -428,7 +466,7 @@
               "$ref": "#/definitions/geneDescriptor"
             },
             {
-              "$ref": "#/definitions/geneDescriptor"
+              "$ref": "#/definitions/variantInterpretation"
             }
           ]
         }
@@ -507,21 +545,14 @@
         },
         "diagnosis": {
           "$ref": "#/definitions/diagnosis"
+        },
+        "summary" : {
+          "type": "string"
         }
       },
       "required": [
         "id",
         "progressStatus"
-      ]
-    },
-    "variationInterpretation": {
-      "oneOf": [
-        {
-          "$ref": "#/definitions/geneDescriptor"
-        },
-        {
-          "$ref": "#/definitions/geneDescriptor"
-        }
       ]
     },
     "procedure": {
