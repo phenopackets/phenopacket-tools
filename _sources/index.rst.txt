@@ -28,22 +28,15 @@ The phenopacket-tools library was written as a modular Java 17 library and has t
 
 Additionally, phenopacket-tools provides code to convert version 1 to the version 2 (the current version) of the Schema.
 
-  <p>
-    The Phenopacket provides a standardized way of reporting HPO terms and providing additional context. The image and some of the text on this page were adapted from this article.
-  </p>
-
-
-
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   static/intro.md
+   _static/creating<Creating GA4GH phenopackets>
    modules
 
-I<figure>
-      <img alt="GA4GH Phenopacket" src="https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg"  width="400">
-      <figcaption>Phenopacket Schema overview. The GA4GH Phenopacket Schema is a hierarchical structure that consists of two required fields, id and MetaData, as well as eight optional fields, Individual, Disease, Interpretation, Biosample, PhenotypicFeature, Measurement, MedicalAction, and files. Figure and text from LAdewig et al., </figcaption>
-    </figure>
+
+.. image:: https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg
+    :alt: GA4GH Phenopacket
