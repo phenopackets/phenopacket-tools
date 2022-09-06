@@ -68,6 +68,11 @@ public class PhenopacketBuilder {
         return this;
     }
 
+    public PhenopacketBuilder addAllDiseases(List<Disease> diseaseList) {
+        builder.addAllDiseases(diseaseList);
+        return this;
+    }
+
     public PhenopacketBuilder addMedicalAction(MedicalAction medicalAction) {
         builder.addMedicalActions(medicalAction);
         return this;

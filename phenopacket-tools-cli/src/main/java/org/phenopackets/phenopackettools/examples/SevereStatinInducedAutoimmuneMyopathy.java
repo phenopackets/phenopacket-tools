@@ -40,6 +40,7 @@ public class SevereStatinInducedAutoimmuneMyopathy {
 
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
+                .addAllDiseases(getDiseases())
                 .addAllPhenotypicFeatures(getMedicalHistory())
                 .addMedicalAction(existingTreatment())
                 .addAllPhenotypicFeatures(getLastMonthHistory())
@@ -52,9 +53,15 @@ public class SevereStatinInducedAutoimmuneMyopathy {
     }
 
 
+    /**
+     * Returns the disease diagnoses that form the past medical history of our patient -- type 2 Disbetes mellitus and
+     * hypertension.
+     * @return
+     */
     List<Disease> getDiseases() {
-        var niddm = DiseaseBuilder.builder("MONDO:0005148", "type 2 diabetes mellitus").build();
-        var htn = DiseaseBuilder.builder("MONDO:0001134", "essential hypertension").build();
+        var age55y = TimeElements.age("P55Y");
+        var niddm = DiseaseBuilder.builder("MONDO:0005148", "type 2 diabetes mellitus").onset(age55y).build();
+        var htn = DiseaseBuilder.builder("MONDO:0001134", "essential hypertension").onset(age55y).build();
 
         return List.of(niddm, htn);
     }

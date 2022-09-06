@@ -1,17 +1,19 @@
 package org.phenopackets.phenopackettools.examples;
 
+import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
 import org.phenopackets.phenopackettools.builder.builders.*;
+import org.phenopackets.schema.v2.core.Age;
 import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.schema.v2.core.Individual;
-import org.phenopackets.schema.v2.core.MedicalAction;
-import org.phenopackets.schema.v2.core.PhenotypicFeature;
+import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
+import static org.phenopackets.phenopackettools.builder.constants.Laterality.left;
+import static org.phenopackets.phenopackettools.builder.constants.Severity.severe;
 
-public class CervicofacialActinomycosisOfTheMandible {
+public class CervicofacialActinomycosisOfTheMandible implements PhenopacketExample {
 
 
     private static final String PHENOPACKET_ID = "arbitrary.id";
@@ -49,7 +51,7 @@ public class CervicofacialActinomycosisOfTheMandible {
 //                .addMedicalAction(frozenSection())
 //                .addMedicalAction(tissueCultures())
 //                .addMedicalAction(anaerobicCultures())
-//                .addMedicalAction(treatment())
+                .addMedicalAction(treatment())
                 .build();
     }
 
@@ -131,6 +133,43 @@ public class CervicofacialActinomycosisOfTheMandible {
      * - 6-month course of oral amoxicillin 1000mg two times per day
      */
     private MedicalAction treatment() {
+
+        //automatically generated
+        OntologyClass tricepsWeakenss = OntologyClass.newBuilder()
+                .setId("HP:0031108")
+                .setLabel("Triceps weakness")
+                .build();
+        OntologyClass left = OntologyClass.newBuilder()
+                .setId("HP:0012835")
+                .setLabel("Left")
+                .build();
+        OntologyClass severe = OntologyClass.newBuilder()
+                .setId("HP:0012828")
+                .setLabel("Severe")
+                .build();
+        Age iso8601duration = Age.newBuilder().setIso8601Duration("P11Y4M").build();
+        var ageElement = TimeElement.newBuilder().setAge(iso8601duration)
+                .setAge(iso8601duration)
+                .build();
+        PhenotypicFeature pfeature = PhenotypicFeature.newBuilder()
+                .setType(tricepsWeakenss)
+                .setOnset(ageElement)
+                .setSeverity(severe)
+                .addModifiers(left)
+                .build();
+
+        PhenotypicFeature pfeature2 = PhenotypicFeatureBuilder.builder("HP:0031108","Triceps weakness")
+                .severity(severe())
+                .addModifier(left())
+                .onset(TimeElements.age("P11Y4M"))
+                .build();
+        try {
+            System.out.println(JsonFormat.printer().print(pfeature));
+            System.out.println(JsonFormat.printer().print(pfeature2));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -155,6 +194,11 @@ public class CervicofacialActinomycosisOfTheMandible {
         var fever = PhenotypicFeatureBuilder.builder("HP:0001954", "Recurrent fever")
                 .onset(age9y4m).build();
         return List.of(mandiblePain, fever);
+    }
+
+    @Override
+    public Phenopacket getPhenopacket() {
+        return phenopacket;
     }
 
     /**
