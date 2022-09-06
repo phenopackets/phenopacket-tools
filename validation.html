@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Validating Phenopackets &#8212; phenopacket-tools  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Creating Phenopackets" href="creating.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="validating-phenopackets">
+<span id="rstvalidating"></span><h1>Validating Phenopackets<a class="headerlink" href="#validating-phenopackets" title="Permalink to this heading">¶</a></h1>
+<section id="protobuf">
+<h2>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading">¶</a></h2>
+<p>Phenopackets schema uses protobuf, an exchange format developed
+in 2008 by Google. We refer readers to the excellent
+<a class="reference external" href="https://en.wikipedia.org/wiki/Protocol_Buffers">Wikipedia page</a>
+on Protobuf and to <a class="reference external" href="https://developers.google.com/protocol-buffers/">Google’s documentation</a>
+for details.
+In Protobuf (version 3, which is what the Phenopacket Schema uses),
+all fields are optional. However, the Phenopacket Schema defines
+certain fields to be optional
+(See <a class="reference external" href="https://phenopacket-schema.readthedocs.io/en/latest/index.html">documentation</a> for details).
+Also, a phenopacket message can be represented in native protobuf (binary) format, JSON, YAML, and
+other formats.</p>
+</section>
+<section id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this heading">¶</a></h2>
+<p>The phenopacket-tools library offers JSON-Schema-based and semantic validations. The syntactic validation
+is done using JSON schema. Additionally, an interface is provided to perform arbitrary kinds of validation.
+This validation should be performed for all phenophenopackets.</p>
+<p>Additional contraints and requirements may be made for phenopackets that are used in a specific
+project or for a specific collabopration or consortium. For instance, a rare-disease consortium
+may require that all phenotypic features be recorded using valid HPO terms. An exmaple class is
+provided that checks all <code class="docutils literal notranslate"><span class="pre">PhenotypicFeature</span></code> elements, ensures that they use HPO terms with valid
+(i.e., primary) id’s, and checks whether both a term and an ancestor of the term are used - if so
+a wanring is emitted, because an annotation with a specific HPO term
+(e.g., <a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0011682">Perimembranous ventricular septal defect</a>)
+implies all of the ancestors of the term (e.g., a patient with perimembranous VSD by necessity also has</p>
+<blockquote>
+<div><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001629">Ventricular septal defect</a>).</p>
+</div></blockquote>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">phenopacket-tools</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Validating Phenopackets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#protobuf">Protobuf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="creating.html" title="previous chapter">Creating Phenopackets</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Peter Robinson.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/validation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

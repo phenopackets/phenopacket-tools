@@ -16,7 +16,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="phenopacket-tools" href="modules.html" />
+    <link rel="next" title="Creating Phenopackets" href="creating.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -35,22 +35,38 @@
             
   <section id="welcome-to-phenopacket-tools-s-documentation">
 <h1>Welcome to phenopacket-tools’s documentation!<a class="headerlink" href="#welcome-to-phenopacket-tools-s-documentation" title="Permalink to this heading">¶</a></h1>
+<p>The <a class="reference external" href="https://phenopacket-schema.readthedocs.io/en/latest/">Phenopacket Schema</a> of the
+<a class="reference external" href="https://www.ga4gh.org/">Global Alliance for Genomics and Health (GA4GH)</a> was
+approved by the GA4GH in 2022 and additional certified by the International Standards
+Organization (ISO) as <a class="reference external" href="https://www.iso.org/standard/79991.html">ISO 4454:2022</a>.
+A description of the schema was published in
+<a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/35705716/">Jacobsen JOB, et al. 2022</a> and a detailed tutorial
+appeared in <a class="reference external" href="https://onlinelibrary.wiley.com/doi/full/10.1002/ggn2.202200016">Ladewig et al., 2022</a>.</p>
+<p>A Phenopacket characterizes an individual person or biosample, linking that individual to detailed phenotypic descriptions,
+genetic information, diagnoses, and treatments. The Phenopacket schema supports the FAIR principles
+(findable, accessible, interoperable, and reusable), and computability. Specifically,
+Phenopackets are designed to be both human and machine-interpretable, enabling computing operations and validation on
+the basis of defined relationships between diagnoses, lab measurements, and genotypic information.</p>
+<p>The phenopacket-tools library was written as a modular Java 17 library and has three main goals.</p>
+<ul class="simple">
+<li><p>To provide a simplified interface for creating GA4GH phenopackets with Java code</p></li>
+<li><p>To provide an extensible validation framework that can be used to check phenopackets for syntactical and semantic correctness.</p></li>
+<li><p>To enable developers to extend the validation framework to encode the specific requirements of consortia or projects using either JSON schema or programmatic tools.</p></li>
+</ul>
+<p>Additionally, phenopacket-tools provides code to convert version 1 to the version 2 (the current version) of the Schema.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="creating.html#phenopacket-tools-builder-pattern">Phenopacket-tools builder pattern</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">phenopacket-tools</a><ul class="simple">
 </ul>
 </li>
 </ul>
 </div>
-</section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
+<img alt="GA4GH Phenopacket" src="https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg" />
 </section>
 
 
@@ -72,6 +88,7 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">phenopacket-tools</a></li>
 </ul>
 
@@ -79,7 +96,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="modules.html" title="next chapter">phenopacket-tools</a></li>
+      <li>Next: <a href="creating.html" title="next chapter">Creating Phenopackets</a></li>
   </ul></li>
 </ul>
 </div>
