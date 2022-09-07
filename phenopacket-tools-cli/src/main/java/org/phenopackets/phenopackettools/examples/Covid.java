@@ -60,8 +60,8 @@ public class Covid implements PhenopacketExample {
 
         phenopacket = PhenopacketBuilder.create("arbitrary.phenopacket.id", metaData)
                 .individual(patient)
-                .addAllPhenotypicFeatures(getAllPhenotypicFeatures())
-                .addAllMeasurements(getAllMeasurements())
+                .addPhenotypicFeatures(getAllPhenotypicFeatures())
+                .addMeasurements(getAllMeasurements())
                 // .addMeasurements(initialBloodLymphocyteCount)
                 // .addMeasurements(hoD0bloodLymphocyteCount)
                 .addMedicalAction(lvadImplant())

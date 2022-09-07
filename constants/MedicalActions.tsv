@@ -1,9 +1,10 @@
 ontology.id	ontology.label	variable.name	function.name
+NCIT:C41331	Adverse Event	ADVERSE_EVENT	adverseEvent
+NCIT:C64530	Four Times Daily	FOUR_TIMES_DAILY	fourtimesDaily
 NCIT:C38222	Intraarterial Route of Administration	INTRA_ARTERIAL	intraArterialAdministration
+NCIT:C38276	Intravenous Route of Administration	IV_ADMINISTRATION	intravenousAdministration
 NCIT:C38288	Oral Route of Administration	ORAL_ADMINISTRATION	oralAdministration
 NCIT:C64576	Once	ONCE	once
 NCIT:C125004	Once Daily	ONCE_DAILY	onceDaily
-NCIT:C64496	Twice Daily	TWICE_DAILY	twiceDaily
 NCIT:C64527	Three Times Daily	THREE_TIMES_DAILY	threetimesDaily
-NCIT:C64530	Four Times Daily	FOUR_TIMES_DAILY	fourtimesDaily
-NCIT:C41331	Adverse Event	ADVERSE_EVENT	adverseEvent
+NCIT:C64496	Twice Daily	TWICE_DAILY	twiceDaily

@@ -125,7 +125,7 @@ public class ExamplesCommand implements Callable<Integer> {
             output(new Covid().getPhenopacket(), outDirectory, "covid");
             output(new Retinoblastoma().getPhenopacket(), outDirectory, "retinoblastoma");
             output(new WarburgMicroSyndrome().getPhenopacket(), outDirectory, "warburg-micro-syndrome");
-            output(new CervicofacialActinomycosisOfTheMandible().getPhenopacket(), outDirectory, "warburg-micro-syndrome");
+            output(new SevereStatinInducedAutoimmuneMyopathy().getPhenopacket(), outDirectory, "statin-myopathy");
             outputFamily(new FamilyWithPedigree().getFamily(), outDirectory, "family");
         } catch (Exception e) {
             System.err.println(e.getMessage());

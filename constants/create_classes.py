@@ -37,7 +37,7 @@ class ConstantItem:
 
 class Entry:
     def __init__(self, filename, items):
-        suffix = ".csv"
+        suffix = ".tsv"
         if  filename.endswith(suffix):
             self._name = filename[:-len(suffix)]
         else:

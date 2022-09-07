@@ -1,14 +1,20 @@
 ontology.id	ontology.label	variable.name	function.name
-UCUM:mg	milligram	MILLIGRAM	milligram
-UCUM:m	gram	GRAM	gram
-UCUM:ug	microgram	MICROGRAM	microgram
+UCUM:[diop]	diopter	DIOPTER	diopter
+UCUM:g	gram	GRAM	gram
+UCUM:g/kg	gram per kilogram	GRAM_PER_KG	gramPerKilogram
 UCUM:kg	kiligram	KILIGRAM	kilogram
-UCUM:uL	microliter	MICROLITER	microliter
-UCUM:mL	milliliter	MILLILITER	milliliter
 UCUM:L	liter	LITER	liter
-UCUM:um	micrometer	MICROMETER	micrometer
-UCUM:mm	millimeter	MILLIMETER	millimeter
 UCUM:m	meter	METER	meter
+UCUM:ug	microgram	MICROGRAM	microgram
+UCUM:uL	microliter	MICROLITER	microliter
+UCUM:um	micrometer	MICROMETER	micrometer
+UCUM:mg	milligram	MILLIGRAM	milligram
 UCUM:mg.kg-1	milligram per kilogram	MILLIGRAM_PER_KG	mgPerKg
-UO:0000272	millimetres of mercury	MILLIMETRES_OF_MERCURY	mmHg
-NCIT:C100899	Diopter	DIOPTER	diopter
+UCUM:mL	milliliter	MILLILITER	milliliter
+UCUM:mm	millimeter	MILLIMETER	millimeter
+UCUM:mm[Hg]	millimetres of mercury	MILLIMETRES_OF_MERCURY	mmHg
+UCUM:mmol	millimole	MILLIMOLE	millimole
+UCUM:mol	mole	MOLE	mole
+UCUM:mol/L	mole per liter	MOLE_PER_LITER	molePerLiter
+UCUM:mol/mL	mole per milliliter	MOLE_PER_MILLILITER	molePerMilliliter
+UCUM:U/L	enzyme unit per liter	ENZYME_UNIT_PER_LITER	enzymeUnitPerLiter

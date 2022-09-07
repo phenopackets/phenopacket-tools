@@ -4,6 +4,8 @@ import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
+import static org.phenopackets.phenopackettools.builder.constants.MedicalActions.onceDaily;
+
 public class MedicalActionBuilder {
 
     private final MedicalAction.Builder builder;
@@ -50,6 +52,28 @@ public class MedicalActionBuilder {
 
     public static MedicalActionBuilder builder(RadiationTherapy rxTherapy) {
         return new MedicalActionBuilder(rxTherapy);
+    }
+
+    public static MedicalActionBuilder oralAdministration(OntologyClass agent,
+                                                          Quantity quantity,
+                                                          OntologyClass scheduleFrequency,
+                                                          TimeInterval interval) {
+        var doseInterval = DoseIntervalBuilder.of(quantity, scheduleFrequency, interval);
+        var tb = TreatmentBuilder.oralAdministration(agent)
+                .addDoseInterval(doseInterval)
+                .build();
+        return new MedicalActionBuilder(tb);
+    }
+
+    public static MedicalActionBuilder intravenousAdministration(OntologyClass agent,
+                                                          Quantity quantity,
+                                                          OntologyClass scheduleFrequency,
+                                                          TimeInterval interval) {
+        var doseInterval = DoseIntervalBuilder.of(quantity, scheduleFrequency, interval);
+        var tb = TreatmentBuilder.intravenousAdministration(agent)
+                .addDoseInterval(doseInterval)
+                .build();
+        return new MedicalActionBuilder(tb);
     }
 
     public static MedicalActionBuilder builder(TherapeuticRegimen regimen) {

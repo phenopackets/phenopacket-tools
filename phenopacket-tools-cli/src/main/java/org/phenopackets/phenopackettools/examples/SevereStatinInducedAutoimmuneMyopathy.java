@@ -8,12 +8,12 @@ import org.phenopackets.schema.v2.core.*;
 import java.util.List;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
-import static org.phenopackets.phenopackettools.builder.constants.MedicalActions.onceDaily;
-import static org.phenopackets.phenopackettools.builder.constants.MedicalActions.oralAdministration;
-import static org.phenopackets.phenopackettools.builder.constants.Unit.milligram;
+import static org.phenopackets.phenopackettools.builder.constants.MedicalActions.*;
+import static org.phenopackets.phenopackettools.builder.constants.Response.favorable;
+import static org.phenopackets.phenopackettools.builder.constants.Unit.*;
 
 
-public class SevereStatinInducedAutoimmuneMyopathy {
+public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample{
 
 
     private static final String PHENOPACKET_ID = "arbitrary.id";
@@ -43,15 +43,12 @@ public class SevereStatinInducedAutoimmuneMyopathy {
 
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
-                .addAllDiseases(getDiseases())
-                .addAllPhenotypicFeatures(getMedicalHistory())
-                .addMedicalAction(existingTreatment())
-                .addAllPhenotypicFeatures(getLastMonthHistory())
-                .addAllPhenotypicFeatures(getSymptomsOnPresentation())
-                .addAllMeasurements(getLabsOnPresentation())
-                .addAllPhenotypicFeatures(getEMG())
-                .addInterpretation(interpretation())
-                .addMedicalAction(treatment())
+                .addDiseases(getDiseases())
+                .addMedicalActions(previousTreatments())
+                .addPhenotypicFeatures(getSymptomsOnPresentation())
+                .addMeasurements(getLabsOnPresentation())
+                .addMedicalActions(existingTreatment())
+               .addMedicalAction(treatment())
                 .build();
     }
 
@@ -73,16 +70,26 @@ public class SevereStatinInducedAutoimmuneMyopathy {
         TimeInterval interval = TimeIntervalBuilder.of("2010-09-02", "2020-09-02");
         var atorvastatin = ontologyClass("DrugCentral:257","atorvastatin");
         var tenMg = QuantityBuilder.builder(milligram(), 10).build();
-        var tenYearDoseInterval = DoseIntervalBuilder.of(tenMg, onceDaily(), interval);
-        var atorvastatinTreatment = TreatmentBuilder.builder(atorvastatin)
-                .routeOfAdministration(oralAdministration())
-                .addDoseInterval(tenYearDoseInterval)
+        var atorvastatinAction = MedicalActionBuilder
+                .oralAdministration(atorvastatin, tenMg, onceDaily(), interval)
+                .addAdverseEvent(ontologyClass("HP:0003198","Myopathy"))
+                .treatmentTerminationReason(adverseEvent())
                 .build();
-        var atorvastatinAction = MedicalActionBuilder.treatment(atorvastatinTreatment);
-
-        return List.of(atorvastatinAction);
-
-
+        var aspirin = ontologyClass("DrugCentral:74","acetylsalicylic acid");
+        var seventyFiveMg = QuantityBuilder.builder(milligram(), 75).build();
+        var aspirinAction = MedicalActionBuilder
+                .oralAdministration(aspirin, seventyFiveMg, onceDaily(), interval)
+                .build();
+        var ramipril = ontologyClass("DrugCentral:2356", "ramipril");
+        var ramiprilAction = MedicalActionBuilder
+                .oralAdministration(ramipril, tenMg, onceDaily(), interval)
+                .build();
+        var metformin = ontologyClass( "DrugCentral:1725", "metformin");
+        var fiveHundredMg = QuantityBuilder.builder(milligram(), 500).build();
+        var metforminAction = MedicalActionBuilder
+                .oralAdministration(metformin, fiveHundredMg, threetimesDaily(), interval)
+                .build();
+        return List.of(atorvastatinAction, aspirinAction, ramiprilAction, metforminAction);
     }
 
     /**
@@ -95,18 +102,25 @@ public class SevereStatinInducedAutoimmuneMyopathy {
      * Atorvastatin was stopped
      *  muscle weakness deteriorated in his legs
      *  spread to his arms making immune-modulating treatment necessary
-     *  155 g IVIg, equivalent to 1.6 g/kg of body weight, was administered over 3 days
-     *  55 g on the first day and 50 g on the second and third day
+     *  155 g IVIg, equivalent to 1.6 g/kg of body weight, was administered over 3 days
+     *  55 g on the first day and 50 g on the second and third day
      *  developed a headache after first dose
      *  lack of significant improvement of the CK
-     *  treatment was continued every 6 weeks slightly reducing the dose to 150 g
+     *  treatment was continued every 6 weeks slightly reducing the dose to 150 g
      *  After the third course of treatment, the CK in serum drastically fell to a mildly elevated level
-     *  Following the fourth administration, CK was stable around 500 U/L and weakness in his limbs had been greatly improved.
+     *  Following the fourth administration, CK was stable around 500 U/L and weakness in his limbs had been greatly improved.
      */
     private MedicalAction treatment() {
+        var ivIg = ontologyClass("NCIT:C121331", "Intravenous Immunoglobulin Therapy");
+        var everySixWeeks = ontologyClass("NCIT:C89788", "Every Six Weeks");
+        var quantity = QuantityBuilder.builder(gramPerKilogram(), 1.6).build();
+        TimeInterval interval = TimeIntervalBuilder.of("2020-09-02", "2021-03-02");
+        var ivIgAction = MedicalActionBuilder
+                .intravenousAdministration(ivIg, quantity, everySixWeeks, interval)
+                .responseToTreatment(favorable())
+                .build();
 
-
-        return null;
+        return ivIgAction;
     }
 
     /**
@@ -120,15 +134,24 @@ public class SevereStatinInducedAutoimmuneMyopathy {
     }
 
     /**
-     * creatine kinase (CK) level was raised up to 4292 U/L
-     * alanine transaminase (ALT) was raised to 234 U/L
+     * creatine kinase (CK) level was raised up to 4292 U/L
+     * alanine transaminase (ALT) was raised to 234 U/L
      * Alkaline phosphatase and bilirubin were normal
      * Autoantibodies against HMG-CoA reductase were positive.
-     * Haemoglobin A1C was 51 mmol/mol.
+     * Haemoglobin A1C was 51 mmol/mol.
      * Full blood count, thyroid function tests, renal profile, vitamin D and B12 were all normal.
      */
     private List<Measurement> getLabsOnPresentation() {
-        return null;
+       var ckTest = ontologyClass("LOINC:2157-6",
+               "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma");
+       var ckValue = ValueBuilder.of(enzymeUnitPerLiter(), 4292, 20, 200);
+       Measurement ckMeasurement = MeasurementBuilder.builder(ckTest, ckValue).build();
+
+       var altTest = ontologyClass("LOINC:1742-6",
+               "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma");
+       var altValue = ValueBuilder.of(enzymeUnitPerLiter(), 234, 4, 36);
+        Measurement altMeasurement = MeasurementBuilder.builder(altTest, altValue).build();
+        return List.of(ckMeasurement, altMeasurement);
     }
 
     /**
@@ -143,9 +166,7 @@ public class SevereStatinInducedAutoimmuneMyopathy {
      * loss of vibration sense up to the tibial plateau bilaterally
      * Examination of the cranial nerves and the upper limbs was unremarkable.
      */
-    private List<PhenotypicFeature> getSymptomsOnPresentation() {
-        return null;
-    }
+
 
     /**
      * Last month history:
@@ -165,16 +186,44 @@ public class SevereStatinInducedAutoimmuneMyopathy {
     }
 
     /**
-     * Medical history:
-     *
-     * - hypertension diagnosed 10 years back
-     * - type 2 diabetes mellitus diagnosed 10 years back
+     * On examination fasciculations and wasting were noticed in both quadriceps muscles.
+     * The muscular tone was normal. There was proximal weakness in both legs.
+     * Trendelenburg's and Gower's signs were positive. The knee jerks were brisk.
+     * Sensation was intact except loss of vibration sense up to the tibial plateau
+     * bilaterally which had been known to the patient for many years.
+     * Examination of the cranial nerves and the upper limbs was unremarkable.
      */
-    private List<PhenotypicFeature> getMedicalHistory() {
+    private List<PhenotypicFeature> getSymptomsOnPresentation() {
         var age65y = TimeElements.age("P65Y");
         var proxLegWeakness = PhenotypicFeatureBuilder.builder("HP:0008994",
                 "Proximal muscle weakness in lower limbs").onset(age65y).build();
-        return List.of(proxLegWeakness);
+        var fasciculations = PhenotypicFeatureBuilder
+                .builder("HP:0007289", "Limb fasciculations").onset(age65y).build();
+        var amyotrophy = PhenotypicFeatureBuilder.
+        builder("HP:0008956", "Proximal lower limb amyotrophy").onset(age65y).build();
+        var notAbnormalMuscleTone = PhenotypicFeatureBuilder
+                .builder("HP:0003808", "Abnormal muscle tone")
+                .onset(age65y)
+                .excluded()
+                .build();
+        var gower = PhenotypicFeatureBuilder.builder("HP:0003391", "Gowers sign")
+                .onset(age65y)
+                .build();
+        var stairs = PhenotypicFeatureBuilder
+                .builder("HP:0003551", "Difficulty climbing stairs")
+                .onset(age65y)
+                .build();
+        var vibration = PhenotypicFeatureBuilder
+                .builder("HP:0006886", "Impaired distal vibration sensation")
+                .onset(age65y)
+                .build();
+        return List.of(proxLegWeakness,
+                fasciculations,
+                amyotrophy,
+                notAbnormalMuscleTone,
+                gower,
+                stairs,
+                vibration);
 
 
     }
@@ -184,8 +233,8 @@ public class SevereStatinInducedAutoimmuneMyopathy {
      *
      * - atorvastatin 10 mg and aspirin 75 mg alongside antihypertensive (ramipril and amlodipine) and anti-diabetic (metformin, dapagliflozin, sitagliptin and gliclazide) medication
      */
-    private MedicalAction existingTreatment() {
-        return null;
+    private List<MedicalAction> existingTreatment() {
+        return List.of();
     }
 
 
@@ -197,5 +246,10 @@ public class SevereStatinInducedAutoimmuneMyopathy {
         DiagnosisBuilder dbuilder = DiagnosisBuilder.builder(ontologyClass("????", "Statin-associated autoimmune myopathy"));
        // ibuilder.(dbuilder.build());
         return null; //ibuilder.
+    }
+
+    @Override
+    public Phenopacket getPhenopacket() {
+        return phenopacket;
     }
 }

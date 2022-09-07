@@ -44,8 +44,8 @@ public class NemalineMyopathyPrenatal implements PhenopacketExample {
                 .addPhenotypicFeature(decreasedFetalMovement())
                 .addBiosample(muscleBiopsy())
                 .addInterpretation(interpretation())
-                .addAllPhenotypicFeatures(sonography33weeks())
-                .addAllPhenotypicFeatures(apgar());
+                .addPhenotypicFeatures(sonography33weeks())
+                .addPhenotypicFeatures(apgar());
         phenopacket = builder.build();
     }
 

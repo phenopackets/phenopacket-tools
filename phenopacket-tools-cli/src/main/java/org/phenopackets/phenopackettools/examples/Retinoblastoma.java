@@ -44,8 +44,8 @@ public class Retinoblastoma implements PhenopacketExample {
 
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
-                .addAllMeasurements(getMeasurements())
-                .addAllPhenotypicFeatures(getPhenotypicFeatures())
+                .addMeasurements(getMeasurements())
+                .addPhenotypicFeatures(getPhenotypicFeatures())
                 .addDisease(getDisease())
                 .addMedicalAction(melphalan())
                 .addMedicalAction(chemoRegimen())
