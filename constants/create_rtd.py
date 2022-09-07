@@ -23,7 +23,7 @@ RTD_PATH = '../docs/constants.rst'
 ## Get the entries from the CSV files
 entries = []
 
-csv_files = [f for f in listdir(".") if isfile( f) and f.endswith("csv")]
+csv_files = [f for f in listdir(".") if isfile( f) and f.endswith("tsv")]
 for f in csv_files:
     constant_entry = parse_csv(f)
     entries.append(constant_entry)

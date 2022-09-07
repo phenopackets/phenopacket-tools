@@ -101,7 +101,7 @@ def create_java_class(entry):
 
 entries = []
 
-csv_files = [f for f in listdir(".") if isfile( f) and f.endswith("csv")]
+csv_files = [f for f in listdir(".") if isfile( f) and f.endswith("tsv")]
 for f in csv_files:
     constant_entry = parse_csv(f)
     entries.append(constant_entry)
