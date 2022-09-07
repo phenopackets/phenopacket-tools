@@ -1,0 +1,16 @@
+ontology.id	ontology.label	variable.name	function.name
+UBERON:0000955	brain	BRAIN	brain
+UBERON:0002037	cerebellum	CEREBELLUM	cerebellum
+UBERON:0001690	ear	EAR	ear
+UBERON:0000970	eye	EYE	eye
+UBERON:0002107	heart	HEART	heart
+UBERON:0002113	kidney	KIDNEY	kidney
+UBERON:0000059	large intestine	LARGE_INTESTINE	largeIntestine
+UBERON:0002107	liver	LIVER	liver
+UBERON:0002048	lung	LUNG	lung
+UBERON:0000004	nose	NOSE	nose
+UBERON:0002108	small intestine	SMALL_INTESTINE	smallIntestine
+UBERON:0002240	spinal cord	SPINAL_CORD	spinalCord
+UBERON:0002106	spleen	SPLEEN	spleen
+UBERON:0001723	tongue	TONGUE	tongue
+UBERON:0002370	thymus	THYMUS	thymus

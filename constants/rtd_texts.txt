@@ -1,0 +1,9 @@
+# File with texts that are used to generate the RTD code for the constants
+# The format is ClassName|contents
+AllelicState|Terms from the `GENE ontology <https://www.ebi.ac.uk/ols/ontologies/geno>`_ are used to describe the allelic state of variants.
+Laterality|Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe laterality.
+MedicalActions|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used for components of medical action messages.
+Onset|Terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe age of onset or diseases or specific phenotypic features.
+Organ|Terms from the `UBERON ontology <https://www.ebi.ac.uk/ols/ontologies/uberon>`_ are used to describe organs.
+SpatialPattern|Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe spatial patterns of phenotypic abnormalities.
+Unit|With some exceptions, terms from the `The Unified Code for Units of Measure <https://units-of-measurement.org/>`_ are used to denote units.

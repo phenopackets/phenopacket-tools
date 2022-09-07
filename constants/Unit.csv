@@ -1,0 +1,14 @@
+ontology.id	ontology.label	variable.name	function.name
+UCUM:mg	milligram	MILLIGRAM	milligram
+UCUM:m	gram	GRAM	gram
+UCUM:ug	microgram	MICROGRAM	microgram
+UCUM:kg	kiligram	KILIGRAM	kilogram
+UCUM:uL	microliter	MICROLITER	microliter
+UCUM:mL	milliliter	MILLILITER	milliliter
+UCUM:L	liter	LITER	liter
+UCUM:um	micrometer	MICROMETER	micrometer
+UCUM:mm	millimeter	MILLIMETER	millimeter
+UCUM:m	meter	METER	meter
+UCUM:mg.kg-1	milligram per kilogram	MILLIGRAM_PER_KG	mgPerKg
+UO:0000272	millimetres of mercury	MILLIMETRES_OF_MERCURY	mmHg
+NCIT:C100899	Diopter	DIOPTER	diopter
