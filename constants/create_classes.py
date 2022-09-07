@@ -2,9 +2,16 @@ from os import listdir
 from os.path import isfile, join
 from csv import DictReader
 
+# This is the path we write the class files to
+JAVA_DIR_PATH='../phenopacket-tools-builder/src/main/java/org/phenopackets/phenopackettools/builder/constants/'
 
 class ConstantItem:
     def __init__(self, id, label, varname, funname) -> None:
+        # Check that none of the arguments has a trailing or leading whitespace
+        # which could lead to oddities in the generated Java code
+        for x in [id, label, varname, funname]:
+            if x.startswith(" ") or x.endswith(" "):
+                raise ValueError(f"CSV item \"{x}\" has stray whitespace. Correct this and try again")
         self._ontology_id    = id
         self._ontology_label = label
         self._variable_name	 = varname
@@ -64,7 +71,8 @@ def parse_csv(fname):
 
 def create_java_class(entry):
     java_file_name = entry.name + ".java" # LATER adjust path
-    fh = open(java_file_name, 'wt')
+    java_file_path = join(JAVA_DIR_PATH, java_file_name)
+    fh = open(java_file_path, 'wt')
     fh.write("package org.phenopackets.phenopackettools.builder.constants;\n\n")
     fh.write("import org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder;\n")
     fh.write("import org.phenopackets.schema.v2.core.OntologyClass;\n\n")

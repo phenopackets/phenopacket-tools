@@ -165,7 +165,7 @@ public class Retinoblastoma implements PhenopacketExample {
         biosampleBuilder.addPhenotypicFeature("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
         biosampleBuilder.addPhenotypicFeature("NCIT:C132485", "Apoptosis and Necrosis");
         OntologyClass maxTumorSizeTest = OntologyClassBuilder.ontologyClass("LOINC:33728-7", "Size.maximum dimension in Tumor");
-        Value maxTumorSize = ValueBuilder.of(Unit.mm(), 15);
+        Value maxTumorSize = ValueBuilder.of(Unit.millimeter(), 15);
         Measurement maxTumorSizeMeasurement = MeasurementBuilder.builder(maxTumorSizeTest, maxTumorSize).timeObserved(age).build();
         biosampleBuilder.addMeasurement(maxTumorSizeMeasurement);
 

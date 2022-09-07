@@ -128,10 +128,10 @@ implantation in the right eye (OD) in January 2006.
         ReferenceRange ref = ReferenceRangeBuilder.of(sphericalrefraction, -30, 30);
         OntologyClass rightEyesphericalrefraction =
                 OntologyClassBuilder.ontologyClass("LOINC:79850-4", "Right eye spharical refraction");
-        Value rightEyeValue = ValueBuilder.of(Unit.diop(), -0.25, ref);
+        Value rightEyeValue = ValueBuilder.of(Unit.diopter(), -0.25, ref);
         OntologyClass rightEyecylindricalrefraction =
                 OntologyClassBuilder.ontologyClass("LOINC:79846-2", "Right eye cylindrical refraction");
-        Value rightEyeValueCylinder = ValueBuilder.of(Unit.diop(), -0.5, ref);
+        Value rightEyeValueCylinder = ValueBuilder.of(Unit.diopter(), -0.5, ref);
         //	Right eye Axis: LOINC 9829-8
         TimeElement age70years = TimeElements.age("P70Y"); //Druckerhöhung 1J1M nach Cataractsurgery
 //leftEyeMeasurement, rightEyeMeasurement,  TODO -- add to list of returned items
@@ -229,7 +229,7 @@ implantation in the right eye (OD) in January 2006.
 
         OntologyClass rightEyeacdod =
                 OntologyClassBuilder.ontologyClass("SCTID: 397312009", "Intraocular lens anterior chamber depth");
-        Value rightEyeValue2 = ValueBuilder.of(Unit.mm(), 3.93, ref);//
+        Value rightEyeValue2 = ValueBuilder.of(Unit.millimeter(), 3.93, ref);//
 
         // Measurement leftEyeMeasurement = MeasurementBuilder.builder(leftEyeIop, leftEyeValue).timeObserved(age).build();
         Measurement rightEyeMeasurement = MeasurementBuilder.builder(rightEyeIop, rightEyeValue).timeObserved(age).build();

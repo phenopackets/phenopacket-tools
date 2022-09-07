@@ -22,19 +22,18 @@ import java.time.Instant;
  */
 public class TimeElements {
 
-    private static final TimeElement FETAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.fetal()).build();
-    private static final TimeElement EMBRYONAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.embryonal()).build();
-    private static final TimeElement ANTENATAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.antenatal()).build();
-    private static final TimeElement CONGENITAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.congenital()).build();
-    private static final TimeElement NEONATAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.neonatal()).build();
-    private static final TimeElement PEDIATRIC_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.pediatric()).build();
-    private static final TimeElement CHILDHOOD_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.childhood()).build();
-    private static final TimeElement JUVENILE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.juvenile()).build();
-    private static final TimeElement INFANTILE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.infantile()).build();
-    private static final TimeElement ADULT_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.adult()).build();
-    private static final TimeElement LATE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.late()).build();
-    private static final TimeElement MIDDLE_AGE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.middleAge()).build();
-    private static final TimeElement YOUNG_ADULT_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.youngAdult()).build();
+    private static final TimeElement FETAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.fetalOnset()).build();
+    private static final TimeElement EMBRYONAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.embryonalOnset()).build();
+    private static final TimeElement ANTENATAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.antenatalOnset()).build();
+    private static final TimeElement CONGENITAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.congenitalOnset()).build();
+    private static final TimeElement NEONATAL_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.neonatalOnset()).build();
+    private static final TimeElement CHILDHOOD_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.childhoodOnset()).build();
+    private static final TimeElement JUVENILE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.juvenileOnset()).build();
+    private static final TimeElement INFANTILE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.infantileOnset()).build();
+    private static final TimeElement ADULT_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.adultOnset()).build();
+    private static final TimeElement LATE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.lateOnset()).build();
+    private static final TimeElement MIDDLE_AGE_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.middleAgeOnset()).build();
+    private static final TimeElement YOUNG_ADULT_ONSET = TimeElement.newBuilder().setOntologyClass(Onset.youngAdultOnset()).build();
 
     private TimeElements() {
     }
@@ -79,10 +78,6 @@ public class TimeElements {
 
     public static TimeElement neonatalOnset() {
         return NEONATAL_ONSET;
-    }
-
-    public static TimeElement pediatricOnset() {
-        return PEDIATRIC_ONSET;
     }
 
     public static TimeElement childhoodOnset() {
