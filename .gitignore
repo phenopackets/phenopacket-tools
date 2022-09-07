@@ -69,3 +69,4 @@ fabric.properties
 /*.json
 /*.yml
 /examples/
+/docs/_build/
