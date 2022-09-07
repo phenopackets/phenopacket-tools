@@ -10,15 +10,8 @@ public class AllelicState {
     private static final OntologyClass HEMIZYGOUS = OntologyClassBuilder.ontologyClass("GENO:0000134", "hemizygous");
 
 
-    public static OntologyClass heterozygous() {
-        return HETEROZYGOUS;
-    }
-    public static OntologyClass homozygous() {
-        return HOMOZYGOUS;
-    }
-
-    public static OntologyClass hemizygous() {
-        return HEMIZYGOUS;
-    }
+    public static OntologyClass heterozygous() { return HETEROZYGOUS; }
+    public static OntologyClass homozygous() { return HOMOZYGOUS; }
+    public static OntologyClass hemizygous() { return HEMIZYGOUS; }
 
 }
