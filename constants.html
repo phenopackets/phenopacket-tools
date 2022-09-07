@@ -139,9 +139,9 @@ For instance, this is the code one would need to write using the native Protobuf
 </tbody>
 </table>
 </section>
-<section id="unit">
-<h2>Unit<a class="headerlink" href="#unit" title="Permalink to this heading">¶</a></h2>
-<p>With some exceptions, terms from the <a class="reference external" href="https://units-of-measurement.org/">The Unified Code for Units of Measure</a> are used to denote units.</p>
+<section id="allelicstate">
+<h2>AllelicState<a class="headerlink" href="#allelicstate" title="Permalink to this heading">¶</a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/geno">GENE ontology</a> are used to describe the allelic state of variants.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 7.0%" />
@@ -155,57 +155,17 @@ For instance, this is the code one would need to write using the native Protobuf
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>UCUM:mg</p></td>
-<td><p>milligram</p></td>
-<td><p>milligram()</p></td>
+<tr class="row-even"><td><p>GENO:0000135</p></td>
+<td><p>heterozygous</p></td>
+<td><p>heterozygous()</p></td>
 </tr>
-<tr class="row-odd"><td><p>UCUM:m</p></td>
-<td><p>gram</p></td>
-<td><p>gram()</p></td>
+<tr class="row-odd"><td><p>GENO:0000136</p></td>
+<td><p>homozygous</p></td>
+<td><p>homozygous()</p></td>
 </tr>
-<tr class="row-even"><td><p>UCUM:ug</p></td>
-<td><p>microgram</p></td>
-<td><p>microgram()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:kg</p></td>
-<td><p>kiligram</p></td>
-<td><p>kilogram()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:uL</p></td>
-<td><p>microliter</p></td>
-<td><p>microliter()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:mL</p></td>
-<td><p>milliliter</p></td>
-<td><p>milliliter()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:L</p></td>
-<td><p>liter</p></td>
-<td><p>liter()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:um</p></td>
-<td><p>micrometer</p></td>
-<td><p>micrometer()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:mm</p></td>
-<td><p>millimeter</p></td>
-<td><p>millimeter()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:m</p></td>
-<td><p>meter</p></td>
-<td><p>meter()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:mg.kg-1</p></td>
-<td><p>milligram per kilogram</p></td>
-<td><p>mgPerKg()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UO:0000272</p></td>
-<td><p>millimetres of mercury</p></td>
-<td><p>mmHg()</p></td>
-</tr>
-<tr class="row-even"><td><p>NCIT:C100899</p></td>
-<td><p>Diopter</p></td>
-<td><p>diopter()</p></td>
+<tr class="row-even"><td><p>GENO:0000134</p></td>
+<td><p>hemizygous</p></td>
+<td><p>hemizygous()</p></td>
 </tr>
 </tbody>
 </table>
@@ -289,57 +249,6 @@ For instance, this is the code one would need to write using the native Protobuf
 </tbody>
 </table>
 </section>
-<section id="medicalactions">
-<h2>MedicalActions<a class="headerlink" href="#medicalactions" title="Permalink to this heading">¶</a></h2>
-<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> are used for components of medical action messages.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 7.0%" />
-<col style="width: 46.5%" />
-<col style="width: 46.5%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>id</p></th>
-<th class="head"><p>label</p></th>
-<th class="head"><p>function name</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>NCIT:C38222</p></td>
-<td><p>Intraarterial Route of Administration</p></td>
-<td><p>intraArterialAdministration()</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCIT:C38288</p></td>
-<td><p>Oral Route of Administration</p></td>
-<td><p>oralAdministration()</p></td>
-</tr>
-<tr class="row-even"><td><p>NCIT:C64576</p></td>
-<td><p>Once</p></td>
-<td><p>once()</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCIT:C125004</p></td>
-<td><p>Once Daily</p></td>
-<td><p>onceDaily()</p></td>
-</tr>
-<tr class="row-even"><td><p>NCIT:C64496</p></td>
-<td><p>Twice Daily</p></td>
-<td><p>twiceDaily()</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCIT:C64527</p></td>
-<td><p>Three Times Daily</p></td>
-<td><p>threetimesDaily()</p></td>
-</tr>
-<tr class="row-even"><td><p>NCIT:C64530</p></td>
-<td><p>Four Times Daily</p></td>
-<td><p>fourtimesDaily()</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCIT:C41331</p></td>
-<td><p>Adverse Event</p></td>
-<td><p>adverseEvent()</p></td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="laterality">
 <h2>Laterality<a class="headerlink" href="#laterality" title="Permalink to this heading">¶</a></h2>
 <p>Modifier terms from the <a class="reference external" href="https://hpo.jax.org/app/">HPO</a> are used to describe laterality.</p>
@@ -375,9 +284,9 @@ For instance, this is the code one would need to write using the native Protobuf
 </tbody>
 </table>
 </section>
-<section id="allelicstate">
-<h2>AllelicState<a class="headerlink" href="#allelicstate" title="Permalink to this heading">¶</a></h2>
-<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/geno">GENE ontology</a> are used to describe the allelic state of variants.</p>
+<section id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
+<p>These codes from <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> can be used to code the overall response of a patient to treatment. Favorable and Unfavorble can be used for general purposes and the remaining codes are intended to be used for oncology.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 7.0%" />
@@ -391,17 +300,108 @@ For instance, this is the code one would need to write using the native Protobuf
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>GENO:0000135</p></td>
-<td><p>heterozygous</p></td>
-<td><p>heterozygous()</p></td>
+<tr class="row-even"><td><p>NCIT:C102560</p></td>
+<td><p>Favorable</p></td>
+<td><p>favorable()</p></td>
 </tr>
-<tr class="row-odd"><td><p>GENO:0000136</p></td>
-<td><p>homozygous</p></td>
-<td><p>homozygous()</p></td>
+<tr class="row-odd"><td><p>NCIT:C102561</p></td>
+<td><p>Unfavorable</p></td>
+<td><p>unfavorable()</p></td>
 </tr>
-<tr class="row-even"><td><p>GENO:0000134</p></td>
-<td><p>hemizygous</p></td>
-<td><p>hemizygous()</p></td>
+</tbody>
+</table>
+</section>
+<section id="unit">
+<h2>Unit<a class="headerlink" href="#unit" title="Permalink to this heading">¶</a></h2>
+<p>With some exceptions, terms from the <a class="reference external" href="https://units-of-measurement.org/">The Unified Code for Units of Measure</a> are used to denote units.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7.0%" />
+<col style="width: 46.5%" />
+<col style="width: 46.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>UCUM:[diop]</p></td>
+<td><p>diopter</p></td>
+<td><p>diopter()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:g</p></td>
+<td><p>gram</p></td>
+<td><p>gram()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:g/kg</p></td>
+<td><p>gram per kilogram</p></td>
+<td><p>gramPerKilogram()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:kg</p></td>
+<td><p>kiligram</p></td>
+<td><p>kilogram()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:L</p></td>
+<td><p>liter</p></td>
+<td><p>liter()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:m</p></td>
+<td><p>meter</p></td>
+<td><p>meter()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:ug</p></td>
+<td><p>microgram</p></td>
+<td><p>microgram()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:uL</p></td>
+<td><p>microliter</p></td>
+<td><p>microliter()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:um</p></td>
+<td><p>micrometer</p></td>
+<td><p>micrometer()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:mg</p></td>
+<td><p>milligram</p></td>
+<td><p>milligram()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:mg.kg-1</p></td>
+<td><p>milligram per kilogram</p></td>
+<td><p>mgPerKg()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:mL</p></td>
+<td><p>milliliter</p></td>
+<td><p>milliliter()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:mm</p></td>
+<td><p>millimeter</p></td>
+<td><p>millimeter()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:mm[Hg]</p></td>
+<td><p>millimetres of mercury</p></td>
+<td><p>mmHg()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:mmol</p></td>
+<td><p>millimole</p></td>
+<td><p>millimole()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:mol</p></td>
+<td><p>mole</p></td>
+<td><p>mole()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:mol/L</p></td>
+<td><p>mole per liter</p></td>
+<td><p>molePerLiter()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:mol/mL</p></td>
+<td><p>mole per milliliter</p></td>
+<td><p>molePerMilliliter()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:U/L</p></td>
+<td><p>enzyme unit per liter</p></td>
+<td><p>enzymeUnitPerLiter()</p></td>
 </tr>
 </tbody>
 </table>
@@ -557,6 +557,61 @@ For instance, this is the code one would need to write using the native Protobuf
 </tbody>
 </table>
 </section>
+<section id="medicalactions">
+<h2>MedicalActions<a class="headerlink" href="#medicalactions" title="Permalink to this heading">¶</a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> are used for components of medical action messages.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7.0%" />
+<col style="width: 46.5%" />
+<col style="width: 46.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NCIT:C41331</p></td>
+<td><p>Adverse Event</p></td>
+<td><p>adverseEvent()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C64530</p></td>
+<td><p>Four Times Daily</p></td>
+<td><p>fourtimesDaily()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C38222</p></td>
+<td><p>Intraarterial Route of Administration</p></td>
+<td><p>intraArterialAdministration()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C38276</p></td>
+<td><p>Intravenous Route of Administration</p></td>
+<td><p>intravenousAdministration()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C38288</p></td>
+<td><p>Oral Route of Administration</p></td>
+<td><p>oralAdministration()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C64576</p></td>
+<td><p>Once</p></td>
+<td><p>once()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C125004</p></td>
+<td><p>Once Daily</p></td>
+<td><p>onceDaily()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C64527</p></td>
+<td><p>Three Times Daily</p></td>
+<td><p>threetimesDaily()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C64496</p></td>
+<td><p>Twice Daily</p></td>
+<td><p>twiceDaily()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 
 
@@ -582,12 +637,13 @@ For instance, this is the code one would need to write using the native Protobuf
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Constants</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#onset">Onset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#unit">Unit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#organ">Organ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#medicalactions">MedicalActions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#laterality">Laterality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#allelicstate">AllelicState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#organ">Organ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#laterality">Laterality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#response">Response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unit">Unit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#spatialpattern">SpatialPattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#medicalactions">MedicalActions</a></li>
 </ul>
 </li>
 </ul>
