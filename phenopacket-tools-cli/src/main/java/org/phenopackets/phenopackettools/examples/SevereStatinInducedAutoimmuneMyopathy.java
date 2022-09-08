@@ -56,7 +56,6 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
     /**
      * Returns the disease diagnoses that form the past medical history of our patient -- type 2 Disbetes mellitus and
      * hypertension.
-     * @return
      */
     List<Disease> getDiseases() {
         var age55y = TimeElements.age("P55Y");
@@ -92,15 +91,9 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
         return List.of(atorvastatinAction, aspirinAction, ramiprilAction, metforminAction);
     }
 
-    /**
-     * Outcome:
-     *
-     * 7weeks after the fourth round of IVIg, the patient nearly regained full strength in his legs and CK did not show any further increase.
-     */
 
     /**
-     * Atorvastatin was stopped
-     *  muscle weakness deteriorated in his legs
+     * Atorvastatin was stopped muscle weakness deteriorated in his legs
      *  spread to his arms making immune-modulating treatment necessary
      *  155 g IVIg, equivalent to 1.6 g/kg of body weight, was administered over 3 days
      *  55 g on the first day and 50 g on the second and third day
@@ -115,12 +108,10 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
         var everySixWeeks = ontologyClass("NCIT:C89788", "Every Six Weeks");
         var quantity = QuantityBuilder.builder(gramPerKilogram(), 1.6).build();
         TimeInterval interval = TimeIntervalBuilder.of("2020-09-02", "2021-03-02");
-        var ivIgAction = MedicalActionBuilder
+        return MedicalActionBuilder
                 .intravenousAdministration(ivIg, quantity, everySixWeeks, interval)
                 .responseToTreatment(favorable())
                 .build();
-
-        return ivIgAction;
     }
 
     /**
