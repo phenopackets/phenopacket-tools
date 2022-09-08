@@ -1,34 +1,35 @@
 package org.phenopackets.phenopackettools.validator.core;
 
-import java.io.File;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.util.List;
+import com.google.protobuf.MessageOrBuilder;
 
-public interface ValidationWorkflowRunner {
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+/**
+ * {@link ValidationWorkflowRunner} validates selected top-level element of the Phenopacket schema.
+ * <p>
+ * The validation is performed on 3 input types: {@link #validate(MessageOrBuilder)} validates an existing top-level
+ * element, {@link #validate(String)} validates input formatted either in JSON or YAML format,
+ * and {@link #validate(byte[])} validates bytes that can be either in JSON, YAML, or Protobuf binary exchange format.
+ *
+ * @param <T> type of the top-level element of the Phenopacket schema.
+ */
+public interface ValidationWorkflowRunner<T extends MessageOrBuilder> {
 
-    /**
-     *  implementation:
-     * 1. get string as input
-     * 2. decide if JSON/YML/Protobuf ("sniff the input")
-     * 3. Parse into JSON string
-     * 4. Fail if the JSON is not Phenopacket (e.g., fail for Family or Cohort) (one interface, three impl)
-     * 5. Pass to list of JSON Schema Validators
-     * 6. Convert JSON to Phenopacket, Cohort, or Family
-     * 7. Run all PhenopacketMessageValidators
-     * 8. Return List<ValidationItem>
-     * @return
-     */
+    ValidationResults validate(byte[] payload);
 
-    List<ValidationResult> validate(InputStream io);
-    List<ValidationResult> validate(byte[] content);
-    List<ValidationResult> validate(byte[] content, Charset charset);
+    ValidationResults validate(String item);
 
-    List<ValidationResult> validate(String content);
+    ValidationResults validate(T item);
 
-    List<ValidationResult> validate(File file);
+    default ValidationResults validate(InputStream is) throws IOException {
+        return validate(is.readAllBytes());
+    }
 
-
-
+    default ValidationResults validate(Path path) throws IOException {
+        try (InputStream is = new BufferedInputStream(Files.newInputStream(path))) {
+            return validate(is);
+        }
+    }
 }

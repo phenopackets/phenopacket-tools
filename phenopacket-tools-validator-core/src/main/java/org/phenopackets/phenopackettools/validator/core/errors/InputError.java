@@ -16,7 +16,7 @@ public record InputError(String message) implements ValidationResult {
 
     @Override
     public ValidationLevel level() {
-        return ValidationLevel.VALIDATION_ERROR;
+        return ValidationLevel.ERROR;
     }
 
     @Override

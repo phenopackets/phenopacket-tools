@@ -24,7 +24,7 @@ public final class JsonValidationError implements ValidationResult  {
         this.validatorInfo = validatorInfo;
         this.category = validationMessage.getType();
         this.message = validationMessage.getMessage();
-        this.level = ValidationLevel.VALIDATION_ERROR;
+        this.level = ValidationLevel.ERROR;
     }
 
 
@@ -67,7 +67,7 @@ public final class JsonValidationError implements ValidationResult  {
 
     @Override
     public ValidationLevel level() {
-        return ValidationLevel.VALIDATION_ERROR;
+        return ValidationLevel.ERROR;
     }
 
     @Override

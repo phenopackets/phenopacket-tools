@@ -2,6 +2,9 @@ package org.phenopackets.phenopackettools.validator.core;
 
 import org.phenopackets.phenopackettools.validator.core.impl.DefaultValidationInfo;
 
+/**
+ * Information regarding validator.
+ */
 public interface ValidatorInfo {
 
     static ValidatorInfo genericJsonSchema() {
@@ -21,15 +24,23 @@ public interface ValidatorInfo {
     static ValidatorInfo inputValidator() { return DefaultValidationInfo.inputValidator(); }
 
 
-    static ValidatorInfo of(String validatorId, String validatorName) {
-        return DefaultValidationInfo.of(validatorId, validatorName);
+    static ValidatorInfo of(String validatorId, String validatorName, String description) {
+        return DefaultValidationInfo.of(validatorId, validatorName, description);
     }
 
+    /**
+     * @return string with a unique validator ID.
+     */
     String validatorId();
 
+    /**
+     * @return human-friendly validator name.
+     */
     String validatorName();
 
-    int hashCode();
+    /**
+     * @return brief description of the validation provided by the validator.
+     */
+    String description();
 
-    boolean equals(Object o);
 }

@@ -12,11 +12,12 @@ import org.phenopackets.schema.v2.Phenopacket;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated(forRemoval = true) // or move elsewhere
 public class HpoPhenotypeValidator implements PhenopacketValidator {
 
 
     private static final ValidatorInfo hpoValidatorInfo =
-            DefaultValidationInfo.of("HpoPhenotypeValidator", "HPO Phenotypic feature validator");
+            DefaultValidationInfo.of("HpoPhenotypeValidator", "HPO Phenotypic feature validator", "");
 
 
     private final Ontology hpo;

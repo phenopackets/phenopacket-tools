@@ -4,6 +4,7 @@ package org.phenopackets.phenopackettools.command;
 import org.monarchinitiative.phenol.io.OntologyLoader;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.phenopackets.phenopackettools.validator.core.*;
+import org.phenopackets.schema.v2.Phenopacket;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -48,12 +49,14 @@ public class ValidateCommand implements Callable<Integer> {
             PhenopacketValidator hpoval =  new HpoPhenotypeValidator(hpo);
             messageValidators.add(hpoval);
         }
-        ValidationWorkflowRunner validatorRunner = new DefaultValidatorRunner(jsonValidators, messageValidators);
+//        ValidationWorkflowRunner validatorRunner = new DefaultValidatorRunner(jsonValidators, messageValidators);
+        ValidationWorkflowRunner<Phenopacket> validatorRunner = null;
 
 
         for (Path phenopacket : phenopackets) {
             try (InputStream in = Files.newInputStream(phenopacket)) {
-                List<ValidationResult> validationItems = validatorRunner.validate(phenopacket.toFile());
+                ValidationResults results = validatorRunner.validate(in);
+                List<ValidationResult> validationItems = results.validationResults();
                 Path fileName = phenopacket.getFileName();
                 if (validationItems.isEmpty()) {
                     System.out.printf("%s - OK%n", fileName);

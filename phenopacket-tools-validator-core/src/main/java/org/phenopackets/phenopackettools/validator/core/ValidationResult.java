@@ -10,6 +10,7 @@ public interface ValidationResult {
     ValidationLevel level();
 
     String category();
+
     String message();
 
 

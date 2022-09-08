@@ -44,12 +44,12 @@ public record OntologyValidationResult(ValidatorInfo info,
 
     public static OntologyValidationResult invalidTermId(ValidatorInfo info, String msg) {
         return new OntologyValidationResult(info, "invalid TermId",
-                ValidationLevel.VALIDATION_ERROR, msg);
+                ValidationLevel.ERROR, msg);
     }
 
     public static  OntologyValidationResult obsoletedTermId(ValidatorInfo info, String msg) {
         return new OntologyValidationResult(info, "obsoleted TermId",
-                ValidationLevel.VALIDATION_WARNING, msg);
+                ValidationLevel.WARNING, msg);
     }
 
 

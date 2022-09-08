@@ -124,7 +124,7 @@ public class JsonSchemaValidatorTest {
         ValidationResult error = errors.get(0);
         assertEquals(JsonError.ENUM, error.category());
         assertEquals("$.subject.sex: does not have a value in the enumeration [UNKNOWN_SEX, FEMALE, MALE]", error.message());
-        assertEquals(ValidationLevel.VALIDATION_ERROR, error.level());
+        assertEquals(ValidationLevel.ERROR, error.level());
     }
 
     @Test
