@@ -22,7 +22,7 @@ public interface ValidationWorkflowRunner {
      */
 
     List<ValidationResult> validate(InputStream io);
-   List<ValidationResult> validate(byte[] content);
+    List<ValidationResult> validate(byte[] content);
     List<ValidationResult> validate(byte[] content, Charset charset);
 
     List<ValidationResult> validate(String content);
