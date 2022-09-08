@@ -1,9 +1,9 @@
 package org.phenopackets.phenopackettools.command;
 
 
-import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
-import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.phenopackettools.validator.core.DefaultValidatorRunner;
+import org.monarchinitiative.phenol.io.OntologyLoader;
+import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.phenopackets.phenopackettools.validator.core.*;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -27,14 +28,28 @@ public class ValidateCommand implements Callable<Integer> {
     @Option(names = "--rare", description = "Apply HPO rare-disease constraints")
     public boolean rareHpoConstraints = false;
 
+    @Option(names ="--hpo", description = "Path to hp.json file")
+    public Path hpJsonPath;
+
     @Override
     public Integer call() {
-        var jsonValidators = List.of(makeGenericJsonValidator());
-        DefaultValidatorRunner validatorRunner = new DefaultValidatorRunner(jsonValidators, List.of());
-        List<? extends PhenopacketValidator> messageValidators = List.of();
+        List< PhenopacketValidator> messageValidators = new ArrayList<>();
+        List< PhenopacketValidator> jsonValidators = new ArrayList<>();
+        PhenopacketValidator defaultJsonValidator = makeGenericJsonValidator();
+        jsonValidators.add(defaultJsonValidator);
+
         if (rareHpoConstraints) {
+            // add hp json schemea
             // add HPO validator
         }
+
+        if (hpJsonPath != null && hpJsonPath.toFile().isFile()) {
+            Ontology hpo = OntologyLoader.loadOntology(hpJsonPath.toFile());
+            PhenopacketValidator hpoval =  new HpoPhenotypeValidator(hpo);
+            messageValidators.add(hpoval);
+        }
+        ValidationWorkflowRunner validatorRunner = new DefaultValidatorRunner(jsonValidators, messageValidators);
+
 
         for (Path phenopacket : phenopackets) {
             try (InputStream in = Files.newInputStream(phenopacket)) {

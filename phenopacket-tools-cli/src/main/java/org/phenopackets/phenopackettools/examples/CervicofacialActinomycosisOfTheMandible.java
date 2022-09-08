@@ -3,13 +3,11 @@ package org.phenopackets.phenopackettools.examples;
 import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
 import org.phenopackets.phenopackettools.builder.builders.*;
-import org.phenopackets.schema.v2.core.Age;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
-import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 import static org.phenopackets.phenopackettools.builder.constants.Laterality.left;
 import static org.phenopackets.phenopackettools.builder.constants.Severity.severe;
 

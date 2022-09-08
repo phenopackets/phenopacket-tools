@@ -21,13 +21,13 @@ public interface ValidationWorkflowRunner {
      * @return
      */
 
-   public List<ValidationResult> validate(InputStream io);
-   public List<ValidationResult> validate(byte[] content);
-    public List<ValidationResult> validate(byte[] content, Charset charset);
+    List<ValidationResult> validate(InputStream io);
+   List<ValidationResult> validate(byte[] content);
+    List<ValidationResult> validate(byte[] content, Charset charset);
 
-    public List<ValidationResult> validate(String content);
+    List<ValidationResult> validate(String content);
 
-    public List<ValidationResult> validate(File file);
+    List<ValidationResult> validate(File file);
 
 
 

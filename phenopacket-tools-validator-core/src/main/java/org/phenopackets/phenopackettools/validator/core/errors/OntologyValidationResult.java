@@ -4,22 +4,21 @@ import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 
-public class OntologyValidationResult implements ValidationResult {
+/**
+ * A class to represent the result of validation by an Ontology (semantic)
+ * validator
+ * @param info Information about the validator used to create the error message
+ * @param category an error category
+ * @param level Error or Warning?
+ * @param message Specific error message
+ * @author Peter N Robinson
+ */
+public record OntologyValidationResult(ValidatorInfo info,
+                                       String category,
+                                       ValidationLevel level,
+                                       String message) implements ValidationResult {
 
 
-   private final ValidatorInfo info;
-    private final String message;
-
-    private final String category;
-    private final ValidationLevel level;
-
-
-    private OntologyValidationResult(ValidatorInfo info,String category, ValidationLevel level, String message) {
-        this.info = info;
-        this.category = category;
-        this.level = level;
-        this.message = message;
-    }
 
 
     @Override

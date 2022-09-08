@@ -3,7 +3,6 @@ package org.phenopackets.phenopackettools.validator.jsonschema;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.google.protobuf.Message;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
@@ -18,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -88,9 +88,12 @@ public class JsonSchemaValidator implements PhenopacketValidator {
 
 
     @Override
-    public List<? extends ValidationResult> validateJson(JsonNode jsonNode) {
-        return jsonSchema.validate(jsonNode).stream()
-                .map(e -> new JsonValidationError(validatorInfo, e)).toList();
+    public List<ValidationResult> validateJson(JsonNode jsonNode) {
+        List<ValidationResult> results = new ArrayList<>();
+        for (var res : jsonSchema.validate(jsonNode)) {
+            results.add(new JsonValidationError(validatorInfo, res));
+        }
+        return results;
     }
 
     /**

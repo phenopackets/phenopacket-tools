@@ -3,7 +3,6 @@ package org.phenopackets.phenopackettools.validator.core.impl;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.Message;
 import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorInputException;
 import org.phenopackets.schema.v2.Phenopacket;
@@ -29,11 +28,9 @@ public class DefaultPhenopacketIngestor implements Ingestor {
 
 
     public DefaultPhenopacketIngestor(InputStream stream) throws PhenopacketValidatorInputException {
-        byte[] content;
         String jsonString;
         try {
             jsonString = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
-           // content = stream.readAllBytes();
             ObjectMapper mapper = new ObjectMapper();
             this.jsonNode = mapper.readTree(jsonString);
         } catch (IOException e) {

@@ -1,7 +1,6 @@
 package org.phenopackets.phenopackettools.validator.core;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.google.protobuf.Message;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorException;
 import org.phenopackets.phenopackettools.validator.core.impl.DefaultPhenopacketIngestor;
 import org.phenopackets.phenopackettools.validator.core.impl.Ingestor;

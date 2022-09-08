@@ -409,7 +409,7 @@
           ]
         },
         "variationdescriptor": {
-          "$ref" : "versatile.json#/definitions/variationDescriptor"
+          "$ref" : "vrsatile.json#/definitions/variationDescriptor"
         }
       }
     },

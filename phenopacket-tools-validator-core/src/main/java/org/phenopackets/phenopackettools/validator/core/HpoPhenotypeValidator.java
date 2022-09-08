@@ -24,7 +24,7 @@ public class HpoPhenotypeValidator implements PhenopacketValidator {
     private final String hpoVersion;
 
 
-    HpoPhenotypeValidator(Ontology ontology) {
+    public HpoPhenotypeValidator(Ontology ontology) {
         this.hpo = ontology;
         this.hpoVersion = this.hpo.getMetaInfo().getOrDefault("data-version", "HPO");
     }
@@ -35,21 +35,21 @@ public class HpoPhenotypeValidator implements PhenopacketValidator {
      * via the other function
      */
     @Override
-    public List<? extends ValidationResult> validateJson(JsonNode jsonNode) {
+    public List< ValidationResult> validateJson(JsonNode jsonNode) {
         return List.of();
     }
 
     @Override
-    public List<? extends ValidationResult> validateMessage(Phenopacket phenopacket) {
+    public List<ValidationResult> validateMessage(Phenopacket phenopacket) {
         List<PhenotypicFeature> features = phenopacket.getPhenotypicFeaturesList();
-        List<OntologyValidationResult> errors = new ArrayList<>();
+        List<ValidationResult> errors = new ArrayList<>();
         // check that all terms have the current primary ID
         for (var feature: features) {
             OntologyClass clz = feature.getType();
             TermId tid = TermId.of(clz.getId());
             if (! hpo.containsTerm(tid)) {
                 String msg = String.format("%s not found in %s", tid.getValue(),  this.hpoVersion);
-                OntologyValidationResult res = OntologyValidationResult.invalidTermId(hpoValidatorInfo,msg);
+                ValidationResult res = OntologyValidationResult.invalidTermId(hpoValidatorInfo,msg);
                 errors.add(res);
             }
             // check if we are using the current primary id

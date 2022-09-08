@@ -33,7 +33,6 @@ public class Pseudoexfoliation implements PhenopacketExample {
     private static final OntologyClass RIGHT_EYE = ontologyClass("UBERON:0004549", "right eye");
     private static final OntologyClass Cataract = ontologyClass("HP:0000518", "cataract");
     private static final OntologyClass visusPercent = ontologyClass("NCIT:C48570", "Percent Unit");
-    ;
     private static final OntologyClass ocularHypertension = ontologyClass("HP:0007906", "Ocular hypertension");
 
 

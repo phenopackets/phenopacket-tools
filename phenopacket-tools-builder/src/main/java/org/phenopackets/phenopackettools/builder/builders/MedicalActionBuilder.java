@@ -4,8 +4,6 @@ import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
 
-import static org.phenopackets.phenopackettools.builder.constants.MedicalActions.onceDaily;
-
 public class MedicalActionBuilder {
 
     private final MedicalAction.Builder builder;
