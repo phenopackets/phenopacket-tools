@@ -12,27 +12,28 @@ import static org.phenopackets.phenopackettools.builder.constants.MedicalActions
 import static org.phenopackets.phenopackettools.builder.constants.Response.favorable;
 import static org.phenopackets.phenopackettools.builder.constants.Unit.*;
 
-
+/**
+ * Phenopacket based on the case report in
+ * Güngör C, Wieshmann UC.
+ * Severe statin-induced autoimmune myopathy successfully treated with intravenous immunoglobulin.
+ * BMJ Case Rep. 2020 May 21;13(5):e234805.
+ * PMID: 32444443; PMCID: PMC7247403.
+ */
 public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample{
 
 
     private static final String PHENOPACKET_ID = "arbitrary.id";
-    private static final String INDIVIDUAL = "individual A";
+    private static final String INDIVIDUAL = "65-year-old man";
 
     private final Phenopacket phenopacket;
 
     public SevereStatinInducedAutoimmuneMyopathy() {
-
         var externalRef = ExternalReferenceBuilder.of("PMID:32444443",
                         "Severe statin-induced autoimmune myopathy successfully treated with intravenous immunoglobulin");
 
-        //TODO: Fix ontology versions
         var metadata = MetaDataBuilder.builder("2022-04-21T10:35:00Z", "anonymous biocurator")
-                .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.ncitVersion("22.03d"))
                 .addResource(Resources.hpoVersion("2021-08-02"))
-                .addResource(Resources.efoVersion("3.34.0"))
-                .addResource(Resources.uberonVersion("2021-07-27"))
-                .addResource(Resources.ncbiTaxonVersion("2021-06-10"))
                 .addExternalReference(externalRef)
                 .build();
 
@@ -47,7 +48,6 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
                 .addMedicalActions(previousTreatments())
                 .addPhenotypicFeatures(getSymptomsOnPresentation())
                 .addMeasurements(getLabsOnPresentation())
-                .addMedicalActions(existingTreatment())
                .addMedicalAction(treatment())
                 .build();
     }
@@ -124,16 +124,6 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
     }
 
     /**
-     * active denervation
-     * and fasciculation potentials along with chronic denervation/re-innervation motor unit patterns
-     * from the craniobulbar, thoracic, paraspinal as well as upper and lower limb muscles.
-     * @return
-     */
-    private List<PhenotypicFeature> getEMG() {
-        return null;
-    }
-
-    /**
      * creatine kinase (CK) level was raised up to 4292 U/L
      * alanine transaminase (ALT) was raised to 234 U/L
      * Alkaline phosphatase and bilirubin were normal
@@ -154,36 +144,6 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
         return List.of(ckMeasurement, altMeasurement);
     }
 
-    /**
-     * On examination:
-     *
-     * fasciculations and wasting were noticed in both quadriceps muscles
-     * muscular tone was normal
-     * proximal weakness in both legs
-     * Trendelenburg's and Gower's signs were positive
-     * knee jerks were brisk
-     * Sensation was intact
-     * loss of vibration sense up to the tibial plateau bilaterally
-     * Examination of the cranial nerves and the upper limbs was unremarkable.
-     */
-
-
-    /**
-     * Last month history:
-     *
-     * - weakness started about 2 months ago; got progressively worse
-     * difficulties climbing stairs
-     * getting up from the squatting position
-     *  walking or even putting on his trousers
-     *  started using a wheelchair
-     *  denied having any associated pain, and upper limbs as well as speech and swallowing were uninvolved.
-     *
-     * longstanding mild sensory symptoms in both feet
-     * lost around 6 lb (about 2.72 kg) in weight in the previous month
-     */
-    private List<PhenotypicFeature> getLastMonthHistory() {
-        return null;
-    }
 
     /**
      * On examination fasciculations and wasting were noticed in both quadriceps muscles.
@@ -224,28 +184,6 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
                 gower,
                 stairs,
                 vibration);
-
-
-    }
-
-    /**
-     * HIV Treatment background (started at 33Y old)
-     *
-     * - atorvastatin 10 mg and aspirin 75 mg alongside antihypertensive (ramipril and amlodipine) and anti-diabetic (metformin, dapagliflozin, sitagliptin and gliclazide) medication
-     */
-    private List<MedicalAction> existingTreatment() {
-        return List.of();
-    }
-
-
-    /**
-     * Diagnosis: statin-associated autoimmune myopathy
-     */
-    private Interpretation interpretation() {
-        InterpretationBuilder ibuilder = InterpretationBuilder.builder("interpretation.id");
-        DiagnosisBuilder dbuilder = DiagnosisBuilder.builder(ontologyClass("????", "Statin-associated autoimmune myopathy"));
-       // ibuilder.(dbuilder.build());
-        return null; //ibuilder.
     }
 
     @Override
