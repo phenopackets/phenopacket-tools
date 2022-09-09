@@ -36,7 +36,7 @@ public class JsonSchemaValidator implements PhenopacketValidator {
 
 
     public static JsonSchemaValidator makeGenericJsonValidator() {
-        String schemaPath = "/schema/phenopacket-schema-2-0.json";
+        String schemaPath = "phenopacket-schema-2-0.json";
         InputStream inputStream = JsonSchemaValidator.class.getResourceAsStream(schemaPath);
         if (inputStream == null)
             throw new PhenopacketValidatorRuntimeException("Invalid JSON schema path `" + schemaPath + '`');

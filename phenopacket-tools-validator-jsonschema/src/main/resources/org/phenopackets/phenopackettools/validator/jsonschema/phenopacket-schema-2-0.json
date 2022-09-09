@@ -409,7 +409,8 @@
           ]
         },
         "variationdescriptor": {
-          "$ref" : "vrsatile.json#/definitions/variationDescriptor"
+          "$ref" : "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/vrsatile.json#/definitions/variationDescriptor"
+
         }
       }
     },

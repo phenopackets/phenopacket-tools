@@ -6,4 +6,6 @@ module org.phenopackets.phenopackettools.validator.jsonschema {
     requires org.slf4j;
 
     exports org.phenopackets.phenopackettools.validator.jsonschema;
+
+    opens org.phenopackets.phenopackettools.validator.jsonschema;
 }
