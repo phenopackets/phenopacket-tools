@@ -119,7 +119,7 @@ public class ExamplesCommand implements Callable<Integer> {
             output(new Marfan().getPhenopacket(), outDirectory, "marfan");
             output(new NemalineMyopathyPrenatal().getPhenopacket(), outDirectory, "nemalineMyopathy");
             output(new Pseudoexfoliation().getPhenopacket(),  outDirectory,"pseudoexfoliation");
-            output(new SleKidneyTransplantation().getPhenopacket(), outDirectory, "lupus");
+            output(new DuchenneExon51Deletion().getPhenopacket(), outDirectory, "duchenne");
             output(new SquamousCellCancer().getPhenopacket(), outDirectory, "squamous-cell-esophageal-carcinoma");
             output(new UrothelialCancer().getPhenopacket(), outDirectory, "urothelial-cancer");
             output(new Covid().getPhenopacket(), outDirectory, "covid");
