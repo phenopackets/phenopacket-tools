@@ -80,45 +80,9 @@
       "minItems": 0
     },
     "metaData": {
-      "type": "object",
-      "properties": {
-        "created": {
-          "type": "string"
-        },
-        "createdBy": {
-          "type": "string"
-        },
-        "submittedBy": {
-          "type": "string"
-        },
-        "resources": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/resource"
-          },
-          "minItems": 1
-        },
-        "updates": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/update"
-          },
-          "minItems": 1
-        },
-        "phenopacketSchemaVersion": { "enum": ["2.0"]},
-        "externalReferences": {
-          "type": "array",
-          "items": { "$ref": "#/definitions/externalReference" },
-          "minItems": 0
-        }
-      },
-      "required": ["created", "createdBy","phenopacketSchemaVersion"],
-      "additionalProperties": false
-    }
-  },
-  "additionalProperties": false,
-  "required": [ "id", "metaData" ],
-  "definitions": {
+      "$ref": "#/definitions/metaData" }
+    },
+    "definitions": {
     "ontologyClass": {
       "type": "object",
       "properties": {
@@ -555,6 +519,42 @@
         "id",
         "progressStatus"
       ]
+    },
+    "metaData": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "submittedBy": {
+          "type": "string"
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/resource"
+          },
+          "minItems": 1
+        },
+        "updates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/update"
+          },
+          "minItems": 1
+        },
+        "phenopacketSchemaVersion": { "enum": ["2.0"]},
+        "externalReferences": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/externalReference" },
+          "minItems": 0
+        }
+      },
+      "required": ["created", "createdBy","phenopacketSchemaVersion"],
+      "additionalProperties": false
     },
     "procedure": {
       "type": "object",
