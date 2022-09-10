@@ -44,6 +44,14 @@ public class PhenotypicFeatureBuilder {
         return this;
     }
 
+    /**
+     * @param isoISO8601 A string such as P10Y4M2D representing the age of onset/observation
+     */
+    public PhenotypicFeatureBuilder isoISO8601onset(String isoISO8601) {
+        builder.setOnset(TimeElements.age(isoISO8601));
+        return this;
+    }
+
     public PhenotypicFeatureBuilder congenitalOnset() {
         TimeElement time = TimeElements.congenitalOnset();
         builder.setOnset(time);

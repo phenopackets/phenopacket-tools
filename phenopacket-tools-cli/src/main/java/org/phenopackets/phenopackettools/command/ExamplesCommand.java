@@ -114,6 +114,7 @@ public class ExamplesCommand implements Callable<Integer> {
         Path outDir = Path.of(output);
         Path outDirectory = createOutdirectoryIfNeeded(outDir);
         try {
+            output(new AtaxiaWithVitaminEdeficiency().getPhenopacket(), outDirectory, "AVED");
             output(new BethlehamMyopathy().getPhenopacket(), outDirectory, "bethleham-myopathy");
             output(new Holoprosencephaly5().getPhenopacket(), outDirectory, "holoprosencephaly5");
             output(new Marfan().getPhenopacket(), outDirectory, "marfan");

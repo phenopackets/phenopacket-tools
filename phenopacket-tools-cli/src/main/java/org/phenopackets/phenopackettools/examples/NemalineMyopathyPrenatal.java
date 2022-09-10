@@ -123,7 +123,7 @@ public class NemalineMyopathyPrenatal implements PhenopacketExample {
         //abuilder.setSequenceId("ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM");
         Variation variation = AlleleBuilder.builder()
                 .sequenceId("NC_000003.12")
-                .startEnd(42686219, 42686220)
+                .interbaseStartEnd(42686219, 42686220)
                 .altAllele("A")
                 .buildVariation();
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs397509420")
@@ -161,7 +161,7 @@ public class NemalineMyopathyPrenatal implements PhenopacketExample {
         //HGNC:30372
         AlleleBuilder abuilder = AlleleBuilder.builder()
                 .sequenceId("NC_000003.12")
-                .startEnd( 42688962, 42688963)
+                .interbaseStartEnd( 42688962, 42688963)
                 .altAllele("C");
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs778022582")
                 .variation(abuilder.buildVariation())

@@ -6,7 +6,6 @@ import org.ga4gh.vrs.v1.Number;
 
 /**
  * Create a VRS Allele object such as
- *
  * {'_id': 'ga4gh:VA.GuPzvZoansqNHPoXkQLXKo31VkTpDKsM',
  *  'type': 'Allele',
  *  'location': {'type': 'SequenceLocation',
@@ -15,7 +14,6 @@ import org.ga4gh.vrs.v1.Number;
  *    'start': {'type': 'Number', 'value': 48941647},
  *    'end': {'type': 'Number', 'value': 48941648}}},
  *  'state': {'type': 'LiteralSequenceExpression', 'sequence': 'T'}}
- *
  */
 public class AlleleBuilder {
 
@@ -45,7 +43,7 @@ public class AlleleBuilder {
      * residues, possibly with length zero, and specified using “0-start, half-open” coordinates.
      */
 
-    public AlleleBuilder startEnd(int start, int end) {
+    public AlleleBuilder interbaseStartEnd(int start, int end) {
         SequenceInterval interval = SequenceInterval.newBuilder()
                 .setStartNumber(Number.newBuilder().setValue(start))
                 .setEndNumber(Number.newBuilder().setValue(end))

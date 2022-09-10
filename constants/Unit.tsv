@@ -6,9 +6,13 @@ UCUM:kg	kiligram	KILIGRAM	kilogram
 UCUM:L	liter	LITER	liter
 UCUM:m	meter	METER	meter
 UCUM:ug	microgram	MICROGRAM	microgram
+UCUM:ug/dL	microgram per deciliter	MICROGRAM_PER_DECILITER	microgramPerDeciliter
+UCUM:ug/L	microgram per liter	MICROGRAM_PER_LITER	microgramPerLiter
 UCUM:uL	microliter	MICROLITER	microliter
 UCUM:um	micrometer	MICROMETER	micrometer
 UCUM:mg	milligram	MILLIGRAM	milligram
+UCUM:mg/dL	milligram per day	MILLIGRAM_PER_DAY	milligramPerDay
+UCUM:mg/dL	milligram per deciliter	MILLIGRAM_PER_DL	milligramPerDeciliter
 UCUM:mg.kg-1	milligram per kilogram	MILLIGRAM_PER_KG	mgPerKg
 UCUM:mL	milliliter	MILLILITER	milliliter
 UCUM:mm	millimeter	MILLIMETER	millimeter
