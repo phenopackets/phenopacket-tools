@@ -284,6 +284,29 @@ For instance, this is the code one would need to write using the native Protobuf
 </tbody>
 </table>
 </section>
+<section id="assays">
+<h2>Assays<a class="headerlink" href="#assays" title="Permalink to this heading">¶</a></h2>
+<p>If possible, <a class="reference external" href="https://loinc.org/">LOINC</a> codes should be used to specificy laboratory test assays.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7.0%" />
+<col style="width: 46.5%" />
+<col style="width: 46.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>LOINC:2157-6</p></td>
+<td><p>Creatine kinase [Enzymatic activity/volume] in Serum or Plasma</p></td>
+<td><p>creatineKinaseActivity()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="response">
 <h2>Response<a class="headerlink" href="#response" title="Permalink to this heading">¶</a></h2>
 <p>These codes from <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> can be used to code the overall response of a patient to treatment. Favorable and Unfavorble can be used for general purposes and the remaining codes are intended to be used for oncology.</p>
@@ -355,6 +378,14 @@ For instance, this is the code one would need to write using the native Protobuf
 <td><p>microgram</p></td>
 <td><p>microgram()</p></td>
 </tr>
+<tr class="row-odd"><td><p>UCUM:ug/dL</p></td>
+<td><p>microgram per deciliter</p></td>
+<td><p>microgramPerDeciliter()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:ug/L</p></td>
+<td><p>microgram per liter</p></td>
+<td><p>microgramPerLiter()</p></td>
+</tr>
 <tr class="row-odd"><td><p>UCUM:uL</p></td>
 <td><p>microliter</p></td>
 <td><p>microliter()</p></td>
@@ -366,6 +397,14 @@ For instance, this is the code one would need to write using the native Protobuf
 <tr class="row-odd"><td><p>UCUM:mg</p></td>
 <td><p>milligram</p></td>
 <td><p>milligram()</p></td>
+</tr>
+<tr class="row-even"><td><p>UCUM:mg/dL</p></td>
+<td><p>milligram per day</p></td>
+<td><p>milligramPerDay()</p></td>
+</tr>
+<tr class="row-odd"><td><p>UCUM:mg/dL</p></td>
+<td><p>milligram per deciliter</p></td>
+<td><p>milligramPerDeciliter()</p></td>
 </tr>
 <tr class="row-even"><td><p>UCUM:mg.kg-1</p></td>
 <td><p>milligram per kilogram</p></td>
@@ -640,6 +679,7 @@ For instance, this is the code one would need to write using the native Protobuf
 <li class="toctree-l2"><a class="reference internal" href="#allelicstate">AllelicState</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#organ">Organ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#laterality">Laterality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assays">Assays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#response">Response</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#unit">Unit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#spatialpattern">SpatialPattern</a></li>

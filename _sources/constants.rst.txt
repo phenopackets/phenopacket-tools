@@ -108,6 +108,18 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe l
    "HP:0012832", "Bilateral", "bilateral()"
 
 
+Assays
+^^^^^^
+
+If possible, `LOINC <https://loinc.org/>`_ codes should be used to specificy laboratory test assays.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "LOINC:2157-6", "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma", "creatineKinaseActivity()"
+
+
 Response
 ^^^^^^^^
 
@@ -137,9 +149,13 @@ With some exceptions, terms from the `The Unified Code for Units of Measure <htt
    "UCUM:L", "liter", "liter()"
    "UCUM:m", "meter", "meter()"
    "UCUM:ug", "microgram", "microgram()"
+   "UCUM:ug/dL", "microgram per deciliter", "microgramPerDeciliter()"
+   "UCUM:ug/L", "microgram per liter", "microgramPerLiter()"
    "UCUM:uL", "microliter", "microliter()"
    "UCUM:um", "micrometer", "micrometer()"
    "UCUM:mg", "milligram", "milligram()"
+   "UCUM:mg/dL", "milligram per day", "milligramPerDay()"
+   "UCUM:mg/dL", "milligram per deciliter", "milligramPerDeciliter()"
    "UCUM:mg.kg-1", "milligram per kilogram", "mgPerKg()"
    "UCUM:mL", "milliliter", "milliliter()"
    "UCUM:mm", "millimeter", "millimeter()"
