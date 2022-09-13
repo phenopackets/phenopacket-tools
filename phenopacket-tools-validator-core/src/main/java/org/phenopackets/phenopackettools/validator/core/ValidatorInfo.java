@@ -1,14 +1,12 @@
 package org.phenopackets.phenopackettools.validator.core;
 
-import org.phenopackets.phenopackettools.validator.core.impl.DefaultValidationInfo;
-
 /**
  * Information regarding validator.
  */
 public interface ValidatorInfo {
 
     static ValidatorInfo genericJsonSchema() {
-        return DefaultValidationInfo.generic();
+        return ValidatorInfoDefault.GENERIC;
     }
 
     /**
@@ -18,14 +16,20 @@ public interface ValidatorInfo {
      * file {@code hpo-rare-disease-schema.json}.
      */
     static ValidatorInfo rareDiseaseValidation() {
-        return DefaultValidationInfo.rareDiseaseValidator();
+        return ValidatorInfoDefault.RARE_DISEASE_VALIDATOR;
     }
 
-    static ValidatorInfo inputValidator() { return DefaultValidationInfo.inputValidator(); }
+    /**
+     * Get {@link ValidatorInfo} to represent anonymous validator to associate with errors related to data format
+     * errors.
+     * <p>
+     * The {@link ValidatorInfo} can be used if e.g. provided data is not a valid JSON but a valid JSON is expected.
+     */
+    static ValidatorInfo inputValidator() { return ValidatorInfoDefault.INPUT_VALIDATOR; }
 
 
     static ValidatorInfo of(String validatorId, String validatorName, String description) {
-        return DefaultValidationInfo.of(validatorId, validatorName, description);
+        return new ValidatorInfoDefault(validatorId, validatorName, description);
     }
 
     /**

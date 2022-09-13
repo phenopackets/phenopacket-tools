@@ -1,5 +1,6 @@
 package org.phenopackets.phenopackettools.validator.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +12,17 @@ public interface ValidationResults {
 
     static ValidationResults of(List<ValidatorInfo> validators,
                                 List<ValidationResult> validationResults) {
+        if (validators.isEmpty() && validationResults.isEmpty())
+            return empty();
         return new ValidationResultsDefault(validators, validationResults);
+    }
+
+    static ValidationResults empty() {
+        return ValidationResultsDefault.EMPTY;
+    }
+
+    static Builder builder() {
+        return new Builder();
     }
 
     /**
@@ -24,4 +35,30 @@ public interface ValidationResults {
      */
     List<ValidationResult> validationResults();
 
+    class Builder {
+
+        private final List<ValidatorInfo> validators = new ArrayList<>();
+        private final List<ValidationResult> validationResults = new ArrayList<>();
+
+        private Builder(){
+            // private no-op
+        }
+
+        public Builder addResult(ValidatorInfo info, ValidationResult result) {
+            this.validators.add(info);
+            this.validationResults.add(result);
+            return this;
+        }
+
+        public Builder addResults(ValidatorInfo info, List<ValidationResult> results) {
+            this.validators.add(info);
+            this.validationResults.addAll(results);
+            return this;
+        }
+
+        public ValidationResults build() {
+            return ValidationResults.of(validators, validationResults);
+        }
+
+    }
 }

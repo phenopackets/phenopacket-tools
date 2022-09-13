@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.phenopackettools.validator.core.errors.JsonError;
 import org.phenopackets.phenopackettools.validator.testdatagen.RareDiseasePhenopacket;
 import org.phenopackets.phenopackettools.validator.testdatagen.SimplePhenopacket;
 import org.phenopackets.schema.v2.Phenopacket;
@@ -23,7 +22,7 @@ import com.google.protobuf.util.JsonFormat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonSchemaValidatorTest {
-    private static final JsonSchemaValidator validator = JsonSchemaValidator.makeGenericJsonValidator();
+    private static final JsonSchemaValidator validator = JsonSchemaValidatorImpl.makeGenericJsonValidator();
 
     private static final SimplePhenopacket simplePhenopacket = new SimplePhenopacket();
 
@@ -36,13 +35,13 @@ public class JsonSchemaValidatorTest {
         String json = JsonFormat.printer().print(phenopacket);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(json);
-        List<? extends ValidationResult> errors = validator.validateJson(jsonNode);
+        List<? extends ValidationResult> errors = validator.validate(jsonNode);
         assertTrue(errors.isEmpty());
         // the Phenopacket is not valid if we remove the id
         phenopacket = Phenopacket.newBuilder(phenopacket).clearId().build();
         json = JsonFormat.printer().print(phenopacket);
         jsonNode = mapper.readTree(json);
-        errors = validator.validateJson(jsonNode);
+        errors = validator.validate(jsonNode);
         assertEquals(1, errors.size());
         ValidationResult error = errors.get(0);
         assertEquals(JsonError.REQUIRED, error.category());
@@ -60,7 +59,7 @@ public class JsonSchemaValidatorTest {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(invalidPhenopacketJson);
-        List<? extends ValidationResult> errors = validator.validateJson(jsonNode);
+        List<? extends ValidationResult> errors = validator.validate(jsonNode);
         assertEquals(3, errors.size());
         ValidationResult error = errors.get(0);
         // JsonError.CATEGORY is "JSON"
@@ -81,7 +80,7 @@ public class JsonSchemaValidatorTest {
         String json =  JsonFormat.printer().print(bethlehamMyopathy);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(json);
-        List<? extends ValidationResult> errors = validator.validateJson(jsonNode);
+        List<? extends ValidationResult> errors = validator.validate(jsonNode);
         assertTrue(errors.isEmpty());
     }
 
@@ -119,7 +118,7 @@ public class JsonSchemaValidatorTest {
                 }""";
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(invalidJson);
-        List<? extends ValidationResult> errors = validator.validateJson(jsonNode);
+        List<? extends ValidationResult> errors = validator.validate(jsonNode);
         assertEquals(1, errors.size());
         ValidationResult error = errors.get(0);
         assertEquals(JsonError.ENUM, error.category());
@@ -135,7 +134,7 @@ public class JsonSchemaValidatorTest {
         String payload = Files.readString(invalidMyopathyPhenopacket.toPath());
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(payload);
-        List<? extends ValidationResult> validationItems = validator.validateJson(jsonNode);
+        List<? extends ValidationResult> validationItems = validator.validate(jsonNode);
         for (ValidationResult ve : validationItems) {
             System.out.println(ve);
         }

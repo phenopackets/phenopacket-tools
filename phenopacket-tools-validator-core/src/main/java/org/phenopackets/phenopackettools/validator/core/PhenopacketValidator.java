@@ -1,14 +1,25 @@
 package org.phenopackets.phenopackettools.validator.core;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import org.phenopackets.schema.v2.Phenopacket;
+import com.google.protobuf.MessageOrBuilder;
 
 import java.util.List;
 
-@Deprecated(forRemoval = true) // or move away from here
-public interface PhenopacketValidator {
+/**
+ * {@link PhenopacketValidator} validates a top-level component of Phenopacket schema.
+ * <p>
+ * The top-level component must be one of the following types:
+ * <ul>
+ *     <li>{@link org.phenopackets.schema.v2.Phenopacket}</li>
+ *     <li>{@link org.phenopackets.schema.v2.Family}</li>
+ *     <li>{@link org.phenopackets.schema.v2.Cohort}</li>
+ * </ul>
+ *
+ * @param <T> type of the top-level component.
+ */
+public interface PhenopacketValidator<T extends MessageOrBuilder> {
 
-    List<ValidationResult> validateJson(JsonNode jsonNode);
-    List<ValidationResult> validateMessage(Phenopacket phenopacket);
+    ValidatorInfo validatorInfo();
+
+    List<ValidationResult> validate(T component);
 
 }

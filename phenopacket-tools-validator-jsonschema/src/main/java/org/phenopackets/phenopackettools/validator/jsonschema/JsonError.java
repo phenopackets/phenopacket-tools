@@ -1,4 +1,4 @@
-package org.phenopackets.phenopackettools.validator.core.errors;
+package org.phenopackets.phenopackettools.validator.jsonschema;
 
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
@@ -12,6 +12,7 @@ import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
  */
 public record JsonError(String category,
                         String message) implements ValidationResult {
+    // TODO - find an appropriate location for this record.
 
     /** JSON schema error meaning that the JSON code contained a property not present in the schema. */
     public static final String ADDITIONAL_PROPERTIES = "additionalProperties";
@@ -24,7 +25,7 @@ public record JsonError(String category,
 
 
     @Override
-    public ValidatorInfo validationInfo() {
+    public ValidatorInfo validatorInfo() {
         return null;
     }
 

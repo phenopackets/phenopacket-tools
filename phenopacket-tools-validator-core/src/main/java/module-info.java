@@ -3,15 +3,13 @@ module org.phenopackets.phenopackettools.validator.core {
 
     exports org.phenopackets.phenopackettools.validator.core;
     exports org.phenopackets.phenopackettools.validator.core.except;
+    exports org.phenopackets.phenopackettools.validator.core.phenotype;
 
     requires transitive com.google.protobuf;
     requires com.google.protobuf.util;
     requires org.phenopackets.schema;
-    requires com.fasterxml.jackson.databind;
+
     requires org.monarchinitiative.phenol.core;
 
-
     opens org.phenopackets.phenopackettools.validator.core;
-    exports org.phenopackets.phenopackettools.validator.core.errors;
-    opens org.phenopackets.phenopackettools.validator.core.errors;
 }

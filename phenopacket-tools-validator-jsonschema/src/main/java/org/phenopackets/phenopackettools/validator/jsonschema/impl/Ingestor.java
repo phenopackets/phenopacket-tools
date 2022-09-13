@@ -1,4 +1,4 @@
-package org.phenopackets.phenopackettools.validator.core.impl;
+package org.phenopackets.phenopackettools.validator.jsonschema.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.phenopackets.schema.v2.Phenopacket;

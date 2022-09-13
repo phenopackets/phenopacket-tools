@@ -1,22 +1,5 @@
 package org.phenopackets.phenopackettools.validator.core;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorException;
-import org.phenopackets.phenopackettools.validator.core.impl.DefaultPhenopacketIngestor;
-import org.phenopackets.phenopackettools.validator.core.impl.Ingestor;
-import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
-import org.phenopackets.schema.v2.Phenopacket;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-
 @Deprecated(forRemoval = true) // or move elsewhere
 public class DefaultValidatorRunner
 //        implements ValidationWorkflowRunner

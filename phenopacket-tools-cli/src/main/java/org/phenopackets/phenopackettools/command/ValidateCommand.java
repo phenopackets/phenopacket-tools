@@ -4,7 +4,9 @@ package org.phenopackets.phenopackettools.command;
 import org.monarchinitiative.phenol.io.OntologyLoader;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.phenopackets.phenopackettools.validator.core.*;
+import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
 import org.phenopackets.schema.v2.Phenopacket;
+import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -16,8 +18,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-
-import static org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidator.makeGenericJsonValidator;
 
 @Command(name = "validate",
         mixinStandardHelpOptions = true)
@@ -34,10 +34,10 @@ public class ValidateCommand implements Callable<Integer> {
 
     @Override
     public Integer call() {
-        List< PhenopacketValidator> messageValidators = new ArrayList<>();
-        List< PhenopacketValidator> jsonValidators = new ArrayList<>();
-        PhenopacketValidator defaultJsonValidator = makeGenericJsonValidator();
-        jsonValidators.add(defaultJsonValidator);
+        List<PhenopacketValidator<PhenopacketOrBuilder>> messageValidators = new ArrayList<>();
+//        List< PhenopacketValidator> jsonValidators = new ArrayList<>();
+//        PhenopacketValidator defaultJsonValidator = makeGenericJsonValidator();
+//        jsonValidators.add(defaultJsonValidator);
 
         if (rareHpoConstraints) {
             // add hp json schemea
@@ -46,7 +46,7 @@ public class ValidateCommand implements Callable<Integer> {
 
         if (hpJsonPath != null && hpJsonPath.toFile().isFile()) {
             Ontology hpo = OntologyLoader.loadOntology(hpJsonPath.toFile());
-            PhenopacketValidator hpoval =  new HpoPhenotypeValidator(hpo);
+            PhenopacketValidator<PhenopacketOrBuilder> hpoval = HpoPhenotypeValidators.phenopacketHpoPhenotypeValidator(hpo);
             messageValidators.add(hpoval);
         }
 //        ValidationWorkflowRunner validatorRunner = new DefaultValidatorRunner(jsonValidators, messageValidators);
