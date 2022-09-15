@@ -5,6 +5,9 @@ import org.monarchinitiative.phenol.io.OntologyLoader;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.phenopackets.phenopackettools.validator.core.*;
 import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
+import org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidationWorkflowRunner;
+import org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidator;
+import org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidatorImpl;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 import picocli.CommandLine.Command;
@@ -19,9 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-@Command(name = "validate",
+@Command(name = "basic", description = "Basic validation of Phenopackets using generic JSON Schema",
         mixinStandardHelpOptions = true)
-public class ValidateCommand implements Callable<Integer> {
+public class BasicValidateCommand implements Callable<Integer> {
 
     @Parameters(arity = "1..*", description = "One or more phenopacket files")
     public List<Path> phenopackets;
@@ -34,28 +37,16 @@ public class ValidateCommand implements Callable<Integer> {
 
     @Override
     public Integer call() {
-        List<PhenopacketValidator<PhenopacketOrBuilder>> messageValidators = new ArrayList<>();
-//        List< PhenopacketValidator> jsonValidators = new ArrayList<>();
-//        PhenopacketValidator defaultJsonValidator = makeGenericJsonValidator();
-//        jsonValidators.add(defaultJsonValidator);
-
-        if (rareHpoConstraints) {
-            // add hp json schemea
-            // add HPO validator
-        }
-
-        if (hpJsonPath != null && hpJsonPath.toFile().isFile()) {
-            Ontology hpo = OntologyLoader.loadOntology(hpJsonPath.toFile());
-            PhenopacketValidator<PhenopacketOrBuilder> hpoval = HpoPhenotypeValidators.phenopacketHpoPhenotypeValidator(hpo);
-            messageValidators.add(hpoval);
-        }
-//        ValidationWorkflowRunner validatorRunner = new DefaultValidatorRunner(jsonValidators, messageValidators);
-        ValidationWorkflowRunner<Phenopacket> validatorRunner = null;
+        JsonSchemaValidator requirementsValidator = JsonSchemaValidatorImpl.makeGenericJsonValidator();
+        ValidationWorkflowRunner<PhenopacketOrBuilder> runner = new JsonSchemaValidationWorkflowRunner<>(
+                PhenopacketFormatConverters.phenopacketConverter(),
+                requirementsValidator,
+                List.of());
 
 
         for (Path phenopacket : phenopackets) {
             try (InputStream in = Files.newInputStream(phenopacket)) {
-                ValidationResults results = validatorRunner.validate(in);
+                ValidationResults results = runner.validate(in);
                 List<ValidationResult> validationItems = results.validationResults();
                 Path fileName = phenopacket.getFileName();
                 if (validationItems.isEmpty()) {

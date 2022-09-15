@@ -3,7 +3,7 @@ package org.phenopackets.phenopackettools;
 import org.phenopackets.phenopackettools.command.ConvertCommand;
 import org.phenopackets.phenopackettools.command.ExamplesCommand;
 import org.phenopackets.phenopackettools.command.HtmlOutputCommand;
-import org.phenopackets.phenopackettools.command.ValidateCommand;
+import org.phenopackets.phenopackettools.command.BasicValidateCommand;
 import picocli.AutoComplete;
 
 import static picocli.CommandLine.*;
@@ -17,7 +17,7 @@ import static picocli.CommandLine.*;
                 ExamplesCommand.class,
                 ConvertCommand.class,
                 HtmlOutputCommand.class,
-                ValidateCommand.class
+                BasicValidateCommand.class
         }
 )
 public class PhenopacketTools {

@@ -772,33 +772,32 @@
     "therapeuticRegimen": {
       "type": "object",
       "properties": {
-        "identifier": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/ontologyClass"
-            },
-            {
-              "$ref": "#/definitions/externalReference"
-            }
-          ]},
-          "startTime": {
-            "$ref": "#/definitions/timeElement"
-          },
-          "endTime": {
-            "$ref": "#/definitions/timeElement"
-          },
-          "status": {
-            "enum": [
-              "UNKNOWN_STATUS",
-              "STARTED",
-              "COMPLETED",
-              "DISCONTINUED"
-            ]
-          }
+        "ontologyClass": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "externalReference" : {
+          "$ref": "#/definitions/externalReference"
+        },
+        "startTime": {
+          "$ref": "#/definitions/timeElement"
+        },
+        "endTime": {
+          "$ref": "#/definitions/timeElement"
+        },
+        "regimenStatus": {
+          "enum": [
+            "UNKNOWN_STATUS",
+            "STARTED",
+            "COMPLETED",
+            "DISCONTINUED"
+          ]
+        }
       },
-      "required": [
-        "identifier"
+      "oneOf": [
+        { "required": [ "ontologyClass" ]},
+        { "required": [ "externalReference" ]}
       ],
+      "required": ["regimenStatus"],
       "additionalProperties": false
     },
     "medicalAction": {
