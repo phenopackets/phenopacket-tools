@@ -842,5 +842,7 @@
         { "required": [ "treatment" ]}
       ]
     }
-  }
+  },
+  "required": ["id", "metaData"],
+  "additionalProperties": false
 }
