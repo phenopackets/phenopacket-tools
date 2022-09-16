@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
@@ -24,79 +25,82 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonSchemaValidatorTest {
 
-    private static final SimplePhenopacket simplePhenopacket = new SimplePhenopacket();
+    @Nested
+    public class PhenopacketTest {
 
-    private static final RareDiseasePhenopacket rareDiseasePhenopacket = new RareDiseasePhenopacket();
-    private JsonSchemaValidator validator;
+        private static final SimplePhenopacket simplePhenopacket = new SimplePhenopacket();
 
-    @BeforeEach
-    public void setUp() {
-        validator = JsonSchemaValidatorConfigurer.getBasePhenopacketValidator();
-    }
+        private static final RareDiseasePhenopacket rareDiseasePhenopacket = new RareDiseasePhenopacket();
+        private JsonSchemaValidator validator;
 
-    @Test
-    public void testValidationOfSimpleValidPhenopacket() throws Exception {
-       // PhenopacketValidatorOld validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
-        Phenopacket phenopacket = simplePhenopacket.getPhenopacket();
-        String json = JsonFormat.printer().print(phenopacket);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(json);
-        List<? extends ValidationResult> errors = validator.validate(jsonNode);
-        assertTrue(errors.isEmpty());
-        // the Phenopacket is not valid if we remove the id
-        phenopacket = Phenopacket.newBuilder(phenopacket).clearId().build();
-        json = JsonFormat.printer().print(phenopacket);
-        jsonNode = mapper.readTree(json);
-        errors = validator.validate(jsonNode);
-        assertEquals(1, errors.size());
-        ValidationResult error = errors.get(0);
-        assertEquals(JsonError.REQUIRED, error.category());
-        assertEquals("$.id: is missing but it is required", error.message());
-    }
+        @BeforeEach
+        public void setUp() {
+            validator = JsonSchemaValidatorConfigurer.getBasePhenopacketValidator();
+        }
 
-    /**
-     * This example phenopacket does not contain anything except {"disney" : "donald"}
-     * It does not contain an id or a metaData element and thus should fail.
-     */
-    @Test
-    public void testValidationOfSimpleInValidPhenopacket() throws JsonProcessingException {
+        @Test
+        public void testValidationOfSimpleValidPhenopacket() throws Exception {
+            // PhenopacketValidatorOld validator = FACTORY.getValidatorForType(ValidatorInfo.generic()).get();
+            Phenopacket phenopacket = simplePhenopacket.getPhenopacket();
+            String json = JsonFormat.printer().print(phenopacket);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(json);
+            List<? extends ValidationResult> errors = validator.validate(jsonNode);
+            assertTrue(errors.isEmpty());
+            // the Phenopacket is not valid if we remove the id
+            phenopacket = Phenopacket.newBuilder(phenopacket).clearId().build();
+            json = JsonFormat.printer().print(phenopacket);
+            jsonNode = mapper.readTree(json);
+            errors = validator.validate(jsonNode);
+            assertEquals(1, errors.size());
+            ValidationResult error = errors.get(0);
+            assertEquals(JsonError.REQUIRED, error.category());
+            assertEquals("$.id: is missing but it is required", error.message());
+        }
 
-        String invalidPhenopacketJson = "{\"disney\" : \"donald\"}";
+        /**
+         * This example phenopacket does not contain anything except {"disney" : "donald"}
+         * It does not contain an id or a metaData element and thus should fail.
+         */
+        @Test
+        public void testValidationOfSimpleInValidPhenopacket() throws JsonProcessingException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(invalidPhenopacketJson);
-        List<? extends ValidationResult> errors = validator.validate(jsonNode);
-        assertEquals(3, errors.size());
-        ValidationResult error = errors.get(0);
-        // JsonError.CATEGORY is "JSON"
-        assertEquals(JsonError.REQUIRED, error.category());
-        assertEquals("$.id: is missing but it is required", error.message());
-        error = errors.get(1);
-        assertEquals(JsonError.REQUIRED, error.category());
-       assertEquals("$.metaData: is missing but it is required", error.message());
-        error = errors.get(2);
+            String invalidPhenopacketJson = "{\"disney\" : \"donald\"}";
 
-        assertEquals(JsonError.ADDITIONAL_PROPERTIES, error.category());
-        assertEquals("$.disney: is not defined in the schema and the schema does not allow additional properties", error.message());
-    }
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(invalidPhenopacketJson);
+            List<? extends ValidationResult> errors = validator.validate(jsonNode);
+            assertEquals(3, errors.size());
+            ValidationResult error = errors.get(0);
+            // JsonError.CATEGORY is "JSON"
+            assertEquals(JsonError.REQUIRED, error.category());
+            assertEquals("$.id: is missing but it is required", error.message());
+            error = errors.get(1);
+            assertEquals(JsonError.REQUIRED, error.category());
+            assertEquals("$.metaData: is missing but it is required", error.message());
+            error = errors.get(2);
 
-    @Test
-    public void testRareDiseaseBethlemahmValidPhenopacket() throws Exception {
-        Phenopacket bethlehamMyopathy = rareDiseasePhenopacket.getPhenopacket();
-        String json =  JsonFormat.printer().print(bethlehamMyopathy);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(json);
-        List<? extends ValidationResult> errors = validator.validate(jsonNode);
-        assertTrue(errors.isEmpty());
-    }
+            assertEquals(JsonError.ADDITIONAL_PROPERTIES, error.category());
+            assertEquals("$.disney: is not defined in the schema and the schema does not allow additional properties", error.message());
+        }
 
-    /**
-     * This line is erroneous because it does not correspond to the enumeration
-     *  "sex": "random text here"
-     */
-    @Test
-    public void invalidEnum() throws JsonProcessingException {
-        String invalidJson = """
+        @Test
+        public void testRareDiseaseBethlemahmValidPhenopacket() throws Exception {
+            Phenopacket bethlehamMyopathy = rareDiseasePhenopacket.getPhenopacket();
+            String json =  JsonFormat.printer().print(bethlehamMyopathy);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(json);
+            List<? extends ValidationResult> errors = validator.validate(jsonNode);
+            assertTrue(errors.isEmpty());
+        }
+
+        /**
+         * This line is erroneous because it does not correspond to the enumeration
+         *  "sex": "random text here"
+         */
+        @Test
+        public void invalidEnum() throws JsonProcessingException {
+            String invalidJson = """
                 {
                   "id": "id-C",
                   "subject": {
@@ -122,33 +126,31 @@ public class JsonSchemaValidatorTest {
                     "phenopacketSchemaVersion": "2.0"
                   }
                 }""";
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(invalidJson);
-        List<? extends ValidationResult> errors = validator.validate(jsonNode);
-        assertEquals(1, errors.size());
-        ValidationResult error = errors.get(0);
-        assertEquals(JsonError.ENUM, error.category());
-        assertEquals("$.subject.sex: does not have a value in the enumeration [UNKNOWN_SEX, FEMALE, MALE]", error.message());
-        assertEquals(ValidationLevel.ERROR, error.level());
-    }
-
-    @Test
-    @Disabled // TODO - we should rework the testing strategy to invalidate a valid phenopacket and check that it raises the expected error
-    public void testRareDiseaseBethlemahmInvalidValidPhenopacket() throws IOException {
-
-        File invalidMyopathyPhenopacket = Path.of("src/test/resources/json/bethlehamMyopathyInvalidExample.json").toFile();
-        String payload = Files.readString(invalidMyopathyPhenopacket.toPath());
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(payload);
-        List<? extends ValidationResult> validationItems = validator.validate(jsonNode);
-        for (ValidationResult ve : validationItems) {
-            System.out.println(ve);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(invalidJson);
+            List<? extends ValidationResult> errors = validator.validate(jsonNode);
+            assertEquals(1, errors.size());
+            ValidationResult error = errors.get(0);
+            assertEquals(JsonError.ENUM, error.category());
+            assertEquals("$.subject.sex: does not have a value in the enumeration [UNKNOWN_SEX, FEMALE, MALE, OTHER_SEX]", error.message());
+            assertEquals(ValidationLevel.ERROR, error.level());
         }
-        assertEquals(1, validationItems.size());
-        ValidationResult validationResult = validationItems.get(0);
-        assertEquals(JsonError.REQUIRED, validationResult.category());
-       assertEquals("$.phenotypicFeatures: is missing but it is required", validationResult.message());
-    }
 
+        @Test
+        @Disabled // TODO - we should rework the testing strategy to invalidate a valid phenopacket and check that it raises the expected error
+        public void testRareDiseaseBethlemahmInvalidValidPhenopacket() throws IOException {
+
+            File invalidMyopathyPhenopacket = Path.of("src/test/resources/json/bethlehamMyopathyInvalidExample.json").toFile();
+            String payload = Files.readString(invalidMyopathyPhenopacket.toPath());
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(payload);
+            List<? extends ValidationResult> validationItems = validator.validate(jsonNode);
+            assertEquals(1, validationItems.size());
+            ValidationResult validationResult = validationItems.get(0);
+            assertEquals(JsonError.REQUIRED, validationResult.category());
+            assertEquals("$.phenotypicFeatures: is missing but it is required", validationResult.message());
+        }
+
+    }
 
 }
