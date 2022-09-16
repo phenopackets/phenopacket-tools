@@ -65,7 +65,7 @@ public class JsonSchemaDiseaseValidatorTest {
 
     @BeforeEach
     public void setUp() {
-        validator = JsonSchemaValidatorImpl.makeGenericJsonValidator();
+        validator = JsonSchemaValidatorConfigurer.getBasePhenopacketValidator();
     }
 
     @Test

@@ -3,6 +3,7 @@ package org.phenopackets.phenopackettools.validator.jsonschema;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
@@ -22,11 +23,16 @@ import com.google.protobuf.util.JsonFormat;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonSchemaValidatorTest {
-    private static final JsonSchemaValidator validator = JsonSchemaValidatorImpl.makeGenericJsonValidator();
 
     private static final SimplePhenopacket simplePhenopacket = new SimplePhenopacket();
 
     private static final RareDiseasePhenopacket rareDiseasePhenopacket = new RareDiseasePhenopacket();
+    private JsonSchemaValidator validator;
+
+    @BeforeEach
+    public void setUp() {
+        validator = JsonSchemaValidatorConfigurer.getBasePhenopacketValidator();
+    }
 
     @Test
     public void testValidationOfSimpleValidPhenopacket() throws Exception {

@@ -10,6 +10,7 @@ module org.phenopackets.phenopackettools.cli {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.dataformat.yaml;
     requires info.picocli;
+    requires org.slf4j;
 
     opens org.phenopackets.phenopackettools.command to info.picocli;
 }
