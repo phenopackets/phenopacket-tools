@@ -13,4 +13,5 @@ module org.phenopackets.phenopackettools.cli {
     requires org.slf4j;
 
     opens org.phenopackets.phenopackettools.command to info.picocli;
+    opens org.phenopackets.phenopackettools.command.validate to info.picocli;
 }

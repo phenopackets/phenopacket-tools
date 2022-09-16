@@ -1,4 +1,4 @@
-package org.phenopackets.phenopackettools.command;
+package org.phenopackets.phenopackettools.command.validate;
 
 import com.google.protobuf.MessageOrBuilder;
 import org.monarchinitiative.phenol.io.OntologyLoader;

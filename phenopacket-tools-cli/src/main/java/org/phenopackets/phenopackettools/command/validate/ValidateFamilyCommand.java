@@ -1,4 +1,4 @@
-package org.phenopackets.phenopackettools.command;
+package org.phenopackets.phenopackettools.command.validate;
 
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
