@@ -8,9 +8,10 @@ import picocli.AutoComplete;
 
 import static picocli.CommandLine.*;
 
-@Command(name = "phenotools",
-        version = "0.0.2",
+@Command(name = "phenopacket-tools",
+        version = "0.4.5-SNAPSHOT",
         mixinStandardHelpOptions = true,
+        usageHelpWidth = Main.USAGE_WIDTH,
         subcommands = {
                 // see https://picocli.info/autocomplete.html
                 AutoComplete.GenerateCompletion.class,
