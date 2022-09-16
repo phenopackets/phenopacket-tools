@@ -54,6 +54,7 @@ abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callab
 
         // Create the validation workflow runner.
         ValidationWorkflowRunner<T> validationRunner = prepareValidationWorkflow(customJsonSchemas, semanticValidators);
+        LOGGER.debug("Configured validation runner with {} validation(s)", validationRunner.validators().size());
 
         // Validate the phenopackets and report the results.
         for (Path item : phenopackets) {

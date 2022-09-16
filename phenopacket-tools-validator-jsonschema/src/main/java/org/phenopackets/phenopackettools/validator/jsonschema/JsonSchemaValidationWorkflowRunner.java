@@ -45,6 +45,7 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     private final JsonSchemaValidator baseValidator;
     private final Collection<JsonSchemaValidator> requirementValidators;
     private final Collection<PhenopacketValidator<T>> semanticValidators;
+    private final List<ValidatorInfo> validatorInfos;
 
     /**
      * @return a {@link Builder} for building a {@link JsonSchemaValidationWorkflowRunner} for validating
@@ -78,6 +79,29 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
         this.baseValidator = Objects.requireNonNull(baseValidator);
         this.requirementValidators = Objects.requireNonNull(requirementValidators);
         this.semanticValidators = Objects.requireNonNull(semanticValidators);
+        this.validatorInfos = summarizeValidatorInfos(baseValidator, requirementValidators, semanticValidators);
+    }
+
+    private static <T extends MessageOrBuilder> List<ValidatorInfo> summarizeValidatorInfos(JsonSchemaValidator base,
+                                                                                            Collection<JsonSchemaValidator> requirements,
+                                                                                            Collection<PhenopacketValidator<T>> semantics) {
+        List<ValidatorInfo> infos = new ArrayList<>();
+
+        infos.add(base.validatorInfo());
+        for (JsonSchemaValidator validator : requirements) {
+            infos.add(validator.validatorInfo());
+        }
+
+        for (PhenopacketValidator<T> validator : semantics) {
+            infos.add(validator.validatorInfo());
+        }
+
+        return List.copyOf(infos);
+    }
+
+    @Override
+    public List<ValidatorInfo> validators() {
+        return validatorInfos;
     }
 
     @Override

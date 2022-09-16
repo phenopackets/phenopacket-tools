@@ -4,7 +4,7 @@
   "title": "Family",
   "description": "Validate basic requirements of the family element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
   "type": "object",
-  "required": ["id", "proband", "pedigree", "metaData"],
+  "required": ["id", "proband", "consanguinousParents", "pedigree", "metaData"],
   "additionalProperties": false,
   "properties": {
     "id": {
@@ -13,6 +13,10 @@
     },
     "proband":  {
       "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/phenopacket-schema-2-0.json"
+    },
+    "consanguinousParents": {
+      "description": "Flag to indicate that the parents of the proband are consanguinous",
+      "type": "boolean"
     },
     "relatives" : {
       "type": "array",
