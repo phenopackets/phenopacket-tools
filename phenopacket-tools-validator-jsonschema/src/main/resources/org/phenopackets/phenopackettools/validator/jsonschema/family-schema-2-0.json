@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://www.ga4gh.org/phenopackets/family",
+  "title": "Family",
+  "description": "Validate basic requirements of the family element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+  "type": "object",
+  "required": ["id", "proband", "pedigree", "metaData"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "The unique identifier for the Family message",
+      "type": "string"
+    },
+    "proband":  {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/phenopacket-schema-2-0.json"
+    },
+    "relatives" : {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/phenopacket-schema-2-0.json"
+      }
+    },
+    "pedigree": {
+      "$ref": "#/definitions/pedigree"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/phenopacket-schema-2-0.json#/definitions/file"
+      }
+    },
+    "metaData":  {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/phenopacket-schema-2-0.json#/definitions/metaData"
+    }
+  },
+  "definitions": {
+    "pedigree": {
+      "type": "object",
+      "required": ["persons"],
+      "additionalProperties": false,
+      "properties": {
+        "persons": {
+          "description": "a list of family members in this pedigree.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/person"
+          }
+        }
+      }
+    },
+    "person": {
+      "type": "object",
+      "required": ["familyId", "individualId", "paternalId", "maternalId", "sex", "affectedStatus"],
+      "additionalProperties": false,
+      "properties": {
+        "familyId": {
+          "description": "application specific identifier",
+          "type": "string"
+        },
+        "individualId": {
+          "description": "application specific identifier",
+          "type": "string"
+        },
+        "paternalId": {
+          "description": "application specific identifier",
+          "type": "string"
+        },
+        "maternalId": {
+          "description": "application specific identifier",
+          "type": "string"
+        },
+        "sex": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/phenopacket-schema-2-0.json#/definitions/sex"
+        },
+        "affectedStatus": {
+          "enum": ["MISSING", "UNAFFECTED", "AFFECTED"]
+        }
+      }
+    }
+  }
+}

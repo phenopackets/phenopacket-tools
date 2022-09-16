@@ -7,6 +7,8 @@ import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.ValidationResults;
 import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -30,6 +32,8 @@ import java.util.concurrent.Callable;
  */
 abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callable<Integer> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseValidateCommand.class);
+
     @CommandLine.Parameters(arity = "1..*", description = "One or more phenopacket files")
     public List<Path> phenopackets;
 
@@ -46,14 +50,15 @@ abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callab
     public Integer call() {
         // Prepare requirement schemas and semantic validators.
         List<URL> customJsonSchemas = prepareCustomSchemaUrls();
-        List<PhenopacketValidator<T>> semanticValidators = prepareSemanticValidators();
+        List<PhenopacketValidator<T>> semanticValidators = configureSemanticValidators();
 
         // Create the validation workflow runner.
         ValidationWorkflowRunner<T> validationRunner = prepareValidationWorkflow(customJsonSchemas, semanticValidators);
 
         // Validate the phenopackets and report the results.
         for (Path item : phenopackets) {
-            Path fileName = item.getFileName();
+            Path fileName = item.toAbsolutePath();
+            LOGGER.debug("Validating '{}'", fileName);
 
             try (InputStream is = Files.newInputStream(item)) {
                 ValidationResults results = validationRunner.validate(is);
@@ -62,7 +67,7 @@ abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callab
                     System.out.printf("%s - OK%n", fileName);
                 } else {
                     for (ValidationResult result : validationResults) {
-                        System.out.printf("%s - %s:%s%n ", fileName, result.category(), result.message());
+                        System.out.printf("%s   [%s]  -  %s:%s%n ", fileName, result.level(), result.category(), result.message());
                     }
                 }
                 printSeparator();
@@ -78,6 +83,7 @@ abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callab
                                                                              List<PhenopacketValidator<T>> semanticValidators);
 
     protected List<URL> prepareCustomSchemaUrls() {
+        LOGGER.debug("Preparing schemas for custom requirement validation");
         List<URL> urls = new ArrayList<>();
         for (Path requirement : requirements) {
             try {
@@ -86,6 +92,7 @@ abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callab
                 System.err.printf("Skipping JSON schema at '%s', the path is invalid: %s%n", requirement.toAbsolutePath(), e.getMessage());
             }
         }
+        LOGGER.debug("Prepared {} custom schema(s)", urls.size());
         return urls;
     }
 
@@ -95,13 +102,17 @@ abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callab
         }
     }
 
-    protected List<PhenopacketValidator<T>> prepareSemanticValidators()  {
+    protected List<PhenopacketValidator<T>> configureSemanticValidators()  {
         // Right now we only have one semantic validator, but we'll extend this in the future.
+        LOGGER.debug("Configuring semantic validators");
         List<PhenopacketValidator<T>> validators = new ArrayList<>();
         if (hpJson != null) {
+            LOGGER.debug("Reading HPO from '{}}'", hpJson.toAbsolutePath());
             Ontology hpo = OntologyLoader.loadOntology(hpJson.toFile());
             validators.add(createHpoValidator(hpo));
         }
+
+        LOGGER.debug("Configured {} semantic validator(s)", validators.size());
         return validators;
     }
 

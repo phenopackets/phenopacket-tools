@@ -18,8 +18,8 @@ import java.io.InputStream;
 class JsonSchemaValidatorConfigurer {
 
     private static final String PHENOPACKET_SCHEMA_PATH = "phenopacket-schema-2-0.json";
-    private static final String FAMILY_SCHEMA_PATH = "family-schema-2-0.json"; // TODO - the file does not exist yet
-    private static final String COHORT_SCHEMA_PATH = "cohort-schema-2-0.json"; // TODO - the file does not exist yet
+    private static final String FAMILY_SCHEMA_PATH = "family-schema-2-0.json";
+    private static final String COHORT_SCHEMA_PATH = "cohort-schema-2-0.json";
 
     /**
      * The latest version of the spec that is supported by our JSON SCHEMA library is 2019/09.

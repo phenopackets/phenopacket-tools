@@ -1,48 +1,18 @@
 {
   "$schema": "https://json-schema.org/draft/2019-09/schema#",
-  "$id": "https://www.ga4gh.org/phenopackets",
+  "$id": "https://www.ga4gh.org/phenopackets/phenopacket",
   "title": "Phenopacket",
   "description": "Schema for Global Alliance for Genomics and Health (GA4GH) Phenopacket",
   "type": "object",
+  "required": ["id", "metaData"],
+  "additionalProperties": false,
   "properties": {
     "id": {
       "description": "The unique identifier for the Phenopacket",
       "type": "string"
     },
     "subject": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "An arbitrary identifier for the subject of the Phenopacket",
-          "type": "string"
-        },
-        "alternateIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 0,
-          "uniqueItems": true
-        },
-        "dateOfBirth": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "timeAtLastEncounter": {
-          "$ref": "#/definitions/timeElement"
-        },
-        "vitalStatus": {
-          "enum": ["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
-        },
-        "sex": {
-          "enum": ["UNKNOWN_SEX", "FEMALE", "MALE"]
-        },
-        "karyotypicSex": {
-          "enum": ["UNKNOWN_KARYOTYPE", "XX", "XY", "XO", "XXY","XXX","XXYY", "XXXY", "XXXX", "XYY", "OTHER_KARYOTYPE"]
-        },
-        "taxonomy": {"$ref": "#/definitions/ontologyClass"}
-      },
-      "required": ["id"]
+      "$ref": "#/definitions/individual"
     },
     "phenotypicFeatures": {
       "type": "array",
@@ -436,6 +406,58 @@
           ]
         }
       }
+    },
+    "individual": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "An arbitrary identifier for the subject of the Phenopacket",
+          "type": "string"
+        },
+        "alternateIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "timeAtLastEncounter": {
+          "$ref": "#/definitions/timeElement"
+        },
+        "vitalStatus": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": ["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
+            },
+            "timeOfDeath": {
+              "$ref": "#/definitions/timeElement"
+            },
+            "causeOfDeath": {
+              "$ref": "#/definitions/ontologyClass"
+            },
+            "survivalTimeInDays": {
+              "type": "number"
+            }
+          }
+        },
+        "sex": {
+          "$ref": "#/definitions/sex"
+        },
+        "karyotypicSex": {
+          "enum": ["UNKNOWN_KARYOTYPE", "XX", "XY", "XO", "XXY","XXX","XXYY", "XXXY", "XXXX", "XYY", "OTHER_KARYOTYPE"]
+        },
+        "taxonomy": {"$ref": "#/definitions/ontologyClass"}
+        },
+      "required": ["id"]
+    },
+    "sex": {
+      "enum": ["UNKNOWN_SEX", "FEMALE", "MALE", "OTHER_SEX"]
     },
     "diagnosis": {
       "type": "object",
@@ -841,7 +863,5 @@
         { "required": [ "treatment" ]}
       ]
     }
-  },
-  "required": ["id", "metaData"],
-  "additionalProperties": false
+  }
 }

@@ -42,6 +42,7 @@ abstract class ValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> exten
     private List<JsonSchemaValidator> readRequirementValidators(List<URL> schemaUrls) {
         List<JsonSchemaValidator> requirementValidators = new ArrayList<>();
         for (URL schemaUrl : schemaUrls) {
+            LOGGER.debug("Opening JSON schema at '{}'", schemaUrl);
             try (InputStream is = schemaUrl.openStream()) {
                 JsonSchemaValidator validator = JsonSchemaValidatorConfigurer.configureJsonSchemaValidator(is);
                 requirementValidators.add(validator);
