@@ -1,4 +1,4 @@
-package org.phenopackets.phenopackettools.validator.jsonschema;
+package org.phenopackets.phenopackettools.validator.jsonschema.v2;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +7,7 @@ import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.core.except.PhenopacketValidatorRuntimeException;
+import org.phenopackets.phenopackettools.validator.jsonschema.impl.JsonSchemaValidator;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,11 +16,11 @@ import java.io.InputStream;
  * Static utility class that contains logic for configuring a {@link JsonSchemaValidator} from an {@link InputStream}
  * for JSON schema document.
  */
-class JsonSchemaValidatorConfigurer {
+public class JsonSchemaValidatorConfigurer {
 
-    private static final String PHENOPACKET_SCHEMA_PATH = "phenopacket-schema-2-0.json";
-    private static final String FAMILY_SCHEMA_PATH = "family-schema-2-0.json";
-    private static final String COHORT_SCHEMA_PATH = "cohort-schema-2-0.json";
+    private static final String PHENOPACKET_SCHEMA_PATH = "phenopacket-schema.json";
+    private static final String FAMILY_SCHEMA_PATH = "family-schema.json";
+    private static final String COHORT_SCHEMA_PATH = "cohort-schema.json";
 
     /**
      * The latest version of the spec that is supported by our JSON SCHEMA library is 2019/09.
@@ -38,12 +39,12 @@ class JsonSchemaValidatorConfigurer {
         // static utility class
     }
 
-    static JsonSchemaValidator configureJsonSchemaValidator(InputStream is) throws IOException {
+    public static JsonSchemaValidator configureJsonSchemaValidator(InputStream is) throws IOException {
         JsonSchemaNodeAndInfo jsonSchemaAndInfo = readSchemaAndInfo(is);
         return configureSingletonSchemaValidator(jsonSchemaAndInfo);
     }
 
-    static JsonSchemaValidator getBasePhenopacketValidator() {
+    public static JsonSchemaValidator getBasePhenopacketValidator() {
         if (BASE_PHENOPACKET_VALIDATOR == null) { // double-check locking
             synchronized (JsonSchemaValidatorConfigurer.class) {
                 if (BASE_PHENOPACKET_VALIDATOR == null) {
@@ -55,7 +56,7 @@ class JsonSchemaValidatorConfigurer {
         return BASE_PHENOPACKET_VALIDATOR;
     }
 
-    static JsonSchemaValidator getBaseFamilyValidator() {
+    public static JsonSchemaValidator getBaseFamilyValidator() {
         if (BASE_FAMILY_VALIDATOR == null) {
             synchronized (JsonSchemaValidatorConfigurer.class) {
                 if (BASE_FAMILY_VALIDATOR == null) {
@@ -67,7 +68,7 @@ class JsonSchemaValidatorConfigurer {
         return BASE_FAMILY_VALIDATOR;
     }
 
-    static JsonSchemaValidator getBaseCohortValidator() {
+    public static JsonSchemaValidator getBaseCohortValidator() {
         if (BASE_COHORT_VALIDATOR == null) {
             synchronized (JsonSchemaValidatorConfigurer.class) {
                 if (BASE_COHORT_VALIDATOR == null) {

@@ -1,4 +1,4 @@
-package org.phenopackets.phenopackettools.validator.jsonschema;
+package org.phenopackets.phenopackettools.validator.jsonschema.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.networknt.schema.JsonSchema;
@@ -14,21 +14,21 @@ import java.util.stream.Collectors;
  * to the provided {@link JsonNode} and converts any errors into {@link ValidationResult}s
  * with {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR} level.
  */
-class JsonSchemaValidator {
+public class JsonSchemaValidator {
 
     private final JsonSchema jsonSchema;
     private final ValidatorInfo validatorInfo;
 
-    JsonSchemaValidator(JsonSchema jsonSchema, ValidatorInfo validatorInfo) {
+    public JsonSchemaValidator(JsonSchema jsonSchema, ValidatorInfo validatorInfo) {
         this.jsonSchema = Objects.requireNonNull(jsonSchema);
         this.validatorInfo = Objects.requireNonNull(validatorInfo);
     }
 
-    ValidatorInfo validatorInfo() {
+    public ValidatorInfo validatorInfo() {
         return validatorInfo;
     }
 
-    List<ValidationResult> validate(JsonNode node) {
+    public List<ValidationResult> validate(JsonNode node) {
         return jsonSchema.validate(node).stream()
                 .map(res -> ValidationResult.error(validatorInfo, res.getType(), res.getMessage()))
                 .collect(Collectors.toList());

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.MessageOrBuilder;
 import org.phenopackets.phenopackettools.validator.core.*;
+import org.phenopackets.phenopackettools.validator.jsonschema.impl.JsonSchemaValidator;
 import org.phenopackets.schema.v2.CohortOrBuilder;
 import org.phenopackets.schema.v2.FamilyOrBuilder;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;

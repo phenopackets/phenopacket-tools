@@ -3,6 +3,8 @@ package org.phenopackets.phenopackettools.validator.jsonschema;
 import com.google.protobuf.MessageOrBuilder;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketFormatConverter;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketFormatConverters;
+import org.phenopackets.phenopackettools.validator.jsonschema.impl.JsonSchemaValidator;
+import org.phenopackets.phenopackettools.validator.jsonschema.v2.JsonSchemaValidatorConfigurer;
 import org.phenopackets.schema.v2.CohortOrBuilder;
 import org.phenopackets.schema.v2.FamilyOrBuilder;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;

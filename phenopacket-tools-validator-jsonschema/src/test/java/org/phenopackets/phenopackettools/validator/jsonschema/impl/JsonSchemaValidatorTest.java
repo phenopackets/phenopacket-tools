@@ -1,17 +1,17 @@
-package org.phenopackets.phenopackettools.validator.jsonschema;
+package org.phenopackets.phenopackettools.validator.jsonschema.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
+import org.phenopackets.phenopackettools.validator.jsonschema.Action;
+import org.phenopackets.phenopackettools.validator.jsonschema.JsonTamperer;
+import org.phenopackets.phenopackettools.validator.jsonschema.v2.JsonSchemaValidatorConfigurer;
 import org.phenopackets.phenopackettools.validator.testdatagen.ExampleFamily;
 import org.phenopackets.phenopackettools.validator.testdatagen.RareDiseasePhenopacket;
 import org.phenopackets.phenopackettools.validator.testdatagen.SimplePhenopacket;
@@ -66,7 +66,7 @@ public class JsonSchemaValidatorTest {
             errors = validator.validate(jsonNode);
             assertEquals(1, errors.size());
             ValidationResult error = errors.get(0);
-            assertEquals(JsonError.REQUIRED, error.category());
+            Assertions.assertEquals("required", error.category());
             assertEquals("$.id: is missing but it is required", error.message());
         }
 
@@ -84,14 +84,14 @@ public class JsonSchemaValidatorTest {
             assertEquals(3, errors.size());
             ValidationResult error = errors.get(0);
             // JsonError.CATEGORY is "JSON"
-            assertEquals(JsonError.REQUIRED, error.category());
+            assertEquals("required", error.category());
             assertEquals("$.id: is missing but it is required", error.message());
             error = errors.get(1);
-            assertEquals(JsonError.REQUIRED, error.category());
+            assertEquals("required", error.category());
             assertEquals("$.metaData: is missing but it is required", error.message());
             error = errors.get(2);
 
-            assertEquals(JsonError.ADDITIONAL_PROPERTIES, error.category());
+            assertEquals("additionalProperties", error.category());
             assertEquals("$.disney: is not defined in the schema and the schema does not allow additional properties", error.message());
         }
 
@@ -140,7 +140,7 @@ public class JsonSchemaValidatorTest {
             List<? extends ValidationResult> errors = validator.validate(jsonNode);
             assertEquals(1, errors.size());
             ValidationResult error = errors.get(0);
-            assertEquals(JsonError.ENUM, error.category());
+            assertEquals("enum", error.category());
             assertEquals("$.subject.sex: does not have a value in the enumeration [UNKNOWN_SEX, FEMALE, MALE, OTHER_SEX]", error.message());
             assertEquals(ValidationLevel.ERROR, error.level());
         }
@@ -155,7 +155,7 @@ public class JsonSchemaValidatorTest {
             List<? extends ValidationResult> validationItems = validator.validate(jsonNode);
             assertEquals(1, validationItems.size());
             ValidationResult validationResult = validationItems.get(0);
-            assertEquals(JsonError.REQUIRED, validationResult.category());
+            assertEquals("required", validationResult.category());
             assertEquals("$.phenotypicFeatures: is missing but it is required", validationResult.message());
         }
 

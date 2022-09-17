@@ -17,7 +17,7 @@
       "type": "array",
       "items": {
         "type": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/phenopacket-schema-2-0.json#https://www.ga4gh.org/phenopacket-schema/phenopacket,"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenopacket-schema.json"
         }
       }
     },
@@ -25,13 +25,13 @@
       "type": "array",
       "items": {
         "type": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/phenopacket-schema-2-0.json#/definitions/file,"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenopacket-schema.json#/definitions/file"
         }
       }
     },
     "metaData":  {
       "type": {
-        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/phenopacket-schema-2-0.json#/definitions/metaData,"
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenopacket-schema.json#/definitions/metaData"
       }
     }
   }
