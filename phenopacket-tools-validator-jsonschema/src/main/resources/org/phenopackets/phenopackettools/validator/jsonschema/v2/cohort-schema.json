@@ -25,7 +25,7 @@
       "type": "array",
       "items": {
         "type": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenopacket-schema.json#/definitions/file"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file"
         }
       }
     },

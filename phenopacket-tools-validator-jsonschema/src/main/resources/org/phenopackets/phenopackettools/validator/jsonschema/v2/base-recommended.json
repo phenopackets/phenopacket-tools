@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://www.ga4gh.org/phenopackets/base-recommended",
+  "title": "PhenopacketBaseRecommended",
+  "description": "Validate presence of the recommended attributes of the base elements of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+  "type": "object",
+  "definitions": {
+    "ontologyClass": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "a CURIE-style identifier e.g. HP:0001875.",
+          "type": "string"
+        },
+        "label": {
+          "description": "human-readable, class name",
+          "type": "string"
+        }
+      },
+      "required": ["id", "label"],
+      "additionalProperties": false
+    },
+    "externalReference": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

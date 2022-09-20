@@ -21,7 +21,7 @@
     },
     "measurements": {
       "type": "array",
-      "items": { "$ref": "#/definitions/measurement" },
+      "items": { "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/measurement" },
       "minItems": 0
     },
     "biosamples": {
@@ -46,89 +46,13 @@
     },
     "files": {
       "type": "array",
-      "items": { "$ref": "#/definitions/file" },
+      "items": { "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file" },
       "minItems": 0
     },
     "metaData": {
       "$ref": "#/definitions/metaData" }
     },
     "definitions": {
-    "ontologyClass": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "a CURIE-style identifier e.g. HP:0001875.",
-          "type": "string"
-        },
-        "label": {
-          "description": "human-readable, class name",
-          "type": "string"
-        }
-      },
-      "required": ["id", "label"],
-      "additionalProperties": false
-    },
-    "gestationalAge": {
-      "type": "object",
-      "properties": {
-        "weeks": {
-          "type": "integer"
-        },
-        "days": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "weeks"
-      ],
-      "additionalProperties": false
-    },
-    "timeInterval": {
-      "type": "object",
-      "properties": {
-        "start": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "end": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "start",
-        "end"
-      ],
-      "additionalProperties": false
-    },
-    "evidence": {
-      "type": "object",
-      "properties": {
-        "evidenceCode": {
-          "$ref": "#/definitions/ontologyClass"
-        },
-        "reference": {
-          "$ref": "#/definitions/externalReference"
-        }
-      }
-    },
-    "timeElement": {
-      "properties": {
-          "gestationalAge":  {"$ref": "#/definitions/gestationalAge"},
-          "age" : {"$ref": "#/definitions/age"},
-          "ageRange": {   "$ref": "#/definitions/ageRange"},
-        "ontologyClass": { "$ref": "#/definitions/ontologyClass"},
-        "timestamp": { "type": "string", "format": "date-time"},
-        "timeInterval": {"$ref": "#/definitions/timeInterval"}
-      },
-      "oneOf": [ { "required": [ "gestationalAge" ]},
-        { "required": [ "age" ]},
-        { "required": [ "ageRange"]},
-        { "required": [ "ontologyClass" ]},
-        { "required": [ "timestamp" ]},
-        { "required": [ "timeInterval" ]}
-      ]
-    },
     "update": {
       "type": "object",
       "properties": {
@@ -152,30 +76,30 @@
       "type": "object",
       "properties": {
         "type": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "excluded": {
           "type": "boolean"
         },
         "severity": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "modifiers": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ontologyClass"
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
           }
         },
         "onset": {
-          "$ref": "#/definitions/timeElement"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
         },
         "resolution": {
-          "$ref": "#/definitions/timeElement"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
         },
         "evidence": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/evidence"
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/evidence"
           },
           "minItems": 0
         }
@@ -183,143 +107,6 @@
       "required": [
         "type"
       ],
-      "additionalProperties": false
-    },
-    "referenceRange": {
-      "type": "object",
-      "properties": {
-        "unit": {
-          "$ref": "#/definitions/ontologyClass"
-        },
-        "low": {
-          "type": "number"
-        },
-        "high": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "unit",
-        "low",
-        "high"
-      ],
-      "additionalProperties": false
-    },
-    "quantity": {
-      "type": "object",
-      "properties": {
-        "unit": {
-          "$ref": "#/definitions/ontologyClass"
-        },
-        "value": {
-          "type": "number"
-        },
-        "referenceRange": {
-          "$ref": "#/definitions/referenceRange"
-        }
-      },
-      "required": [
-        "unit",
-        "value"
-      ],
-      "additionalProperties": false
-    },
-    "value": {
-      "oneOf": [
-        {
-          "$ref": "#/definitions/ontologyClass"
-        },
-        {
-          "$ref": "#/definitions/quantity"
-        }
-      ]
-    },
-    "typedQuantity": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/ontologyClass"
-        },
-        "quantity": {
-          "$ref": "#/definitions/quantity"
-        }
-      }
-    },
-    "complexValue": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/typedQuantity"
-      },
-      "minItems": 1,
-      "uniqueItems": true
-    },
-    "measurement": {
-    },
-    "age": {
-      "type": "object",
-      "properties": {
-        "iso8601duration": {
-          "description": "An ISO8601 string representing age.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "iso8601duration"
-      ]
-    },
-    "ageRange": {
-      "type": "object",
-      "properties": {
-        "start": {
-          "$ref": "#/definitions/age"
-        },
-        "end": {
-          "$ref": "#/definitions/age"
-        }
-      }
-    },
-    "file": {
-      "type": "object",
-      "properties": {
-        "uri": {
-          "type": "string"
-        },
-        "individual_to_file_identifiers": {
-          "title": "Map<String,String>",
-          "type": "object",
-          "patternProperties": {
-            ".+": {
-              "type": "string"
-            }
-          }
-        },
-        "file_attributes": {
-          "title": "Map<String,String>",
-          "type": "object",
-          "patternProperties": {
-            ".+": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "required": [
-        "uri"
-      ]
-    },
-    "externalReference": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "reference": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        }
-      },
       "additionalProperties": false
     },
     "variantInterpretation": {
@@ -427,7 +214,7 @@
           "format": "date-time"
         },
         "timeAtLastEncounter": {
-          "$ref": "#/definitions/timeElement"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
         },
         "vitalStatus": {
           "type": "object",
@@ -436,10 +223,10 @@
               "enum": ["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
             },
             "timeOfDeath": {
-              "$ref": "#/definitions/timeElement"
+              "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
             },
             "causeOfDeath": {
-              "$ref": "#/definitions/ontologyClass"
+              "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
             },
             "survivalTimeInDays": {
               "type": "number"
@@ -452,7 +239,7 @@
         "karyotypicSex": {
           "enum": ["UNKNOWN_KARYOTYPE", "XX", "XY", "XO", "XXY","XXX","XXYY", "XXXY", "XXXX", "XYY", "OTHER_KARYOTYPE"]
         },
-        "taxonomy": {"$ref": "#/definitions/ontologyClass"}
+        "taxonomy": {"$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"}
         },
       "required": ["id"]
     },
@@ -463,7 +250,7 @@
       "type": "object",
       "properties": {
         "disease": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "genomicInterpretations": {
           "type": "array",
@@ -480,21 +267,21 @@
       "type": "object",
       "properties": {
         "term": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "excluded": {
           "type": "boolean"
         },
         "onset": {
-          "$ref": "#/definitions/timeElement"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
         },
         "resolution": {
-          "$ref": "#/definitions/timeElement"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
         },
         "diseaseStage": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ontologyClass"
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
           },
           "minItems": 0,
           "uniqueItems": true
@@ -502,16 +289,16 @@
         "clinicalTnmFinding": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ontologyClass"
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
           },
           "minItems": 0,
           "uniqueItems": true
         },
         "primarySite": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "laterality": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         }
       }
     },
@@ -571,29 +358,11 @@
         "phenopacketSchemaVersion": { "enum": ["2.0"]},
         "externalReferences": {
           "type": "array",
-          "items": { "$ref": "#/definitions/externalReference" },
+          "items": { "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/externalReference" },
           "minItems": 0
         }
       },
       "required": ["created", "createdBy","phenopacketSchemaVersion"],
-      "additionalProperties": false
-    },
-    "procedure": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "$ref": "#/definitions/ontologyClass"
-        },
-        "bodySite": {
-          "$ref": "#/definitions/ontologyClass"
-        },
-        "performed": {
-          "$ref": "#/definitions/timeElement"
-        }
-      },
-      "required": [
-        "code"
-      ],
       "additionalProperties": false
     },
     "biosample": {
@@ -612,10 +381,10 @@
           "type": "string"
         },
         "sampledTissue": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "sampledType": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "phenotypicFeatures": {
           "type": "array",
@@ -626,56 +395,56 @@
         "measurements": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/measurement"
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/measurement"
           }
         },
         "taxonomy": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "timeOfCollection": {
-          "$ref": "#/definitions/timeElement"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
         },
         "histologicalDiagnosis": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "tumorProgression": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "tumorGrade": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "pathologicalStage": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "pathologicalTnmFinding": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ontologyClass"
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
           }
         },
         "diagnosticMarkers": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ontologyClass"
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
           }
         },
         "procedure": {
-          "$ref": "#/definitions/procedure"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
         },
         "files": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/file"
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file"
           }
         },
         "materialSample": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "sampleProcessing": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "sampleStorage": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         }
       },
       "required": [
@@ -719,13 +488,13 @@
       "type": "object",
       "properties": {
         "quantity": {
-          "$ref": "#/definitions/quantity"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/quantity"
         },
         "scheduleFrequency": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "interval": {
-          "$ref": "#/definitions/timeInterval"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeInterval"
         }
       },
       "required": [
@@ -739,10 +508,10 @@
       "type": "object",
       "properties": {
         "agent": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "routeOfAdministration": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "doseIntervals": {
           "type": "array",
@@ -759,7 +528,7 @@
           ]
         },
         "cumulativeDose": {
-          "$ref": "#/definitions/quantity"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/quantity"
         }
       },
       "required": [
@@ -771,10 +540,10 @@
       "type": "object",
       "properties": {
         "modality": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "bodySite": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "dosage": {
           "type": "integer"
@@ -795,16 +564,16 @@
       "type": "object",
       "properties": {
         "ontologyClass": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "externalReference" : {
-          "$ref": "#/definitions/externalReference"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/externalReference"
         },
         "startTime": {
-          "$ref": "#/definitions/timeElement"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
         },
         "endTime": {
-          "$ref": "#/definitions/timeElement"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
         },
         "regimenStatus": {
           "enum": [
@@ -829,7 +598,7 @@
           "$ref": "#/definitions/treatment"
         },
         "procedure": {
-          "$ref": "#/definitions/procedure"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
         },
         "radiationTherapy": {
           "$ref": "#/definitions/radiationTherapy"
@@ -838,22 +607,22 @@
           "$ref": "#/definitions/therapeuticRegimen"
         },
         "treatmentTarget": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "treatmentIntent": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "responseToTreatment": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "adverseEvents": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ontologyClass"
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
           }
         },
         "treatmentTerminationReason": {
-          "$ref": "#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         }
       },
       "additionalProperties": false,

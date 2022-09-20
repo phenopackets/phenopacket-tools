@@ -3,23 +3,18 @@ package org.phenopackets.phenopackettools.validator.jsonschema.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.protobuf.InvalidProtocolBufferException;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.phenopackettools.validator.jsonschema.Action;
-import org.phenopackets.phenopackettools.validator.jsonschema.JsonTamperer;
+import org.phenopackets.phenopackettools.validator.jsonschema.TestData;
 import org.phenopackets.phenopackettools.validator.jsonschema.v2.JsonSchemaValidatorConfigurer;
-import org.phenopackets.phenopackettools.validator.testdatagen.ExampleFamily;
 import org.phenopackets.phenopackettools.validator.testdatagen.RareDiseasePhenopacket;
 import org.phenopackets.phenopackettools.validator.testdatagen.SimplePhenopacket;
-import org.phenopackets.schema.v2.Family;
 import org.phenopackets.schema.v2.Phenopacket;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -34,12 +29,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JsonSchemaValidatorTest {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final JsonTamperer TAMPERER = new JsonTamperer();
 
     private static final Phenopacket RARE_DISEASE_PHENOPACKET = new RareDiseasePhenopacket().getPhenopacket();
 
     @Nested
-    public class PhenopacketTest {
+    public class RequiredPhenopacketFieldsTest {
 
         private static final SimplePhenopacket simplePhenopacket = new SimplePhenopacket();
 
@@ -158,66 +152,41 @@ public class JsonSchemaValidatorTest {
             assertEquals("required", validationResult.category());
             assertEquals("$.phenotypicFeatures: is missing but it is required", validationResult.message());
         }
-
     }
 
-    @Nested
-    public class FamilyTest {
+//    @Disabled // TODO - enable after the validator for checking recommended items is implemented.
+//    @Nested
+//    public class RecommendedPhenopacketFieldsTest {
+//
+//        private JsonSchemaValidator validator;
+//
+//        @BeforeEach
+//        public void setUp() {
+//            // TODO - create validator for recommended fields.
+//            validator = JsonSchemaValidatorConfigurer.getBasePhenopacketValidator();
+//        }
+//
+//        @ParameterizedTest
+//        @CsvSource({
+//                "/subject,               DELETE,          '$.subject: is missing but it is required'",
+//        })
+//        public void checkTopLevelPhenopacketFields(String path, String action, String expected) {
+//            JsonNode bethlem = readBethlemPhenopacketNode();
+//            JsonNode tampered = TAMPERER.tamper(bethlem, path, Action.valueOf(action));
+//
+//            List<ValidationResult> results = validator.validate(tampered);
+//
+//            String[] tokens = expected.split("\\|");
+//            assertThat(results, hasSize(tokens.length));
+//            assertThat(results.stream().map(ValidationResult::message).toList(), containsInAnyOrder(tokens));
+//        }
+//    }
 
-        private JsonSchemaValidator validator;
-
-        @BeforeEach
-        public void setUp() {
-            validator = JsonSchemaValidatorConfigurer.getBaseFamilyValidator();
-        }
-
-        @Test
-        public void validFamilyYieldsNoErrors() throws Exception {
-            JsonNode node = getFamilyNode();
-
-            List<ValidationResult> results = validator.validate(node);
-            assertThat(results, is(empty()));
-        }
-
-        @ParameterizedTest
-        @CsvSource({
-                "/id,                    DELETE,          '$.id: is missing but it is required'",
-                "/proband,               DELETE,          '$.proband: is missing but it is required'",
-                "/consanguinousParents,  DELETE,          '$.consanguinousParents: is missing but it is required'",
-                "/pedigree,              DELETE,          '$.pedigree: is missing but it is required'",
-                "/metaData,              DELETE,          '$.metaData: is missing but it is required'",
-        })
-        public void absenceOfTopLevelFamilyElementsYieldsErrors(String path, Action action, String expected) throws Exception {
-            JsonNode node = getFamilyNode();
-            JsonNode tampered = TAMPERER.tamper(node, path, action);
-
-            List<ValidationResult> results = validator.validate(tampered);
-
-            assertThat(results, is(not(empty())));
-            assertThat(results.stream().map(ValidationResult::message).toList(), containsInAnyOrder(expected.split("/")));
-        }
-
-        @ParameterizedTest
-        @CsvSource({
-                "/pedigree/persons,     DELETE,          '$.pedigree.persons: is missing but it is required'",
-                "/pedigree/persons[*],  DELETE,          '$.pedigree.persons: there must be a minimum of 1 items in the array'",
-        })
-        public void emptyPedigreeYieldsError(String path, Action action, String expected) throws Exception {
-            JsonNode node = getFamilyNode();
-            JsonNode tampered = TAMPERER.tamper(node, path, action);
-
-            List<ValidationResult> results = validator.validate(tampered);
-
-            assertThat(results, is(not(empty())));
-            assertThat(results.stream().map(ValidationResult::message).toList(), containsInAnyOrder(expected.split("/")));
-        }
-
-        private static JsonNode getFamilyNode() throws InvalidProtocolBufferException, JsonProcessingException {
-            Family family = ExampleFamily.getExampleFamily();
-            String json = JsonFormat.printer().print(family);
-            return MAPPER.readTree(json);
-        }
-
-    }
-
+//    private static JsonNode readBethlemPhenopacketNode() {
+//        try (InputStream is = Files.newInputStream(TestData.BETHLEM_MYOPATHY_PHENOPACKET_JSON)){
+//            return MAPPER.readTree(is);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }

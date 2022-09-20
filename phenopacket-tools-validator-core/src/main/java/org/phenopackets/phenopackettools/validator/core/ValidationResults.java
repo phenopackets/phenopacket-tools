@@ -35,6 +35,13 @@ public interface ValidationResults {
      */
     List<ValidationResult> validationResults();
 
+    /**
+     * @return {@code true} if no issues have been found and the validated item is valid.
+     */
+    default boolean isValid() {
+        return validationResults().isEmpty();
+    }
+
     class Builder {
 
         private final List<ValidatorInfo> validators = new ArrayList<>();

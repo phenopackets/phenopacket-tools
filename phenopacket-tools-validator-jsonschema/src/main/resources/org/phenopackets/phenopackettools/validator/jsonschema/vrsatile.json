@@ -144,14 +144,14 @@
           ]
         },
         "structuralType" : {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenopacket-schema.json#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         },
         "vrs_ref_allele_seq": {
           "type": "string",
           "description": "A Sequence corresponding to a “ref allele”, describing the sequence expected at a SequenceLocation reference"
         },
         "allelicState" :  {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenopacket-schema.json#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         }
       }
     },

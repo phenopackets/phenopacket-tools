@@ -22,6 +22,20 @@ public enum ValidationLevel {
      * This corresponds to the keywords <em>MUST</em>, <em>REQUIRED</em>, and <em>SHALL</em>
      * in <a href="https://www.ietf.org/rfc/rfc2119.txt">RFC2119</a>.
      */
-    ERROR
+    ERROR;
+
+    /**
+     * @return {@code true} if this {@link ValidationLevel} is {@link ValidationLevel#ERROR}
+     */
+    public boolean isError() {
+        return ERROR.equals(this);
+    }
+
+    /**
+     * @return {@code true} if this {@link ValidationLevel} is {@link ValidationLevel#WARNING}
+     */
+    public boolean isWarning() {
+        return WARNING.equals(this);
+    }
 
 }
