@@ -418,7 +418,183 @@
         "label": "Bethlem myopathy 2"
       },
       "excluded": true
-    }],
+    }
+  ],
+  "medicalActions": [
+    {
+      "procedure": {
+        "code": {
+          "id": "C15396",
+          "label": "Radical Cystectomy"
+        },
+        "bodySite": {
+          "id": "UBERON:0001255",
+          "label": "urinary bladder"
+        },
+        "performed": {
+          "age": {
+            "iso8601duration": "P53Y3M"
+          }
+        }
+      },
+      "treatmentTarget": {
+        "id": "NCIT:C39853",
+        "label": "Infiltrating Urothelial Carcinoma"
+      },
+      "treatmentIntent": {
+        "id": "C62220",
+        "label": "Cure"
+      },
+      "responseToTreatment": {
+        "id": "C4870",
+        "label": "Complete Remission"
+      },
+      "adverseEvents": [{
+        "id": "HP:0012587",
+        "label": "Macroscopic hematuria"
+      }]
+    },
+    {
+      "treatment": {
+        "agent": {
+          "id": "DrugCentral:1610",
+          "label": "losartan"
+        },
+        "routeOfAdministration": {
+          "id": "NCIT:C38288",
+          "label": "Oral Route of Administration"
+        },
+        "doseIntervals": [
+          {
+            "quantity": {
+              "unit": {
+                "id": "UO:0000022",
+                "label": "milligram"
+              },
+              "value": 30.0
+            },
+            "scheduleFrequency": {
+              "id": "NCIT:C64496",
+              "label": "Twice Daily"
+            },
+            "interval": {
+              "start": "2019-03-20T00:00:00Z",
+              "end": "2021-03-20T00:00:00Z"
+            }
+          }
+        ],
+        "drugType": "PRESCRIPTION",
+        "cumulativeDose": {
+          "unit": {
+            "id": "UO:0000022",
+            "label": "milligram"
+          },
+          "value": 43800.0
+        }
+      }
+    },
+    {
+      "radiationTherapy": {
+        "modality": {
+          "id": "NCIT:C40431",
+          "label": "Proton Radiation"
+        },
+        "bodySite": {
+          "id": "UBERON:0001255",
+          "label": "urinary bladder"
+        },
+        "dosage": 5,
+        "fractions": 3
+      },
+      "treatmentTarget": {
+        "id": "NCIT:C39853",
+        "label": "Infiltrating Urothelial Carcinoma"
+      },
+      "treatmentIntent": {
+        "id": "C62220",
+        "label": "Cure"
+      },
+      "responseToTreatment": {
+        "id": "C4870",
+        "label": "Complete Remission"
+      },
+      "adverseEvents": [{
+        "id": "HP:0020060",
+        "label": "Decreased red blood cell count"
+      }]
+    },
+    {
+      "therapeuticRegimen": {
+        "externalReference": {
+          "id": "NCT04576091",
+          "reference": "https://clinicaltrials.gov/ct2/show/NCT04576091",
+          "description": "Testing the Addition of an Anti-cancer Drug, BAY1895344, With Radiation Therapy to the Usual Pembrolizumab Treatment for Recurrent Head and Neck Cancer"
+        },
+        "startTime": {
+          "age": {
+            "iso8601duration": "P53Y3M"
+          }
+        },
+        "endTime": {
+          "age": {
+            "iso8601duration": "P54Y0M"
+          }
+        },
+        "regimenStatus": "COMPLETED"
+      },
+      "treatmentTarget": {
+        "id": "NCIT:C39853",
+        "label": "Infiltrating Urothelial Carcinoma"
+      },
+      "treatmentIntent": {
+        "id": "C62220",
+        "label": "Cure"
+      },
+      "responseToTreatment": {
+        "id": "C4870",
+        "label": "Complete Remission"
+      },
+      "adverseEvents": [{
+        "id": "HP:0020060",
+        "label": "Decreased red blood cell count"
+      }]
+    },
+    {
+      "therapeuticRegimen": {
+        "ontologyClass": {
+          "id": "NCT04576091",
+          "label": "ABCD"
+        },
+        "startTime": {
+          "age": {
+            "iso8601duration": "P53Y3M"
+          }
+        },
+        "endTime": {
+          "age": {
+            "iso8601duration": "P54Y0M"
+          }
+        },
+        "regimenStatus": "COMPLETED"
+      },
+      "treatmentTarget": {
+        "id": "NCIT:C39853",
+        "label": "Infiltrating Urothelial Carcinoma"
+      },
+      "treatmentIntent": {
+        "id": "C62220",
+        "label": "Cure"
+      },
+      "responseToTreatment": {
+        "id": "C4870",
+        "label": "Complete Remission"
+      },
+      "adverseEvents": [{
+        "id": "HP:0020060",
+        "label": "Decreased red blood cell count"
+      }]
+    }
+  ],
   "files": [
     {
       "uri": "file://data/file.vcf.gz",
@@ -450,6 +626,13 @@
         "version": "2020-03-08",
         "namespacePrefix": "GENO",
         "iriPrefix": "http://purl.obolibrary.org/obo/GENO_"
+      }
+    ],
+    "updates": [
+      {
+        "timestamp": "2022-02-22T00:12:34.123456789Z",
+        "updatedBy": "Joe Curator",
+        "comment": "The update was done to demonstrate that the updates are possible!"
       }
     ],
     "phenopacketSchemaVersion": "2.0",

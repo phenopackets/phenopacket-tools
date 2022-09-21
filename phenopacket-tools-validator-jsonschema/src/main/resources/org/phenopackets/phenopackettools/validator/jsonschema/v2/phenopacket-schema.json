@@ -47,7 +47,7 @@
     "medicalActions": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/medicalAction"
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/medical-action.json#/definitions/medicalAction"
       }
     },
     "files": {
@@ -59,8 +59,8 @@
     "metaData": {
       "$ref": "#/definitions/metaData"
     }
-    },
-    "definitions": {
+  },
+  "definitions": {
     "update": {
       "type": "object",
       "properties": {
@@ -75,9 +75,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "timestamp"
-      ],
+      "required": [ "timestamp" ],
       "additionalProperties": false
     },
     "individual": {
@@ -158,11 +156,14 @@
           },
           "minItems": 1
         },
-        "phenopacketSchemaVersion": { "enum": ["2.0"]},
+        "phenopacketSchemaVersion": {
+          "type": "string"
+        },
         "externalReferences": {
           "type": "array",
-          "items": { "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/externalReference" },
-          "minItems": 0
+          "items": {
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/externalReference"
+          }
         }
       },
       "required": ["created", "createdBy","phenopacketSchemaVersion"],
@@ -199,154 +200,7 @@
         "iriPrefix"
       ],
       "additionalProperties": false
-    },
-    "doseInterval": {
-      "type": "object",
-      "properties": {
-        "quantity": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/quantity"
-        },
-        "scheduleFrequency": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "interval": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeInterval"
-        }
-      },
-      "required": [
-        "quantity",
-        "scheduleFrequency",
-        "interval"
-      ],
-      "additionalProperties": false
-    },
-    "treatment": {
-      "type": "object",
-      "properties": {
-        "agent": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "routeOfAdministration": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "doseIntervals": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/doseInterval"
-          }
-        },
-        "drugType": {
-          "enum": [
-            "UNKNOWN_DRUG_TYPE",
-            "PRESCRIPTION",
-            "EHR_MEDICATION_LIST",
-            "ADMINISTRATION_RELATED_TO_PROCEDURE"
-          ]
-        },
-        "cumulativeDose": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/quantity"
-        }
-      },
-      "required": [
-        "agent"
-      ],
-      "additionalProperties": false
-    },
-    "radiationTherapy": {
-      "type": "object",
-      "properties": {
-        "modality": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "bodySite": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "dosage": {
-          "type": "integer"
-        },
-        "fractions": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "modality",
-        "bodySite",
-        "dosage",
-        "fractions"
-      ],
-      "additionalProperties": false
-    },
-    "therapeuticRegimen": {
-      "type": "object",
-      "properties": {
-        "ontologyClass": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "externalReference" : {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/externalReference"
-        },
-        "startTime": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-        },
-        "endTime": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-        },
-        "regimenStatus": {
-          "enum": [
-            "UNKNOWN_STATUS",
-            "STARTED",
-            "COMPLETED",
-            "DISCONTINUED"
-          ]
-        }
-      },
-      "oneOf": [
-        { "required": [ "ontologyClass" ]},
-        { "required": [ "externalReference" ]}
-      ],
-      "required": ["regimenStatus"],
-      "additionalProperties": false
-    },
-    "medicalAction": {
-      "type": "object",
-      "properties": {
-        "treatment": {
-          "$ref": "#/definitions/treatment"
-        },
-        "procedure": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
-        },
-        "radiationTherapy": {
-          "$ref": "#/definitions/radiationTherapy"
-        },
-        "therapeuticRegimen": {
-          "$ref": "#/definitions/therapeuticRegimen"
-        },
-        "treatmentTarget": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "treatmentIntent": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "responseToTreatment": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "adverseEvents": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-          }
-        },
-        "treatmentTerminationReason": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        }
-      },
-      "additionalProperties": false,
-      "oneOf": [ { "required": [ "procedure" ]},
-        { "required": [ "radiationTherapy" ]},
-        { "required": [ "therapeuticRegimen"]},
-        { "required": [ "treatment" ]}
-      ]
     }
+
   }
 }

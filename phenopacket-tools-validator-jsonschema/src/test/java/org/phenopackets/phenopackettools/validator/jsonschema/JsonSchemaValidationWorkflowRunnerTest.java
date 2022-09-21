@@ -235,18 +235,124 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                 testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
             }
 
-
-
-
+            /**
+             * Absence of `action` item leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/medicalActions[0]/procedure,                DELETE,          '$.medicalActions[0].procedure: is missing but it is required|$.medicalActions[0].treatment: is missing but it is required|$.medicalActions[0].radiationTherapy: is missing but it is required|$.medicalActions[0].therapeuticRegimen: is missing but it is required'",
+                    "/medicalActions[1]/treatment,                DELETE,          '$.medicalActions[1].procedure: is missing but it is required|$.medicalActions[1].treatment: is missing but it is required|$.medicalActions[1].radiationTherapy: is missing but it is required|$.medicalActions[1].therapeuticRegimen: is missing but it is required'",
+                    "/medicalActions[2]/radiationTherapy,         DELETE,          '$.medicalActions[2].procedure: is missing but it is required|$.medicalActions[2].treatment: is missing but it is required|$.medicalActions[2].radiationTherapy: is missing but it is required|$.medicalActions[2].therapeuticRegimen: is missing but it is required'",
+                    "/medicalActions[3]/therapeuticRegimen,       DELETE,          '$.medicalActions[3].procedure: is missing but it is required|$.medicalActions[3].treatment: is missing but it is required|$.medicalActions[3].radiationTherapy: is missing but it is required|$.medicalActions[3].therapeuticRegimen: is missing but it is required'",
+            })
+            public void checkMedicalActionConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
 
             /**
-             * Absence of measurement  id leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             * Absence of `code` leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/medicalActions[0]/procedure/code,           DELETE,          '$.medicalActions[0].procedure.code: is missing but it is required'"
+            })
+            public void checkProcedureConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of `agent` leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/medicalActions[1]/treatment/agent,         DELETE,          '$.medicalActions[1].treatment.agent: is missing but it is required'"
+            })
+            public void checkTreatmentConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of `modality`, `bodySite`, `dosage`, and `fractions` leads to
+             * an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/medicalActions[2]/radiationTherapy/modality,         DELETE,          '$.medicalActions[2].radiationTherapy.modality: is missing but it is required'",
+                    "/medicalActions[2]/radiationTherapy/bodySite,         DELETE,          '$.medicalActions[2].radiationTherapy.bodySite: is missing but it is required'",
+                    "/medicalActions[2]/radiationTherapy/dosage,           DELETE,          '$.medicalActions[2].radiationTherapy.dosage: is missing but it is required'",
+                    "/medicalActions[2]/radiationTherapy/fractions,        DELETE,          '$.medicalActions[2].radiationTherapy.fractions: is missing but it is required'"
+            })
+            public void checkRadiationTherapyConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of `externalReference`, `ontologyClass`, and `regimenStatus` leads to
+             * an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/medicalActions[3]/therapeuticRegimen/externalReference,   DELETE,          '$.medicalActions[3].therapeuticRegimen.ontologyClass: is missing but it is required|$.medicalActions[3].therapeuticRegimen.externalReference: is missing but it is required'",
+                    "/medicalActions[4]/therapeuticRegimen/ontologyClass,       DELETE,          '$.medicalActions[4].therapeuticRegimen.ontologyClass: is missing but it is required|$.medicalActions[4].therapeuticRegimen.externalReference: is missing but it is required'",
+                    "/medicalActions[3]/therapeuticRegimen/regimenStatus,       DELETE,          '$.medicalActions[3].therapeuticRegimen.regimenStatus: is missing but it is required'"
+            })
+            public void checkTherapeuticRegimenConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of file uri leads to
+             * an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
              */
             @ParameterizedTest
             @CsvSource({
                     "/files[0]/uri,          DELETE,           '$.files[0].uri: is missing but it is required'",
             })
             public void checkFileConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of `created`, `createdBy`, and `phenopacketSchemaVersion` leads to
+             * an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/metaData/created,                      DELETE,           '$.metaData.created: is missing but it is required'",
+                    "/metaData/createdBy,                    DELETE,           '$.metaData.createdBy: is missing but it is required'",
+                    "/metaData/resources[*],                 DELETE,           '$.metaData.resources: there must be a minimum of 1 items in the array'",
+                    "/metaData/phenopacketSchemaVersion,     DELETE,           '$.metaData.phenopacketSchemaVersion: is missing but it is required'",
+            })
+            public void checkMetaDataConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of `timestamp` leads to
+             * an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/metaData/resources[0]/id,              DELETE,           '$.metaData.resources[0].id: is missing but it is required'",
+                    "/metaData/resources[0]/name,            DELETE,           '$.metaData.resources[0].name: is missing but it is required'",
+                    "/metaData/resources[0]/namespacePrefix, DELETE,           '$.metaData.resources[0].namespacePrefix: is missing but it is required'",
+                    "/metaData/resources[0]/url,             DELETE,           '$.metaData.resources[0].url: is missing but it is required'",
+                    "/metaData/resources[0]/version,         DELETE,           '$.metaData.resources[0].version: is missing but it is required'",
+                    "/metaData/resources[0]/iriPrefix,       DELETE,           '$.metaData.resources[0].iriPrefix: is missing but it is required'",
+            })
+            public void checkResourceConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of `timestamp` leads to
+             * an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/metaData/updates[0]/timestamp,         DELETE,           '$.metaData.updates[0].timestamp: is missing but it is required'",
+            })
+            public void checkUpdateConstraints(String path, String action, String expected) {
                 testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
             }
         }
