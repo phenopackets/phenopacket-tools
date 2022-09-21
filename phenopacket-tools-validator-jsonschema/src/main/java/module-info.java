@@ -9,5 +9,4 @@ module org.phenopackets.phenopackettools.validator.jsonschema {
     exports org.phenopackets.phenopackettools.validator.jsonschema;
 
     opens org.phenopackets.phenopackettools.validator.jsonschema;
-    opens org.phenopackets.phenopackettools.validator.jsonschema.v2;
 }
