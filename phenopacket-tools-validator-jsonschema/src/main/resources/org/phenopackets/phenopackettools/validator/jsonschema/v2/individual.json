@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://www.ga4gh.org/phenopackets/individual",
+  "title": "PhenopacketIndividual",
+  "description": "Validate requirements of the individual element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "An arbitrary identifier for the subject of the Phenopacket",
+      "type": "string"
+    },
+    "alternateIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "timeAtLastEncounter": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
+    },
+    "vitalStatus": {
+      "$ref": "#/definitions/vitalStatus"
+    },
+    "sex": {
+      "$ref": "#/definitions/sex"
+    },
+    "karyotypicSex": {
+      "enum": ["UNKNOWN_KARYOTYPE", "XX", "XY", "XO", "XXY","XXX","XXYY", "XXXY", "XXXX", "XYY", "OTHER_KARYOTYPE"]
+    },
+    "gender": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    },
+    "taxonomy": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    }
+  },
+  "required": ["id"],
+  "additionalProperties": false,
+
+  "definitions": {
+    "sex": {
+      "enum": ["UNKNOWN_SEX", "FEMALE", "MALE", "OTHER_SEX"]
+    },
+
+    "vitalStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": ["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
+        },
+        "timeOfDeath": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
+        },
+        "causeOfDeath": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "survivalTimeInDays": {
+          "type": "number"
+        }
+      },
+      "required": ["status"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -3,29 +3,26 @@
   "$id": "https://www.ga4gh.org/phenopackets/interpretation",
   "title": "PhenopacketInterpretation",
   "description": "Validate requirements of the interpretation element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+
   "type": "object",
-  "definitions": {
-
-    "interpretation": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "progressStatus": {
-          "enum": [ "UNKNOWN_PROGRESS", "IN_PROGRESS", "COMPLETED", "SOLVED", "UNSOLVED" ]
-        },
-        "diagnosis": {
-          "$ref": "#/definitions/diagnosis"
-        },
-        "summary" : {
-          "type": "string"
-        }
-      },
-      "required": [ "id", "progressStatus" ],
-      "additionalProperties": false
+  "properties": {
+    "id": {
+      "type": "string"
     },
+    "progressStatus": {
+      "enum": [ "UNKNOWN_PROGRESS", "IN_PROGRESS", "COMPLETED", "SOLVED", "UNSOLVED" ]
+    },
+    "diagnosis": {
+      "$ref": "#/definitions/diagnosis"
+    },
+    "summary" : {
+      "type": "string"
+    }
+  },
+  "required": [ "id", "progressStatus" ],
+  "additionalProperties": false,
 
+  "definitions": {
     "diagnosis": {
       "type": "object",
       "properties": {

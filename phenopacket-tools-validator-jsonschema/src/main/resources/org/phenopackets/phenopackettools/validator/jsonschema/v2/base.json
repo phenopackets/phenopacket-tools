@@ -4,6 +4,7 @@
   "title": "PhenopacketBase",
   "description": "Validate basic requirements of the base elements of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
   "type": "object",
+
   "definitions": {
     "ontologyClass": {
       "type": "object",

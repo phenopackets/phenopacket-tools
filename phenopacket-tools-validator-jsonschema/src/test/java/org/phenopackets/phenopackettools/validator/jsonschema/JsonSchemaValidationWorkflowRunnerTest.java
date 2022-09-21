@@ -72,6 +72,18 @@ public class JsonSchemaValidationWorkflowRunnerTest {
             }
 
             /**
+             * Absence of `status` in `vitalStatus` leads to
+             * an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/subject/vitalStatus/status,          DELETE,           '$.subject.vitalStatus.status: is missing but it is required'"
+            })
+            public void checkVitalStatusConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
              * Absence of phenotypic feature id leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
              */
             @ParameterizedTest

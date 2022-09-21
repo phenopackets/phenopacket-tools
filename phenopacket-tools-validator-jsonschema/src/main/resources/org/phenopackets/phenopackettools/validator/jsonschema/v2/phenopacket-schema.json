@@ -12,42 +12,42 @@
       "type": "string"
     },
     "subject": {
-      "$ref": "#/definitions/individual"
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/individual.json"
     },
     "phenotypicFeatures": {
       "type": "array",
       "items": {
-        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenotypic-feature.json#/definitions/phenotypicFeature"
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenotypic-feature.json"
       }
     },
     "measurements": {
       "type": "array",
       "items": {
-        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/measurement"
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json"
       }
     },
     "biosamples": {
       "type": "array",
       "items": {
-        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/biosample.json#/definitions/biosample"
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/biosample.json"
       }
     },
     "interpretations": {
       "type": "array",
       "items": {
-        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/interpretation.json#/definitions/interpretation"
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/interpretation.json"
       }
     },
     "diseases": {
       "type": "array",
       "items": {
-        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/disease.json#/definitions/disease"
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/disease.json"
       }
     },
     "medicalActions": {
       "type": "array",
       "items": {
-        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/medical-action.json#/definitions/medicalAction"
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/medical-action.json"
       }
     },
     "files": {
@@ -57,150 +57,7 @@
       }
     },
     "metaData": {
-      "$ref": "#/definitions/metaData"
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/meta-data.json"
     }
-  },
-  "definitions": {
-    "update": {
-      "type": "object",
-      "properties": {
-        "timestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "updatedBy": {
-          "type": "string"
-        },
-        "comment": {
-          "type": "string"
-        }
-      },
-      "required": [ "timestamp" ],
-      "additionalProperties": false
-    },
-    "individual": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "An arbitrary identifier for the subject of the Phenopacket",
-          "type": "string"
-        },
-        "alternateIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 0,
-          "uniqueItems": true
-        },
-        "dateOfBirth": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "timeAtLastEncounter": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-        },
-        "vitalStatus": {
-          "type": "object",
-          "properties": {
-            "status": {
-              "enum": ["UNKNOWN_STATUS", "ALIVE", "DECEASED"]
-            },
-            "timeOfDeath": {
-              "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-            },
-            "causeOfDeath": {
-              "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-            },
-            "survivalTimeInDays": {
-              "type": "number"
-            }
-          }
-        },
-        "sex": {
-          "$ref": "#/definitions/sex"
-        },
-        "karyotypicSex": {
-          "enum": ["UNKNOWN_KARYOTYPE", "XX", "XY", "XO", "XXY","XXX","XXYY", "XXXY", "XXXX", "XYY", "OTHER_KARYOTYPE"]
-        },
-        "taxonomy": {"$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"}
-        },
-      "required": ["id"]
-    },
-    "sex": {
-      "enum": ["UNKNOWN_SEX", "FEMALE", "MALE", "OTHER_SEX"]
-    },
-    "metaData": {
-      "type": "object",
-      "properties": {
-        "created": {
-          "type": "string"
-        },
-        "createdBy": {
-          "type": "string"
-        },
-        "submittedBy": {
-          "type": "string"
-        },
-        "resources": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/resource"
-          },
-          "minItems": 1
-        },
-        "updates": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/update"
-          },
-          "minItems": 1
-        },
-        "phenopacketSchemaVersion": {
-          "type": "string"
-        },
-        "externalReferences": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/externalReference"
-          }
-        }
-      },
-      "required": ["created", "createdBy","phenopacketSchemaVersion"],
-      "additionalProperties": false
-    },
-    "resource": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        },
-        "version": {
-          "type": "string"
-        },
-        "namespacePrefix": {
-          "type": "string"
-        },
-        "iriPrefix": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "url",
-        "version",
-        "namespacePrefix",
-        "iriPrefix"
-      ],
-      "additionalProperties": false
-    }
-
   }
 }

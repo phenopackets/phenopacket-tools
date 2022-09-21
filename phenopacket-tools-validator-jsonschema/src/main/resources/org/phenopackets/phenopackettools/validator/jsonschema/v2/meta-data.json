@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://www.ga4gh.org/phenopackets/metadata",
+  "title": "PhenopacketMetaData",
+  "description": "Validate requirements of the metadata element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+  "type": "object",
+
+  "properties": {
+    "created": {
+      "type": "string"
+    },
+    "createdBy": {
+      "type": "string"
+    },
+    "submittedBy": {
+      "type": "string"
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/resource"
+      },
+      "minItems": 1
+    },
+    "updates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/update"
+      }
+    },
+    "phenopacketSchemaVersion": {
+      "type": "string"
+    },
+    "externalReferences": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/externalReference"
+      }
+    }
+  },
+  "required": ["created", "createdBy","phenopacketSchemaVersion"],
+  "additionalProperties": false,
+
+  "definitions": {
+    "update": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedBy": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      },
+      "required": [ "timestamp" ],
+      "additionalProperties": false
+    },
+
+    "resource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "namespacePrefix": {
+          "type": "string"
+        },
+        "iriPrefix": {
+          "type": "string"
+        }
+      },
+      "required": [ "id", "name", "url", "version", "namespacePrefix", "iriPrefix" ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -3,52 +3,49 @@
   "$id": "https://www.ga4gh.org/phenopackets/medical-action",
   "title": "PhenopacketMedicalAction",
   "description": "Validate requirements of the medical action element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+
   "type": "object",
-  "definitions": {
-
-    "medicalAction": {
-      "type": "object",
-      "properties": {
-        "procedure": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
-        },
-        "treatment": {
-          "$ref": "#/definitions/treatment"
-        },
-        "radiationTherapy": {
-          "$ref": "#/definitions/radiationTherapy"
-        },
-        "therapeuticRegimen": {
-          "$ref": "#/definitions/therapeuticRegimen"
-        },
-        "treatmentTarget": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "treatmentIntent": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "responseToTreatment": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "adverseEvents": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-          }
-        },
-        "treatmentTerminationReason": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        }
-      },
-      "oneOf": [
-        { "required": [ "procedure" ]},
-        { "required": [ "treatment" ]},
-        { "required": [ "radiationTherapy" ]},
-        { "required": [ "therapeuticRegimen"]}
-      ],
-      "additionalProperties": false
+  "properties": {
+    "procedure": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
     },
+    "treatment": {
+      "$ref": "#/definitions/treatment"
+    },
+    "radiationTherapy": {
+      "$ref": "#/definitions/radiationTherapy"
+    },
+    "therapeuticRegimen": {
+      "$ref": "#/definitions/therapeuticRegimen"
+    },
+    "treatmentTarget": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    },
+    "treatmentIntent": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    },
+    "responseToTreatment": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    },
+    "adverseEvents": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+      }
+    },
+    "treatmentTerminationReason": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    }
+  },
+  "oneOf": [
+    { "required": [ "procedure" ]},
+    { "required": [ "treatment" ]},
+    { "required": [ "radiationTherapy" ]},
+    { "required": [ "therapeuticRegimen"]}
+  ],
+  "additionalProperties": false,
 
+  "definitions": {
     "treatment": {
       "type": "object",
       "properties": {

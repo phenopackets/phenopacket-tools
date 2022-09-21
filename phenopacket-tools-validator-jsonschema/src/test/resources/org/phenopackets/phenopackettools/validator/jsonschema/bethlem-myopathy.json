@@ -7,6 +7,9 @@
         "iso8601duration": "P6Y3M"
       }
     },
+    "vitalStatus": {
+      "status": "ALIVE"
+    },
     "sex": "MALE"
   },
   "phenotypicFeatures": [
