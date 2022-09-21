@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.ValidationResults;
 import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
+import org.phenopackets.schema.v2.CohortOrBuilder;
 import org.phenopackets.schema.v2.FamilyOrBuilder;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 
@@ -430,10 +431,42 @@ public class JsonSchemaValidationWorkflowRunnerTest {
 
     }
 
-
     @Nested
-    public class RequiredCohortFieldsTest {
+    public class CohortFieldsTest {
 
+        private JsonSchemaValidationWorkflowRunner<CohortOrBuilder> runner;
+
+        @BeforeEach
+        public void setUp() {
+            runner = JsonSchemaValidationWorkflowRunner.cohortBuilder()
+                    .build();
+        }
+
+        @Nested
+        public class RequiredFieldsTest {
+
+            /**
+             * This is all it takes to validate a cohort. All other fields are tested in {@link PhenopacketFieldsTest}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/id,                   DELETE,          '$.id: is missing but it is required'",
+                    "/members[*],           DELETE,          '$.members: there must be a minimum of 1 items in the array'",
+                    "/metaData,             DELETE,          '$.metaData: is missing but it is required'",
+            })
+            public void checkCohortConstraints(String path, String action, String expected) {
+                testErrors(runner, readExampleCohortNode(), path, action, expected);
+            }
+
+        }
+
+        private static JsonNode readExampleCohortNode() {
+            try (InputStream is = Files.newInputStream(TestData.EXAMPLE_COHORT_JSON)){
+                return MAPPER.readTree(is);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 
