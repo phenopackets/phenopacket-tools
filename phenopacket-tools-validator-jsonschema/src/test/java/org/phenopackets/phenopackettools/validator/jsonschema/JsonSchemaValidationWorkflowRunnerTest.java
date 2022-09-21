@@ -1,11 +1,8 @@
 package org.phenopackets.phenopackettools.validator.jsonschema;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.MessageOrBuilder;
-import com.google.protobuf.util.JsonFormat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,8 +11,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.ValidationResults;
 import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
-import org.phenopackets.phenopackettools.validator.testdatagen.ExampleFamily;
-import org.phenopackets.schema.v2.Family;
 import org.phenopackets.schema.v2.FamilyOrBuilder;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 
@@ -376,12 +371,6 @@ public class JsonSchemaValidationWorkflowRunnerTest {
     @Nested
     public class FamilyFieldsTest {
 
-        private static JsonNode getCompleteFamilyJson() throws InvalidProtocolBufferException, JsonProcessingException {
-            Family family = ExampleFamily.getExampleFamily();
-            String json = JsonFormat.printer().print(family);
-            return MAPPER.readTree(json);
-        }
-
         @Nested
         public class RequiredFieldsTest {
 
@@ -394,8 +383,8 @@ public class JsonSchemaValidationWorkflowRunnerTest {
             }
 
             @Test
-            public void validFamilyYieldsNoErrors() throws Exception {
-                JsonNode node = getCompleteFamilyJson();
+            public void validFamilyYieldsNoErrors() {
+                JsonNode node = readExampleFamilyNode();
 
                 ValidationResults results = runner.validate(node.toPrettyString());
 
@@ -410,17 +399,17 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/pedigree,              DELETE,          '$.pedigree: is missing but it is required'",
                     "/metaData,              DELETE,          '$.metaData: is missing but it is required'",
             })
-            public void absenceOfTopLevelFamilyElementsYieldsErrors(String path, String action, String expected) throws Exception {
-                testErrors(runner, getCompleteFamilyJson(), path, action, expected);
+            public void absenceOfTopLevelFamilyElementsYieldsErrors(String path, String action, String expected) {
+                testErrors(runner, readExampleFamilyNode(), path, action, expected);
             }
 
             @ParameterizedTest
             @CsvSource({
-                    "/pedigree/persons,     DELETE,          '$.pedigree.persons: is missing but it is required'",
-                    "/pedigree/persons[*],  DELETE,          '$.pedigree.persons: there must be a minimum of 1 items in the array'",
+                    "/pedigree/persons,      DELETE,          '$.pedigree.persons: is missing but it is required'",
+                    "/pedigree/persons[*],   DELETE,          '$.pedigree.persons: there must be a minimum of 1 items in the array'",
             })
-            public void emptyPedigreeYieldsError(String path, String action, String expected) throws Exception {
-                testErrors(runner, getCompleteFamilyJson(), path, action, expected);
+            public void emptyPedigreeYieldsError(String path, String action, String expected) {
+                testErrors(runner, readExampleFamilyNode(), path, action, expected);
             }
 
 
@@ -429,6 +418,14 @@ public class JsonSchemaValidationWorkflowRunnerTest {
         @Nested
         public class RecommendedFieldsTest {
             // TODO - implement
+        }
+
+        private static JsonNode readExampleFamilyNode() {
+            try (InputStream is = Files.newInputStream(TestData.EXAMPLE_FAMILY_JSON)){
+                return MAPPER.readTree(is);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

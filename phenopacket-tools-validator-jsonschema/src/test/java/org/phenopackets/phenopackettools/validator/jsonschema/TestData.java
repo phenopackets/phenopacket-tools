@@ -18,4 +18,19 @@ public class TestData {
      */
     public static final Path BETHLEM_MYOPATHY_PHENOPACKET_JSON = TEST_BASE_DIR.resolve("bethlem-myopathy.json");
 
+
+    /**
+     * A path to an example family that, despite being medically invalid/nonsense, is complete from the testing
+     * point of view.
+     * <p>
+     * The family has been doctored to contain:
+     * <ul>
+     *     <li>valid id,</li>
+     *     <li>proband (content of {@link #BETHLEM_MYOPATHY_PHENOPACKET_JSON}),</li>
+     *     <li>pedigree representing trio with unaffected parents, and</li>
+     *     <li>metadata</li>
+     * </ul>
+     */
+    public static final Path EXAMPLE_FAMILY_JSON = TEST_BASE_DIR.resolve("example-family.json");
+
 }
