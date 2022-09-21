@@ -131,6 +131,7 @@
     },
 
     "timeElement": {
+      "type": "object",
       "properties": {
         "gestationalAge":  {"$ref": "#/definitions/gestationalAge"},
         "age" : {"$ref": "#/definitions/age"},

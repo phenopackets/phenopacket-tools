@@ -123,19 +123,117 @@ public class JsonSchemaValidationWorkflowRunnerTest {
             }
 
             /**
-             * Absence of measurement  id leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             * Absence of measurement `assay`, `value`, or `complexValue` lead to
+             * an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
              */
             @ParameterizedTest
             @CsvSource({
                     "/measurements[0]/assay,                 DELETE,           '$.measurements[0].assay: is missing but it is required'",
-                    // TODO - continue with the cases below
-//                    "/measurements[0]/value,                 DELETE,           '$.phenotypicFeatures[0].evidence[0].evidenceCode: is missing but it is required'",
-//                    "/measurements[1]/complexValue,          DELETE,           '$.phenotypicFeatures[0].evidence[0].evidenceCode: is missing but it is required'",
+                    "/measurements[0]/value,                 DELETE,           '$.measurements[0].value: is missing but it is required|$.measurements[0].complexValue: is missing but it is required'",
+                    "/measurements[1]/complexValue,          DELETE,           '$.measurements[1].value: is missing but it is required|$.measurements[1].complexValue: is missing but it is required'",
             })
             public void checkMeasurementConstraints(String path, String action, String expected) {
                 testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
             }
 
+            /**
+             * Absence of biosample `id` leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/biosamples[0]/id,                 DELETE,           '$.biosamples[0].id: is missing but it is required'",
+            })
+            public void checkBiosampleConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of interpretation `id` or `progressStatus` leads to
+             * an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/interpretations[0]/id,                 DELETE,           '$.interpretations[0].id: is missing but it is required'",
+                    "/interpretations[0]/progressStatus,     DELETE,           '$.interpretations[0].progressStatus: is missing but it is required'",
+            })
+            public void checkInterpretationConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of diagnosis `disease` leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/interpretations[0]/diagnosis/disease,   DELETE,           '$.interpretations[0].diagnosis.disease: is missing but it is required'",
+            })
+            public void checkDiagnosisConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of `subjectOrBiosampleId`, `interpretationStatus` or `gene`/`variantInterpretation`
+             * leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/subjectOrBiosampleId,   DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].subjectOrBiosampleId: is missing but it is required'",
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/interpretationStatus,   DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].interpretationStatus: is missing but it is required'",
+                    // TODO - as of now this leads to 2 errors instead of just one
+//                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/interpretationStatus,   SET[gibberish],  '$.interpretations[0].diagnosis.genomicInterpretations[0].interpretationStatus: is missing but it is required'",
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation,  DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].gene: is missing but it is required|$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation: is missing but it is required'",
+                    "/interpretations[0]/diagnosis/genomicInterpretations[1]/gene,                   DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[1].gene: is missing but it is required|$.interpretations[0].diagnosis.genomicInterpretations[1].variantInterpretation: is missing but it is required'",
+            })
+            public void checkGenomicInterpretationConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of `valueId` or `symbol`
+             * leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/interpretations[0]/diagnosis/genomicInterpretations[1]/gene/valueId,           DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[1].gene.valueId: is missing but it is required'",
+                    "/interpretations[0]/diagnosis/genomicInterpretations[1]/gene/symbol,            DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[1].gene.symbol: is missing but it is required'",
+            })
+            public void checkGeneDescriptorConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * Absence of `acmgPathogenicityClassification`, `therapeuticActionability` or `variationDescriptor`
+             * leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/acmgPathogenicityClassification,    DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.acmgPathogenicityClassification: is missing but it is required'",
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/therapeuticActionability,           DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.therapeuticActionability: is missing but it is required'",
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor,                DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor: is missing but it is required'",
+            })
+            public void checkVariantInterpretationConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
+
+//            TODO - implement tests
+//            @ParameterizedTest
+//            @CsvSource({
+//                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor,                DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor: is missing but it is required'",
+//            })
+//            public void checkVariationDescriptorConstraints(String path, String action, String expected) {
+//                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+//            }
+
+            /**
+             * Absence of `term` leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/diseases[0]/term,                DELETE,          '$.diseases[0].term: is missing but it is required'",
+            })
+            public void checkDiseaseConstraints(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            }
 
 
 

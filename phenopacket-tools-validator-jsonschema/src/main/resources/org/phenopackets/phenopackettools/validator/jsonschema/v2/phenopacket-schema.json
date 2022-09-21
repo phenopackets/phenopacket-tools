@@ -16,41 +16,49 @@
     },
     "phenotypicFeatures": {
       "type": "array",
-      "items": { "$ref": "#/definitions/phenotypicFeature" },
-      "minItems": 1
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenotypic-feature.json#/definitions/phenotypicFeature"
+      }
     },
     "measurements": {
       "type": "array",
-      "items": { "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/measurement" },
-      "minItems": 0
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/measurement"
+      }
     },
     "biosamples": {
       "type": "array",
-      "items": { "$ref": "#/definitions/biosample" },
-      "minItems": 0
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/biosample.json#/definitions/biosample"
+      }
     },
     "interpretations": {
       "type": "array",
-      "items": { "$ref": "#/definitions/interpretation" },
-      "minItems": 0
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/interpretation.json#/definitions/interpretation"
+      }
     },
     "diseases": {
       "type": "array",
-      "items": { "$ref": "#/definitions/disease" },
-      "minItems": 0
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/disease.json#/definitions/disease"
+      }
     },
     "medicalActions": {
       "type": "array",
-      "items": { "$ref": "#/definitions/medicalAction" },
-      "minItems": 1
+      "items": {
+        "$ref": "#/definitions/medicalAction"
+      }
     },
     "files": {
       "type": "array",
-      "items": { "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file" },
-      "minItems": 0
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file"
+      }
     },
     "metaData": {
-      "$ref": "#/definitions/metaData" }
+      "$ref": "#/definitions/metaData"
+    }
     },
     "definitions": {
     "update": {
@@ -71,128 +79,6 @@
         "timestamp"
       ],
       "additionalProperties": false
-    },
-    "phenotypicFeature": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "excluded": {
-          "type": "boolean"
-        },
-        "severity": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "modifiers": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-          }
-        },
-        "onset": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-        },
-        "resolution": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-        },
-        "evidence": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/evidence"
-          },
-          "minItems": 0
-        }
-      },
-      "required": [
-        "type"
-      ],
-      "additionalProperties": false
-    },
-    "variantInterpretation": {
-      "type": "object",
-      "properties": {
-        "acmgPathogenicityClassification": {
-          "enum": [
-            "NOT_PROVIDED",
-            "BENIGN",
-            "LIKELY_BENIGN",
-            "UNCERTAIN_SIGNIFICANCE",
-            "LIKELY_PATHOGENIC",
-            "PATHOGENIC"
-          ]
-        },
-        "therapeuticActionability": {
-          "enum": [
-            "UNKNOWN_ACTIONABILITY",
-            "NOT_ACTIONABLE",
-            "ACTIONABLE"
-          ]
-        },
-        "variationdescriptor": {
-          "$ref" : "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/vrsatile.json#/definitions/variationDescriptor"
-
-        }
-      }
-    },
-    "geneDescriptor": {
-      "type": "object",
-      "properties": {
-        "valueId": {
-          "type": "string"
-        },
-        "symbol": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "alternateIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "xrefs": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "alternateSymbols": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "genomicInterpretation": {
-      "type": "object",
-      "properties": {
-        "subjectOrBiosampleId": {
-          "type": "string"
-        },
-        "interpretationStatus": {
-          "enum": [
-            "UNKNOWN_STATUS",
-            "REJECTED",
-            "CANDIDATE",
-            "CONTRIBUTORY",
-            "CAUSATIVE"
-          ]
-        },
-        "variationInterpretation": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/geneDescriptor"
-            },
-            {
-              "$ref": "#/definitions/variantInterpretation"
-            }
-          ]
-        }
-      }
     },
     "individual": {
       "type": "object",
@@ -246,89 +132,6 @@
     "sex": {
       "enum": ["UNKNOWN_SEX", "FEMALE", "MALE", "OTHER_SEX"]
     },
-    "diagnosis": {
-      "type": "object",
-      "properties": {
-        "disease": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "genomicInterpretations": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/genomicInterpretation"
-          }
-        }
-      },
-      "required": [
-        "disease"
-      ]
-    },
-    "disease": {
-      "type": "object",
-      "properties": {
-        "term": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "excluded": {
-          "type": "boolean"
-        },
-        "onset": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-        },
-        "resolution": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-        },
-        "diseaseStage": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-          },
-          "minItems": 0,
-          "uniqueItems": true
-        },
-        "clinicalTnmFinding": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-          },
-          "minItems": 0,
-          "uniqueItems": true
-        },
-        "primarySite": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "laterality": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        }
-      }
-    },
-    "interpretation": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "progressStatus": {
-          "enum": [
-            "UNKNOWN_PROGRESS",
-            "IN_PROGRESS",
-            "COMPLETED",
-            "SOLVED",
-            "UNSOLVED"
-          ]
-        },
-        "diagnosis": {
-          "$ref": "#/definitions/diagnosis"
-        },
-        "summary" : {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "progressStatus"
-      ]
-    },
     "metaData": {
       "type": "object",
       "properties": {
@@ -363,93 +166,6 @@
         }
       },
       "required": ["created", "createdBy","phenopacketSchemaVersion"],
-      "additionalProperties": false
-    },
-    "biosample": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "individualId": {
-          "type": "string"
-        },
-        "derivedFromId": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "sampledTissue": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "sampledType": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "phenotypicFeatures": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/phenotypicFeature"
-          }
-        },
-        "measurements": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/measurement"
-          }
-        },
-        "taxonomy": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "timeOfCollection": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-        },
-        "histologicalDiagnosis": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "tumorProgression": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "tumorGrade": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "pathologicalStage": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "pathologicalTnmFinding": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-          }
-        },
-        "diagnosticMarkers": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-          }
-        },
-        "procedure": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
-        },
-        "files": {
-          "type": "array",
-          "items": {
-            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file"
-          }
-        },
-        "materialSample": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "sampleProcessing": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "sampleStorage": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        }
-      },
-      "required": [
-        "id"
-      ],
       "additionalProperties": false
     },
     "resource": {

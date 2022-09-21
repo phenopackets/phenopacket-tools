@@ -333,6 +333,30 @@
       }
     }
   ],
+  "biosamples": [
+    {
+      "id": "SAMN05324082",
+      "individualId": "SAMN05324082-individual",
+      "description": "THP-1; 6 hours; DMSO; Replicate 1",
+      "sampledTissue": {
+        "id": "UBERON:0000178",
+        "label": "peripheral blood"
+      },
+      "taxonomy": {
+        "id": "NCBITaxon:9606",
+        "label": "Homo sapiens"
+      },
+      "timeOfCollection": {
+        "age": {
+          "iso8601duration": "P8Y"
+        }
+      },
+      "histologicalDiagnosis": {
+        "id": "EFO:0000221",
+        "label": "Acute Monocytic Leukemia"
+      }
+    }
+  ],
   "interpretations": [
     {
       "id": "arbitrary interpretation id",
@@ -348,6 +372,7 @@
             "interpretationStatus": "CAUSATIVE",
             "variantInterpretation": {
               "acmgPathogenicityClassification": "PATHOGENIC",
+              "therapeuticActionability": "ACTIONABLE",
               "variationDescriptor": {
                 "id": "variant id",
                 "expressions": [
@@ -362,11 +387,38 @@
                 }
               }
             }
+          },
+          {
+            "subjectOrBiosampleId": "abcd",
+            "interpretationStatus": "CAUSATIVE",
+            "gene": {
+              "valueId": "NCBIGene:1234",
+              "symbol": "GENE"
+            }
           }
         ]
       }
     }
   ],
+  "diseases": [
+    {
+      "term": {
+        "id": "OMIM:158810",
+        "label": "Bethlem myopathy 1"
+      },
+      "onset": {
+        "age": {
+          "iso8601duration": "P3Y"
+        }
+      }
+    },
+    {
+      "term": {
+        "id": "OMIM:616471",
+        "label": "Bethlem myopathy 2"
+      },
+      "excluded": true
+    }],
   "files": [
     {
       "uri": "file://data/file.vcf.gz",

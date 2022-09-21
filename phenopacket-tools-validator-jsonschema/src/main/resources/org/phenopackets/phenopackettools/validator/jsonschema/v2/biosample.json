@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://www.ga4gh.org/phenopackets/biosample",
+  "title": "PhenopacketBiosample",
+  "description": "Validate requirements of the biosample element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+  "type": "object",
+  "definitions": {
+
+    "biosample": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "individualId": {
+          "type": "string"
+        },
+        "derivedFromId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sampledTissue": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "sampledType": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "phenotypicFeatures": {
+          "type": "array",
+          "items": {
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenotypic-feature.json#/definitions/phenotypicFeature"
+          },
+          "uniqueItems": true
+        },
+        "measurements": {
+          "type": "array",
+          "items": {
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json#/definitions/measurement"
+          },
+          "uniqueItems": true
+        },
+        "taxonomy": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "timeOfCollection": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
+        },
+        "histologicalDiagnosis": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "tumorProgression": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "tumorGrade": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "pathologicalStage": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "pathologicalTnmFinding": {
+          "type": "array",
+          "items": {
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+          },
+          "uniqueItems": true
+        },
+        "diagnosticMarkers": {
+          "type": "array",
+          "items": {
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+          }
+        },
+        "procedure": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file"
+          },
+          "uniqueItems": true
+        },
+        "materialSample": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "sampleProcessing": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "sampleStorage": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        }
+      },
+      "required": [ "id" ],
+      "additionalProperties": false
+    }
+
+  }
+}
