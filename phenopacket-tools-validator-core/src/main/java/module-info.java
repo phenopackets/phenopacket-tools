@@ -12,4 +12,5 @@ module org.phenopackets.phenopackettools.validator.core {
     requires org.monarchinitiative.phenol.core;
 
     opens org.phenopackets.phenopackettools.validator.core;
+    exports org.phenopackets.phenopackettools.validator.core.metadata;
 }
