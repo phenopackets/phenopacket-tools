@@ -1,4 +1,5 @@
 ontology.id	ontology.label	variable.name	function.name
+UCUM:degree	degree (plane angle)	DEGREE	degreeOfAngle
 UCUM:[diop]	diopter	DIOPTER	diopter
 UCUM:g	gram	GRAM	gram
 UCUM:g/kg	gram per kilogram	GRAM_PER_KG	gramPerKilogram
