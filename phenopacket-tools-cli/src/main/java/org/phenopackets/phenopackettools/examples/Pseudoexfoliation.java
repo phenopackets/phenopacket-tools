@@ -55,6 +55,7 @@ public class Pseudoexfoliation implements PhenopacketExample {
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
                 .addMeasurements(getMeasurements())
+                .addMeasurements(getMeasurements2())
                 .addPhenotypicFeatures(getPhenotypicFeatures())
                 .addDisease(getDisease())
                 .addMedicalAction(cataractsurgeryRight())
@@ -133,8 +134,10 @@ implantation in the right eye (OD) in January 2006.
         Value rightEyeValueCylinder = ValueBuilder.of(Unit.diopter(), -0.5, ref);
         //	Right eye Axis: LOINC 9829-8
         TimeElement age70years = TimeElements.age("P70Y"); //Druckerhöhung 1J1M nach Cataractsurgery
+        Measurement rightEyecylindricalmeasurement = MeasurementBuilder
+                .builder(rightEyesphericalrefraction, rightEyeValue).build();
 //leftEyeMeasurement, rightEyeMeasurement,  TODO -- add to list of returned items
-        return List.of(visusMeasurement);
+        return List.of(visusMeasurement, rightEyecylindricalmeasurement);
     }
    /*
     ONE YEAR AFTER: Refraction after 1 year right eye –3.75/–0.5/110°.  degrees
