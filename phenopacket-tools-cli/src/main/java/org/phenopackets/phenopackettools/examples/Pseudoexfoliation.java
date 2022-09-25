@@ -127,7 +127,7 @@ implantation in the right eye (OD) in January 2006.
         OntologyClass sphericalrefraction = ontologyClass("LOINC:79895-9", "Subjective refraction method");
         ReferenceRange ref = ReferenceRangeBuilder.of(sphericalrefraction, -30, 30);
         OntologyClass rightEyesphericalrefraction =
-                OntologyClassBuilder.ontologyClass("LOINC:79850-4", "Right eye spharical refraction");
+                OntologyClassBuilder.ontologyClass("LOINC:79850-4", "Right eye spherical refraction");
         Value rightEyeValue = ValueBuilder.of(Unit.diopter(), -0.25, ref);
         OntologyClass rightEyecylindricalrefraction =
                 OntologyClassBuilder.ontologyClass("LOINC:79846-2", "Right eye cylindrical refraction");
@@ -145,7 +145,7 @@ implantation in the right eye (OD) in January 2006.
     OntologyClass sphericalrefraction = ontologyClass("LOINC:79895-9","Subjective refraction method");
     ReferenceRange ref = ReferenceRangeBuilder.of(sphericalrefraction, -30, 30);
     OntologyClass rightEyesphericalrefraction =
-            OntologyClassBuilder.ontologyClass("LOINC:79850-4", "Right eye spharical refraction");
+            OntologyClassBuilder.ontologyClass("LOINC:79850-4", "Right eye spherical refraction");
     Value rightEyeValue = ValueBuilder.of(Unit.diop(), -3.75, ref);
     OntologyClass rightEyecylindricalrefraction =
             OntologyClassBuilder.ontologyClass("LOINC:79846-2", "Right eye cylindrical refraction");
