@@ -3,6 +3,7 @@ package org.phenopackets.phenopackettools.builder.builders;
 import com.google.protobuf.Timestamp;
 import org.phenopackets.schema.v2.core.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -47,6 +48,12 @@ public class IndividualBuilder {
         return this;
     }
 
+    public IndividualBuilder dateOfBirth(LocalDate localDate) {
+        Timestamp timestamp = TimestampBuilder.timestamp(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
+        builder.setDateOfBirth(timestamp);
+        return this;
+    }
+
     public IndividualBuilder dateOfBirth(String dobirth) {
         Timestamp dob = TimestampBuilder.fromISO8601(dobirth);
         builder.setDateOfBirth(dob);
@@ -58,6 +65,12 @@ public class IndividualBuilder {
         builder.setTimeAtLastEncounter(t);
         return this;
     }
+
+    public IndividualBuilder ageAtLastEncounter(TimeElement timeElement) {
+        builder.setTimeAtLastEncounter(timeElement);
+        return this;
+    }
+
     public IndividualBuilder ageAtLastEncounter(String iso8601) {
         TimeElement t = TimeElements.age(iso8601);
         builder.setTimeAtLastEncounter(t);
