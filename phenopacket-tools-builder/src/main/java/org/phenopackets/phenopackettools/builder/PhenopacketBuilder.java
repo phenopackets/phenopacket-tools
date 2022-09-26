@@ -33,8 +33,8 @@ public class PhenopacketBuilder {
         return this;
     }
 
-    public PhenopacketBuilder addAllPhenotypicFeatures(List<PhenotypicFeature> features) {
-        builder.addAllPhenotypicFeatures(features);
+    public PhenopacketBuilder addPhenotypicFeatures(List<PhenotypicFeature> features) {
+        features.forEach(builder::addPhenotypicFeatures);
         return this;
     }
 
@@ -43,8 +43,8 @@ public class PhenopacketBuilder {
         return this;
     }
 
-    public PhenopacketBuilder addAllMeasurements(List<Measurement> measurements) {
-        builder.addAllMeasurements(measurements);
+    public PhenopacketBuilder addMeasurements(List<Measurement> measurementList) {
+        measurementList.forEach(builder::addMeasurements);
         return this;
     }
 
@@ -53,8 +53,8 @@ public class PhenopacketBuilder {
         return this;
     }
 
-    public PhenopacketBuilder addAllBiosamples(List<Biosample> biosample) {
-        builder.addAllBiosamples(biosample);
+    public PhenopacketBuilder addAllBiosamples(List<Biosample> biosampleList) {
+        biosampleList.forEach(builder::addBiosamples);
         return this;
     }
 
@@ -65,6 +65,11 @@ public class PhenopacketBuilder {
 
     public PhenopacketBuilder addDisease(Disease disease) {
         builder.addDiseases(disease);
+        return this;
+    }
+
+    public PhenopacketBuilder addDiseases(List<Disease> diseaseList) {
+        builder.addAllDiseases(diseaseList);
         return this;
     }
 
@@ -80,5 +85,10 @@ public class PhenopacketBuilder {
 
     public Phenopacket build() {
         return builder.build();
+    }
+
+    public PhenopacketBuilder addMedicalActions(List<MedicalAction> previousTreatments) {
+        previousTreatments.forEach(builder::addMedicalActions);
+        return this;
     }
 }

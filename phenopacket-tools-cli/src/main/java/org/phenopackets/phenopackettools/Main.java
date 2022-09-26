@@ -4,6 +4,9 @@ import picocli.CommandLine;
 
 public class Main {
 
+    // Maximum number of characters in line of the usage message.
+    public static final int USAGE_WIDTH = 120;
+
     public static void main(String[] args) {
         if (args.length == 0) {
             // if the user doesn't pass any command or option, add -h to show help

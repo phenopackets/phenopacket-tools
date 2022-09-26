@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://www.ga4gh.org/phenopackets/cohort",
+  "title": "Cohort",
+  "description": "Validate basic requirements of the cohort element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The unique identifier for the Cohort message",
+      "type": "string"
+    },
+    "description": {
+      "description": "Text description of the cohort",
+      "type": "string"
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenopacket-schema.json"
+      },
+      "minItems": 1
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file"
+      }
+    },
+    "metaData":  {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/meta-data.json"
+    }
+  },
+  "required": ["id", "members", "metaData"],
+  "additionalProperties": false
+}

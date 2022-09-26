@@ -37,6 +37,7 @@ public class Marfan implements PhenopacketExample {
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metaData)
                 .individual(individual)
                 .addDisease(marfan)
+                .addPhenotypicFeature(aorticAneurysm)
                 .addMedicalAction(medicalAction)
                 .build();
     }

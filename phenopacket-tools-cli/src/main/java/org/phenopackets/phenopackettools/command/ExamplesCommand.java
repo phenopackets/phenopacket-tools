@@ -27,66 +27,84 @@ import java.util.concurrent.Callable;
         description = "Write example phenopackets to directory.")
 public class ExamplesCommand implements Callable<Integer> {
 
-    @CommandLine.Option(names = {"-o", "--output"}, description = "Output directory (default: ${DEFAULT-VALUE})")
-    private String output = "examples";
+    @CommandLine.Option(names = {"-o", "--output"},
+            description = "Output directory (default: ${DEFAULT-VALUE})")
+    public Path output = Path.of(".");
 
-    private Path outDir = null;
-
-
-
-    private void outputPhenopacket(Message phenopacket, Path outdir,String fileName) {
-        outputJsonMessage(phenopacket, outdir, fileName);
-    }
-
-    private void outputYamlPhenopacket(Message phenopacket, Path outdir, String fileName) {
-        outputYamlMessage(phenopacket, outdir, fileName, "phenopacket");
-
-    }
-
-    private Path createOutdirectoryIfNeeded(Path outDirectory) {
-        if (Files.exists(outDirectory)) {
-            return outDirectory;
-        }
-        try {
-            return Files.createDirectory(outDirectory);
-        } catch (IOException e) {
-            // swallow
-        }
-        throw new PhenotoolsRuntimeException("Could not create directory " + outDirectory);
-    }
 
     @Override
-    public Integer call() {
-        return outputAllPhenopackets();
+    public Integer call() throws Exception {
+        Path phenopacketDir = createADirectoryIfDoesNotExist(output.resolve("phenopackets"));
+        Path familyDir = createADirectoryIfDoesNotExist(output.resolve("families"));
+        Path cohortDir = createADirectoryIfDoesNotExist(output.resolve("cohorts"));
+
+        try {
+            // Phenopackets
+            output(new AtaxiaWithVitaminEdeficiency().getPhenopacket(), phenopacketDir, "AVED");
+            output(new BethlehamMyopathy().getPhenopacket(), phenopacketDir, "bethleham-myopathy");
+            output(new Holoprosencephaly5().getPhenopacket(), phenopacketDir, "holoprosencephaly5");
+            output(new Marfan().getPhenopacket(), phenopacketDir, "marfan");
+            output(new NemalineMyopathyPrenatal().getPhenopacket(), phenopacketDir, "nemalineMyopathy");
+            output(new Pseudoexfoliation().getPhenopacket(),  phenopacketDir,"pseudoexfoliation");
+            output(new DuchenneExon51Deletion().getPhenopacket(), phenopacketDir, "duchenne");
+            output(new SquamousCellCancer().getPhenopacket(), phenopacketDir, "squamous-cell-esophageal-carcinoma");
+            output(new UrothelialCancer().getPhenopacket(), phenopacketDir, "urothelial-cancer");
+            output(new Covid().getPhenopacket(), phenopacketDir, "covid");
+            output(new Retinoblastoma().getPhenopacket(), phenopacketDir, "retinoblastoma");
+            output(new WarburgMicroSyndrome().getPhenopacket(), phenopacketDir, "warburg-micro-syndrome");
+            output(new SevereStatinInducedAutoimmuneMyopathy().getPhenopacket(), phenopacketDir, "statin-myopathy");
+
+            // Families
+            outputFamily(new FamilyWithPedigree().getFamily(), familyDir, "family");
+
+            // Cohorts
+            // TODO - write a cohort
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return 1;
+        }
+        return 0;
     }
 
+    private static Path createADirectoryIfDoesNotExist(Path path) throws IOException {
+        return Files.exists(path)
+                ? path
+                : Files.createDirectories(path);
+    }
 
-
-    private int output(Message phenopacket, Path outDir, String basename) {
+    private static void output(Message phenopacket, Path outDir, String basename) {
         String yamlName = basename + ".yml";
         outputYamlPhenopacket(phenopacket, outDir, yamlName);
         String jsonName = basename + ".json";
         outputPhenopacket(phenopacket, outDir,jsonName);
-        return 0;
     }
 
+    private static void outputPhenopacket(Message phenopacket, Path outdir,String fileName) {
+        outputJsonMessage(phenopacket, outdir, fileName);
+    }
 
-    private void outputFamily(Message family, Path outDir, String basename) {
+    private static void outputYamlPhenopacket(Message phenopacket, Path outdir, String fileName) {
+        outputYamlMessage(phenopacket, outdir, fileName, "phenopacket");
+
+    }
+
+    private static void outputFamily(Message family, Path outDir, String basename) {
         String yamlName = basename + ".yml";
         outputYamlFamily(family, outDir, yamlName);
         String jsonName = basename + ".json";
         outputJsonFamily(family, outDir,jsonName);
     }
 
-    private void outputJsonFamily(Message family, Path outDir, String jsonName) {
+    private static void outputJsonFamily(Message family, Path outDir, String jsonName) {
         outputJsonMessage(family, outDir, jsonName);
     }
 
-    private void outputYamlFamily(Message family, Path outDir, String yamlName) {
+    private static void outputYamlFamily(Message family, Path outDir, String yamlName) {
         outputYamlMessage(family, outDir, yamlName, "family");
     }
 
-    private void outputJsonMessage(Message message, Path outDir, String fileName) {
+    private static void outputJsonMessage(Message message, Path outDir, String fileName) {
         Path path = outDir.resolve(fileName);
         try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             String json = JsonFormat.printer().print(message);
@@ -96,7 +114,7 @@ public class ExamplesCommand implements Callable<Integer> {
         }
     }
 
-    private void outputYamlMessage(Message family, Path outDir, String yamlName, String messageName) {
+    private static void outputYamlMessage(Message family, Path outDir, String yamlName, String messageName) {
         Path path = outDir.resolve(yamlName);
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
         try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
@@ -109,29 +127,6 @@ public class ExamplesCommand implements Callable<Integer> {
         }
     }
 
-
-    private int outputAllPhenopackets() {
-        Path outDir = Path.of(output);
-        Path outDirectory = createOutdirectoryIfNeeded(outDir);
-        try {
-            output(new BethlehamMyopathy().getPhenopacket(), outDirectory, "bethleham-myopathy");
-            output(new Thrombocytopenia2().getPhenopacket(), outDirectory, "thrombocytopenia2");
-            output(new Marfan().getPhenopacket(), outDirectory, "marfan");
-            output(new NemalineMyopathyPrenatal().getPhenopacket(), outDirectory, "nemalineMyopathy");
-            output(new Pseudoexfoliation().getPhenopacket(),  outDirectory,"pseudoexfoliation");
-            output(new SleKidneyTransplantation().getPhenopacket(), outDirectory, "lupus");
-            output(new SquamousCellCancer().getPhenopacket(), outDirectory, "squamous-cell-esophageal-carcinoma");
-            output(new UrothelialCancer().getPhenopacket(), outDirectory, "urothelial-cancer");
-            output(new Covid().getPhenopacket(), outDirectory, "covid");
-            output(new Retinoblastoma().getPhenopacket(), outDirectory, "retinoblastoma");
-            output(new WarburgMicroSyndrome().getPhenopacket(), outDirectory, "warburg-micro-syndrome");
-            outputFamily(new FamilyWithPedigree().getFamily(), outDirectory, "family");
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return 1;
-        }
-        return 0;
-    }
 
 
 

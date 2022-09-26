@@ -25,7 +25,7 @@ public class CopyNumberBuilder {
     public CopyNumberBuilder alleleLocation(String contig, int interbaseStartPos, int interbaseEndPos) {
         AlleleBuilder abuilder = AlleleBuilder.builder()
                         .sequenceId(contig)
-                        .startEnd(interbaseStartPos, interbaseEndPos);
+                        .interbaseStartEnd(interbaseStartPos, interbaseEndPos);
         builder.setAllele(abuilder.build());
         return this;
     }

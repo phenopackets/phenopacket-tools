@@ -7,7 +7,7 @@ import org.phenopackets.schema.v2.core.VariantInterpretation;
 
 public class VariantInterpretationBuilder {
 
-    final VariantInterpretation.Builder builder;
+    final private VariantInterpretation.Builder builder;
 
     private VariantInterpretationBuilder(VariationDescriptor descriptor) {
         builder = VariantInterpretation.newBuilder().setVariationDescriptor(descriptor);

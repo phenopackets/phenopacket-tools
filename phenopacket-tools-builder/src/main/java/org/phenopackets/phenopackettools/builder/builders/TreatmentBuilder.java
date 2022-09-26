@@ -1,5 +1,6 @@
 package org.phenopackets.phenopackettools.builder.builders;
 
+import org.phenopackets.phenopackettools.builder.constants.MedicalActions;
 import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
@@ -24,14 +25,28 @@ public class TreatmentBuilder {
         return new TreatmentBuilder(agent);
     }
 
+    public static TreatmentBuilder oralAdministration(OntologyClass agent) {
+        return TreatmentBuilder.builder (agent)
+                .routeOfAdministration(MedicalActions.oralAdministration());
+    }
+
+    public static TreatmentBuilder intravenousAdministration(OntologyClass agent) {
+        return TreatmentBuilder.builder (agent)
+                .routeOfAdministration(MedicalActions.intravenousAdministration());
+    }
+
     public static TreatmentBuilder builder(String id, String label) {
         return new TreatmentBuilder(OntologyClassBuilder.ontologyClass(id, label));
     }
+
+
 
     public TreatmentBuilder routeOfAdministration(OntologyClass route) {
         builder.setRouteOfAdministration(route);
         return this;
     }
+
+
 
     public TreatmentBuilder addDoseInterval(DoseInterval interval) {
         builder.addDoseIntervals(interval);

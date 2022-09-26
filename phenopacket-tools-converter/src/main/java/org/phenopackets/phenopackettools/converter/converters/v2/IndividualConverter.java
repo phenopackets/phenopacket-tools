@@ -28,49 +28,30 @@ public class IndividualConverter {
     }
 
     public static KaryotypicSex toKaryotypicSex(org.phenopackets.schema.v1.core.KaryotypicSex karyotypicSex) {
-        switch (karyotypicSex) {
-            case XX:
-                return KaryotypicSex.XX;
-            case XY:
-                return KaryotypicSex.XY;
-            case XO:
-                return KaryotypicSex.XO;
-            case XXY:
-                return KaryotypicSex.XXY;
-            case XXX:
-                return KaryotypicSex.XXX;
-            case XXYY:
-                return KaryotypicSex.XXYY;
-            case XXXY:
-                return KaryotypicSex.XXXY;
-            case XXXX:
-                return KaryotypicSex.XXXX;
-            case XYY:
-                return KaryotypicSex.XYY;
-            case OTHER_KARYOTYPE:
-                return KaryotypicSex.OTHER_KARYOTYPE;
-            case UNRECOGNIZED:
-                return KaryotypicSex.UNRECOGNIZED;
-            case UNKNOWN_KARYOTYPE:
-            default:
-                return KaryotypicSex.UNKNOWN_KARYOTYPE;
-        }
+        return switch (karyotypicSex) {
+            case XX -> KaryotypicSex.XX;
+            case XY -> KaryotypicSex.XY;
+            case XO -> KaryotypicSex.XO;
+            case XXY -> KaryotypicSex.XXY;
+            case XXX -> KaryotypicSex.XXX;
+            case XXYY -> KaryotypicSex.XXYY;
+            case XXXY -> KaryotypicSex.XXXY;
+            case XXXX -> KaryotypicSex.XXXX;
+            case XYY -> KaryotypicSex.XYY;
+            case OTHER_KARYOTYPE -> KaryotypicSex.OTHER_KARYOTYPE;
+            case UNRECOGNIZED -> KaryotypicSex.UNRECOGNIZED;
+            case UNKNOWN_KARYOTYPE -> KaryotypicSex.UNKNOWN_KARYOTYPE;
+        };
     }
 
     public static Sex toSex(org.phenopackets.schema.v1.core.Sex sex) {
-        switch (sex) {
-            case FEMALE:
-                return Sex.FEMALE;
-            case MALE:
-                return Sex.MALE;
-            case OTHER_SEX:
-                return Sex.OTHER_SEX;
-            case UNRECOGNIZED:
-                return Sex.UNRECOGNIZED;
-            case UNKNOWN_SEX:
-            default:
-                return Sex.UNKNOWN_SEX;
-        }
+        return switch (sex) {
+            case FEMALE -> Sex.FEMALE;
+            case MALE -> Sex.MALE;
+            case OTHER_SEX -> Sex.OTHER_SEX;
+            case UNRECOGNIZED -> Sex.UNRECOGNIZED;
+            case UNKNOWN_SEX -> Sex.UNKNOWN_SEX;
+        };
     }
 
     public static TimeElement toIndividualTimeAtLastEncounter(org.phenopackets.schema.v1.core.Individual v1Individual) {

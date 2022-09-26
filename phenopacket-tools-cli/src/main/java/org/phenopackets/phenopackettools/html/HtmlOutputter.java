@@ -51,8 +51,8 @@ public class HtmlOutputter {
     private void wrap(Section section,Writer writer) throws IOException {
         startSection(writer);
         switch (section) {
-            case PROBAND: outputProband(writer); break;
-            case PHENOTYPICFEATURE: outputPhenotypicFeatures(writer);
+            case PROBAND -> outputProband(writer);
+            case PHENOTYPICFEATURE -> outputPhenotypicFeatures(writer);
         }
         endSection(writer);
     }

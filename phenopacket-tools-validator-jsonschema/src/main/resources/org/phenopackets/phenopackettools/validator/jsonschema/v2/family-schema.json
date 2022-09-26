@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://www.ga4gh.org/phenopackets/family",
+  "title": "Family",
+  "description": "Validate basic requirements of the family element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+  "type": "object",
+  "required": ["id", "proband", "consanguinousParents", "pedigree", "metaData"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "The unique identifier for the Family message",
+      "type": "string"
+    },
+    "proband":  {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenopacket-schema.json"
+    },
+    "consanguinousParents": {
+      "description": "Flag to indicate that the parents of the proband are consanguinous",
+      "type": "boolean"
+    },
+    "relatives" : {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenopacket-schema.json"
+      }
+    },
+    "pedigree": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/pedigree.json"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file"
+      }
+    },
+    "metaData":  {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/meta-data.json"
+    }
+  }
+}

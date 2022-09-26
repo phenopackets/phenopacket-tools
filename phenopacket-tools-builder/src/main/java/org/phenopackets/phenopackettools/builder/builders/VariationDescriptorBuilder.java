@@ -2,13 +2,14 @@ package org.phenopackets.phenopackettools.builder.builders;
 
 import org.ga4gh.vrs.v1.Variation;
 import org.ga4gh.vrsatile.v1.*;
+import org.phenopackets.phenopackettools.builder.constants.AllelicState;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
 import java.util.List;
 
 public class VariationDescriptorBuilder {
 
-    final VariationDescriptor.Builder builder;
+    final private VariationDescriptor.Builder builder;
 
     /**
      * Constructor if no identifier is to be used
@@ -99,20 +100,17 @@ public class VariationDescriptorBuilder {
     }
 
     public VariationDescriptorBuilder heterozygous() {
-        OntologyClass heterozygous = OntologyClassBuilder.ontologyClass("GENO:0000135", "heterozygous");
-        builder.setAllelicState(heterozygous);
+        builder.setAllelicState(AllelicState.heterozygous());
         return this;
     }
 
     public VariationDescriptorBuilder homozygous() {
-        OntologyClass heterozygous = OntologyClassBuilder.ontologyClass("GENO:0000136", "homozygous");
-        builder.setAllelicState(heterozygous);
+        builder.setAllelicState(AllelicState.homozygous());
         return this;
     }
 
     public VariationDescriptorBuilder hemizygous() {
-        OntologyClass heterozygous = OntologyClassBuilder.ontologyClass("GENO:0000134", "hemizygous");
-        builder.setAllelicState(heterozygous);
+        builder.setAllelicState(AllelicState.hemizygous());
         return this;
     }
 

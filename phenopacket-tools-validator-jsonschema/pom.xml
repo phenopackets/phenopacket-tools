@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.phenopackets.phenopackettools</groupId>
         <artifactId>phenopacket-tools</artifactId>
-        <version>0.4.0-SNAPSHOT</version>
+        <version>0.4.5-SNAPSHOT</version>
     </parent>
 
     <artifactId>phenopacket-tools-validator-jsonschema</artifactId>
@@ -23,23 +23,29 @@
         </dependency>
 
         <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>json-schema-validator</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.phenopackets</groupId>
             <artifactId>phenopacket-schema</artifactId>
-
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>
-            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>json-schema-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
     </dependencies>
 

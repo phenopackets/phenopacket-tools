@@ -1,26 +1,45 @@
 package org.phenopackets.phenopackettools.validator.core;
 
+import com.google.protobuf.MessageOrBuilder;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
-public interface ValidationWorkflowRunner {
-
+/**
+ * {@link ValidationWorkflowRunner} validates selected top-level element of the Phenopacket schema.
+ * <p>
+ * The validation is performed on 3 input types: {@link #validate(MessageOrBuilder)} validates an existing top-level
+ * element, {@link #validate(String)} validates input formatted in JSON format,
+ * and {@link #validate(byte[])} validates bytes that can be either in JSON or Protobuf binary exchange format.
+ * <p>
+ * Validator provides a list with {@link ValidatorInfo} that describes validations
+ * done by the {@link ValidationWorkflowRunner}.
+ *
+ * @param <T> type of the top-level element of the Phenopacket schema.
+ */
+public interface ValidationWorkflowRunner<T extends MessageOrBuilder> {
 
     /**
-     *  implementation:
-     * 1. get string as input
-     * 2. decide if JSON/YML/Protobuf ("sniff the input")
-     * 3. Parse into JSON string
-     * 4. Fail if the JSON is not Phenopacket (e.g., fail for Family or Cohort) (one interface, three impl)
-     * 5. Pass to list of JSON Schema Validators
-     * 6. Convert JSON to Phenopacket, Cohort, or Family
-     * 7. Run all PhenopacketMessageValidators
-     * 8. Return List<ValidationItem>
-     * @return
+     * @return a list with {@link ValidatorInfo}s describing the validations done
+     * by the {@link ValidationWorkflowRunner}.
      */
+    List<ValidatorInfo> validators();
 
-   List<ValidationItem> run(String input);
+    ValidationResults validate(byte[] payload);
 
+    ValidationResults validate(String json);
 
+    ValidationResults validate(T item);
 
+    default ValidationResults validate(InputStream is) throws IOException {
+        return validate(is.readAllBytes());
+    }
 
+    default ValidationResults validate(Path path) throws IOException {
+        try (InputStream is = new BufferedInputStream(Files.newInputStream(path))) {
+            return validate(is);
+        }
+    }
 }

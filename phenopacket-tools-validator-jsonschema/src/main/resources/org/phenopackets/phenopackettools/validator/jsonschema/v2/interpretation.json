@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://www.ga4gh.org/phenopackets/interpretation",
+  "title": "PhenopacketInterpretation",
+  "description": "Validate requirements of the interpretation element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "progressStatus": {
+      "enum": [ "UNKNOWN_PROGRESS", "IN_PROGRESS", "COMPLETED", "SOLVED", "UNSOLVED" ]
+    },
+    "diagnosis": {
+      "$ref": "#/definitions/diagnosis"
+    },
+    "summary" : {
+      "type": "string"
+    }
+  },
+  "required": [ "id", "progressStatus" ],
+  "additionalProperties": false,
+
+  "definitions": {
+    "diagnosis": {
+      "type": "object",
+      "properties": {
+        "disease": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "genomicInterpretations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/genomicInterpretation"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [ "disease" ],
+      "additionalProperties": false
+    },
+
+    "genomicInterpretation": {
+      "type": "object",
+      "properties": {
+        "subjectOrBiosampleId": {
+          "type": "string"
+        },
+        "interpretationStatus": {
+          "enum": [ "UNKNOWN_STATUS", "REJECTED", "CANDIDATE", "CONTRIBUTORY", "CAUSATIVE" ]
+        },
+        "gene": {
+          "$ref": "#/definitions/geneDescriptor"
+        },
+        "variantInterpretation": {
+          "$ref": "#/definitions/variantInterpretation"
+        }
+      },
+      "oneOf": [
+        { "required": [ "gene" ]},
+        { "required": [ "variantInterpretation" ]}
+      ],
+      "required": ["subjectOrBiosampleId", "interpretationStatus"],
+      "additionalProperties": false
+    },
+
+    "geneDescriptor": {
+      "type": "object",
+      "properties": {
+        "valueId": {
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "alternateIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "xrefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "alternateSymbols": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": ["valueId", "symbol"],
+      "additionalProperties": false
+    },
+
+    "variantInterpretation": {
+      "type": "object",
+      "properties": {
+        "acmgPathogenicityClassification": {
+          "enum": [ "NOT_PROVIDED", "BENIGN", "LIKELY_BENIGN", "UNCERTAIN_SIGNIFICANCE", "LIKELY_PATHOGENIC", "PATHOGENIC" ]
+        },
+        "therapeuticActionability": {
+          "enum": [ "UNKNOWN_ACTIONABILITY", "NOT_ACTIONABLE", "ACTIONABLE" ]
+        },
+        "variationDescriptor": {
+          "$ref" : "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/vrsatile.json#/definitions/variationDescriptor"
+        }
+      },
+      "required": ["acmgPathogenicityClassification", "therapeuticActionability", "variationDescriptor" ],
+      "additionalProperties": false
+    }
+  }
+}

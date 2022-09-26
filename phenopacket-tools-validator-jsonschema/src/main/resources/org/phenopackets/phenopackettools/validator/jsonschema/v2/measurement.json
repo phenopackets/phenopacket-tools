@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://www.ga4gh.org/phenopackets/measurement",
+  "title": "PhenopacketMeasurement",
+  "description": "Validate requirements of the measurement element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "assay" : {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    },
+    "value": {
+      "$ref": "#/definitions/value"
+    },
+    "complexValue": {
+      "$ref": "#/definitions/complexValue"
+    },
+    "timeObserved": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
+    },
+    "procedure": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
+    }
+  },
+  "required": ["assay"],
+  "oneOf": [
+    { "required": [ "value" ]},
+    { "required": [ "complexValue" ]}
+  ],
+  "additionalProperties": false,
+
+  "definitions": {
+    "value": {
+      "type": "object",
+      "properties": {
+        "ontologyClass": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "quantity": {
+          "$ref": "#/definitions/quantity"
+        }
+      },
+      "oneOf": [
+        { "required":  ["ontologyClass"]},
+        { "required":  ["quantity"]}
+      ],
+      "additionalProperties": false
+    },
+
+    "complexValue": {
+      "type": "object",
+      "properties": {
+        "typedQuantities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/typedQuantity"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": ["typedQuantities"],
+      "additionalProperties": false
+    },
+
+    "quantity": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "value": {
+          "type": "number"
+        },
+        "referenceRange": {
+          "$ref": "#/definitions/referenceRange"
+        }
+      },
+      "required": ["unit", "value"],
+      "additionalProperties": false
+    },
+
+    "typedQuantity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "quantity": {
+          "$ref": "#/definitions/quantity"
+        }
+      },
+      "required": ["type", "quantity"],
+      "additionalProperties": false
+    },
+
+    "referenceRange": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+        },
+        "low": {
+          "type": "number"
+        },
+        "high": {
+          "type": "number"
+        }
+      },
+      "required": ["unit", "low", "high"],
+      "additionalProperties": false
+    }
+  }
+}
+
+

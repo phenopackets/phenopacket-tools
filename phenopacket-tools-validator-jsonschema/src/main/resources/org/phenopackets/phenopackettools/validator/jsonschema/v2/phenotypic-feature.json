@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://www.ga4gh.org/phenopackets/phenotypic-feature",
+  "title": "PhenopacketPhenotypicFeature",
+  "description": "Validate requirements of the phenotypic feature element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+
+  "type": "object",
+  "properties": {
+    "type": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    },
+    "excluded": {
+      "type": "boolean"
+    },
+    "severity": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    },
+    "modifiers": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+      }
+    },
+    "onset": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
+    },
+    "resolution": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/evidence"
+      }
+    }
+  },
+  "required": [ "type" ],
+  "additionalProperties": false
+
+}

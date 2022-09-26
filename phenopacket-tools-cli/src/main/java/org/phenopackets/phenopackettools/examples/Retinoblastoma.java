@@ -44,8 +44,8 @@ public class Retinoblastoma implements PhenopacketExample {
 
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
-                .addAllMeasurements(getMeasurements())
-                .addAllPhenotypicFeatures(getPhenotypicFeatures())
+                .addMeasurements(getMeasurements())
+                .addPhenotypicFeatures(getPhenotypicFeatures())
                 .addDisease(getDisease())
                 .addMedicalAction(melphalan())
                 .addMedicalAction(chemoRegimen())
@@ -73,7 +73,7 @@ public class Retinoblastoma implements PhenopacketExample {
     GenomicInterpretation somaticRb1Missense() {
         AlleleBuilder abuilder = AlleleBuilder.builder();
         abuilder.sequenceId("refseq:NC_000013.11");
-        abuilder.startEnd( 48367511, 48367512);
+        abuilder.interbaseStartEnd( 48367511, 48367512);
         abuilder.altAllele("T");
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs121913300")
                 .variation(abuilder.buildVariation())
@@ -165,7 +165,7 @@ public class Retinoblastoma implements PhenopacketExample {
         biosampleBuilder.addPhenotypicFeature("NCIT:C35941", "Flexner-Wintersteiner Rosette Formation");
         biosampleBuilder.addPhenotypicFeature("NCIT:C132485", "Apoptosis and Necrosis");
         OntologyClass maxTumorSizeTest = OntologyClassBuilder.ontologyClass("LOINC:33728-7", "Size.maximum dimension in Tumor");
-        Value maxTumorSize = ValueBuilder.of(Unit.mm(), 15);
+        Value maxTumorSize = ValueBuilder.of(Unit.millimeter(), 15);
         Measurement maxTumorSizeMeasurement = MeasurementBuilder.builder(maxTumorSizeTest, maxTumorSize).timeObserved(age).build();
         biosampleBuilder.addMeasurement(maxTumorSizeMeasurement);
 

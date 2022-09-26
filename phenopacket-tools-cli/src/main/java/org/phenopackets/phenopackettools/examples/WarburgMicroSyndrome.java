@@ -32,7 +32,7 @@ public class WarburgMicroSyndrome implements PhenopacketExample {
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(proband)
                 .addDisease(getDisease())
-                .addAllPhenotypicFeatures(getPhenotypicFeatures())
+                .addPhenotypicFeatures(getPhenotypicFeatures())
                 .build();
     }
 

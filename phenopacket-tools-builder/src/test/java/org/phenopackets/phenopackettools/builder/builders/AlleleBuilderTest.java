@@ -13,7 +13,7 @@ public class AlleleBuilderTest {
     public void testBuild() {
         Variation variation = AlleleBuilder.builder()
                 .sequenceId("NC_000003.12")
-                .startEnd(42686219, 42686220)
+                .interbaseStartEnd(42686219, 42686220)
                 .chromosomeLocation("chr3")
                 .altAllele("A")
                 .buildVariation();

@@ -1,0 +1,34 @@
+ontology.id	ontology.label	variable.name	function.name
+HP:0032544	Predominant small joint localization	PREDOMINANT_SMALL_JOINT_LOCALIZATION	predominantSmallJointLocalization
+HP:0031450	Polycyclic	POLYCYCLIC	polycyclic
+HP:0025287	Axial	AXIAL	axial
+HP:0033813	Perilobular	PERILOBULAR	perilobular
+HP:0033814	Paraseptal	PARASEPTAL	paraseptal
+HP:0033815	Bronchocentric	BRONCHOCENTRIC	bronchocentric
+HP:0033816	Centrilobular	CENTRILOBULAR	centrilobular
+HP:0033817	Miliary	MILIARY	miliary
+HP:0012837	Generalized	GENERALIZED	generalized
+HP:0033819	Perilymphatic	PERILYMPHATIC	perilymphatic
+HP:0012838	Localized	LOCALIZED	localized
+HP:0033818	Reticular	RETICULAR	reticular
+HP:0012839	Distal	DISTAL	distal
+HP:0030645	Central	CENTRAL	central
+HP:0025290	Upper-body predominance	UPPER_BODY_PREDOMINANCE	upperBodyPredominance
+HP:0032539	Joint extensor surface localization	JOINT_EXTENSOR_SURFACE_LOCALIZATION	jointExtensorSurfaceLocalization
+HP:0025295	Herpetiform	HERPETIFORM	herpetiform
+HP:0025296	Morbilliform	MORBILLIFORM	morbilliform
+HP:0030649	Pericentral	PERICENTRAL	pericentral
+HP:0025294	Dermatomal	DERMATOMAL	dermatomal
+HP:0030648	Midperipheral	MIDPERIPHERAL	midperipheral
+HP:0025293	Distributed along Blaschko lines	DISTRIBUTED_ALONG_BLASCHKO_LINES	distributedAlongBlaschkoLines
+HP:0025292	Acral	ACRAL	acral
+HP:0030647	Paracentral	PARACENTRAL	paracentral
+HP:0025275	Lateral	LATERAL	lateral
+HP:0030646	Peripheral	PERIPHERAL	peripheral
+HP:0025291	Lower-body predominance	LOWER_BODY_PREDOMINANCE	lowerBodyPredominance
+HP:0020034	Diffuse	DIFFUSE	diffuse
+HP:0012840	Proximal	PROXIMAL	proximal
+HP:0033820	Apical	APICAL	apical
+HP:0030650	Focal	FOCAL	focal
+HP:0030651	Multifocal	MULTIFOCAL	multifocal
+HP:0032540	Jointflexorsurfacelocalization	JOINT_FLEXOR_SURFACE_LOCALIZATION	jointFlexorSurfaceLocalization

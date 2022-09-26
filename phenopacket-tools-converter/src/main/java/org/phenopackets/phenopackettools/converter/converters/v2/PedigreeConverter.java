@@ -47,16 +47,11 @@ public class PedigreeConverter {
     }
 
     private static Pedigree.Person.AffectedStatus toAffectedStatus(org.phenopackets.schema.v1.core.Pedigree.Person.AffectedStatus v1AffectedStatus) {
-        switch (v1AffectedStatus) {
-            case UNAFFECTED:
-                return Pedigree.Person.AffectedStatus.UNAFFECTED;
-            case AFFECTED:
-                return Pedigree.Person.AffectedStatus.AFFECTED;
-            case UNRECOGNIZED:
-                return Pedigree.Person.AffectedStatus.UNRECOGNIZED;
-            case MISSING:
-            default:
-                return Pedigree.Person.AffectedStatus.MISSING;
-        }
+        return switch (v1AffectedStatus) {
+            case UNAFFECTED -> Pedigree.Person.AffectedStatus.UNAFFECTED;
+            case AFFECTED -> Pedigree.Person.AffectedStatus.AFFECTED;
+            case UNRECOGNIZED -> Pedigree.Person.AffectedStatus.UNRECOGNIZED;
+            case MISSING -> Pedigree.Person.AffectedStatus.MISSING;
+        };
     }
 }
