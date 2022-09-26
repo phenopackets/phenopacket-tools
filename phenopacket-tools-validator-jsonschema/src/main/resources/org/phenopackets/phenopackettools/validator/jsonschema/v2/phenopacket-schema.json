@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://www.ga4gh.org/phenopackets/phenopacket",
+  "title": "Phenopacket",
+  "description": "Schema for Global Alliance for Genomics and Health (GA4GH) Phenopacket",
+  "type": "object",
+  "required": ["id", "metaData"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "The unique identifier for the Phenopacket",
+      "type": "string"
+    },
+    "subject": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/individual.json"
+    },
+    "phenotypicFeatures": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/phenotypic-feature.json"
+      }
+    },
+    "measurements": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/measurement.json"
+      }
+    },
+    "biosamples": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/biosample.json"
+      }
+    },
+    "interpretations": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/interpretation.json"
+      }
+    },
+    "diseases": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/disease.json"
+      }
+    },
+    "medicalActions": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/medical-action.json"
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/file"
+      }
+    },
+    "metaData": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/meta-data.json"
+    }
+  }
+}

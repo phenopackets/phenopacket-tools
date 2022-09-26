@@ -1,0 +1,19 @@
+ontology.id	ontology.label	variable.name	function.name
+HP:0030674	Antenatal onset	ANTENATAL_ONSET	antenatalOnset
+HP:0011460	Embryonal onset	EMBRYONAL_ONSET	embryonalOnset
+HP:0011461	Fetal onset	FETAL_ONSET	fetalOnset
+HP:0034199	Late first trimester onset	LATE_FIRST_TRIMESTER_ONSET	lateFirstTrimesterOnset
+HP:0034198	Second trimester onset	SECOND_TRIMESTER_ONSET	secondTrimesterOnset
+HP:0034197	Third trimester onset	THIRD_TRIMESTER_ONSET	thirdTrimesterOnset
+HP:0003577	Congenital onset	CONGENITAL_ONSET	congenitalOnset
+HP:0003623	Neonatal onset	NEONATAL_ONSET	neonatalOnset
+HP:0003593	Infantile onset	INFANTILE_ONSET	infantileOnset
+HP:0011463	Childhood onset	CHILDHOOD_ONSET	childhoodOnset
+HP:0003621	Juvenile onset	JUVENILE_ONSET	juvenileOnset
+HP:0003581	Adult onset	ADULT_ONSET	adultOnset
+HP:0011462	Young adult onset	YOUNG_ADULT_ONSET	youngAdultOnset
+HP:0025708	Early young adult onset	EARLY_YOUNG_ADULT_ONSET	earlyYoungAdultOnset
+HP:0025709	Intermediate young adult onset	INTERMEDIATE_YOUNG_ADULT_ONSET	intermediateYoungAdultOnset
+HP:0025710	Late young adult onset	LATE_YOUNG_ADULT_ONSET	lateYoungAdultOnset
+HP:0003596	Middle age onset	MIDDLE_AGE_ONSET	middleAgeOnset
+HP:0003584	Late onset	LATE_ONSET	lateOnset

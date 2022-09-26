@@ -1,0 +1,5 @@
+ontology.id	ontology.label	variable.name	function.name
+HP:0012834	Right	RIGHT	right
+HP:0012835	Left	LEFT	left
+HP:0012833	Unilateral	UNILATERAL	unilateral
+HP:0012832	Bilateral	BILATERAL	bilateral

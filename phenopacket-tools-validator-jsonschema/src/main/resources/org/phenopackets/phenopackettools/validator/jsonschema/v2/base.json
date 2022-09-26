@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://www.ga4gh.org/phenopackets/base",
+  "title": "PhenopacketBase",
+  "description": "Validate basic requirements of the base elements of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+  "type": "object",
+
+  "definitions": {
+    "ontologyClass": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "a CURIE-style identifier e.g. HP:0001875.",
+          "type": "string"
+        },
+        "label": {
+          "$comment": "The label is not empty string",
+          "description": "human-readable, class name",
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["id", "label"],
+      "additionalProperties": false
+    },
+
+    "externalReference": {
+      "type": "object",
+      "$comment": "All fields are optional.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "evidenceCode": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "reference": {
+          "$ref": "#/definitions/externalReference"
+        }
+      },
+      "required": ["evidenceCode"],
+      "additionalProperties": false
+    },
+
+    "procedure": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "bodySite": {
+          "$ref": "#/definitions/ontologyClass"
+        },
+        "performed": {
+          "$ref": "#/definitions/timeElement"
+        }
+      },
+      "required": ["code"],
+      "additionalProperties": false
+    },
+
+    "gestationalAge": {
+      "type": "object",
+      "properties": {
+        "weeks": {
+          "description": "Completed weeks of gestation.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "days": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["weeks"],
+      "additionalProperties": false
+    },
+
+    "age": {
+      "type": "object",
+      "properties": {
+        "iso8601duration": {
+          "description": "An ISO8601 string representing age.",
+          "type": "string"
+        }
+      },
+      "required": ["iso8601duration"],
+      "additionalProperties": false
+    },
+
+    "ageRange": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/definitions/age"
+        },
+        "end": {
+          "$ref": "#/definitions/age"
+        }
+      },
+      "required": ["start", "end"],
+      "additionalProperties": false
+    },
+
+    "timeInterval": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["start", "end"],
+      "additionalProperties": false
+    },
+
+    "timeElement": {
+      "type": "object",
+      "properties": {
+        "gestationalAge":  {"$ref": "#/definitions/gestationalAge"},
+        "age" : {"$ref": "#/definitions/age"},
+        "ageRange": {   "$ref": "#/definitions/ageRange"},
+        "ontologyClass": { "$ref": "#/definitions/ontologyClass"},
+        "timestamp": { "type": "string", "format": "date-time"},
+        "interval": {"$ref": "#/definitions/timeInterval"}
+      },
+      "oneOf": [
+        { "required": [ "gestationalAge" ]},
+        { "required": [ "age" ]},
+        { "required": [ "ageRange"]},
+        { "required": [ "ontologyClass" ]},
+        { "required": [ "timestamp" ]},
+        { "required": [ "interval" ]}
+      ],
+      "additionalProperties": false
+    },
+
+    "file": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string"
+        },
+        "individualToFileIdentifiers": {
+          "title": "Map<String,String>",
+          "type": "object",
+          "patternProperties": {
+            ".+": {
+              "type": "string"
+            }
+          }
+        },
+        "fileAttributes": {
+          "title": "Map<String,String>",
+          "type": "object",
+          "patternProperties": {
+            ".+": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": ["uri"],
+      "additionalProperties": false
+    }
+  }
+}
