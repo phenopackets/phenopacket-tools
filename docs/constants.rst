@@ -5,7 +5,7 @@ Constants
 =========
 
 The phenopacket-tools library offers a selection of recommended and predefined OntologyClass objects for commonly used concepts.
-For instance, this is the code one would need to write using the native Protobuf frameworkto get an OntologyClass instance that represents the modifier ``Left``.
+For instance, this is the code one would need to write using the native Protobuf framework to get an OntologyClass instance that represents the modifier ``Left``.
 
 .. code-block:: java
 
