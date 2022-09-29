@@ -6,7 +6,7 @@
 
     <groupId>org.phenopackets.phenopackettools</groupId>
     <artifactId>phenopacket-tools</artifactId>
-    <version>0.4.5-SNAPSHOT</version>
+    <version>0.4.6-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -173,7 +173,7 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>json-schema-validator</artifactId>
-                <version>1.0.42</version>
+                <version>1.0.72</version>
             </dependency>
             <dependency>
                 <groupId>org.monarchinitiative.phenol</groupId>

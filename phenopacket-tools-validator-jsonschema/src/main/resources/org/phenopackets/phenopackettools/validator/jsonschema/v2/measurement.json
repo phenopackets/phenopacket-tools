@@ -3,39 +3,36 @@
   "$id": "https://www.ga4gh.org/phenopackets/measurement",
   "title": "PhenopacketMeasurement",
   "description": "Validate requirements of the measurement element of the Global Alliance for Genomics and Health (GA4GH) Phenopacket schema",
+
   "type": "object",
-  "definitions": {
-
-    "measurement": {
-      "type": "object",
-      "properties": {
-        "description": {
-          "type": "string"
-        },
-        "assay" : {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
-        },
-        "value": {
-          "$ref": "#/definitions/value"
-        },
-        "complexValue": {
-          "$ref": "#/definitions/complexValue"
-        },
-        "timeObserved": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
-        },
-        "procedure": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
-        }
-      },
-      "required": ["assay"],
-      "oneOf": [
-        { "required": [ "value" ]},
-        { "required": [ "complexValue" ]}
-      ],
-      "additionalProperties": false
+  "properties": {
+    "description": {
+      "type": "string"
     },
+    "assay" : {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+    },
+    "value": {
+      "$ref": "#/definitions/value"
+    },
+    "complexValue": {
+      "$ref": "#/definitions/complexValue"
+    },
+    "timeObserved": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/timeElement"
+    },
+    "procedure": {
+      "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/procedure"
+    }
+  },
+  "required": ["assay"],
+  "oneOf": [
+    { "required": [ "value" ]},
+    { "required": [ "complexValue" ]}
+  ],
+  "additionalProperties": false,
 
+  "definitions": {
     "value": {
       "type": "object",
       "properties": {

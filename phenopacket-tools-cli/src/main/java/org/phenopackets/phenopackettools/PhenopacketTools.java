@@ -9,7 +9,7 @@ import picocli.AutoComplete;
 import static picocli.CommandLine.*;
 
 @Command(name = "phenopacket-tools",
-        version = "0.4.5-SNAPSHOT",
+        version = "0.4.6-SNAPSHOT",
         mixinStandardHelpOptions = true,
         usageHelpWidth = Main.USAGE_WIDTH,
         subcommands = {

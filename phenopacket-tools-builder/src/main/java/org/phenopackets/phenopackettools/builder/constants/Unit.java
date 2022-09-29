@@ -5,6 +5,7 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 
 public class Unit {
 
+  private static final OntologyClass DEGREE = OntologyClassBuilder.ontologyClass("UCUM:degree", "degree (plane angle)");
   private static final OntologyClass DIOPTER = OntologyClassBuilder.ontologyClass("UCUM:[diop]", "diopter");
   private static final OntologyClass GRAM = OntologyClassBuilder.ontologyClass("UCUM:g", "gram");
   private static final OntologyClass GRAM_PER_KG = OntologyClassBuilder.ontologyClass("UCUM:g/kg", "gram per kilogram");
@@ -30,6 +31,7 @@ public class Unit {
   private static final OntologyClass ENZYME_UNIT_PER_LITER = OntologyClassBuilder.ontologyClass("UCUM:U/L", "enzyme unit per liter");
 
 
+  public static OntologyClass degreeOfAngle() { return DEGREE; }
   public static OntologyClass diopter() { return DIOPTER; }
   public static OntologyClass gram() { return GRAM; }
   public static OntologyClass gramPerKilogram() { return GRAM_PER_KG; }
