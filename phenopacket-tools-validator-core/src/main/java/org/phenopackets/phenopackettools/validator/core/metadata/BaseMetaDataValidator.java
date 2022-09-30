@@ -41,7 +41,7 @@ abstract class BaseMetaDataValidator<T extends MessageOrBuilder> implements Phen
                     if (fields.length != 2) {
                         return Stream.of(ValidationResult.error(VALIDATOR_INFO,
                                 "Ontology class ID syntax",
-                                "Malformed ontology class ID: \"%s\"".formatted(curie)
+                                "Malformed ontology class ID: '%s'".formatted(curie)
                         ));
                     }
 
@@ -49,7 +49,7 @@ abstract class BaseMetaDataValidator<T extends MessageOrBuilder> implements Phen
                     if (!validOntologyPrefixes.contains(prefix)) {
                         return Stream.of(ValidationResult.error(VALIDATOR_INFO,
                                 "Ontology Not In MetaData",
-                                "No ontology corresponding to ID: \"%s\" found in MetaData".formatted(curie)
+                                "No ontology corresponding to ID '%s' found in MetaData".formatted(curie)
                         ));
                     }
                     return Stream.empty();
