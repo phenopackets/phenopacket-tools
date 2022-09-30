@@ -41,7 +41,7 @@ abstract class BaseMetaDataValidator<T extends MessageOrBuilder> implements Phen
                     if (fields.length != 2) {
                         return Stream.of(ValidationResult.error(VALIDATOR_INFO,
                                 "Ontology class ID syntax",
-                                "Malformed ontology class ID: '%s'".formatted(curie)
+                                "Malformed ontology class ID '%s'".formatted(curie)
                         ));
                     }
 

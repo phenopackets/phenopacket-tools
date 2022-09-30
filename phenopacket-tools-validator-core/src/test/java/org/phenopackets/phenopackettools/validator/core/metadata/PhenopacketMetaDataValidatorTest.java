@@ -72,7 +72,7 @@ public class PhenopacketMetaDataValidatorTest {
                     equalTo(ValidationResult.error(
                             validator.validatorInfo(),
                             "Ontology Not In MetaData",
-                            "No ontology corresponding to ID: \"HPO:0000280\" found in MetaData")));
+                            "No ontology corresponding to ID 'HPO:0000280' found in MetaData")));
         }
 
         @Test
@@ -92,7 +92,7 @@ public class PhenopacketMetaDataValidatorTest {
                     equalTo(ValidationResult.error(
                             validator.validatorInfo(),
                             "Ontology class ID syntax",
-                            "Malformed ontology class ID: \"HP0000280\"")));
+                            "Malformed ontology class ID 'HP0000280'")));
         }
 
     }
@@ -154,7 +154,7 @@ public class PhenopacketMetaDataValidatorTest {
                     equalTo(ValidationResult.error(
                             validator.validatorInfo(),
                             "Ontology Not In MetaData",
-                            "No ontology corresponding to ID: \"HPO:0000280\" found in MetaData")));
+                            "No ontology corresponding to ID 'HPO:0000280' found in MetaData")));
         }
 
         @Test
@@ -175,7 +175,7 @@ public class PhenopacketMetaDataValidatorTest {
                     equalTo(ValidationResult.error(
                             validator.validatorInfo(),
                             "Ontology class ID syntax",
-                            "Malformed ontology class ID: \"HPO0000280\"")));
+                            "Malformed ontology class ID 'HPO0000280'")));
         }
 
         private static Family.Builder createFamily() throws ParseException {
@@ -243,7 +243,7 @@ public class PhenopacketMetaDataValidatorTest {
                     equalTo(ValidationResult.error(
                             validator.validatorInfo(),
                             "Ontology Not In MetaData",
-                            "No ontology corresponding to ID: \"HPO:0000280\" found in MetaData")));
+                            "No ontology corresponding to ID 'HPO:0000280' found in MetaData")));
         }
 
         @Test
@@ -264,7 +264,7 @@ public class PhenopacketMetaDataValidatorTest {
                     equalTo(ValidationResult.error(
                             validator.validatorInfo(),
                             "Ontology class ID syntax",
-                            "Malformed ontology class ID: \"HPO0000280\"")));
+                            "Malformed ontology class ID 'HPO0000280'")));
         }
 
         private static Cohort.Builder createCohort() throws ParseException {
