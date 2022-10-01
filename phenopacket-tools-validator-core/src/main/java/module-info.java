@@ -1,15 +1,18 @@
 module org.phenopackets.phenopackettools.validator.core {
-    requires org.slf4j;
 
     exports org.phenopackets.phenopackettools.validator.core;
     exports org.phenopackets.phenopackettools.validator.core.except;
+    exports org.phenopackets.phenopackettools.validator.core.metadata;
     exports org.phenopackets.phenopackettools.validator.core.phenotype;
+
+    requires org.monarchinitiative.phenol.core;
+    requires org.phenopackets.schema;
 
     requires transitive com.google.protobuf;
     requires com.google.protobuf.util;
-    requires org.phenopackets.schema;
 
-    requires org.monarchinitiative.phenol.core;
+    requires org.slf4j;
 
-    opens org.phenopackets.phenopackettools.validator.core;
+    // TODO - re-enable or remove
+//    opens org.phenopackets.phenopackettools.validator.core;
 }

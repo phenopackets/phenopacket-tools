@@ -3,6 +3,7 @@ package org.phenopackets.phenopackettools.command.validate;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
+import org.phenopackets.phenopackettools.validator.core.metadata.MetaDataValidators;
 import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
 import org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidationWorkflowRunner;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
@@ -24,6 +25,7 @@ public class ValidatePhenopacketCommand extends BaseValidateCommand<PhenopacketO
                                                                                        List<PhenopacketValidator<PhenopacketOrBuilder>> semanticValidators) {
         return JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
                 .addAllJsonSchemaUrls(customJsonSchemas)
+                .addSemanticValidator(MetaDataValidators.phenopacketValidator())
                 .addAllSemanticValidators(semanticValidators)
                 .build();
     }
