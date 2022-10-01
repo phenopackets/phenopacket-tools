@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.phenopackettools.validator.jsonschema.TestData;
 import org.phenopackets.phenopackettools.validator.jsonschema.v2.JsonSchemaValidatorConfigurer;
 import org.phenopackets.phenopackettools.validator.testdatagen.RareDiseasePhenopacket;
 import org.phenopackets.phenopackettools.validator.testdatagen.SimplePhenopacket;
@@ -14,15 +13,11 @@ import org.phenopackets.schema.v2.Phenopacket;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
 import com.google.protobuf.util.JsonFormat;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

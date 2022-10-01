@@ -37,7 +37,7 @@ public class Pseudoexfoliation implements PhenopacketExample {
 
 
     //
-    private Phenopacket phenopacket;
+    private final Phenopacket phenopacket;
 
     public Pseudoexfoliation() {
         // Metadaten
