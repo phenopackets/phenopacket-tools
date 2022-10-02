@@ -30,6 +30,9 @@ public class ConvertCommand implements Callable<Integer> {
     @Option(names = {"-ov","--out-version"}, description = "Version to convert to (defaults to 2.0)")
     private String outVersion = "2.0";
 
+    @Option(names = {"--convert-variants"}, description = "Convert variant data (false by default)")
+    private boolean convertVariants = false;
+
     @Override
     public Integer call() {
         if (input == null) {
@@ -54,8 +57,16 @@ public class ConvertCommand implements Callable<Integer> {
             System.err.println("Error! This script converts version 1.0 to version 2.0 but the input file has version \"" + inputFileVersion + "\".");
             return 1;
         }
-        var v2Phenopacket = PhenopacketConverter.toV2Phenopacket(v1Phenopacket);
+        org.phenopackets.schema.v2.Phenopacket v2Phenopacket;
+        /*
+        TODO DECIDE ON BEST API FOR THIS
+        if (convertVariants) {
+            v2Phenopacket = PhenopacketConverter.toV2PhenopacketWithVariants(v1Phenopacket);
+        } else {
+            v2Phenopacket = PhenopacketConverter.toV2Phenopacket(v1Phenopacket);
+        }*/
 
+        v2Phenopacket = PhenopacketConverter.toV2Phenopacket(v1Phenopacket);
         String json;
         try {
             json = toJson(v2Phenopacket);
