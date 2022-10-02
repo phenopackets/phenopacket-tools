@@ -4,7 +4,6 @@ import org.ga4gh.vrsatile.v1.VariationDescriptor;
 import org.phenopackets.phenopackettools.builder.builders.*;
 import org.phenopackets.phenopackettools.builder.exceptions.PhenotoolsRuntimeException;
 import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.schema.v2.core.Diagnosis;
 import org.phenopackets.schema.v2.core.Interpretation;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
