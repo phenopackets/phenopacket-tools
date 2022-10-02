@@ -8,4 +8,5 @@ Organ|Terms from the `UBERON ontology <https://www.ebi.ac.uk/ols/ontologies/uber
 SpatialPattern|Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe spatial patterns of phenotypic abnormalities.
 Unit|With some exceptions, terms from the `The Unified Code for Units of Measure <https://units-of-measurement.org/>`_ are used to denote units.
 Response|These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ can be used to code the overall response of a patient to treatment. Favorable and Unfavorble can be used for general purposes and the remaining codes are intended to be used for oncology.
-Assays|If possible, `LOINC <https://loinc.org/>`_ codes should be used to specificy laboratory test assays.
+Assays|If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify laboratory test assays.
+Gender|`LOINC <https://loinc.org/>`_ codes should be used to specify self-reported gender.
