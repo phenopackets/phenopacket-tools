@@ -1,0 +1,8 @@
+ontology.id	ontology.label	variable.name	function.name
+LOINC:LA22878-5	Identifies as male	IDENTIFIES_AS_MALE	identifiesAsMale
+LOINC:LA22879-3	Identifies as female	IDENTIFIES_AS_FEMALE	identifiesAsFemale
+LOINC:LA22880-1	Female-to-male transsexual	FEMALE_TO_MALE_TRANSSEXUAL	femaleToMaleTranssexual
+LOINC:LA22881-9	Male-to-female transsexual	MALE_TO_FEMALE_TRANSSEXUAL	maleToFemaleTranssexual
+LOINC:LA22882-7	Identifies as non-conforming	IDENTIFIES_AS_NON_CONFORMING	identifiesAsNonConforming
+LOINC:LA46-8	other	OTHER_GENDER	otherGender
+LOINC:LA20384-6	Asked but unknown	ASKED_BUT_UNKNOWN	askedButUnknown
