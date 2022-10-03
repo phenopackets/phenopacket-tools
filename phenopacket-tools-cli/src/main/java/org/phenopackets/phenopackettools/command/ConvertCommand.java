@@ -27,10 +27,10 @@ public class ConvertCommand implements Callable<Integer> {
     @Option(names = {"-o", "--output"}, description = "Output file")
     private Path output = null;
 
-    @Option(names = {"-ov","--out-version"}, description = "Version to convert to (defaults to 2.0)")
+    @Option(names = {"-ov","--out-version"}, description = "Version to convert to (default: ${DEFAULT-VALUE})")
     private String outVersion = "2.0";
 
-    @Option(names = {"--convert-variants"}, description = "Convert variant data (false by default)")
+    @Option(names = {"--convert-variants"}, description = "Convert variant data (default: ${DEFAULT-VALUE})")
     private boolean convertVariants = false;
 
     @Override
