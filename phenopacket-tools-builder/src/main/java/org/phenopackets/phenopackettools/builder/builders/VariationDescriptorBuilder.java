@@ -114,6 +114,11 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
+    public VariationDescriptorBuilder zygosity(OntologyClass zygo) {
+        builder.setAllelicState(zygo);
+        return this;
+    }
+
     public VariationDescriptorBuilder hgvs(String value) {
         Expression expression = Expression.newBuilder()
                 .setSyntax("hgvs")

@@ -4,7 +4,6 @@ import org.phenopackets.schema.v2.core.Disease;
 import org.phenopackets.schema.v2.core.TimeElement;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.phenopackets.phenopackettools.converter.converters.v2.AgeConverter.toAge;
 import static org.phenopackets.phenopackettools.converter.converters.v2.AgeConverter.toAgeRange;
@@ -16,7 +15,9 @@ public class DiseaseConverter {
     }
 
     public static List<Disease> toDiseases(List<org.phenopackets.schema.v1.core.Disease> diseasesList) {
-        return diseasesList.stream().map(DiseaseConverter::toDisease).collect(Collectors.toUnmodifiableList());
+        return diseasesList.stream()
+                .map(DiseaseConverter::toDisease)
+                .toList();
     }
 
     public static Disease toDisease(org.phenopackets.schema.v1.core.Disease v1Disease) {
