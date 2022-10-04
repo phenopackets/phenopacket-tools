@@ -5,7 +5,6 @@ import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.TimeElement;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.phenopackets.phenopackettools.converter.converters.v2.FileConverter.toFiles;
 import static org.phenopackets.phenopackettools.converter.converters.v2.OntologyClassConverter.toOntologyClass;
@@ -22,7 +21,9 @@ public class BiosampleConverter {
     }
 
     public static List<Biosample> toBiosamples(List<org.phenopackets.schema.v1.core.Biosample> biosamples) {
-        return biosamples.stream().map(BiosampleConverter::toBiosample).collect(Collectors.toUnmodifiableList());
+        return biosamples.stream()
+                .map(BiosampleConverter::toBiosample)
+                .toList();
     }
 
     public static Biosample toBiosample(org.phenopackets.schema.v1.core.Biosample biosample) {

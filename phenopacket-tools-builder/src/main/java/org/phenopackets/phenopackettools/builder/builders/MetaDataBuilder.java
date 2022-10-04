@@ -12,7 +12,7 @@ import static org.phenopackets.phenopackettools.builder.builders.TimestampBuilde
 
 public class MetaDataBuilder {
 
-    public static final String SCHEMA_VERSION = "2.0";
+    private static final String SCHEMA_VERSION = "2.0.0";
 
     private final MetaData.Builder builder;
 
@@ -39,7 +39,7 @@ public class MetaDataBuilder {
     }
 
     /**
-     * Create a new MetaDataBuilder with time set to now.
+     * Create a new {@link MetaDataBuilder} with time set to now.
      */
     public static MetaDataBuilder builder(String createdBy) {
         Instant time = Instant.now();

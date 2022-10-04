@@ -2,7 +2,7 @@ package org.phenopackets.phenopackettools.command;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
-import org.phenopackets.phenopackettools.converter.converters.PhenopacketConverter;
+import org.phenopackets.phenopackettools.converter.converters.V1ToV2Converter;
 import org.phenopackets.schema.v2.Phenopacket;
 import picocli.CommandLine.Command;
 
@@ -21,34 +21,29 @@ import static picocli.CommandLine.Parameters;
         description = "Convert a v1.0 phenopacket to a v2.0 phenopacket. Beware this process could be lossy!")
 public class ConvertCommand implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "Input phenopacket file")
+    @Parameters(index = "0", arity = "1", description = "Input phenopacket file")
     private Path input;
 
     @Option(names = {"-o", "--output"}, description = "Output file")
-    private Path output = null;
+    public Path output = null;
 
     @Option(names = {"-ov","--out-version"}, description = "Version to convert to (default: ${DEFAULT-VALUE})")
-    private String outVersion = "2.0";
+    public String outVersion = "2.0";
 
     @Option(names = {"--convert-variants"}, description = "Convert variant data (default: ${DEFAULT-VALUE})")
-    private boolean convertVariants = false;
+    public boolean convertVariants = false;
 
     @Override
     public Integer call() {
-        if (input == null) {
-            System.err.println("Error! No input file provided");
-            return 1;
-        }
-        Path inPath = input.toAbsolutePath();
-        if (!Files.exists(inPath)) {
-            System.err.println("Error! No such input file: " + inPath);
+        if (!Files.isRegularFile(input)) {
+            System.err.println("Error! No such input file: " + input.toAbsolutePath());
             return 1;
         }
         var builder = org.phenopackets.schema.v1.Phenopacket.newBuilder();
-        try (BufferedReader reader = Files.newBufferedReader(inPath)) {
-            JsonFormat.parser().ignoringUnknownFields().merge(reader, builder);
+        try (BufferedReader reader = Files.newBufferedReader(input)) {
+            JsonFormat.parser().merge(reader, builder);
         } catch (IOException e) {
-            System.err.println("Error! Unable to read input file, " + e.getMessage() + "\nPlease check the format of file " + inPath);
+            System.err.println("Error! Unable to read input file, " + e.getMessage() + "\nPlease check the format of file " + input.toAbsolutePath());
             return 1;
         }
         var v1Phenopacket = builder.build();
@@ -57,19 +52,13 @@ public class ConvertCommand implements Callable<Integer> {
             System.err.println("Error! This script converts version 1.0 to version 2.0 but the input file has version \"" + inputFileVersion + "\".");
             return 1;
         }
-        org.phenopackets.schema.v2.Phenopacket v2Phenopacket;
-        /*
-        TODO DECIDE ON BEST API FOR THIS
-        if (convertVariants) {
-            v2Phenopacket = PhenopacketConverter.toV2PhenopacketWithVariants(v1Phenopacket);
-        } else {
-            v2Phenopacket = PhenopacketConverter.toV2Phenopacket(v1Phenopacket);
-        }*/
 
-        v2Phenopacket = PhenopacketConverter.toV2Phenopacket(v1Phenopacket);
+        V1ToV2Converter converter = V1ToV2Converter.of(convertVariants);
+        Phenopacket v2 = converter.convertPhenopacket(v1Phenopacket);
+
         String json;
         try {
-            json = toJson(v2Phenopacket);
+            json = JsonFormat.printer().print(v2);
         } catch (InvalidProtocolBufferException ex) {
             System.err.println("Unable to convert v" + outVersion + " phenopacket to json. " + ex.getMessage());
             return 1;
@@ -87,10 +76,6 @@ public class ConvertCommand implements Callable<Integer> {
             }
         }
         return 0;
-    }
-
-    private String toJson(Phenopacket v2Phenopacket) throws InvalidProtocolBufferException {
-        return JsonFormat.printer().print(v2Phenopacket);
     }
 
     /**
