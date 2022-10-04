@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   # Runs on pushes targeting the default branch
   push:
-    branches: [ "0.4.5" ]
+    branches: [ "develop" ]
 
 jobs:
   build-docs:
