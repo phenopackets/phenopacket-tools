@@ -3,7 +3,6 @@ package org.phenopackets.phenopackettools.converter.converters.v2;
 import org.phenopackets.schema.v2.core.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.phenopackets.phenopackettools.converter.converters.v2.AgeConverter.toAge;
 import static org.phenopackets.phenopackettools.converter.converters.v2.AgeConverter.toAgeRange;
@@ -17,15 +16,15 @@ public class PhenotypicFeatureConverter {
     }
 
     public static List<PhenotypicFeature> toPhenotypicFeatures(List<org.phenopackets.schema.v1.core.PhenotypicFeature> v1PhenotypicFeaturesList) {
-        return v1PhenotypicFeaturesList.stream().map(PhenotypicFeatureConverter::toPhenotypicFeature).collect(Collectors.toUnmodifiableList());
+        return v1PhenotypicFeaturesList.stream()
+                .map(PhenotypicFeatureConverter::toPhenotypicFeature)
+                .toList();
     }
 
     public static PhenotypicFeature toPhenotypicFeature(org.phenopackets.schema.v1.core.PhenotypicFeature v1PhenotypicFeature) {
         PhenotypicFeature.Builder builder = PhenotypicFeature.newBuilder();
         builder.setType(toOntologyClass(v1PhenotypicFeature.getType()));
-        if (v1PhenotypicFeature.getNegated()) {
-            builder.setExcluded(v1PhenotypicFeature.getNegated());
-        }
+        builder.setExcluded(v1PhenotypicFeature.getNegated());
         if (v1PhenotypicFeature.hasSeverity()) {
             builder.setSeverity(toOntologyClass(v1PhenotypicFeature.getSeverity()));
         }

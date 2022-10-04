@@ -4,7 +4,6 @@ import org.phenopackets.schema.v1.core.HtsFile;
 import org.phenopackets.schema.v2.core.File;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FileConverter {
 
@@ -12,7 +11,9 @@ public class FileConverter {
     }
 
     public static List<File> toFiles(List<HtsFile> htsFilesList) {
-        return htsFilesList.stream().map(FileConverter::toFile).collect(Collectors.toUnmodifiableList());
+        return htsFilesList.stream()
+                .map(FileConverter::toFile)
+                .toList();
     }
 
     public static File toFile(HtsFile htsFile) {
