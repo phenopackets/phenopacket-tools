@@ -18,3 +18,22 @@ The conversion methods provided by the phenopacket-tools library only convert th
 variants can be converted under the assumption that only one disease was specified in the ``diseases`` field of the version 1 phenopacket and that
 the reported variants are interpreted to be causal for the disease. If this is not the case, then users would need to write new code to perform
 the conversion according to the logic of their application.
+
+
+To use library code for converting a phenopacket, adapt the following.
+
+.. code-block:: java
+
+    boolean convertVariants = true; // or false, as desired
+    V1ToV2Converter converter = V1ToV2Converter.of(convertVariants);
+    Phenopacket v2 = converter.convertPhenopacket(v1Phenopacket);
+
+
+Alternatively, use the ``ConvertCommand`` in the phenopacket-tools-cli module to perform conversion. Both of the following
+commands print output to the shell (optionally use the ``-o filename`` option to write to an outfile.
+
+.. code-block:: bash
+
+    alias pfx="java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.6-SNAPSHOT.jar"
+    pfx /path/to/v1phenopacket.json
+    pdf /path/to/v1phenopacket.json --convert-variants

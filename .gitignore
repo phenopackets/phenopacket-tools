@@ -70,3 +70,4 @@ fabric.properties
 /*.yml
 /examples/
 /docs/_build/
+docs/_build

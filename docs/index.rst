@@ -35,6 +35,7 @@ Additionally, phenopacket-tools provides code to convert version 1 to the versio
    :caption: Contents:
 
    creating
+   converting
    validation
    constants
 
