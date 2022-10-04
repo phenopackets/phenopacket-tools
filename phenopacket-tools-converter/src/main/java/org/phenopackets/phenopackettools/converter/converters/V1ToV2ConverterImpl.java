@@ -172,8 +172,14 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
                 }
                 case SPDI_ALLELE -> {
                     var spdiAllele = variant.getSpdiAllele();
+                    String spdi = String.join(":",
+                            spdiAllele.getSeqId(),
+                            String.valueOf(spdiAllele.getPosition()),
+                            spdiAllele.getDeletedSequence(),
+                            spdiAllele.getInsertedSequence());
                     yield VariationDescriptorBuilder.builder(spdiAllele.getId())
-                            // TODO -- HOW TO REPRESENT SPDI in VRS
+                            .spdi(spdi)
+                            .zygosity(v2zygosity)
                             .build();
                 }
                 case ISCN_ALLELE -> {
