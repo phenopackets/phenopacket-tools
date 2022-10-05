@@ -84,7 +84,6 @@ public class Pseudoexfoliation implements PhenopacketExample {
     /*
        uneventful clear-cornea phacoemulsification with PC/IOL
 implantation in the right eye (OD) in January 2006.
-// TODO find code for cat op
         */
     MedicalAction cataractsurgeryRight() {
         ProcedureBuilder builder = ProcedureBuilder.builder("NCIT:C157809", "Cataract Surgery");
@@ -102,7 +101,7 @@ implantation in the right eye (OD) in January 2006.
      */
     MedicalAction cataractsurgeryLeft() {
         ProcedureBuilder builder = ProcedureBuilder.builder("NCIT:C157809", "Cataract Surgery");
-        TimeElement age = TimeElements.age("P70Y6W");
+        TimeElement age = TimeElements.age("P70Y6W"); //6 Weeks later Cat surgery OS
         builder.bodySite(LEFT_EYE).performed(age);
         MedicalActionBuilder mabuilder = MedicalActionBuilder.builder(builder.build())
                 .treatmentTarget(Cataract)
@@ -117,7 +116,7 @@ implantation in the right eye (OD) in January 2006.
 
         TypedQuantity visus100 = TypedQuantityBuilder.of(ontologyClass("NCIT:C87149", "Visual Acuity"),
                 QuantityBuilder.of(visusPercent, 100));
-        TimeElement age = TimeElements.age("P70Y7W");// One week added to the patient's age. Is that how it works?
+        TimeElement age = TimeElements.age("P70Y1W"); // 1 Week after surgery OD
         var visionAssessment = ontologyClass("NCIT:C156778", "Vision Assessment");
         Measurement visusMeasurement = MeasurementBuilder
                 .builder(visionAssessment, ComplexValueBuilder.of(visus100)).build();
@@ -132,38 +131,69 @@ implantation in the right eye (OD) in January 2006.
         OntologyClass rightEyecylindricalrefraction =
                 OntologyClassBuilder.ontologyClass("LOINC:79846-2", "Right eye cylindrical refraction");
         Value rightEyeValueCylinder = ValueBuilder.of(Unit.diopter(), -0.5, ref);
-        //	Right eye Axis: LOINC 9829-8
-        TimeElement age70years = TimeElements.age("P70Y"); //Druckerhöhung 1J1M nach Cataractsurgery
+        OntologyClass rightEyecylindricaldegree =
+                OntologyClassBuilder.ontologyClass("LOINC:9829-8", "Recht eye cylindrical degree");
+       Value rightEyeVauleCylindricaldegree = ValueBuilder.of(Unit.degreeOfAngle(), 110, ref);
+
+        TimeElement age70years = TimeElements.age("P70Y1W");
         Measurement rightEyecylindricalmeasurement = MeasurementBuilder
                 .builder(rightEyesphericalrefraction, rightEyeValue).build();
 //leftEyeMeasurement, rightEyeMeasurement,  TODO -- add to list of returned items
         return List.of(visusMeasurement, rightEyecylindricalmeasurement);
     }
-   /*
-    ONE YEAR AFTER: Refraction after 1 year right eye –3.75/–0.5/110°.  degrees
 
-    OntologyClass sphericalrefraction = ontologyClass("LOINC:79895-9","Subjective refraction method");
+
+    //  ONE YEAR AFTER WITH SHALLOW ANTERIOR CHAMBER: visual acuity 1,0 right eye
+
+    TypedQuantity visus100 = TypedQuantityBuilder.of(ontologyClass("NCIT:C87149", "Visual Acuity"),
+            QuantityBuilder.of(visusPercent, 100));
+    TimeElement age = TimeElements.age("P71Y2M"); // Feb. 2007
+    var visionAssessment_plus_one_year = ontologyClass("NCIT:C156778", "Vision Assessment");
+    Measurement visusMeasurement = MeasurementBuilder
+            .builder(visionAssessment_plus_one_year, ComplexValueBuilder.of(visus100)).build();
+
+
+    // ONE YEAR AFTER WITH SHALLOW ANTERIOR CHAMBER: Refraction after 1 year right eye –3.75/–0.5/110°.
+
+
+    OntologyClass sphericalrefraction = ontologyClass("LOINC:79895-9", "Subjective refraction method");
     ReferenceRange ref = ReferenceRangeBuilder.of(sphericalrefraction, -30, 30);
-    OntologyClass rightEyesphericalrefraction =
+    OntologyClass rightEyesphericalrefraction_plus_one_year =
             OntologyClassBuilder.ontologyClass("LOINC:79850-4", "Right eye spherical refraction");
-    Value rightEyeValue = ValueBuilder.of(Unit.diop(), -3.75, ref);
-    OntologyClass rightEyecylindricalrefraction =
+    Value rightEyeValue = ValueBuilder.of(Unit.diopter(), -3.75, ref);
+    OntologyClass rightEyecylindricalrefraction_plus_one_year =
             OntologyClassBuilder.ontologyClass("LOINC:79846-2", "Right eye cylindrical refraction");
-    Value rightEyeValueCylinder = ValueBuilder.of(Unit.diop(), -0.5, ref);
-    //	Right eye Axis: LOINC 9829-8
-    TimeElement age = TimeElements.age("P71J1M");
+    Value rightEyeValueCylinder = ValueBuilder.of(Unit.diopter(), -0.5, ref);
+    OntologyClass rightEyecylindricaldegree_plus_one_year =
+            OntologyClassBuilder.ontologyClass("LOINC:9829-8", "Recht eye cylindrical degree");
+    Value rightEyeVauleCylindricaldegree_plus_one_year = ValueBuilder.of(Unit.degreeOfAngle(), 110, ref);
 
-    */
+    TimeElement age71years1month = TimeElements.age("P71Y1M");
+    Measurement rightEyecylindricalmeasurement_plus_one_year = MeasurementBuilder
+            .builder(rightEyesphericalrefraction_plus_one_year, rightEyeValue).build();
 
-    /*
-       ONE YEAR AFTER: The intraocular pressure was 29 mmHg in the right eye and 11 mmHg in the left eye one
-        */
-    List<Measurement> getMeasurementsYeasr2() {
+    // ONE YEAR AFTER WITH SHALLOW ANTERIOR CHAMBER: Refraction after Yag-IT right eye: –2.75/–0.75/110°
+
+    OntologyClass rightEyesphericalrefraction_plus_one_year_after_Yag =
+            OntologyClassBuilder.ontologyClass("LOINC:79850-4", "Right eye spherical refraction");
+    Value rightEyeValue_after_Yag = ValueBuilder.of(Unit.diopter(), -2.75, ref);
+    OntologyClass rightEyecylindricalrefraction_plus_one_year_after_Yag =
+            OntologyClassBuilder.ontologyClass("LOINC:79846-2", "Right eye cylindrical refraction");
+    Value rightEyeValueCylinder_after_Yag = ValueBuilder.of(Unit.diopter(), -0.75, ref);
+    OntologyClass rightEyecylindricaldegree_plus_one_year_after_Yag =
+            OntologyClassBuilder.ontologyClass("LOINC:9829-8", "Recht eye cylindrical degree");
+    Value rightEyeVauleCylindricaldegree_plus_one_year_after_Yag = ValueBuilder.of(Unit.degreeOfAngle(), 110, ref);
+
+    TimeElement age71years1month6h = TimeElements.age("P71Y1M6H");
+    Measurement rightEyecylindricalmeasurement_plus_one_year_after_Yag = MeasurementBuilder
+            .builder(rightEyesphericalrefraction_plus_one_year_after_Yag, rightEyeValue).build();
+
+
+    // ONE YEAR AFTER WITH SHALLOW ANTERIOR CHAMBER: The intraocular pressure was 29 mmHg in the right eye before YAG
+
+    List<Measurement> getMeasurementsYears2() {
         OntologyClass iop = ontologyClass("LOINC:56844-4", "Intraocular pressure of Eye");
         ReferenceRange ref = ReferenceRangeBuilder.of(iop, 10, 21);
-        OntologyClass leftEyeIop =
-                OntologyClassBuilder.ontologyClass("LOINC:79893-4", "Left eye Intraocular pressure");
-        Value leftEyeValue = ValueBuilder.of(Unit.mmHg(), 11, ref);
         OntologyClass rightEyeIop =
                 OntologyClassBuilder.ontologyClass("LOINC:79892-6", "Right eye Intraocular pressure");
         Value rightEyeValue = ValueBuilder.of(Unit.mmHg(), 29, ref);
@@ -172,13 +202,51 @@ implantation in the right eye (OD) in January 2006.
         Measurement leftEyeMeasurement = MeasurementBuilder.builder(leftEyeIop, leftEyeValue).timeObserved(age).build();
         Measurement rightEyeMeasurement = MeasurementBuilder.builder(rightEyeIop, rightEyeValue).timeObserved(age).build();
 
-
-        /* Medical action brimonidine: IOP elevation resisted to topical therapy with α-2 receptors agonists (brimonidine eye drops) */
-        /*Product containing precisely brimonidine tartrate 2 milligram/1 milliliter conventional release eye drops (clinical drug)
-        SCTID: 330731001*/
         return List.of(leftEyeMeasurement, rightEyeMeasurement);
-
     }
+
+
+    // IOP was successfully regulated OD after Nd:YAG iridotomy (direct postoperative IOP: 14 mm Hg).
+
+    List<Measurement> getMeasurements() {
+        OntologyClass iop = ontologyClass("LOINC:56844-4", "Intraocular pressure of Eye");
+        ReferenceRange ref = ReferenceRangeBuilder.of(iop, 10, 21);
+
+        OntologyClass rightEyeIop =
+                OntologyClassBuilder.ontologyClass("LOINC:79892-6", "Right eye Intraocular pressure");
+        Value rightEyeValue = ValueBuilder.of(Unit.mmHg(), 14, ref);// after Nd:YAG iridotomy
+        TimeElement age = TimeElements.age("P71Y1M6H");
+
+// Anterior chamber depth was 3.93 mm. OS anterior chamber depth was 5.21 mm
+        OntologyClass acdod = ontologyClass("SCTID: 397312009", "Intraocular lens anterior chamber depth");
+        ReferenceRange ref2 = ReferenceRangeBuilder.of(acdod, 0, 10);
+
+        OntologyClass rightEyeacdod =
+                OntologyClassBuilder.ontologyClass("SCTID: 397312009", "Intraocular lens anterior chamber depth");
+        Value rightEyeValue2 = ValueBuilder.of(Unit.millimeter(), 3.93, ref);//
+
+        OntologyClass leftEyeacdod =
+                OntologyClassBuilder.ontologyClass("SCTID: 397312009", "Intraocular lens anterior chamber depth");
+        Value leftEyeValue2 = ValueBuilder.of(Unit.millimeter(), 5.21, ref);//
+
+
+        // Measurement leftEyeMeasurement = MeasurementBuilder.builder(leftEyeIop, leftEyeValue).timeObserved(age).build();
+        Measurement rightEyeMeasurement = MeasurementBuilder.builder(rightEyeIop, rightEyeValue).timeObserved(age).build();
+
+
+        // ONE YEAR AFTER: visual acuity 1,0 right eye
+
+        TypedQuantity visus100 = TypedQuantityBuilder.of(ontologyClass("NCIT:C87149", "Visual Acuity"),
+                QuantityBuilder.of(visusPercent, 100));
+        var visionAssessment = ontologyClass("NCIT:C156778", "Vision Assessment");
+        Measurement visusMeasurement = MeasurementBuilder
+                .builder(visionAssessment, ComplexValueBuilder.of(visus100)).build();
+        return List.of(rightEyeMeasurement);
+    }
+
+/* Result: Monovision Although  the myopic shift OD was not eliminated, the patient was satisfied with the monovision,
+which was achieved unintentionally and, therefore, we did not proceed to an exchange surgery of the PC/IOL.
+ */
 
     MedicalAction brimonidine() {
         OntologyClass brimonidine = ontologyClass("DrugCentral:395", "brimonidine");
@@ -212,54 +280,14 @@ implantation in the right eye (OD) in January 2006.
                 .treatmentIntent(Pseudophakia);
         return mabuilder.build();
     }
-
-
-    // IOP was successfully regulated OD after Nd:YAG iridotomy (direct postoperative IOP: 14 mm Hg).
-
-    List<Measurement> getMeasurements() {
-        OntologyClass iop = ontologyClass("LOINC:56844-4", "Intraocular pressure of Eye");
-        ReferenceRange ref = ReferenceRangeBuilder.of(iop, 10, 21);
-
-        OntologyClass rightEyeIop =
-                OntologyClassBuilder.ontologyClass("LOINC:79892-6", "Right eye Intraocular pressure");
-        Value rightEyeValue = ValueBuilder.of(Unit.mmHg(), 14, ref);// after Nd:YAG iridotomy
-        TimeElement age = TimeElements.age("P71Y1M");
-
-// Anterior chamber depth was 3.93 mm. The PC/IOL was sitting in the capsular bag OS, and the anterior chamber depth was 5.21 mm
-        OntologyClass acdod = ontologyClass("SCTID: 397312009", "Intraocular lens anterior chamber depth");
-        ReferenceRange ref2 = ReferenceRangeBuilder.of(acdod, 0, 10);
-
-        OntologyClass rightEyeacdod =
-                OntologyClassBuilder.ontologyClass("SCTID: 397312009", "Intraocular lens anterior chamber depth");
-        Value rightEyeValue2 = ValueBuilder.of(Unit.millimeter(), 3.93, ref);//
-
-        // Measurement leftEyeMeasurement = MeasurementBuilder.builder(leftEyeIop, leftEyeValue).timeObserved(age).build();
-        Measurement rightEyeMeasurement = MeasurementBuilder.builder(rightEyeIop, rightEyeValue).timeObserved(age).build();
-
-
-        // ONE YEAR AFTER: visual acuity 1,0 right eye
-
-        TypedQuantity visus100 = TypedQuantityBuilder.of(ontologyClass("NCIT:C87149", "Visual Acuity"),
-                QuantityBuilder.of(visusPercent, 100));
-        var visionAssessment = ontologyClass("NCIT:C156778", "Vision Assessment");
-        Measurement visusMeasurement = MeasurementBuilder
-                .builder(visionAssessment, ComplexValueBuilder.of(visus100)).build();
-        return List.of(rightEyeMeasurement);
-    }
-
-/* Result: Monovision Although  the myopic shift OD was not eliminated, the patient was satisfied with the monovision,
-which was achieved unintentionally and, therefore, we did not proceed to an exchange surgery of the PC/IOL.
- */
-
-
     List<PhenotypicFeature> getPhenotypicFeatures() {
         TimeElement age70years = TimeElements.age("P70Y");
         PhenotypicFeature emmetropia = PhenotypicFeatureBuilder.
-                builder("HP:0000539", "Abnormality of refraction"). // Verneinung, NO Abnormaility...
+                builder("HP:0000539", "Abnormality of refraction"). // Verneinung, NO Abnormality...
                         addModifier(Laterality.right()).
                 onset(age70years).
                 build();
-        TimeElement age71years = TimeElements.age("P71Y");
+        TimeElement age71years = TimeElements.age("P71Y1M");
         PhenotypicFeature myopia = PhenotypicFeatureBuilder.
                 builder("HP:0000545", "Myopia")
                 .addModifier(Laterality.right())
@@ -271,7 +299,7 @@ which was achieved unintentionally and, therefore, we did not proceed to an exch
                 .addModifier(Laterality.right())
                 .onset(age71years)
                 .build();
-        // Anterior chamber depth was 3.93 mm. The PC/IOL was sitting in the capsular bag OS, and the anterior chamber depth was 5.21 mm
+        // OD Anterior chamber depth was 3.93 mm. OS anterior chamber depth was 5.21 mm.
 
         PhenotypicFeature acdod = PhenotypicFeatureBuilder. //acdod: anterior chamber depth oculus dexter
                 builder("SCTID:397312009", "Intraocular lens anterior chamber depth")//NCIT:C12667 Anterior Chamber of the Eye
