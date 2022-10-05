@@ -24,7 +24,7 @@ RTD_PATH = '../docs/constants.rst'
 entries = []
 
 csv_files = [f for f in listdir(".") if isfile( f) and f.endswith("tsv")]
-for f in csv_files:
+for f in sorted(csv_files):
     constant_entry = parse_csv(f)
     entries.append(constant_entry)
     
@@ -58,25 +58,35 @@ def create_csv_table(entry, fh):
     fh.write("\n\n")
 
 
-fh = open(RTD_PATH, "wt")
-fh.write(".. _rstconstants:\n\n")
-fh.write("=========\n")
-fh.write("Constants\n")
-fh.write("=========\n\n")
-fh.write("The phenopacket-tools library offers a selection of recommended and predefined OntologyClass objects for commonly used concepts.\n")
-fh.write("For instance, this is the code one would need to write using the native Protobuf framework")
-fh.write("to get an OntologyClass instance that represents the modifier ``Left``.\n\n")
-fh.write(".. code-block:: java\n\n")
-fh.write("   OntologyClass left = OntologyClass.newBuilder()\n")
-fh.write("     .setId(\"HP:0012835\")\n")
-fh.write("     .setLabel(\"Left\")\n")
-fh.write("     .build();\n")
-fh.write("\n\n")
-fh.write("In contrast, this is the code required with phenopacket-tools (omitting import statements in both cases)\n\n")  
-fh.write(".. code-block:: java\n\n")
-fh.write("   OntologyClass left = left();\n")
-fh.write("\n\n")
-fh.write("The following tables present the available static functions with predefined concepts.\n\n")
-for e in entries:
+RTD_HEADER = """.. _rstconstants:
+
+=========
+Constants
+=========
+
+The phenopacket-tools library offers a selection of recommended and predefined OntologyClass objects for commonly used concepts.
+For instance, this is the code one would need to write using the native Protobuf frameworkto get an OntologyClass instance that represents the modifier ``Left``.
+
+.. code-block:: java
+
+   OntologyClass left = OntologyClass.newBuilder()
+     .setId("HP:0012835")
+     .setLabel("Left")
+     .build();
+
+
+In contrast, this is the code required with phenopacket-tools (omitting import statements in both cases)
+
+.. code-block:: java
+
+   OntologyClass left = left();
+
+
+The following tables present the available static functions with predefined concepts.
+
+
+"""
+with open(RTD_PATH, "wt") as fh:
+	fh.write(RTD_HEADER)
+	for e in entries:
     create_csv_table(e, fh=fh)
-fh.close()
