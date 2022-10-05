@@ -24,7 +24,7 @@ import java.util.concurrent.Callable;
 
 @Command(name = "examples",
         mixinStandardHelpOptions = true,
-        description = "Write example phenopackets to directory.")
+        description = "Write example phenopackets to a directory.")
 public class ExamplesCommand implements Callable<Integer> {
 
     @CommandLine.Option(names = {"-o", "--output"},

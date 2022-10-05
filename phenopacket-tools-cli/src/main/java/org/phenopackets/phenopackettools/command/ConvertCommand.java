@@ -18,7 +18,8 @@ import static picocli.CommandLine.Parameters;
 
 @Command(name = "convert",
         mixinStandardHelpOptions = true,
-        description = "Convert a v1.0 phenopacket to a v2.0 phenopacket. Beware this process could be lossy!")
+        description = "Convert a v1.0 phenopacket to a v2.0 phenopacket.",
+        footer = "Beware this process could be lossy!")
 public class ConvertCommand implements Callable<Integer> {
 
     @Parameters(index = "0", arity = "1", description = "Input phenopacket file")
