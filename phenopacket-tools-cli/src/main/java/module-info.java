@@ -1,4 +1,5 @@
 module org.phenopackets.phenopackettools.cli {
+    requires org.phenopackets.phenopackettools.util;
     requires org.phenopackets.phenopackettools.converter;
     requires org.phenopackets.phenopackettools.builder;
     requires org.phenopackets.phenopackettools.validator.jsonschema;

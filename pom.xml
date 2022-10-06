@@ -16,6 +16,7 @@
 
     <modules>
         <module>phenopacket-tools-test</module>
+        <module>phenopacket-tools-util</module>
         <module>phenopacket-tools-builder</module>
         <module>phenopacket-tools-validator-core</module>
         <module>phenopacket-tools-validator-jsonschema</module>
