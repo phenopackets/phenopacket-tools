@@ -2,10 +2,11 @@
 <configuration>
     <property name="pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
+            <level>INFO</level>
         </filter>
+        <target>System.err</target>
         <encoder>
             <pattern>${pattern}</pattern>
         </encoder>
@@ -14,7 +15,7 @@
     <logger name="org.phenopackets.phenopackettools" level="DEBUG"/>
     <logger name="com.networknt.schema" level="INFO"/>
 
-    <root level="info">
-        <appender-ref ref="STDOUT" />
+    <root level="INFO">
+        <appender-ref ref="STDERR" />
     </root>
 </configuration>

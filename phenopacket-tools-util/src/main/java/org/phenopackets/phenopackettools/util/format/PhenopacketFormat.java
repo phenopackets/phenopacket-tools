@@ -12,6 +12,15 @@ public enum PhenopacketFormat {
     JSON,
     YAML;
 
+    @Override
+    public String toString() {
+        return switch (this) {
+            case PROTOBUF -> "protobuf";
+            case JSON -> "json";
+            case YAML -> "yaml";
+        };
+    }
+
     public static PhenopacketFormat parse(String value) {
         switch (value.toLowerCase()) {
             case "protobuf":
