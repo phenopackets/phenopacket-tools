@@ -15,33 +15,24 @@ import static picocli.CommandLine.Option;
 
 @Command(name = "convert",
         mixinStandardHelpOptions = true,
+        sortOptions = false,
         description = "Convert a v1.0 phenopacket to a v2.0 phenopacket.",
         footer = "Beware this process could be lossy!")
-public class ConvertCommand extends BasePTCommand {
+public class ConvertCommand extends SingleItemProcessingCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConvertCommand.class);
 
-    @Option(names = {"--out-format"},
-            description = "Output format (default: input format)")
+    @Option(names = {"-o", "--output-format"},
+            description = "Output format.%nDefault: input format")
     public PhenopacketFormat outputFormat = null;
 
-    @Option(names = {"-ov", "--out-version"},
-            description = "Version to convert to (default: ${DEFAULT-VALUE})")
-    public String outVersion = "2.0";
-
     @Option(names = {"--convert-variants"},
-            description = "Convert variant data (default: ${DEFAULT-VALUE})")
+            description = "Convert variant data.%nDefault: ${DEFAULT-VALUE}")
     public boolean convertVariants = false;
 
 
     @Override
     public Integer call() {
-        // (0) Check the inputs.
-        if (!outVersion.matches("2(\\.0)?(\\.0)?")) {
-            System.err.printf("Conversion to %s is not supported%n", outVersion);
-            return 1;
-        }
-
         // (1) Read the input v1 message.
         Message message;
         try {
@@ -71,7 +62,7 @@ public class ConvertCommand extends BasePTCommand {
         try {
             writeV2Message(v2, outputFormat);
         } catch (IOException e) {
-            System.err.println("Could not write v" + outVersion + " phenopacket to file " + output + " : " + e.getMessage());
+            System.err.println("Could not write phenopacket: " + e.getMessage());
             return 1;
         }
 

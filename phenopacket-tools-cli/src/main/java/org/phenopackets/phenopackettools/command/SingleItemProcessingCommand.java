@@ -19,29 +19,26 @@ import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
 /**
- * Base command that defines routines for reading/writing input/output
- * as well as {@link PhenopacketFormat}s and {@link PhenopacketElement}s for commands that process
- * a single top-level Phenopacket schema element.
+ * A command that provides routines for reading/writing input/output
+ * as well as {@link PhenopacketFormat}s and {@link PhenopacketElement}s
+ * for processing of a single top-level Phenopacket schema element.
  */
-public abstract class BasePTCommand implements Callable<Integer> {
+public abstract class SingleItemProcessingCommand implements Callable<Integer> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BasePTCommand.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SingleItemProcessingCommand.class);
 
     @CommandLine.Option(names = {"-i", "--input"},
-            description = "Input phenopacket file (leave empty for STDIN)")
+            description = "Input phenopacket.%nLeave empty for STDIN")
     public Path input = null;
-
-    @CommandLine.Option(names = {"-o", "--output"}, description = "Output file (leave empty for STDOUT)")
-    public Path output = null;
 
     // If the format is uninitialized, it will be sniffed.
     @CommandLine.Option(names = {"-f", "--format"},
-            description = "Phenopacket format (choose from {json,yaml,protobuf})")
+            description = "Phenopacket format.%nChoose from: {${COMPLETION-CANDIDATES}}")
     public PhenopacketFormat format = null;
 
     @CommandLine.Option(names = {"-e", "--element"},
-            description = "Top-level element (default: ${DEFAULT-VALUE})")
-    public PhenopacketElement element = PhenopacketElement.PHENOPACKET;
+            description = "Top-level element.%nChoose from {${COMPLETION-CANDIDATES}}%nDefault: phenopacket")
+    public PhenopacketElement element = null;
 
     protected Message readInputMessage() throws FormatSniffException, IOException {
         InputStream is = null;
@@ -50,6 +47,11 @@ public abstract class BasePTCommand implements Callable<Integer> {
             if (format == null)
                 // Remember the provided or sniffed input format.
                 format = parseFormat(is);
+
+            if (element == null) {
+                LOGGER.info("Input element type was not provided, assuming phenopacket.. ");
+                element = PhenopacketElement.PHENOPACKET;
+            }
 
             return switch (format) {
                 case PROTOBUF -> {
@@ -79,28 +81,22 @@ public abstract class BasePTCommand implements Callable<Integer> {
     }
 
     protected void writeV2Message(Message message, PhenopacketFormat format) throws IOException {
-        OutputStream os = null;
-        try {
-            os = openOutput();
-            switch (format) {
-                case PROTOBUF -> {
-                    LOGGER.debug("Writing protobuf message");
-                    message.writeTo(os);
-                }
-                case JSON -> {
-                    LOGGER.debug("Writing JSON message");
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));
-                    JsonFormat.printer().appendTo(message, writer);
-                    writer.flush();
-                }
-                case YAML -> {
-                    // TODO - implement
-                    throw new RuntimeException("YAML printer is not yet implemented");
-                }
+        OutputStream os = System.out;
+        switch (format) {
+            case PROTOBUF -> {
+                LOGGER.debug("Writing protobuf message");
+                message.writeTo(os);
             }
-        } finally {
-            if (os != null && os != System.out)
-                os.close();
+            case JSON -> {
+                LOGGER.debug("Writing JSON message");
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));
+                JsonFormat.printer().appendTo(message, writer);
+                writer.flush();
+            }
+            case YAML -> {
+                // TODO - implement
+                throw new RuntimeException("YAML printer is not yet implemented");
+            }
         }
     }
 
@@ -114,35 +110,6 @@ public abstract class BasePTCommand implements Callable<Integer> {
             }
             LOGGER.info("Reading input from {}", input.toAbsolutePath());
             return new BufferedInputStream(Files.newInputStream(input));
-        }
-    }
-
-    private OutputStream openOutput() throws IOException {
-        if (output == null) {
-            // Write to STDOUT
-            return System.out;
-        } else {
-            Path parent = output.getParent();
-            if (Files.isRegularFile(parent)) {
-                System.err.printf("The parent %s is a file%n", parent.toAbsolutePath());
-                System.exit(1);
-            }
-
-            if (!Files.isDirectory(parent))
-                createParentDirectoriesOrExit(parent);
-
-            LOGGER.info("Writing the output to {}", output.toAbsolutePath());
-            return new BufferedOutputStream(Files.newOutputStream(output));
-        }
-    }
-
-    private static void createParentDirectoriesOrExit(Path parent) {
-        try {
-            LOGGER.info("Creating non-existing parent directories..");
-            Files.createDirectories(parent);
-        } catch (IOException e) {
-            System.err.printf("Tried to create non-existent parent directories for %s but failed: %s%n", parent.toAbsolutePath(), e.getMessage());
-            System.exit(1);
         }
     }
 

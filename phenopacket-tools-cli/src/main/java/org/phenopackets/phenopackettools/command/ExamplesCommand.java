@@ -24,6 +24,7 @@ import java.util.concurrent.Callable;
 
 @Command(name = "examples",
         mixinStandardHelpOptions = true,
+        sortOptions = false,
         description = "Write example phenopackets to a directory.")
 public class ExamplesCommand implements Callable<Integer> {
 

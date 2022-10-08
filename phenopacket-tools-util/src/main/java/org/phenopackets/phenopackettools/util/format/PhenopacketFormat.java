@@ -24,6 +24,7 @@ public enum PhenopacketFormat {
     public static PhenopacketFormat parse(String value) {
         switch (value.toLowerCase()) {
             case "protobuf":
+            case "pb":
                 return PROTOBUF;
             case "json":
                 return JSON;

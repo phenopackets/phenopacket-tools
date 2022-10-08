@@ -25,7 +25,14 @@ import static picocli.CommandLine.Help.Ansi.Style.*;
         footer = Main.FOOTER)
 public class Main {
 
-    public static final String HEADER = "\nAn application for creating, converting and validating GA4GH phenopackets\n";
+    private static final String BANNER = """
+             __                               __       __    __            __
+       ___  / /  ___ ___  ___  ___  ___ _____/ /_____ / /_  / /____  ___  / /__
+      / _ \\/ _ \\/ -_) _ \\/ _ \\/ _ \\/ _ `/ __/  '_/ -_) __/ / __/ _ \\/ _ \\/ (_-<
+     / .__/_//_/\\__/_//_/\\___/ .__/\\_,_/\\__/_/\\_\\\\__/\\__/  \\__/\\___/\\___/_/___/
+    /_/                     /_/
+    """;
+    public static final String HEADER = BANNER + "\nAn application for creating, converting and validating GA4GH phenopackets.\n";
     public static final String VERSION = "phenopacket-tools v0.4.6-SNAPSHOT";
 
     // Maximum number of characters in line of the usage message.
