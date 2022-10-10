@@ -43,7 +43,7 @@ jobs:
         
     - name: Build documentation
       run: | 
-        ./mvnw clean package
+        ./mvnw -Prerelease clean package
         java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.6-SNAPSHOT.jar examples
         make yaml-docs -B
         mkdir gh-pages
