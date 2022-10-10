@@ -51,6 +51,7 @@ jobs:
         cd docs/ 
         sphinx-build -b html . _build
         cp -r _build/* ../gh-pages/
+        cp -r yaml/* ../gh-pages/
 
     - name: Deploy documentation.
       if: ${{ github.event_name == 'push' }}
