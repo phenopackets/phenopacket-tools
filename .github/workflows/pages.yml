@@ -7,8 +7,6 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: [ "develop" ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build-docs:
@@ -37,29 +35,24 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
-        
-    - name: Build with Maven
-      run: mvn --batch-mode --update-snapshots verify
 
     - name: Install dependencies
       run: | 
         pip install sphinx
-        pip install sphinx-rtd-theme
+        pip install sphinx-rtd-theme recommonmark sphinx-markdown-tables
         
     - name: Build documentation
       run: | 
         ./mvnw clean package
-        java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.5.jar examples
+        java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.6-SNAPSHOT.jar examples
         mkdir gh-pages
         touch gh-pages/.nojekyll
-        mkdir gh-pages/static
-        cp -r families/ phenopackets/ cohorts/  gh-pages/static
         cd docs/ 
         sphinx-build -b html . _build
         cp -r _build/* ../gh-pages/
 
     - name: Deploy documentation.
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ github.event_name == 'push' }}
       uses: JamesIves/github-pages-deploy-action@v4.3.0
       with:
         branch: gh-pages
