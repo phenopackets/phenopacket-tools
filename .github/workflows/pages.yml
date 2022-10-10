@@ -40,7 +40,9 @@ jobs:
       run: mvn --batch-mode --update-snapshots verify
 
     - name: Install dependencies
-      run: pip install sphinx
+      run: | 
+        pip install sphinx
+        pip install sphinx-rtd-theme
 
     - name: Build documentation
       run: | 
