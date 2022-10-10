@@ -55,7 +55,7 @@ jobs:
       id: jar-file
       run: |
         echo "Found ${{ steps.cli-jar.outputs.path_count }} file(s) with this extension:"
-        for i in ${{ steps.pl.outputs.paths }}; do
+        for i in ${{ steps.cli-jar.outputs.paths }}; do
         echo $i
         echo ::set-output name=filename::"$i"
         done
