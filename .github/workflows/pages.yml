@@ -40,11 +40,30 @@ jobs:
       run: | 
         pip install sphinx
         pip install sphinx-rtd-theme
+    
+    - name: MVN clean
+      run: ./mvnw -Prerelease clean package
+
+    - name: Get CLI JAR file
+      id: cli-jar
+      uses: Rishabh510/Path-lister-action@master
+      with:
+          path: "phenopacket-tools-cli/target/"
+          type: ".jar"
+
+    - name: Output results
+      id: jar-file
+      run: |
+        echo "Found ${{ steps.cli-jar.outputs.path_count }} file(s) with this extension:"
+        for i in ${{ steps.pl.outputs.paths }}; do
+        echo $i
+        echo ::set-output name=filename::"$i"
+        done
         
     - name: Build documentation
       run: | 
-        ./mvnw -Prerelease clean package
-        java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.6-SNAPSHOT.jar examples
+        
+        java -jar ${{ steps.jar-file.filename }} examples
         make yaml-docs -B
         mkdir gh-pages gh-pages/examples
         touch gh-pages/.nojekyll
