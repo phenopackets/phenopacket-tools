@@ -39,12 +39,13 @@ jobs:
     - name: Install dependencies
       run: | 
         pip install sphinx
-        pip install sphinx-rtd-theme recommonmark sphinx-markdown-tables
+        pip install sphinx-rtd-theme
         
     - name: Build documentation
       run: | 
         ./mvnw clean package
         java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.6-SNAPSHOT.jar examples
+        make yaml-docs -B
         mkdir gh-pages
         touch gh-pages/.nojekyll
         cd docs/ 
