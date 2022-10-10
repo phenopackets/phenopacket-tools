@@ -46,12 +46,12 @@ jobs:
         ./mvnw -Prerelease clean package
         java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.6-SNAPSHOT.jar examples
         make yaml-docs -B
-        mkdir gh-pages
+        mkdir gh-pages gh-pages/examples
         touch gh-pages/.nojekyll
         cd docs/ 
         sphinx-build -b html . _build
         cp -r _build/* ../gh-pages/
-        cp -r yaml/* ../gh-pages/
+        cp -r yaml/* ../gh-pages/examples
 
     - name: Deploy documentation.
       if: ${{ github.event_name == 'push' }}
