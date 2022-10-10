@@ -56,11 +56,14 @@ public class ConvertCommand extends SingleItemProcessingCommand {
             case COHORT -> converter.convertCohort((Cohort) message);
         };
 
-        // (3) Write v2 into output using either the input format or the selected output format.
-        if (outputFormat == null)
+        // (3) Write v2 into STDOUT using either the input format or the selected output format.
+        OutputStream alwaysTheStandardOutput = System.out;
+        if (outputFormat == null) {
+            LOGGER.info("Output format (-o | --output-format) not provided, writing data in the input format `{}`", format);
             outputFormat = format;
+        }
         try {
-            writeV2Message(v2, outputFormat);
+            writeMessage(v2, outputFormat, alwaysTheStandardOutput);
         } catch (IOException e) {
             System.err.println("Could not write phenopacket: " + e.getMessage());
             return 1;

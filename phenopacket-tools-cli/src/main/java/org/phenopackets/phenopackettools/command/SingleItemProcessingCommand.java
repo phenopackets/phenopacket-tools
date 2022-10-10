@@ -40,6 +40,16 @@ public abstract class SingleItemProcessingCommand implements Callable<Integer> {
             description = "Top-level element.%nChoose from {${COMPLETION-CANDIDATES}}%nDefault: phenopacket")
     public PhenopacketElement element = null;
 
+    /**
+     * Read the input {@link Message} either from the standard input or from the provided {@link #input}.
+     * <p>
+     * The method uses {@link #format} and {@link #element} to decode the input. In absence of the {@link #format},
+     * we make an educated guess (sniff) and throw a {@link FormatSniffException} if the sniffing fails.
+     *
+     * @return the parsed {@link Message}.
+     * @throws FormatSniffException if the format sniffing fails.
+     * @throws IOException in case of I/O errors.
+     */
     protected Message readInputMessage() throws FormatSniffException, IOException {
         InputStream is = null;
         try {
@@ -80,8 +90,16 @@ public abstract class SingleItemProcessingCommand implements Callable<Integer> {
         }
     }
 
-    protected void writeV2Message(Message message, PhenopacketFormat format) throws IOException {
-        OutputStream os = System.out;
+    /**
+     * Write the {@code message} in an appropriate {@code format} into the provided {@link OutputStream} {@code os}.
+     * <p>
+     * Uses {@link }
+     * @param message message to be written out.
+     * @param format format to write out
+     * @param os where to write
+     * @throws IOException in case of I/O errors during the output
+     */
+    protected static void writeMessage(Message message, PhenopacketFormat format, OutputStream os) throws IOException {
         switch (format) {
             case PROTOBUF -> {
                 LOGGER.debug("Writing protobuf message");
