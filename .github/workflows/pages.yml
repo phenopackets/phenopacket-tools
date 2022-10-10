@@ -57,12 +57,12 @@ jobs:
         echo "Found ${{ steps.cli-jar.outputs.path_count }} file(s) with this extension:"
         for i in ${{ steps.cli-jar.outputs.paths }}; do
         echo $i
-        echo ::set-output name=filename::"$i"
+        echo ::set-output name=filename::$i
         done
         
     - name: Build documentation
       run: | 
-        echo ${{ steps.jar-file.ouputs.filename }}
+        echo ${{ steps.cli-jar.outputs.paths }}
         java -jar ${{ steps.jar-file.ouputs.filename }} examples
         make yaml-docs -B
         mkdir gh-pages gh-pages/examples
