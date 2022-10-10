@@ -33,6 +33,7 @@ Additionally, phenopacket-tools provides code to convert version 1 to the versio
    converting
    validation
    constants
+   examples
 
 
 GA4GH Phenopacket Schema
