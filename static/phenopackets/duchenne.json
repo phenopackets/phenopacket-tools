@@ -1,0 +1,140 @@
+{
+  "id": "arbitrary.id",
+  "subject": {
+    "id": "10-year old boy",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P10Y"
+      }
+    },
+    "sex": "MALE"
+  },
+  "phenotypicFeatures": [{
+    "type": {
+      "id": "HP:0031936",
+      "label": "Delayed ability to walk"
+    },
+    "onset": {
+      "age": {
+        "iso8601duration": "P1Y6M"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0003707",
+      "label": "Calf muscle pseudohypertrophy"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0011463",
+        "label": "Childhood onset"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0009046",
+      "label": "Difficulty running"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0011463",
+        "label": "Childhood onset"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0003458",
+      "label": "EMG: myopathic abnormalities"
+    },
+    "onset": {
+      "age": {
+        "iso8601duration": "P10Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0003236",
+      "label": "Elevated circulating creatine kinase concentration"
+    },
+    "onset": {
+      "age": {
+        "iso8601duration": "P10Y"
+      }
+    }
+  }],
+  "interpretations": [{
+    "id": "interpretation.id",
+    "progressStatus": "SOLVED",
+    "diagnosis": {
+      "disease": {
+        "id": "MONDO:0010679",
+        "label": "Duchenne muscular dystrophy"
+      },
+      "genomicInterpretations": [{
+        "subjectOrBiosampleId": "10-year old boy",
+        "interpretationStatus": "CAUSATIVE",
+        "variantInterpretation": {
+          "acmgPathogenicityClassification": "PATHOGENIC",
+          "variationDescriptor": {
+            "variation": {
+              "copyNumber": {
+                "allele": {
+                  "sequenceLocation": {
+                    "sequenceId": "refseq:NC_000023.11",
+                    "sequenceInterval": {
+                      "startNumber": {
+                        "value": "31774144"
+                      },
+                      "endNumber": {
+                        "value": "31785736"
+                      }
+                    }
+                  }
+                },
+                "number": {
+                  "value": "1"
+                }
+              }
+            },
+            "geneContext": {
+              "valueId": "HGNC:2928",
+              "symbol": "DMD"
+            },
+            "expressions": [{
+              "syntax": "hgvs.c",
+              "value": "NM_004006.3:c.7310-11543_7359del"
+            }, {
+              "syntax": "transcript_reference",
+              "value": "NM_004006.3"
+            }],
+            "moleculeContext": "genomic",
+            "allelicState": {
+              "id": "GENO:0000134",
+              "label": "hemizygous"
+            }
+          }
+        }
+      }]
+    }
+  }],
+  "metaData": {
+    "created": "2021-05-14T10:35:00Z",
+    "createdBy": "anonymous biocurator",
+    "resources": [{
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2022-06-11",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }, {
+      "id": "mondo",
+      "name": "Mondo Disease Ontology",
+      "url": "http://purl.obolibrary.org/obo/mondo.obo",
+      "version": "v2022-09-06",
+      "namespacePrefix": "MONDO",
+      "iriPrefix": "http://purl.obolibrary.org/obo/MONDO_"
+    }],
+    "phenopacketSchemaVersion": "2.0"
+  }
+}

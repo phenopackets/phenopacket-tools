@@ -1,0 +1,257 @@
+{
+  "id": "arbitrary proband id",
+  "subject": {
+    "id": "proband A",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P6Y3M"
+      }
+    },
+    "sex": "MALE"
+  },
+  "phenotypicFeatures": [{
+    "type": {
+      "id": "HP:0001629",
+      "label": "Ventricular septal defect"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003577",
+        "label": "Congenital onset"
+      }
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }, {
+    "type": {
+      "id": "HP:0000280",
+      "label": "Coarse facial features"
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }, {
+    "type": {
+      "id": "HP:0008689",
+      "label": "Bilateral cryptorchidism"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003577",
+        "label": "Congenital onset"
+      }
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }, {
+    "type": {
+      "id": "HP:0001561",
+      "label": "Polyhydramnios"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0011461",
+        "label": "Fetal onset"
+      }
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }, {
+    "type": {
+      "id": "HP:0000054",
+      "label": "Micropenis"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003577",
+        "label": "Congenital onset"
+      }
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }, {
+    "type": {
+      "id": "HP:0001798",
+      "label": "Anonychia"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003577",
+        "label": "Congenital onset"
+      }
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }, {
+    "type": {
+      "id": "HP:0001320",
+      "label": "Cerebellar vermis hypoplasia"
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }, {
+    "type": {
+      "id": "HP:0000518",
+      "label": "Cataract"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003593",
+        "label": "Infantile onset"
+      }
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }, {
+    "type": {
+      "id": "HP:0002198",
+      "label": "Dilated fourth ventricle"
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }, {
+    "type": {
+      "id": "HP:0100333",
+      "label": "Unilateral cleft lip"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003577",
+        "label": "Congenital onset"
+      }
+    },
+    "evidence": [{
+      "evidenceCode": {
+        "id": "ECO:0000033",
+        "label": "author statement supported by traceable reference"
+      },
+      "reference": {
+        "id": "PMID:30808312",
+        "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+      }
+    }]
+  }],
+  "interpretations": [{
+    "id": "arbitrary interpretation id",
+    "progressStatus": "COMPLETED",
+    "diagnosis": {
+      "disease": {
+        "id": "OMIM:158810",
+        "label": "Bethlem myopathy 1"
+      },
+      "genomicInterpretations": [{
+        "subjectOrBiosampleId": "arbitrary interpretation id",
+        "interpretationStatus": "CAUSATIVE",
+        "variantInterpretation": {
+          "acmgPathogenicityClassification": "PATHOGENIC",
+          "variationDescriptor": {
+            "id": "variant id",
+            "expressions": [{
+              "syntax": "hgvs",
+              "value": "NM_001848.2:c.877G\u003eA"
+            }],
+            "allelicState": {
+              "id": "GENO:0000135",
+              "label": "heterozygous"
+            }
+          }
+        }
+      }]
+    }
+  }],
+  "metaData": {
+    "created": "2021-05-14T10:35:00Z",
+    "createdBy": "anonymous biocurator",
+    "resources": [{
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2021-08-02",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }, {
+      "id": "geno",
+      "name": "Genotype Ontology",
+      "url": "http://purl.obolibrary.org/obo/geno.owl",
+      "version": "2020-03-08",
+      "namespacePrefix": "GENO",
+      "iriPrefix": "http://purl.obolibrary.org/obo/GENO_"
+    }],
+    "phenopacketSchemaVersion": "2.0",
+    "externalReferences": [{
+      "id": "PMID:30808312",
+      "description": "COL6A1 mutation leading to Bethlem myopathy with recurrent hematuria: a case report"
+    }]
+  }
+}

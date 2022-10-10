@@ -1,0 +1,223 @@
+{
+  "id": "arbitrary.id",
+  "subject": {
+    "id": "proband A",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P70Y"
+      }
+    },
+    "sex": "MALE",
+    "karyotypicSex": "XY"
+  },
+  "phenotypicFeatures": [{
+    "type": {
+      "id": "HP:0000539",
+      "label": "Abnormality of refraction"
+    },
+    "modifiers": [{
+      "id": "HP:0012834",
+      "label": "Right"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P70Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0000545",
+      "label": "Myopia"
+    },
+    "modifiers": [{
+      "id": "HP:0012834",
+      "label": "Right"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P71Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "NCIT:C50618",
+      "label": "Intraocular Pressure Increased"
+    },
+    "modifiers": [{
+      "id": "HP:0012834",
+      "label": "Right"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P71Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": " HP:0007686",
+      "label": "Abnormal pupillary function"
+    },
+    "excluded": true
+  }, {
+    "type": {
+      "id": "HP:0012629",
+      "label": "Phakodonesis"
+    },
+    "excluded": true
+  }],
+  "measurements": [{
+    "assay": {
+      "id": "LOINC:79892-6",
+      "label": "Right eye Intraocular pressure"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:mm[Hg]",
+          "label": "millimetres of mercury"
+        },
+        "value": 14.0,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:56844-4",
+            "label": "Intraocular pressure of Eye"
+          },
+          "low": 10.0,
+          "high": 21.0
+        }
+      }
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P71Y1M"
+      }
+    }
+  }, {
+    "assay": {
+      "id": "NCIT:C156778",
+      "label": "Vision Assessment"
+    },
+    "complexValue": {
+      "typedQuantities": [{
+        "type": {
+          "id": "NCIT:C87149",
+          "label": "Visual Acuity"
+        },
+        "quantity": {
+          "unit": {
+            "id": "NCIT:C48570",
+            "label": "Percent Unit"
+          },
+          "value": 100.0
+        }
+      }]
+    }
+  }, {
+    "assay": {
+      "id": "LOINC:79850-4",
+      "label": "Right eye spherical refraction"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:[diop]",
+          "label": "diopter"
+        },
+        "value": -0.25,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:79895-9",
+            "label": "Subjective refraction method"
+          },
+          "low": -30.0,
+          "high": 30.0
+        }
+      }
+    }
+  }],
+  "diseases": [{
+    "term": {
+      "id": "MONDO:0008327",
+      "label": "exfoliation syndrome"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003581",
+        "label": "Adult onset"
+      }
+    },
+    "primarySite": {
+      "id": "UBERON:0004549",
+      "label": "right eye"
+    }
+  }],
+  "medicalActions": [{
+    "procedure": {
+      "code": {
+        "id": "NCIT:C157809",
+        "label": "Cataract Surgery"
+      },
+      "bodySite": {
+        "id": "UBERON:0004549",
+        "label": "right eye"
+      },
+      "performed": {
+        "age": {
+          "iso8601duration": "P70Y"
+        }
+      }
+    },
+    "treatmentTarget": {
+      "id": "HP:0000518",
+      "label": "cataract"
+    },
+    "treatmentIntent": {
+      "id": "HP:0500081",
+      "label": "Pseudophakia"
+    }
+  }, {
+    "procedure": {
+      "code": {
+        "id": "NCIT:C157809",
+        "label": "Cataract Surgery"
+      },
+      "bodySite": {
+        "id": "UBERON:0004548",
+        "label": "left eye"
+      },
+      "performed": {
+        "age": {
+          "iso8601duration": "P70Y6W"
+        }
+      }
+    },
+    "treatmentTarget": {
+      "id": "HP:0000518",
+      "label": "cataract"
+    },
+    "treatmentIntent": {
+      "id": "HP:0500081",
+      "label": "Pseudophakia"
+    }
+  }],
+  "metaData": {
+    "created": "2021-05-14T10:35:00Z",
+    "createdBy": "anonymous biocurator",
+    "resources": [{
+      "id": "uberon",
+      "name": "Uber-anatomy ontology",
+      "url": "http://purl.obolibrary.org/obo/uberon.owl",
+      "version": "2021-07-27",
+      "namespacePrefix": "UBERON",
+      "iriPrefix": "http://purl.obolibrary.org/obo/UBERON_"
+    }, {
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2021-08-02",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }],
+    "phenopacketSchemaVersion": "2.0"
+  }
+}
