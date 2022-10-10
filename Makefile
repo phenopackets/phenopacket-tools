@@ -1,5 +1,5 @@
 yaml/%: %
-	mkdir -p docs/$@ && cp `find $< -type f -name "*.yml"` docs/$@ 
+	mkdir -p docs/$@ && cp -r `find $< -type f -name "*.yml"` docs/$@ 
 #	 for i in $@/*.yml; do yamldoc "$$i" > "$$i".md; done
 
 # static/%: docs/tmp/%
