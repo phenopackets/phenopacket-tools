@@ -24,6 +24,86 @@ In contrast, this is the code required with phenopacket-tools (omitting import s
 
 The following tables present the available static functions with predefined concepts.
 
+
+AllelicState
+^^^^^^^^^^^^
+
+Terms from the `GENE ontology <https://www.ebi.ac.uk/ols/ontologies/geno>`_ are used to describe the allelic state of variants.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "GENO:0000135", "heterozygous", "heterozygous()"
+   "GENO:0000136", "homozygous", "homozygous()"
+   "GENO:0000134", "hemizygous", "hemizygous()"
+
+
+Assays
+^^^^^^
+
+If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify laboratory test assays.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "LOINC:2157-6", "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma", "creatineKinaseActivity()"
+
+
+Gender
+^^^^^^
+
+`LOINC <https://loinc.org/>`_ codes should be used to specify self-reported gender.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "LOINC:LA22878-5", "Identifies as male", "identifiesAsMale()"
+   "LOINC:LA22879-3", "Identifies as female", "identifiesAsFemale()"
+   "LOINC:LA22880-1", "Female-to-male transsexual", "femaleToMaleTranssexual()"
+   "LOINC:LA22881-9", "Male-to-female transsexual", "maleToFemaleTranssexual()"
+   "LOINC:LA22882-7", "Identifies as non-conforming", "identifiesAsNonConforming()"
+   "LOINC:LA46-8", "other", "otherGender()"
+   "LOINC:LA20384-6", "Asked but unknown", "askedButUnknown()"
+
+
+Laterality
+^^^^^^^^^^
+
+Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe laterality.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "HP:0012834", "Right", "right()"
+   "HP:0012835", "Left", "left()"
+   "HP:0012833", "Unilateral", "unilateral()"
+   "HP:0012832", "Bilateral", "bilateral()"
+
+
+MedicalActions
+^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used for components of medical action messages.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C41331", "Adverse Event", "adverseEvent()"
+   "NCIT:C64530", "Four Times Daily", "fourtimesDaily()"
+   "NCIT:C38222", "Intraarterial Route of Administration", "intraArterialAdministration()"
+   "NCIT:C38276", "Intravenous Route of Administration", "intravenousAdministration()"
+   "NCIT:C38288", "Oral Route of Administration", "oralAdministration()"
+   "NCIT:C64576", "Once", "once()"
+   "NCIT:C125004", "Once Daily", "onceDaily()"
+   "NCIT:C64527", "Three Times Daily", "threetimesDaily()"
+   "NCIT:C64496", "Twice Daily", "twiceDaily()"
+
+
 Onset
 ^^^^^
 
@@ -53,38 +133,6 @@ Terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe age of ons
    "HP:0003584", "Late onset", "lateOnset()"
 
 
-AllelicState
-^^^^^^^^^^^^
-
-Terms from the `GENE ontology <https://www.ebi.ac.uk/ols/ontologies/geno>`_ are used to describe the allelic state of variants.
-
-.. csv-table:: 
-   :header: "id", "label", "function name"
-   :widths: 30, 200, 200
-
-   "GENO:0000135", "heterozygous", "heterozygous()"
-   "GENO:0000136", "homozygous", "homozygous()"
-   "GENO:0000134", "hemizygous", "hemizygous()"
-
-
-Gender
-^^^^^^
-
-`LOINC <https://loinc.org/>`_ codes should be used to specify self-reported gender.
-
-.. csv-table:: 
-   :header: "id", "label", "function name"
-   :widths: 30, 200, 200
-
-   "LOINC:LA22878-5", "Identifies as male", "identifiesAsMale()"
-   "LOINC:LA22879-3", "Identifies as female", "identifiesAsFemale()"
-   "LOINC:LA22880-1", "Female-to-male transsexual", "femaleToMaleTranssexual()"
-   "LOINC:LA22881-9", "Male-to-female transsexual", "maleToFemaleTranssexual()"
-   "LOINC:LA22882-7", "Identifies as non-conforming", "identifiesAsNonConforming()"
-   "LOINC:LA46-8", "other", "otherGender()"
-   "LOINC:LA20384-6", "Asked but unknown", "askedButUnknown()"
-
-
 Organ
 ^^^^^
 
@@ -111,33 +159,6 @@ Terms from the `UBERON ontology <https://www.ebi.ac.uk/ols/ontologies/uberon>`_ 
    "UBERON:0002370", "thymus", "thymus()"
 
 
-Laterality
-^^^^^^^^^^
-
-Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe laterality.
-
-.. csv-table:: 
-   :header: "id", "label", "function name"
-   :widths: 30, 200, 200
-
-   "HP:0012834", "Right", "right()"
-   "HP:0012835", "Left", "left()"
-   "HP:0012833", "Unilateral", "unilateral()"
-   "HP:0012832", "Bilateral", "bilateral()"
-
-
-Assays
-^^^^^^
-
-If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify laboratory test assays.
-
-.. csv-table:: 
-   :header: "id", "label", "function name"
-   :widths: 30, 200, 200
-
-   "LOINC:2157-6", "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma", "creatineKinaseActivity()"
-
-
 Response
 ^^^^^^^^
 
@@ -149,41 +170,6 @@ These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ ca
 
    "NCIT:C102560", "Favorable", "favorable()"
    "NCIT:C102561", "Unfavorable", "unfavorable()"
-
-
-Unit
-^^^^
-
-With some exceptions, terms from the `The Unified Code for Units of Measure <https://units-of-measurement.org/>`_ are used to denote units.
-
-.. csv-table:: 
-   :header: "id", "label", "function name"
-   :widths: 30, 200, 200
-
-   "UCUM:degree", "degree (plane angle)", "degreeOfAngle()"
-   "UCUM:[diop]", "diopter", "diopter()"
-   "UCUM:g", "gram", "gram()"
-   "UCUM:g/kg", "gram per kilogram", "gramPerKilogram()"
-   "UCUM:kg", "kiligram", "kilogram()"
-   "UCUM:L", "liter", "liter()"
-   "UCUM:m", "meter", "meter()"
-   "UCUM:ug", "microgram", "microgram()"
-   "UCUM:ug/dL", "microgram per deciliter", "microgramPerDeciliter()"
-   "UCUM:ug/L", "microgram per liter", "microgramPerLiter()"
-   "UCUM:uL", "microliter", "microliter()"
-   "UCUM:um", "micrometer", "micrometer()"
-   "UCUM:mg", "milligram", "milligram()"
-   "UCUM:mg/dL", "milligram per day", "milligramPerDay()"
-   "UCUM:mg/dL", "milligram per deciliter", "milligramPerDeciliter()"
-   "UCUM:mg.kg-1", "milligram per kilogram", "mgPerKg()"
-   "UCUM:mL", "milliliter", "milliliter()"
-   "UCUM:mm", "millimeter", "millimeter()"
-   "UCUM:mm[Hg]", "millimetres of mercury", "mmHg()"
-   "UCUM:mmol", "millimole", "millimole()"
-   "UCUM:mol", "mole", "mole()"
-   "UCUM:mol/L", "mole per liter", "molePerLiter()"
-   "UCUM:mol/mL", "mole per milliliter", "molePerMilliliter()"
-   "UCUM:U/L", "enzyme unit per liter", "enzymeUnitPerLiter()"
 
 
 SpatialPattern
@@ -230,23 +216,38 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe s
    "HP:0032540", "Jointflexorsurfacelocalization", "jointFlexorSurfaceLocalization()"
 
 
-MedicalActions
-^^^^^^^^^^^^^^
+Unit
+^^^^
 
-Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used for components of medical action messages.
+With some exceptions, terms from the `The Unified Code for Units of Measure <https://units-of-measurement.org/>`_ are used to denote units.
 
 .. csv-table:: 
    :header: "id", "label", "function name"
    :widths: 30, 200, 200
 
-   "NCIT:C41331", "Adverse Event", "adverseEvent()"
-   "NCIT:C64530", "Four Times Daily", "fourtimesDaily()"
-   "NCIT:C38222", "Intraarterial Route of Administration", "intraArterialAdministration()"
-   "NCIT:C38276", "Intravenous Route of Administration", "intravenousAdministration()"
-   "NCIT:C38288", "Oral Route of Administration", "oralAdministration()"
-   "NCIT:C64576", "Once", "once()"
-   "NCIT:C125004", "Once Daily", "onceDaily()"
-   "NCIT:C64527", "Three Times Daily", "threetimesDaily()"
-   "NCIT:C64496", "Twice Daily", "twiceDaily()"
+   "UCUM:degree", "degree (plane angle)", "degreeOfAngle()"
+   "UCUM:[diop]", "diopter", "diopter()"
+   "UCUM:g", "gram", "gram()"
+   "UCUM:g/kg", "gram per kilogram", "gramPerKilogram()"
+   "UCUM:kg", "kiligram", "kilogram()"
+   "UCUM:L", "liter", "liter()"
+   "UCUM:m", "meter", "meter()"
+   "UCUM:ug", "microgram", "microgram()"
+   "UCUM:ug/dL", "microgram per deciliter", "microgramPerDeciliter()"
+   "UCUM:ug/L", "microgram per liter", "microgramPerLiter()"
+   "UCUM:uL", "microliter", "microliter()"
+   "UCUM:um", "micrometer", "micrometer()"
+   "UCUM:mg", "milligram", "milligram()"
+   "UCUM:mg/dL", "milligram per day", "milligramPerDay()"
+   "UCUM:mg/dL", "milligram per deciliter", "milligramPerDeciliter()"
+   "UCUM:mg.kg-1", "milligram per kilogram", "mgPerKg()"
+   "UCUM:mL", "milliliter", "milliliter()"
+   "UCUM:mm", "millimeter", "millimeter()"
+   "UCUM:mm[Hg]", "millimetres of mercury", "mmHg()"
+   "UCUM:mmol", "millimole", "millimole()"
+   "UCUM:mol", "mole", "mole()"
+   "UCUM:mol/L", "mole per liter", "molePerLiter()"
+   "UCUM:mol/mL", "mole per milliliter", "molePerMilliliter()"
+   "UCUM:U/L", "enzyme unit per liter", "enzymeUnitPerLiter()"
 
 

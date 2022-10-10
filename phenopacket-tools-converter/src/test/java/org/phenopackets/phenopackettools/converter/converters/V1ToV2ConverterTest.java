@@ -4,6 +4,7 @@ import org.ga4gh.vrsatile.v1.Expression;
 import org.ga4gh.vrsatile.v1.VariationDescriptor;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
 import org.phenopackets.phenopackettools.test.TestData;
 import org.phenopackets.schema.v1.core.HtsFile;
 import org.phenopackets.schema.v2.core.*;
