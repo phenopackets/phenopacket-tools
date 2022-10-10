@@ -16,7 +16,8 @@ extensions = [
    'sphinx.ext.autodoc',
    'sphinx.ext.githubpages',
    'sphinx_rtd_theme',
-   'recommonmark'
+   'recommonmark',
+   'sphinx_markdown_tables'
 ]
 
 html_theme = 'sphinx_rtd_theme'
