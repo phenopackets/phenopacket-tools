@@ -1,0 +1,222 @@
+phenopacket:
+  id: "arbitrary.id"
+  subject:
+    id: "65-year-old man"
+    timeAtLastEncounter:
+      age:
+        iso8601duration: "P65Y"
+    sex: "MALE"
+  phenotypicFeatures:
+  - type:
+      id: "HP:0008994"
+      label: "Proximal muscle weakness in lower limbs"
+    onset:
+      age:
+        iso8601duration: "P65Y"
+  - type:
+      id: "HP:0007289"
+      label: "Limb fasciculations"
+    onset:
+      age:
+        iso8601duration: "P65Y"
+  - type:
+      id: "HP:0008956"
+      label: "Proximal lower limb amyotrophy"
+    onset:
+      age:
+        iso8601duration: "P65Y"
+  - type:
+      id: "HP:0003808"
+      label: "Abnormal muscle tone"
+    excluded: true
+    onset:
+      age:
+        iso8601duration: "P65Y"
+  - type:
+      id: "HP:0003391"
+      label: "Gowers sign"
+    onset:
+      age:
+        iso8601duration: "P65Y"
+  - type:
+      id: "HP:0003551"
+      label: "Difficulty climbing stairs"
+    onset:
+      age:
+        iso8601duration: "P65Y"
+  - type:
+      id: "HP:0006886"
+      label: "Impaired distal vibration sensation"
+    onset:
+      age:
+        iso8601duration: "P65Y"
+  measurements:
+  - assay:
+      id: "LOINC:2157-6"
+      label: "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma"
+    value:
+      quantity:
+        unit:
+          id: "UCUM:U/L"
+          label: "enzyme unit per liter"
+        value: 4292.0
+        referenceRange:
+          unit:
+            id: "UCUM:U/L"
+            label: "enzyme unit per liter"
+          low: 20.0
+          high: 200.0
+  - assay:
+      id: "LOINC:1742-6"
+      label: "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma"
+    value:
+      quantity:
+        unit:
+          id: "UCUM:U/L"
+          label: "enzyme unit per liter"
+        value: 234.0
+        referenceRange:
+          unit:
+            id: "UCUM:U/L"
+            label: "enzyme unit per liter"
+          low: 4.0
+          high: 36.0
+  diseases:
+  - term:
+      id: "MONDO:0005148"
+      label: "type 2 diabetes mellitus"
+    onset:
+      age:
+        iso8601duration: "P55Y"
+  - term:
+      id: "MONDO:0001134"
+      label: "essential hypertension"
+    onset:
+      age:
+        iso8601duration: "P55Y"
+  medicalActions:
+  - treatment:
+      agent:
+        id: "DrugCentral:257"
+        label: "atorvastatin"
+      routeOfAdministration:
+        id: "NCIT:C38288"
+        label: "Oral Route of Administration"
+      doseIntervals:
+      - quantity:
+          unit:
+            id: "UCUM:mg"
+            label: "milligram"
+          value: 10.0
+        scheduleFrequency:
+          id: "NCIT:C125004"
+          label: "Once Daily"
+        interval:
+          start: "2010-09-02T00:00:00Z"
+          end: "2020-09-02T00:00:00Z"
+    adverseEvents:
+    - id: "HP:0003198"
+      label: "Myopathy"
+    treatmentTerminationReason:
+      id: "NCIT:C41331"
+      label: "Adverse Event"
+  - treatment:
+      agent:
+        id: "DrugCentral:74"
+        label: "acetylsalicylic acid"
+      routeOfAdministration:
+        id: "NCIT:C38288"
+        label: "Oral Route of Administration"
+      doseIntervals:
+      - quantity:
+          unit:
+            id: "UCUM:mg"
+            label: "milligram"
+          value: 75.0
+        scheduleFrequency:
+          id: "NCIT:C125004"
+          label: "Once Daily"
+        interval:
+          start: "2010-09-02T00:00:00Z"
+          end: "2020-09-02T00:00:00Z"
+  - treatment:
+      agent:
+        id: "DrugCentral:2356"
+        label: "ramipril"
+      routeOfAdministration:
+        id: "NCIT:C38288"
+        label: "Oral Route of Administration"
+      doseIntervals:
+      - quantity:
+          unit:
+            id: "UCUM:mg"
+            label: "milligram"
+          value: 10.0
+        scheduleFrequency:
+          id: "NCIT:C125004"
+          label: "Once Daily"
+        interval:
+          start: "2010-09-02T00:00:00Z"
+          end: "2020-09-02T00:00:00Z"
+  - treatment:
+      agent:
+        id: "DrugCentral:1725"
+        label: "metformin"
+      routeOfAdministration:
+        id: "NCIT:C38288"
+        label: "Oral Route of Administration"
+      doseIntervals:
+      - quantity:
+          unit:
+            id: "UCUM:mg"
+            label: "milligram"
+          value: 500.0
+        scheduleFrequency:
+          id: "NCIT:C64527"
+          label: "Three Times Daily"
+        interval:
+          start: "2010-09-02T00:00:00Z"
+          end: "2020-09-02T00:00:00Z"
+  - treatment:
+      agent:
+        id: "NCIT:C121331"
+        label: "Intravenous Immunoglobulin Therapy"
+      routeOfAdministration:
+        id: "NCIT:C38276"
+        label: "Intravenous Route of Administration"
+      doseIntervals:
+      - quantity:
+          unit:
+            id: "UCUM:g/kg"
+            label: "gram per kilogram"
+          value: 1.6
+        scheduleFrequency:
+          id: "NCIT:C89788"
+          label: "Every Six Weeks"
+        interval:
+          start: "2020-09-02T00:00:00Z"
+          end: "2021-03-02T00:00:00Z"
+    responseToTreatment:
+      id: "NCIT:C102560"
+      label: "Favorable"
+  metaData:
+    created: "2022-04-21T10:35:00Z"
+    createdBy: "anonymous biocurator"
+    resources:
+    - id: "ncit"
+      name: "NCI Thesaurus"
+      url: "http://purl.obolibrary.org/obo/ncit.owl"
+      version: "22.03d"
+      namespacePrefix: "NCIT"
+      iriPrefix: "http://purl.obolibrary.org/obo/NCIT_"
+    - id: "hp"
+      name: "human phenotype ontology"
+      url: "http://purl.obolibrary.org/obo/hp.owl"
+      version: "2021-08-02"
+      namespacePrefix: "HP"
+      iriPrefix: "http://purl.obolibrary.org/obo/HP_"
+    phenopacketSchemaVersion: "2.0.0"
+    externalReferences:
+    - id: "PMID:32444443"
+      description: "Severe statin-induced autoimmune myopathy successfully treated\
+        \ with intravenous immunoglobulin"
