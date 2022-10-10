@@ -7,6 +7,7 @@
   <title>Welcome to phenopacket-tools’s documentation! &mdash; phenopacket-tools  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -41,6 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 </ul>
@@ -93,30 +95,26 @@ the basis of defined relationships between diagnoses, lab measurements, and geno
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="creating.html#phenopacket-tools-builder-pattern">Phenopacket-tools builder pattern</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="validation.html#protobuf">Protobuf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="validation.html#validation">Validation</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="constants.html#organ">Organ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html#medicalactions">MedicalActions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html#unit">Unit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html#response">Response</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html#spatialpattern">SpatialPattern</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html#onset">Onset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html#assays">Assays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html#laterality">Laterality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html#allelicstate">AllelicState</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 </ul>
 </div>
-<img alt="GA4GH Phenopacket" src="https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg" />
+<section id="ga4gh-phenopacket-schema">
+<h2>GA4GH Phenopacket Schema<a class="headerlink" href="#ga4gh-phenopacket-schema" title="Permalink to this heading"></a></h2>
+<p>The Global Alliance for Genomics and Health (GA4GH) is developing a suite of coordinated standards for genomics for
+healthcare. The Phenopacket is a new GA4GH standard for sharing disease and phenotype information that characterizes
+an individual person, linking that individual to detailed phenotypic descriptions, genetic information, diagnoses, and
+treatments (<a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/35705716/">Jacobsen et al, 2022</a>).
+A detailed tutorial is available <a class="reference external" href="https://onlinelibrary.wiley.com/doi/full/10.1002/ggn2.202200016">here</a>.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg"><img alt="GA4GH Phenopacket" src="https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-text">Phenopacket Schema overview. The GA4GH Phenopacket Schema is a hierarchical structure that represents clinical data about an individual.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
 </section>
 
 

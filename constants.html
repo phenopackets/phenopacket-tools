@@ -7,6 +7,7 @@
   <title>Constants &mdash; phenopacket-tools  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -41,17 +42,19 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Constants</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#organ">Organ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#allelicstate">AllelicState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assays">Assays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gender">Gender</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#laterality">Laterality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#medicalactions">MedicalActions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#unit">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#onset">Onset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#organ">Organ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#response">Response</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#spatialpattern">SpatialPattern</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#onset">Onset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#assays">Assays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#laterality">Laterality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#allelicstate">AllelicState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unit">Unit</a></li>
 </ul>
 </li>
 </ul>
@@ -83,7 +86,7 @@
   <section id="constants">
 <span id="rstconstants"></span><h1>Constants<a class="headerlink" href="#constants" title="Permalink to this heading"></a></h1>
 <p>The phenopacket-tools library offers a selection of recommended and predefined OntologyClass objects for commonly used concepts.
-For instance, this is the code one would need to write using the native Protobuf framework to get an OntologyClass instance that represents the modifier <code class="docutils literal notranslate"><span class="pre">Left</span></code>.</p>
+For instance, this is the code one would need to write using the native Protobuf frameworkto get an OntologyClass instance that represents the modifier <code class="docutils literal notranslate"><span class="pre">Left</span></code>.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">OntologyClass</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OntologyClass</span><span class="p">.</span><span class="na">newBuilder</span><span class="p">()</span><span class="w"></span>
 <span class="w">  </span><span class="p">.</span><span class="na">setId</span><span class="p">(</span><span class="s">&quot;HP:0012835&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="w">  </span><span class="p">.</span><span class="na">setLabel</span><span class="p">(</span><span class="s">&quot;Left&quot;</span><span class="p">)</span><span class="w"></span>
@@ -95,6 +98,288 @@ For instance, this is the code one would need to write using the native Protobuf
 </pre></div>
 </div>
 <p>The following tables present the available static functions with predefined concepts.</p>
+<section id="allelicstate">
+<h2>AllelicState<a class="headerlink" href="#allelicstate" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/geno">GENE ontology</a> are used to describe the allelic state of variants.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GENO:0000135</p></td>
+<td><p>heterozygous</p></td>
+<td><p>heterozygous()</p></td>
+</tr>
+<tr class="row-odd"><td><p>GENO:0000136</p></td>
+<td><p>homozygous</p></td>
+<td><p>homozygous()</p></td>
+</tr>
+<tr class="row-even"><td><p>GENO:0000134</p></td>
+<td><p>hemizygous</p></td>
+<td><p>hemizygous()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="assays">
+<h2>Assays<a class="headerlink" href="#assays" title="Permalink to this heading"></a></h2>
+<p>If possible, <a class="reference external" href="https://loinc.org/">LOINC</a> codes should be used to specify laboratory test assays.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>LOINC:2157-6</p></td>
+<td><p>Creatine kinase [Enzymatic activity/volume] in Serum or Plasma</p></td>
+<td><p>creatineKinaseActivity()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gender">
+<h2>Gender<a class="headerlink" href="#gender" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://loinc.org/">LOINC</a> codes should be used to specify self-reported gender.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>LOINC:LA22878-5</p></td>
+<td><p>Identifies as male</p></td>
+<td><p>identifiesAsMale()</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOINC:LA22879-3</p></td>
+<td><p>Identifies as female</p></td>
+<td><p>identifiesAsFemale()</p></td>
+</tr>
+<tr class="row-even"><td><p>LOINC:LA22880-1</p></td>
+<td><p>Female-to-male transsexual</p></td>
+<td><p>femaleToMaleTranssexual()</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOINC:LA22881-9</p></td>
+<td><p>Male-to-female transsexual</p></td>
+<td><p>maleToFemaleTranssexual()</p></td>
+</tr>
+<tr class="row-even"><td><p>LOINC:LA22882-7</p></td>
+<td><p>Identifies as non-conforming</p></td>
+<td><p>identifiesAsNonConforming()</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOINC:LA46-8</p></td>
+<td><p>other</p></td>
+<td><p>otherGender()</p></td>
+</tr>
+<tr class="row-even"><td><p>LOINC:LA20384-6</p></td>
+<td><p>Asked but unknown</p></td>
+<td><p>askedButUnknown()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="laterality">
+<h2>Laterality<a class="headerlink" href="#laterality" title="Permalink to this heading"></a></h2>
+<p>Modifier terms from the <a class="reference external" href="https://hpo.jax.org/app/">HPO</a> are used to describe laterality.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>HP:0012834</p></td>
+<td><p>Right</p></td>
+<td><p>right()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0012835</p></td>
+<td><p>Left</p></td>
+<td><p>left()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0012833</p></td>
+<td><p>Unilateral</p></td>
+<td><p>unilateral()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0012832</p></td>
+<td><p>Bilateral</p></td>
+<td><p>bilateral()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="medicalactions">
+<h2>MedicalActions<a class="headerlink" href="#medicalactions" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> are used for components of medical action messages.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NCIT:C41331</p></td>
+<td><p>Adverse Event</p></td>
+<td><p>adverseEvent()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C64530</p></td>
+<td><p>Four Times Daily</p></td>
+<td><p>fourtimesDaily()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C38222</p></td>
+<td><p>Intraarterial Route of Administration</p></td>
+<td><p>intraArterialAdministration()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C38276</p></td>
+<td><p>Intravenous Route of Administration</p></td>
+<td><p>intravenousAdministration()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C38288</p></td>
+<td><p>Oral Route of Administration</p></td>
+<td><p>oralAdministration()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C64576</p></td>
+<td><p>Once</p></td>
+<td><p>once()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C125004</p></td>
+<td><p>Once Daily</p></td>
+<td><p>onceDaily()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C64527</p></td>
+<td><p>Three Times Daily</p></td>
+<td><p>threetimesDaily()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C64496</p></td>
+<td><p>Twice Daily</p></td>
+<td><p>twiceDaily()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="onset">
+<h2>Onset<a class="headerlink" href="#onset" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://hpo.jax.org/app/">HPO</a> are used to describe age of onset or diseases or specific phenotypic features.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>HP:0030674</p></td>
+<td><p>Antenatal onset</p></td>
+<td><p>antenatalOnset()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0011460</p></td>
+<td><p>Embryonal onset</p></td>
+<td><p>embryonalOnset()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0011461</p></td>
+<td><p>Fetal onset</p></td>
+<td><p>fetalOnset()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0034199</p></td>
+<td><p>Late first trimester onset</p></td>
+<td><p>lateFirstTrimesterOnset()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0034198</p></td>
+<td><p>Second trimester onset</p></td>
+<td><p>secondTrimesterOnset()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0034197</p></td>
+<td><p>Third trimester onset</p></td>
+<td><p>thirdTrimesterOnset()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0003577</p></td>
+<td><p>Congenital onset</p></td>
+<td><p>congenitalOnset()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0003623</p></td>
+<td><p>Neonatal onset</p></td>
+<td><p>neonatalOnset()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0003593</p></td>
+<td><p>Infantile onset</p></td>
+<td><p>infantileOnset()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0011463</p></td>
+<td><p>Childhood onset</p></td>
+<td><p>childhoodOnset()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0003621</p></td>
+<td><p>Juvenile onset</p></td>
+<td><p>juvenileOnset()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0003581</p></td>
+<td><p>Adult onset</p></td>
+<td><p>adultOnset()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0011462</p></td>
+<td><p>Young adult onset</p></td>
+<td><p>youngAdultOnset()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0025708</p></td>
+<td><p>Early young adult onset</p></td>
+<td><p>earlyYoungAdultOnset()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0025709</p></td>
+<td><p>Intermediate young adult onset</p></td>
+<td><p>intermediateYoungAdultOnset()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0025710</p></td>
+<td><p>Late young adult onset</p></td>
+<td><p>lateYoungAdultOnset()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0003596</p></td>
+<td><p>Middle age onset</p></td>
+<td><p>middleAgeOnset()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0003584</p></td>
+<td><p>Late onset</p></td>
+<td><p>lateOnset()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="organ">
 <h2>Organ<a class="headerlink" href="#organ" title="Permalink to this heading"></a></h2>
 <p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/uberon">UBERON ontology</a> are used to describe organs.</p>
@@ -170,176 +455,6 @@ For instance, this is the code one would need to write using the native Protobuf
 <tr class="row-even"><td><p>UBERON:0002370</p></td>
 <td><p>thymus</p></td>
 <td><p>thymus()</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="medicalactions">
-<h2>MedicalActions<a class="headerlink" href="#medicalactions" title="Permalink to this heading"></a></h2>
-<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> are used for components of medical action messages.</p>
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 7%" />
-<col style="width: 47%" />
-<col style="width: 47%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>id</p></th>
-<th class="head"><p>label</p></th>
-<th class="head"><p>function name</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>NCIT:C41331</p></td>
-<td><p>Adverse Event</p></td>
-<td><p>adverseEvent()</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCIT:C64530</p></td>
-<td><p>Four Times Daily</p></td>
-<td><p>fourtimesDaily()</p></td>
-</tr>
-<tr class="row-even"><td><p>NCIT:C38222</p></td>
-<td><p>Intraarterial Route of Administration</p></td>
-<td><p>intraArterialAdministration()</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCIT:C38276</p></td>
-<td><p>Intravenous Route of Administration</p></td>
-<td><p>intravenousAdministration()</p></td>
-</tr>
-<tr class="row-even"><td><p>NCIT:C38288</p></td>
-<td><p>Oral Route of Administration</p></td>
-<td><p>oralAdministration()</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCIT:C64576</p></td>
-<td><p>Once</p></td>
-<td><p>once()</p></td>
-</tr>
-<tr class="row-even"><td><p>NCIT:C125004</p></td>
-<td><p>Once Daily</p></td>
-<td><p>onceDaily()</p></td>
-</tr>
-<tr class="row-odd"><td><p>NCIT:C64527</p></td>
-<td><p>Three Times Daily</p></td>
-<td><p>threetimesDaily()</p></td>
-</tr>
-<tr class="row-even"><td><p>NCIT:C64496</p></td>
-<td><p>Twice Daily</p></td>
-<td><p>twiceDaily()</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="unit">
-<h2>Unit<a class="headerlink" href="#unit" title="Permalink to this heading"></a></h2>
-<p>With some exceptions, terms from the <a class="reference external" href="https://units-of-measurement.org/">The Unified Code for Units of Measure</a> are used to denote units.</p>
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 7%" />
-<col style="width: 47%" />
-<col style="width: 47%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>id</p></th>
-<th class="head"><p>label</p></th>
-<th class="head"><p>function name</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>UCUM:degree</p></td>
-<td><p>degree (plane angle)</p></td>
-<td><p>degreeOfAngle()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:[diop]</p></td>
-<td><p>diopter</p></td>
-<td><p>diopter()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:g</p></td>
-<td><p>gram</p></td>
-<td><p>gram()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:g/kg</p></td>
-<td><p>gram per kilogram</p></td>
-<td><p>gramPerKilogram()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:kg</p></td>
-<td><p>kiligram</p></td>
-<td><p>kilogram()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:L</p></td>
-<td><p>liter</p></td>
-<td><p>liter()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:m</p></td>
-<td><p>meter</p></td>
-<td><p>meter()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:ug</p></td>
-<td><p>microgram</p></td>
-<td><p>microgram()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:ug/dL</p></td>
-<td><p>microgram per deciliter</p></td>
-<td><p>microgramPerDeciliter()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:ug/L</p></td>
-<td><p>microgram per liter</p></td>
-<td><p>microgramPerLiter()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:uL</p></td>
-<td><p>microliter</p></td>
-<td><p>microliter()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:um</p></td>
-<td><p>micrometer</p></td>
-<td><p>micrometer()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:mg</p></td>
-<td><p>milligram</p></td>
-<td><p>milligram()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:mg/dL</p></td>
-<td><p>milligram per day</p></td>
-<td><p>milligramPerDay()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:mg/dL</p></td>
-<td><p>milligram per deciliter</p></td>
-<td><p>milligramPerDeciliter()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:mg.kg-1</p></td>
-<td><p>milligram per kilogram</p></td>
-<td><p>mgPerKg()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:mL</p></td>
-<td><p>milliliter</p></td>
-<td><p>milliliter()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:mm</p></td>
-<td><p>millimeter</p></td>
-<td><p>millimeter()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:mm[Hg]</p></td>
-<td><p>millimetres of mercury</p></td>
-<td><p>mmHg()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:mmol</p></td>
-<td><p>millimole</p></td>
-<td><p>millimole()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:mol</p></td>
-<td><p>mole</p></td>
-<td><p>mole()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:mol/L</p></td>
-<td><p>mole per liter</p></td>
-<td><p>molePerLiter()</p></td>
-</tr>
-<tr class="row-even"><td><p>UCUM:mol/mL</p></td>
-<td><p>mole per milliliter</p></td>
-<td><p>molePerMilliliter()</p></td>
-</tr>
-<tr class="row-odd"><td><p>UCUM:U/L</p></td>
-<td><p>enzyme unit per liter</p></td>
-<td><p>enzymeUnitPerLiter()</p></td>
 </tr>
 </tbody>
 </table>
@@ -522,9 +637,9 @@ For instance, this is the code one would need to write using the native Protobuf
 </tbody>
 </table>
 </section>
-<section id="onset">
-<h2>Onset<a class="headerlink" href="#onset" title="Permalink to this heading"></a></h2>
-<p>Terms from the <a class="reference external" href="https://hpo.jax.org/app/">HPO</a> are used to describe age of onset or diseases or specific phenotypic features.</p>
+<section id="unit">
+<h2>Unit<a class="headerlink" href="#unit" title="Permalink to this heading"></a></h2>
+<p>With some exceptions, terms from the <a class="reference external" href="https://units-of-measurement.org/">The Unified Code for Units of Measure</a> are used to denote units.</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 7%" />
@@ -538,166 +653,101 @@ For instance, this is the code one would need to write using the native Protobuf
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>HP:0030674</p></td>
-<td><p>Antenatal onset</p></td>
-<td><p>antenatalOnset()</p></td>
+<tr class="row-even"><td><p>UCUM:degree</p></td>
+<td><p>degree (plane angle)</p></td>
+<td><p>degreeOfAngle()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0011460</p></td>
-<td><p>Embryonal onset</p></td>
-<td><p>embryonalOnset()</p></td>
+<tr class="row-odd"><td><p>UCUM:[diop]</p></td>
+<td><p>diopter</p></td>
+<td><p>diopter()</p></td>
 </tr>
-<tr class="row-even"><td><p>HP:0011461</p></td>
-<td><p>Fetal onset</p></td>
-<td><p>fetalOnset()</p></td>
+<tr class="row-even"><td><p>UCUM:g</p></td>
+<td><p>gram</p></td>
+<td><p>gram()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0034199</p></td>
-<td><p>Late first trimester onset</p></td>
-<td><p>lateFirstTrimesterOnset()</p></td>
+<tr class="row-odd"><td><p>UCUM:g/kg</p></td>
+<td><p>gram per kilogram</p></td>
+<td><p>gramPerKilogram()</p></td>
 </tr>
-<tr class="row-even"><td><p>HP:0034198</p></td>
-<td><p>Second trimester onset</p></td>
-<td><p>secondTrimesterOnset()</p></td>
+<tr class="row-even"><td><p>UCUM:kg</p></td>
+<td><p>kiligram</p></td>
+<td><p>kilogram()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0034197</p></td>
-<td><p>Third trimester onset</p></td>
-<td><p>thirdTrimesterOnset()</p></td>
+<tr class="row-odd"><td><p>UCUM:L</p></td>
+<td><p>liter</p></td>
+<td><p>liter()</p></td>
 </tr>
-<tr class="row-even"><td><p>HP:0003577</p></td>
-<td><p>Congenital onset</p></td>
-<td><p>congenitalOnset()</p></td>
+<tr class="row-even"><td><p>UCUM:m</p></td>
+<td><p>meter</p></td>
+<td><p>meter()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0003623</p></td>
-<td><p>Neonatal onset</p></td>
-<td><p>neonatalOnset()</p></td>
+<tr class="row-odd"><td><p>UCUM:ug</p></td>
+<td><p>microgram</p></td>
+<td><p>microgram()</p></td>
 </tr>
-<tr class="row-even"><td><p>HP:0003593</p></td>
-<td><p>Infantile onset</p></td>
-<td><p>infantileOnset()</p></td>
+<tr class="row-even"><td><p>UCUM:ug/dL</p></td>
+<td><p>microgram per deciliter</p></td>
+<td><p>microgramPerDeciliter()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0011463</p></td>
-<td><p>Childhood onset</p></td>
-<td><p>childhoodOnset()</p></td>
+<tr class="row-odd"><td><p>UCUM:ug/L</p></td>
+<td><p>microgram per liter</p></td>
+<td><p>microgramPerLiter()</p></td>
 </tr>
-<tr class="row-even"><td><p>HP:0003621</p></td>
-<td><p>Juvenile onset</p></td>
-<td><p>juvenileOnset()</p></td>
+<tr class="row-even"><td><p>UCUM:uL</p></td>
+<td><p>microliter</p></td>
+<td><p>microliter()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0003581</p></td>
-<td><p>Adult onset</p></td>
-<td><p>adultOnset()</p></td>
+<tr class="row-odd"><td><p>UCUM:um</p></td>
+<td><p>micrometer</p></td>
+<td><p>micrometer()</p></td>
 </tr>
-<tr class="row-even"><td><p>HP:0011462</p></td>
-<td><p>Young adult onset</p></td>
-<td><p>youngAdultOnset()</p></td>
+<tr class="row-even"><td><p>UCUM:mg</p></td>
+<td><p>milligram</p></td>
+<td><p>milligram()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0025708</p></td>
-<td><p>Early young adult onset</p></td>
-<td><p>earlyYoungAdultOnset()</p></td>
+<tr class="row-odd"><td><p>UCUM:mg/dL</p></td>
+<td><p>milligram per day</p></td>
+<td><p>milligramPerDay()</p></td>
 </tr>
-<tr class="row-even"><td><p>HP:0025709</p></td>
-<td><p>Intermediate young adult onset</p></td>
-<td><p>intermediateYoungAdultOnset()</p></td>
+<tr class="row-even"><td><p>UCUM:mg/dL</p></td>
+<td><p>milligram per deciliter</p></td>
+<td><p>milligramPerDeciliter()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0025710</p></td>
-<td><p>Late young adult onset</p></td>
-<td><p>lateYoungAdultOnset()</p></td>
+<tr class="row-odd"><td><p>UCUM:mg.kg-1</p></td>
+<td><p>milligram per kilogram</p></td>
+<td><p>mgPerKg()</p></td>
 </tr>
-<tr class="row-even"><td><p>HP:0003596</p></td>
-<td><p>Middle age onset</p></td>
-<td><p>middleAgeOnset()</p></td>
+<tr class="row-even"><td><p>UCUM:mL</p></td>
+<td><p>milliliter</p></td>
+<td><p>milliliter()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0003584</p></td>
-<td><p>Late onset</p></td>
-<td><p>lateOnset()</p></td>
+<tr class="row-odd"><td><p>UCUM:mm</p></td>
+<td><p>millimeter</p></td>
+<td><p>millimeter()</p></td>
 </tr>
-</tbody>
-</table>
-</section>
-<section id="assays">
-<h2>Assays<a class="headerlink" href="#assays" title="Permalink to this heading"></a></h2>
-<p>If possible, <a class="reference external" href="https://loinc.org/">LOINC</a> codes should be used to specificy laboratory test assays.</p>
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 7%" />
-<col style="width: 47%" />
-<col style="width: 47%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>id</p></th>
-<th class="head"><p>label</p></th>
-<th class="head"><p>function name</p></th>
+<tr class="row-even"><td><p>UCUM:mm[Hg]</p></td>
+<td><p>millimetres of mercury</p></td>
+<td><p>mmHg()</p></td>
 </tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>LOINC:2157-6</p></td>
-<td><p>Creatine kinase [Enzymatic activity/volume] in Serum or Plasma</p></td>
-<td><p>creatineKinaseActivity()</p></td>
+<tr class="row-odd"><td><p>UCUM:mmol</p></td>
+<td><p>millimole</p></td>
+<td><p>millimole()</p></td>
 </tr>
-</tbody>
-</table>
-</section>
-<section id="laterality">
-<h2>Laterality<a class="headerlink" href="#laterality" title="Permalink to this heading"></a></h2>
-<p>Modifier terms from the <a class="reference external" href="https://hpo.jax.org/app/">HPO</a> are used to describe laterality.</p>
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 7%" />
-<col style="width: 47%" />
-<col style="width: 47%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>id</p></th>
-<th class="head"><p>label</p></th>
-<th class="head"><p>function name</p></th>
+<tr class="row-even"><td><p>UCUM:mol</p></td>
+<td><p>mole</p></td>
+<td><p>mole()</p></td>
 </tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>HP:0012834</p></td>
-<td><p>Right</p></td>
-<td><p>right()</p></td>
+<tr class="row-odd"><td><p>UCUM:mol/L</p></td>
+<td><p>mole per liter</p></td>
+<td><p>molePerLiter()</p></td>
 </tr>
-<tr class="row-odd"><td><p>HP:0012835</p></td>
-<td><p>Left</p></td>
-<td><p>left()</p></td>
+<tr class="row-even"><td><p>UCUM:mol/mL</p></td>
+<td><p>mole per milliliter</p></td>
+<td><p>molePerMilliliter()</p></td>
 </tr>
-<tr class="row-even"><td><p>HP:0012833</p></td>
-<td><p>Unilateral</p></td>
-<td><p>unilateral()</p></td>
-</tr>
-<tr class="row-odd"><td><p>HP:0012832</p></td>
-<td><p>Bilateral</p></td>
-<td><p>bilateral()</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="allelicstate">
-<h2>AllelicState<a class="headerlink" href="#allelicstate" title="Permalink to this heading"></a></h2>
-<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/geno">GENE ontology</a> are used to describe the allelic state of variants.</p>
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 7%" />
-<col style="width: 47%" />
-<col style="width: 47%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>id</p></th>
-<th class="head"><p>label</p></th>
-<th class="head"><p>function name</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>GENO:0000135</p></td>
-<td><p>heterozygous</p></td>
-<td><p>heterozygous()</p></td>
-</tr>
-<tr class="row-odd"><td><p>GENO:0000136</p></td>
-<td><p>homozygous</p></td>
-<td><p>homozygous()</p></td>
-</tr>
-<tr class="row-even"><td><p>GENO:0000134</p></td>
-<td><p>hemizygous</p></td>
-<td><p>hemizygous()</p></td>
+<tr class="row-odd"><td><p>UCUM:U/L</p></td>
+<td><p>enzyme unit per liter</p></td>
+<td><p>enzymeUnitPerLiter()</p></td>
 </tr>
 </tbody>
 </table>

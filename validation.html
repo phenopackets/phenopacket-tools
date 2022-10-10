@@ -7,6 +7,7 @@
   <title>Validating Phenopackets &mdash; phenopacket-tools  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -21,7 +22,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Constants" href="constants.html" />
-    <link rel="prev" title="Creating Phenopackets" href="creating.html" /> 
+    <link rel="prev" title="Converting V1 Phenopackets" href="converting.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,9 +43,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Validating Phenopackets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#protobuf">Protobuf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#base-validation">Base validation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
@@ -95,9 +98,9 @@ other formats.</p>
 <p>The phenopacket-tools library offers JSON-Schema-based and semantic validations. The syntactic validation
 is done using JSON schema. Additionally, an interface is provided to perform arbitrary kinds of validation.
 This validation should be performed for all phenophenopackets.</p>
-<p>Additional contraints and requirements may be made for phenopackets that are used in a specific
-project or for a specific collabopration or consortium. For instance, a rare-disease consortium
-may require that all phenotypic features be recorded using valid HPO terms. An exmaple class is
+<p>Additional constraints and requirements may be made for phenopackets that are used in a specific
+project or for a specific collaboration or consortium. For instance, a rare-disease consortium
+may require that all phenotypic features be recorded using valid HPO terms. An example class is
 provided that checks all <code class="docutils literal notranslate"><span class="pre">PhenotypicFeature</span></code> elements, ensures that they use HPO terms with valid
 (i.e., primary) id’s, and checks whether both a term and an ancestor of the term are used - if so
 a wanring is emitted, because an annotation with a specific HPO term
@@ -105,13 +108,36 @@ a wanring is emitted, because an annotation with a specific HPO term
 implies all of the ancestors of the term (e.g., a patient with perimembranous VSD by necessity also has
 <a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001629">Ventricular septal defect</a>).</p>
 </section>
+<section id="base-validation">
+<h2>Base validation<a class="headerlink" href="#base-validation" title="Permalink to this heading"></a></h2>
+<p>All phenopackets should be tested against the base JSON Schema (analogously for all <code class="docutils literal notranslate"><span class="pre">Family</span></code> and <code class="docutils literal notranslate"><span class="pre">Cohort</span></code> messages).
+In code, this can be implemented as follows.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">JsonSchemaValidator</span><span class="w"> </span><span class="n">validator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhenopacketWorkflowRunnerBuilder</span><span class="p">.</span><span class="na">getBaseRequirementsValidator</span><span class="p">();</span><span class="w"></span>
+<span class="n">Path</span><span class="w"> </span><span class="n">phenopacketPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w"> </span><span class="c1">// get Path to a JSON file representing a GA4GH phenopacket</span><span class="w"></span>
+
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Files</span><span class="p">.</span><span class="na">newInputStream</span><span class="p">(</span><span class="n">phenopacketPath</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">ValidationResults</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">validator</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">is</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">ValidationResult</span><span class="o">&gt;</span><span class="w"> </span><span class="n">validationResults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">validationResults</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">validationResults</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;%s - OK%n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fileName</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">ValidationResult</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">validationResults</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;%s [%s] - %s: %s%n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fileName</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">level</span><span class="p">(),</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">category</span><span class="p">(),</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">message</span><span class="p">());</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"></span>
+<span class="w">     </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Error opening the phenopacket: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="creating.html" class="btn btn-neutral float-left" title="Creating Phenopackets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="converting.html" class="btn btn-neutral float-left" title="Converting V1 Phenopackets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
