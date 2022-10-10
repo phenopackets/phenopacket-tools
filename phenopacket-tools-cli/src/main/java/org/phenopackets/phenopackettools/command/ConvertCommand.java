@@ -18,7 +18,7 @@ import static picocli.CommandLine.Option;
         sortOptions = false,
         description = "Convert a v1.0 phenopacket to a v2.0 phenopacket.",
         footer = "Beware this process could be lossy!")
-public class ConvertCommand extends SingleItemProcessingCommand {
+public class ConvertCommand extends SingleItemIOCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConvertCommand.class);
 

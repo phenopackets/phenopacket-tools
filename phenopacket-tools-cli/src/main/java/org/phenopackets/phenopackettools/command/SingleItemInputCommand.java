@@ -19,13 +19,12 @@ import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
 /**
- * A command that provides routines for reading/writing input/output
- * as well as {@link PhenopacketFormat}s and {@link PhenopacketElement}s
+ * A command that provides routines for reading as well as {@link PhenopacketFormat}s and {@link PhenopacketElement}s
  * for processing of a single top-level Phenopacket schema element.
  */
-public abstract class SingleItemProcessingCommand implements Callable<Integer> {
+public abstract class SingleItemInputCommand implements Callable<Integer> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SingleItemProcessingCommand.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SingleItemInputCommand.class);
 
     @CommandLine.Option(names = {"-i", "--input"},
             description = "Input phenopacket.%nLeave empty for STDIN")
@@ -36,6 +35,7 @@ public abstract class SingleItemProcessingCommand implements Callable<Integer> {
             description = "Phenopacket format.%nChoose from: {${COMPLETION-CANDIDATES}}")
     public PhenopacketFormat format = null;
 
+    // TODO - is it too hard to implement element sniffing?
     @CommandLine.Option(names = {"-e", "--element"},
             description = "Top-level element.%nChoose from {${COMPLETION-CANDIDATES}}%nDefault: phenopacket")
     public PhenopacketElement element = null;
@@ -48,7 +48,7 @@ public abstract class SingleItemProcessingCommand implements Callable<Integer> {
      *
      * @return the parsed {@link Message}.
      * @throws FormatSniffException if the format sniffing fails.
-     * @throws IOException in case of I/O errors.
+     * @throws IOException          in case of I/O errors.
      */
     protected Message readInputMessage() throws FormatSniffException, IOException {
         InputStream is = null;
@@ -87,34 +87,6 @@ public abstract class SingleItemProcessingCommand implements Callable<Integer> {
         } finally {
             if (is != null && is != System.in)
                 is.close();
-        }
-    }
-
-    /**
-     * Write the {@code message} in an appropriate {@code format} into the provided {@link OutputStream} {@code os}.
-     * <p>
-     * Uses {@link }
-     * @param message message to be written out.
-     * @param format format to write out
-     * @param os where to write
-     * @throws IOException in case of I/O errors during the output
-     */
-    protected static void writeMessage(Message message, PhenopacketFormat format, OutputStream os) throws IOException {
-        switch (format) {
-            case PROTOBUF -> {
-                LOGGER.debug("Writing protobuf message");
-                message.writeTo(os);
-            }
-            case JSON -> {
-                LOGGER.debug("Writing JSON message");
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));
-                JsonFormat.printer().appendTo(message, writer);
-                writer.flush();
-            }
-            case YAML -> {
-                // TODO - implement
-                throw new RuntimeException("YAML printer is not yet implemented");
-            }
         }
     }
 
