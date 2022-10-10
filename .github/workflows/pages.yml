@@ -45,7 +45,7 @@ jobs:
     - name: Build documentation
       run: | 
         mvn clean package
-        java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.6-SNAPSHOT.jar examples
+        java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.5.jar examples
         mkdir gh-pages
         touch gh-pages/.nojekyll
         mkdir gh-pages/static
