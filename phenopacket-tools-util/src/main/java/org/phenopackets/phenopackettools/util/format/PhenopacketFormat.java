@@ -12,6 +12,17 @@ public enum PhenopacketFormat {
     JSON,
     YAML;
 
+    /**
+     * Get file name suffix for the given {@link PhenopacketFormat} (e.g. {@code .json} for JSON).
+     */
+    public String suffix() {
+        return switch (this) {
+            case PROTOBUF -> ".pb";
+            case JSON -> ".json";
+            case YAML -> ".yaml";
+        };
+    }
+
     @Override
     public String toString() {
         return switch (this) {

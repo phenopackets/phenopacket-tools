@@ -1,16 +1,15 @@
 package org.phenopackets.phenopackettools.command;
 
 
-import com.google.protobuf.Message;
 import com.google.protobuf.MessageOrBuilder;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.monarchinitiative.phenol.io.OntologyLoader;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.phenopackets.phenopackettools.validator.core.*;
 import org.phenopackets.phenopackettools.validator.core.metadata.MetaDataValidators;
 import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
+import org.phenopackets.phenopackettools.validator.core.writer.ValidationResultsAndPath;
 import org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidationWorkflowRunner;
+import org.phenopackets.phenopackettools.writer.CSVValidationResultsWriter;
 import org.phenopackets.schema.v2.CohortOrBuilder;
 import org.phenopackets.schema.v2.FamilyOrBuilder;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
@@ -31,7 +30,7 @@ import java.util.List;
         description = "Validate top-level elements of the Phenopacket schema.",
         sortOptions = false,
         mixinStandardHelpOptions = true)
-public class ValidateCommand extends SingleItemInputCommand {
+public class ValidateCommand extends BaseIOCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidateCommand.class);
 
@@ -49,18 +48,27 @@ public class ValidateCommand extends SingleItemInputCommand {
         // (0) Print banner.
         printBanner();
 
-        // (1) Read the input v2 message.
-        Message message = readMessageOrExit(PhenopacketSchemaVersion.V2);
+        // (1) Read the input v2 message(s).
+        List<MessageAndPath> messages = readMessagesOrExit(PhenopacketSchemaVersion.V2);
 
         // (2) Set up the validator.
         ValidationWorkflowRunner<MessageOrBuilder> runner = prepareWorkflowRunner();
 
         // (3) Validate the message(s).
-        ValidationResults results = runner.validate(message);
+        List<ValidationResultsAndPath> results = new ArrayList<>(messages.size());
+        for (MessageAndPath mp : messages) {
+            results.add(new ValidationResultsAndPath(runner.validate(mp.message()), mp.path()));
+        }
 
-        // (4) Write out the validation results.
-        PrintStream printToStdoutSoFar = System.out;
-        return writeValidationResults(results, printToStdoutSoFar);
+        // (4) Write out the validation results into STDOUT.
+        try {
+            CSVValidationResultsWriter writer = new CSVValidationResultsWriter(System.out, PHENOPACKET_TOOLS_VERSION, LocalDateTime.now());
+            writer.writeValidationResults(runner.validators(), results);
+            return 0;
+        } catch (IOException e) {
+            LOGGER.error("Error while writing out results: {}", e.getMessage(), e);
+            return 1;
+        }
     }
 
     private ValidationWorkflowRunner<MessageOrBuilder> prepareWorkflowRunner() {
@@ -119,7 +127,7 @@ public class ValidateCommand extends SingleItemInputCommand {
      * The app will crash and burn if e.g. {@link T} is {@link PhenopacketOrBuilder} while {@link #element}
      * is {@link org.phenopackets.phenopackettools.util.format.PhenopacketElement#FAMILY}.
      */
-    private <T extends MessageOrBuilder> List<PhenopacketValidator<T>> configureSemanticValidators()  {
+    private <T extends MessageOrBuilder> List<PhenopacketValidator<T>> configureSemanticValidators() {
         // Right now we only have one semantic validator, but we'll extend this in the future.
         LOGGER.debug("Configuring semantic validators");
         List<PhenopacketValidator<T>> validators = new ArrayList<>();
@@ -146,55 +154,4 @@ public class ValidateCommand extends SingleItemInputCommand {
         return validators;
     }
 
-
-    private static int writeValidationResults(ValidationResults results, OutputStream os) {
-        CSVFormat format = CSVFormat.DEFAULT.builder()
-                .setCommentMarker('#')
-                .build();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));
-
-        try {
-            CSVPrinter printer = format.print(writer);
-            printHeader(results, printer);
-            printValidationResults(results, printer);
-        } catch (IOException e) {
-            LOGGER.error("Error while writing out the validation results: {}", e.getMessage(), e);
-            return 1;
-        } finally {
-            try {
-                writer.flush();
-                os.flush();
-                if (os != System.out)
-                    os.close();
-            } catch (IOException e) {
-                LOGGER.error("Error while flushing and closing the writer: {}", e.getMessage(), e);
-            }
-        }
-
-        return 0; // We're done
-    }
-
-    private static void printHeader(ValidationResults results, CSVPrinter printer) throws IOException {
-        // Print header
-        printer.printComment("phenopacket-tools validate %s".formatted(PHENOPACKET_TOOLS_VERSION));
-        printer.printComment("date=%s".formatted(LocalDateTime.now()));
-
-        // Print validators
-        for (ValidatorInfo validator : results.validators()) {
-            printer.printComment("validator_id=%s;validator_name=%s;description=%s".formatted(validator.validatorId(), validator.validatorName(), validator.description()));
-        }
-    }
-
-    private static void printValidationResults(ValidationResults results, CSVPrinter printer) throws IOException {
-        // Header
-        printer.printRecord("LEVEL", "VALIDATOR_ID", "CATEGORY", "MESSAGE");
-        // Validation results
-        for (ValidationResult result : results.validationResults()) {
-            printer.print(result.level());
-            printer.print(result.validatorInfo().validatorId());
-            printer.print(result.category());
-            printer.print(result.message());
-            printer.println();
-        }
-    }
 }
