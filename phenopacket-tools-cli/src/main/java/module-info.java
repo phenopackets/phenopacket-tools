@@ -10,6 +10,7 @@ module org.phenopackets.phenopackettools.cli {
     requires com.google.protobuf.util;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.dataformat.yaml;
+    requires commons.csv;
     requires info.picocli;
     requires org.slf4j;
 

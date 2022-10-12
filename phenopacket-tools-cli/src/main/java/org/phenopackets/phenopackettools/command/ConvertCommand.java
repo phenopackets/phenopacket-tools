@@ -2,7 +2,6 @@ package org.phenopackets.phenopackettools.command;
 
 import com.google.protobuf.Message;
 import org.phenopackets.phenopackettools.converter.converters.V1ToV2Converter;
-import org.phenopackets.phenopackettools.util.format.FormatSniffException;
 import org.phenopackets.phenopackettools.util.format.PhenopacketFormat;
 import org.phenopackets.schema.v1.*;
 import org.slf4j.Logger;
@@ -33,17 +32,11 @@ public class ConvertCommand extends SingleItemIOCommand {
 
     @Override
     public Integer call() {
+        // (0) Print banner.
+        printBanner();
+
         // (1) Read the input v1 message.
-        Message message;
-        try {
-            message = readInputMessage();
-        } catch (FormatSniffException e) {
-            System.err.printf("Unable to detect input format of %s.\nConsider using the `--format` option.%n", input.toAbsolutePath());
-            return 1;
-        } catch (IOException e) {
-            System.err.println("Unable to read input file, " + e.getMessage() + "\nPlease check the format of file " + input.toAbsolutePath());
-            return 1;
-        }
+        Message message = readMessageOrExit(PhenopacketSchemaVersion.V1);
 
         // (2) Convert into v2 format
         if (convertVariants)

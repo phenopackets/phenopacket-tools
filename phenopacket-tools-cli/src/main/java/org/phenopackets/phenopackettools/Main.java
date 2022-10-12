@@ -1,6 +1,6 @@
 package org.phenopackets.phenopackettools;
 
-import org.phenopackets.phenopackettools.command.BasicValidateCommand;
+import org.phenopackets.phenopackettools.command.ValidateCommand;
 import org.phenopackets.phenopackettools.command.ConvertCommand;
 import org.phenopackets.phenopackettools.command.ExamplesCommand;
 import picocli.AutoComplete;
@@ -17,22 +17,15 @@ import static picocli.CommandLine.Help.Ansi.Style.*;
         subcommands = {
                 // see https://picocli.info/autocomplete.html
                 AutoComplete.GenerateCompletion.class,
-                BasicValidateCommand.class,
                 ConvertCommand.class,
+                ValidateCommand.class,
                 ExamplesCommand.class,
         },
         usageHelpWidth = Main.USAGE_WIDTH,
         footer = Main.FOOTER)
 public class Main {
 
-    private static final String BANNER = """
-             __                               __       __    __            __
-       ___  / /  ___ ___  ___  ___  ___ _____/ /_____ / /_  / /____  ___  / /__
-      / _ \\/ _ \\/ -_) _ \\/ _ \\/ _ \\/ _ `/ __/  '_/ -_) __/ / __/ _ \\/ _ \\/ (_-<
-     / .__/_//_/\\__/_//_/\\___/ .__/\\_,_/\\__/_/\\_\\\\__/\\__/  \\__/\\___/\\___/_/___/
-    /_/                     /_/
-    """;
-    public static final String HEADER = BANNER + "\nAn application for creating, converting and validating GA4GH phenopackets.\n";
+    public static final String HEADER = "phenopacket-tools\nAn application for creating, converting and validating GA4GH phenopackets.\n";
     public static final String VERSION = "phenopacket-tools v0.4.6-SNAPSHOT";
 
     // Maximum number of characters in line of the usage message.
