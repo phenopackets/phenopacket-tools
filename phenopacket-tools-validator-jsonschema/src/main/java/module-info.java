@@ -1,4 +1,5 @@
 module org.phenopackets.phenopackettools.validator.jsonschema {
+    requires org.phenopackets.phenopackettools.util;
     requires transitive org.phenopackets.phenopackettools.validator.core;
     requires org.phenopackets.schema;
     requires com.google.protobuf.util;

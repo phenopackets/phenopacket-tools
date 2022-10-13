@@ -68,7 +68,7 @@ abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callab
                     System.out.printf("%s - OK%n", fileName);
                 } else {
                     for (ValidationResult result : validationResults) {
-                        System.out.printf("%s   [%s]  -  %s:%s%n ", fileName, result.level(), result.category(), result.message());
+                        System.out.printf("%s [%s] - %s: %s%n", fileName, result.level(), result.category(), result.message());
                     }
                 }
                 printSeparator();

@@ -6,7 +6,7 @@
 
     <groupId>org.phenopackets.phenopackettools</groupId>
     <artifactId>phenopacket-tools</artifactId>
-    <version>0.4.5</version>
+    <version>0.4.6</version>
 
     <packaging>pom</packaging>
 
@@ -15,6 +15,8 @@
     </prerequisites>
 
     <modules>
+        <module>phenopacket-tools-test</module>
+        <module>phenopacket-tools-util</module>
         <module>phenopacket-tools-builder</module>
         <module>phenopacket-tools-validator-core</module>
         <module>phenopacket-tools-validator-jsonschema</module>
@@ -184,6 +186,11 @@
                 <groupId>org.monarchinitiative.phenol</groupId>
                 <artifactId>phenol-io</artifactId>
                 <version>${phenol.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-csv</artifactId>
+                <version>1.9.0</version>
             </dependency>
             <dependency>
                 <groupId>info.picocli</groupId>

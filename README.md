@@ -14,7 +14,7 @@ The cli application works in a standard UNIX-like manner.
 ```shell
 cd phenopacket-tools
 ./mvnw package
-PXF_VERSION="0.4.5"
+PXF_VERSION="0.4.6"
 alias pfx-tools="java -jar $(pwd)/phenopacket-tools-cli/target/phenopacket-tools-cli-${PXF_VERSION}.jar"
 pfx-tools --help
 ```

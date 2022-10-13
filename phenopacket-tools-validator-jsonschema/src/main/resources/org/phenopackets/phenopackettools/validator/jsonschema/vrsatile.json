@@ -110,9 +110,7 @@
           "minItems": 0
         },
         "vcfRecord": {
-          "type": {
-            "$ref": "#/definitions/vcfRecord"
-          }
+          "$ref": "#/definitions/vcfRecord"
         },
         "xrefs": {
           "type": "array",

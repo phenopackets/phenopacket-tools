@@ -68,8 +68,10 @@ fabric.properties
 *.DS_Store
 /*.json
 /*.yml
+
 /examples/
 /docs/_build/
 families/*
 phenopackets/*
 cohorts/*
+

@@ -5,8 +5,8 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   # Runs on pushes targeting the default branch
-  pull_request:
-    branches: [ main ]
+  push:
+    branches: [ "develop" ]
 
 jobs:
   build-docs:
@@ -35,29 +35,43 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
-        
-    - name: Build with Maven
-      run: mvn --batch-mode --update-snapshots verify
 
     - name: Install dependencies
       run: | 
         pip install sphinx
         pip install sphinx-rtd-theme
+    
+    - name: MVN clean
+      run: ./mvnw -Prerelease clean package
 
+    - name: Get CLI JAR file
+      id: cli-jar
+      uses: Rishabh510/Path-lister-action@master
+      with:
+          path: "phenopacket-tools-cli/target/"
+          type: ".jar"
+
+    - name: Output results
+      id: jar-file
+      run: |
+        echo "Found ${{ steps.cli-jar.outputs.path_count }} file(s) with this extension:"
+        for i in ${{ steps.cli-jar.outputs.paths }}; do
+        echo $i
+        done
+        
     - name: Build documentation
       run: | 
-        ./mvnw clean package
-        java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.5.jar examples
-        mkdir gh-pages
+        java -jar ${{ steps.cli-jar.outputs.paths }} examples
+        make yaml-docs -B
+        mkdir gh-pages gh-pages/examples
         touch gh-pages/.nojekyll
-        mkdir gh-pages/static
-        cp -r families/ phenopackets/ cohorts/  gh-pages/static
         cd docs/ 
         sphinx-build -b html . _build
         cp -r _build/* ../gh-pages/
+        cp -r yaml/* ../gh-pages/examples
 
     - name: Deploy documentation.
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ github.event_name == 'push' }}
       uses: JamesIves/github-pages-deploy-action@v4.3.0
       with:
         branch: gh-pages

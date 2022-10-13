@@ -57,7 +57,7 @@ public class PneumothoraxSecondaryToCOVID {
 
     /**
      * TODO: How to represent outcomes?
-     *
+     * <p>
      * Outcome:
      * - Repeat chest radiograph => lung re-expansion
      * - Oxygen requirement reduced to 4L/min via nasal cannula
