@@ -26,7 +26,7 @@ import static picocli.CommandLine.Help.Ansi.Style.*;
 public class Main {
 
     public static final String HEADER = "phenopacket-tools\nAn application for creating, converting and validating GA4GH phenopackets.\n";
-    public static final String VERSION = "phenopacket-tools v0.4.6";
+    public static final String VERSION = "phenopacket-tools v0.4.7-SNAPSHOT";
 
     // Maximum number of characters in line of the usage message.
     public static final int USAGE_WIDTH = 120;
