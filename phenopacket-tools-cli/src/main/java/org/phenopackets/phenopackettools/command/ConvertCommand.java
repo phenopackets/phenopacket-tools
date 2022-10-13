@@ -51,10 +51,7 @@ public class ConvertCommand extends BaseIOCommand {
     }
 
     @Override
-    public Integer call() {
-        // (0) Print banner.
-        printBanner();
-
+    protected Integer execute() {
         if (!checkInputArgumentsAreOk())
             return 1;
 

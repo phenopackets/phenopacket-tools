@@ -1,7 +1,5 @@
 package org.phenopackets.phenopackettools.command;
 
-
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -20,7 +18,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.Callable;
 
 @Command(name = "examples",
         mixinStandardHelpOptions = true,
@@ -34,21 +31,19 @@ public class ExamplesCommand extends BaseCommand {
 
 
     @Override
-    public Integer call() throws Exception {
-        printBanner();
-
-        Path phenopacketDir = createADirectoryIfDoesNotExist(output.resolve("phenopackets"));
-        Path familyDir = createADirectoryIfDoesNotExist(output.resolve("families"));
-        Path cohortDir = createADirectoryIfDoesNotExist(output.resolve("cohorts"));
-
+    protected Integer execute() {
         try {
+            Path phenopacketDir = createADirectoryIfDoesNotExist(output.resolve("phenopackets"));
+            Path familyDir = createADirectoryIfDoesNotExist(output.resolve("families"));
+            Path cohortDir = createADirectoryIfDoesNotExist(output.resolve("cohorts"));
+
             // Phenopackets
             output(new AtaxiaWithVitaminEdeficiency().getPhenopacket(), phenopacketDir, "AVED");
             output(new BethlehamMyopathy().getPhenopacket(), phenopacketDir, "bethleham-myopathy");
             output(new Holoprosencephaly5().getPhenopacket(), phenopacketDir, "holoprosencephaly5");
             output(new Marfan().getPhenopacket(), phenopacketDir, "marfan");
             output(new NemalineMyopathyPrenatal().getPhenopacket(), phenopacketDir, "nemalineMyopathy");
-            output(new Pseudoexfoliation().getPhenopacket(),  phenopacketDir,"pseudoexfoliation");
+            output(new Pseudoexfoliation().getPhenopacket(), phenopacketDir, "pseudoexfoliation");
             output(new DuchenneExon51Deletion().getPhenopacket(), phenopacketDir, "duchenne");
             output(new SquamousCellCancer().getPhenopacket(), phenopacketDir, "squamous-cell-esophageal-carcinoma");
             output(new UrothelialCancer().getPhenopacket(), phenopacketDir, "urothelial-cancer");
@@ -80,10 +75,10 @@ public class ExamplesCommand extends BaseCommand {
         String yamlName = basename + ".yml";
         outputYamlPhenopacket(phenopacket, outDir, yamlName);
         String jsonName = basename + ".json";
-        outputPhenopacket(phenopacket, outDir,jsonName);
+        outputPhenopacket(phenopacket, outDir, jsonName);
     }
 
-    private static void outputPhenopacket(Message phenopacket, Path outdir,String fileName) {
+    private static void outputPhenopacket(Message phenopacket, Path outdir, String fileName) {
         outputJsonMessage(phenopacket, outdir, fileName);
     }
 

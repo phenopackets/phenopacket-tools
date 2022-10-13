@@ -27,7 +27,7 @@ public abstract class BaseIOCommand extends BaseCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseIOCommand.class);
 
-    @CommandLine.ArgGroup(validate = false, heading = "Inputs:%s")
+    @CommandLine.ArgGroup(validate = false, heading = "Inputs:%n")
     public InputSection inputSection = new InputSection();
 
     public static class InputSection {
