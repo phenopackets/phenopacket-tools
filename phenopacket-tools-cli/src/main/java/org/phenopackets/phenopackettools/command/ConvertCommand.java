@@ -79,7 +79,7 @@ public class ConvertCommand extends BaseIOCommand {
 
         // (3) Set the output format if necessary.
         if (convertSection.outputFormat == null) {
-            LOGGER.info("Output format (-o | --output-format) not provided, writing data in the input format `{}`", inputSection.format);
+            LOGGER.info("Output format (--output-format) not provided, writing data in the input format `{}`", inputSection.format);
             convertSection.outputFormat = inputSection.format;
         }
 
