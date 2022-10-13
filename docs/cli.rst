@@ -120,12 +120,12 @@ The ``-f | --format`` option accepts one of the following 3 values: ``{json, pb,
 
 
 
-Unless set up otherwise, the output is written in the format of the input data.
-However, we can override this by using ``-o | --output-format`` option::
+By default, the output is written in the format of the input data.
+However, we can override this by using ``--output-format`` option::
 
-  $ cat phenopacket.v1.json | pxf convert -o pb > phenopacket.v2.pb
+  $ cat phenopacket.v1.json | pxf convert --output-format pb > phenopacket.v2.pb
 
-The ``-o | --output-format`` option takes the same values as ``--format``: ``{json, pb, yaml}``.
+The ``--output-format`` option takes the same values as ``--format``: ``{json, pb, yaml}``.
 
 
 The ``convert`` command expects to receive a phenopacket by default. However, it can also convert the other
