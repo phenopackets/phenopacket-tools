@@ -43,6 +43,7 @@ source_suffix = '.rst'
 html_theme = 'alabaster'
 html_static_path = ['_static']
 html_css_files = ['ptools.css']
+#html_style = 'ptools.css'
 
 
 # The name of the Pygments (syntax highlighting) style to use.

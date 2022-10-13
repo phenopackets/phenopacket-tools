@@ -37,7 +37,7 @@ how to use the CLI application on your system.
     TODO - review the three points and sync them with the manuscript.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    creating
@@ -47,5 +47,8 @@ how to use the CLI application on your system.
    cli
 
 
-.. image:: https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg
+.. figure:: https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg
     :alt: GA4GH Phenopacket
+    :width: 800px
+
+    Overview of the GA4GH Phenopacket Schema.
