@@ -1,8 +1,3 @@
-.. phenopacket-tools documentation master file, created by
-   sphinx-quickstart on Fri Aug 12 11:03:28 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to phenopacket-tools's documentation!
 =============================================
 
@@ -52,3 +47,4 @@ how to use the CLI application on your system.
     :width: 800px
 
     Overview of the GA4GH Phenopacket Schema.
+    
