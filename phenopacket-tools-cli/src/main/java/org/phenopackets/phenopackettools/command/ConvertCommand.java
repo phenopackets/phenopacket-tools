@@ -37,7 +37,7 @@ public class ConvertCommand extends BaseIOCommand {
     public ConvertSection convertSection = new ConvertSection();
 
     public static class ConvertSection {
-        @Option(names = {"-o", "--output-format"},
+        @Option(names = {"--output-format"},
                 description = "Output format.%nDefault: input format")
         public PhenopacketFormat outputFormat = null;
 
