@@ -7,6 +7,7 @@ import org.phenopackets.phenopackettools.util.format.PhenopacketFormat;
 import org.phenopackets.schema.v1.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
 import java.io.*;
@@ -23,27 +24,31 @@ import static picocli.CommandLine.Option;
         mixinStandardHelpOptions = true,
         sortOptions = false,
         description = "Convert a v1.0 phenopacket to a v2.0 phenopacket.",
-        footer = "Beware this process could be lossy!")
+        footer = "%nBeware, the conversion can be lossy!")
 public class ConvertCommand extends BaseIOCommand {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConvertCommand.class);
     /**
-     * A pattern to match file prefix
+     * A pattern to match the input file prefix.
      */
     private static final Pattern PATTERN = Pattern.compile("^(?<prefix>.*)\\.((pb)|(json)|(yaml))$");
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConvertCommand.class);
 
-    @Option(names = {"-o", "--output-format"},
-            description = "Output format.%nDefault: input format")
-    public PhenopacketFormat outputFormat = null;
+    @CommandLine.ArgGroup(validate = false, heading = "Convert section:%n")
+    public ConvertSection convertSection = new ConvertSection();
 
-    @Option(names = {"-O", "--output-directory"},
-            description = "Path to output directory")
-    public Path outputDirectory = null;
+    public static class ConvertSection {
+        @Option(names = {"-o", "--output-format"},
+                description = "Output format.%nDefault: input format")
+        public PhenopacketFormat outputFormat = null;
 
-    @Option(names = {"--convert-variants"},
-            description = "Convert variant data.%nDefault: ${DEFAULT-VALUE}")
-    public boolean convertVariants = false;
+        @Option(names = {"-O", "--output-directory"},
+                description = "Path to output directory")
+        public Path outputDirectory = null;
 
+        @Option(names = {"--convert-variants"},
+                description = "Convert variant data.%nDefault: ${DEFAULT-VALUE}")
+        public boolean convertVariants = false;
+    }
 
     @Override
     public Integer call() {
@@ -57,14 +62,14 @@ public class ConvertCommand extends BaseIOCommand {
         List<MessageAndPath> messages = readMessagesOrExit(PhenopacketSchemaVersion.V1);
 
         // (2) Convert into v2 format.
-        if (convertVariants)
+        if (convertSection.convertVariants)
             LOGGER.debug("Converting variants");
 
-        V1ToV2Converter converter = V1ToV2Converter.of(convertVariants);
+        V1ToV2Converter converter = V1ToV2Converter.of(convertSection.convertVariants);
         List<MessageAndPath> converted = new ArrayList<>(messages.size());
         for (MessageAndPath mp : messages) {
             Message message = mp.message();
-            Message v2 = switch (element) {
+            Message v2 = switch (inputSection.element) {
                 case PHENOPACKET -> converter.convertPhenopacket((Phenopacket) message);
                 case FAMILY -> converter.convertFamily((Family) message);
                 case COHORT -> converter.convertCohort((Cohort) message);
@@ -73,9 +78,9 @@ public class ConvertCommand extends BaseIOCommand {
         }
 
         // (3) Set the output format if necessary.
-        if (outputFormat == null) {
-            LOGGER.info("Output format (-o | --output-format) not provided, writing data in the input format `{}`", format);
-            outputFormat = format;
+        if (convertSection.outputFormat == null) {
+            LOGGER.info("Output format (-o | --output-format) not provided, writing data in the input format `{}`", inputSection.format);
+            convertSection.outputFormat = inputSection.format;
         }
 
         // (4) Write out the output(s).
@@ -86,19 +91,19 @@ public class ConvertCommand extends BaseIOCommand {
      * Return {@code true} if CLI argument combination makes sense or {@code false} if the app should abort.
      */
     private boolean checkInputArgumentsAreOk() {
-        if (inputs == null) {
-            if (outputDirectory != null)
+        if (inputSection.inputs == null) {
+            if (convertSection.outputDirectory != null)
                 LOGGER.warn("Output directory was provided but the input is coming from STDIN. The output will be written to STDOUT");
         } else {
-            if (inputs.isEmpty()) {
+            if (inputSection.inputs.isEmpty()) {
                 throw new RuntimeException("Input list should never be empty!"); // A bug guard.
             } else {
-                if (inputs.size() > 1) {
-                    if (outputDirectory == null) {
+                if (inputSection.inputs.size() > 1) {
+                    if (convertSection.outputDirectory == null) {
                         LOGGER.error("Output directory (-O | --output-directory) must be provided when processing >1 inputs");
                         return false;
-                    } else if (!Files.isDirectory(outputDirectory)) {
-                        LOGGER.error("The `-O | --output-directory` argument {} is not a directory", outputDirectory.toAbsolutePath());
+                    } else if (!Files.isDirectory(convertSection.outputDirectory)) {
+                        LOGGER.error("The `-O | --output-directory` argument {} is not a directory", convertSection.outputDirectory.toAbsolutePath());
                         return false;
                     }
                 }
@@ -114,12 +119,12 @@ public class ConvertCommand extends BaseIOCommand {
             OutputStream os = null;
             try {
                 // the input must have come from STDIN
-                if (mp.path() == null || outputDirectory == null) {
+                if (mp.path() == null || convertSection.outputDirectory == null) {
                     os = System.out;
                 } else {
                     os = openOutputStream(mp.path());
                 }
-                writeMessage(mp.message(), outputFormat, os);
+                writeMessage(mp.message(), convertSection.outputFormat, os);
             } catch (IOException e) {
                 LOGGER.error("Error while writing out a phenopacket: {}", e.getMessage(), e);
                 return 1;
@@ -136,7 +141,7 @@ public class ConvertCommand extends BaseIOCommand {
             // Writing out >1 items provided by `-i` options.
             for (MessageAndPath mp : converted) {
                 try (OutputStream os = openOutputStream(mp.path())) {
-                    writeMessage(mp.message(), outputFormat, os);
+                    writeMessage(mp.message(), convertSection.outputFormat, os);
                 } catch (IOException e) {
                     LOGGER.error("Error while writing out a phenopacket: {}", e.getMessage(), e);
                     return 1;
@@ -151,15 +156,15 @@ public class ConvertCommand extends BaseIOCommand {
         String fileName = inputPath.toFile().getName();
         Matcher matcher = PATTERN.matcher(fileName);
 
-        String suffix = ".v2" + outputFormat.suffix();
+        String suffix = convertSection.outputFormat.suffix();
         Path output;
         if (matcher.matches()) {
             // Remove the prefix from the input file and create a new file
             String prefix = matcher.group("prefix");
-            output = outputDirectory.resolve(prefix + suffix);
+            output = convertSection.outputDirectory.resolve(prefix + suffix);
         } else {
             // Just append the suffix.
-            output = outputDirectory.resolve(fileName + suffix);
+            output = convertSection.outputDirectory.resolve(fileName + suffix);
         }
         LOGGER.debug("Input path: {}, output path: {}", inputPath.toAbsolutePath(), output.toAbsolutePath());
 

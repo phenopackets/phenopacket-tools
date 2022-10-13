@@ -27,29 +27,36 @@ public abstract class BaseIOCommand extends BaseCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseIOCommand.class);
 
-    @CommandLine.Option(names = {"-i", "--input"},
-            arity = "0..*",
-            description = "Input phenopacket(s).%nLeave empty for STDIN")
-    public List<Path> inputs = null;
+    @CommandLine.ArgGroup(validate = false, heading = "Inputs:%s")
+    public InputSection inputSection = new InputSection();
 
-    // The format will be sniffed if it is uninitialized.
-    @CommandLine.Option(names = {"-f", "--format"},
-            description = "Phenopacket format.%nChoose from: {${COMPLETION-CANDIDATES}}")
-    public PhenopacketFormat format = null;
+    public static class InputSection {
+        @CommandLine.Option(names = {"-i", "--input"},
+                arity = "0..*",
+                description = "Input phenopacket(s).%nLeave empty for STDIN")
+        public List<Path> inputs = null;
 
-    // TODO - is it too hard to implement element sniffing?
-    @CommandLine.Option(names = {"-e", "--element"},
-            description = "Top-level element.%nChoose from {${COMPLETION-CANDIDATES}}%nDefault: phenopacket")
-    public PhenopacketElement element = null;
+        // The format will be sniffed if it is uninitialized.
+        @CommandLine.Option(names = {"-f", "--format"},
+                description = "Phenopacket format.%nChoose from: {${COMPLETION-CANDIDATES}}")
+        public PhenopacketFormat format = null;
+
+        // TODO - is it too hard to implement element sniffing?
+        @CommandLine.Option(names = {"-e", "--element"},
+                description = "Top-level element.%nChoose from {${COMPLETION-CANDIDATES}}%nDefault: phenopacket")
+        public PhenopacketElement element = null;
+    }
 
     /**
      * Attempt to read the input in the provided {@code schemaVersion} and exit upon any failure. As a side effect,
-     * {@link #format} and {@link #element} fields are set after the function returns.
+     * {@link org.phenopackets.phenopackettools.command.BaseIOCommand.InputSection#format}
+     * and {@link org.phenopackets.phenopackettools.command.BaseIOCommand.InputSection#element}
+     * fields are set after the function returns.
      * <p>
      * Note that the function does <em>not</em> return if reading fails.
      */
     protected List<MessageAndPath> readMessagesOrExit(PhenopacketSchemaVersion schemaVersion) {
-        if (inputs == null) {
+        if (inputSection.inputs == null) {
             // Assuming a single input is coming from STDIN
             InputStream is = System.in;
             try {
@@ -66,10 +73,10 @@ public abstract class BaseIOCommand extends BaseCommand {
             // Assuming a one or more input are provided via `-i | --input`.
 
             // Picocli should ensure that `input` is never an empty list. `input` is `null` if no `-i` was supplied.
-            assert !inputs.isEmpty();
+            assert !inputSection.inputs.isEmpty();
 
             List<MessageAndPath> messages = new ArrayList<>();
-            for (Path input : inputs) {
+            for (Path input : inputSection.inputs) {
                 try (InputStream is = new BufferedInputStream(Files.newInputStream(input))) {
                     setFormatAndElement(is);
                     Message message = parseMessage(schemaVersion, is);
@@ -89,24 +96,24 @@ public abstract class BaseIOCommand extends BaseCommand {
 
     private void setFormatAndElement(InputStream is) throws IOException, FormatSniffException {
         PhenopacketFormat sniffed = parseFormat(is);
-        if (format == null) {
-            format = sniffed;
+        if (inputSection.format == null) {
+            inputSection.format = sniffed;
         } else {
-            if (!format.equals(sniffed))
+            if (!inputSection.format.equals(sniffed))
                 // This can happen e.g. if processing multiple files at once but one turns out to be a different format.
                 // We emit warning because this is likely not what the user intended and the code will likely explode
                 // further downstream.
-                LOGGER.warn("Input format is set to {} but the current input looks like {}", format, sniffed);
+                LOGGER.warn("Input format is set to {} but the current input looks like {}", inputSection.format, sniffed);
         }
 
-        if (element == null) {
+        if (inputSection.element == null) {
             LOGGER.info("Input element type (-e | --element) was not provided, assuming phenopacket..");
-            element = PhenopacketElement.PHENOPACKET;
+            inputSection.element = PhenopacketElement.PHENOPACKET;
         }
     }
 
     private Message parseMessage(PhenopacketSchemaVersion schemaVersion, InputStream is) throws IOException {
-        return switch (format) {
+        return switch (inputSection.format) {
             case PROTOBUF -> readProtobufMessage(schemaVersion, is);
             case JSON -> readJsonMessage(schemaVersion, is);
             // TODO - implement YAML parsing
@@ -117,12 +124,12 @@ public abstract class BaseIOCommand extends BaseCommand {
     private Message readProtobufMessage(PhenopacketSchemaVersion schemaVersion, InputStream is) throws IOException {
         LOGGER.debug("Reading protobuf message");
         return switch (schemaVersion) {
-            case V1 -> switch (element) {
+            case V1 -> switch (inputSection.element) {
                 case PHENOPACKET -> Phenopacket.parseFrom(is);
                 case FAMILY -> Family.parseFrom(is);
                 case COHORT -> Cohort.parseFrom(is);
             };
-            case V2 -> switch (element) {
+            case V2 -> switch (inputSection.element) {
 
                 case PHENOPACKET -> org.phenopackets.schema.v2.Phenopacket.parseFrom(is);
                 case FAMILY -> org.phenopackets.schema.v2.Family.parseFrom(is);
@@ -134,7 +141,7 @@ public abstract class BaseIOCommand extends BaseCommand {
     private Message readJsonMessage(PhenopacketSchemaVersion schemaVersion, InputStream is) throws IOException {
         LOGGER.debug("Reading JSON message");
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        Message.Builder builder = prepareBuilder(schemaVersion, element);
+        Message.Builder builder = prepareBuilder(schemaVersion, inputSection.element);
         JsonFormat.parser().merge(reader, builder);
         return builder.build();
     }
@@ -155,13 +162,13 @@ public abstract class BaseIOCommand extends BaseCommand {
     }
 
     private PhenopacketFormat parseFormat(InputStream is) throws IOException, FormatSniffException {
-        if (format == null) {
+        if (inputSection.format == null) {
             LOGGER.info("Input format was not provided, making an educated guess..");
             PhenopacketFormat fmt = FormatSniffer.sniff(is);
             LOGGER.info("The input looks like a {} file", fmt);
             return fmt;
         }
-        return format;
+        return inputSection.format;
     }
 
     protected record MessageAndPath(Message message, Path path) {}

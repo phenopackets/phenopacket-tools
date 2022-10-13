@@ -34,14 +34,19 @@ public class ValidateCommand extends BaseIOCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidateCommand.class);
 
-    @CommandLine.Option(names = {"--require"},
-            arity = "*",
-            description = "Path to JSON schema with additional requirements to enforce.")
-    protected List<Path> requirements = List.of();
+    @CommandLine.ArgGroup(validate = false, heading = "Validate section:%n")
+    public ValidateSection validateSection = new ValidateSection();
 
-    @CommandLine.Option(names = "--hpo",
-            description = "Path to hp.json file")
-    protected Path hpJson;
+    public static class ValidateSection {
+        @CommandLine.Option(names = {"--require"},
+                arity = "*",
+                description = "Path to JSON schema with additional requirements to enforce.")
+        protected List<Path> requirements = List.of();
+
+        @CommandLine.Option(names = "--hpo",
+                description = "Path to hp.json file")
+        protected Path hpJson;
+    }
 
     @Override
     public Integer call() {
@@ -73,7 +78,7 @@ public class ValidateCommand extends BaseIOCommand {
 
     private ValidationWorkflowRunner<MessageOrBuilder> prepareWorkflowRunner() {
         List<URL> customJsonSchemas = prepareCustomSchemaUrls();
-        Object runner = switch (element) {
+        Object runner = switch (inputSection.element) {
             case PHENOPACKET -> {
                 List<PhenopacketValidator<PhenopacketOrBuilder>> semanticValidators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
@@ -109,7 +114,7 @@ public class ValidateCommand extends BaseIOCommand {
     private List<URL> prepareCustomSchemaUrls() {
         LOGGER.debug("Preparing schemas for custom requirement validation");
         List<URL> urls = new ArrayList<>();
-        for (Path requirement : requirements) {
+        for (Path requirement : validateSection.requirements) {
             try {
                 urls.add(requirement.toUri().toURL());
             } catch (MalformedURLException e) {
@@ -123,23 +128,25 @@ public class ValidateCommand extends BaseIOCommand {
     /**
      * Prepare semantic validators for given {@link T}.
      * <p>
-     * <b>Warning</b> - it is important to request the {@link T} that is appropriate for the current {@link #element}.
-     * The app will crash and burn if e.g. {@link T} is {@link PhenopacketOrBuilder} while {@link #element}
+     * <b>Warning</b> - it is important to request the {@link T} that is appropriate
+     * for the current {@link org.phenopackets.phenopackettools.command.BaseIOCommand.InputSection#element}.
+     * The app will crash and burn if e.g. {@link T} is {@link PhenopacketOrBuilder}
+     * while {@link org.phenopackets.phenopackettools.command.BaseIOCommand.InputSection#element}
      * is {@link org.phenopackets.phenopackettools.util.format.PhenopacketElement#FAMILY}.
      */
     private <T extends MessageOrBuilder> List<PhenopacketValidator<T>> configureSemanticValidators() {
         // Right now we only have one semantic validator, but we'll extend this in the future.
         LOGGER.debug("Configuring semantic validators");
         List<PhenopacketValidator<T>> validators = new ArrayList<>();
-        if (hpJson != null) {
-            LOGGER.debug("Reading HPO from '{}}'", hpJson.toAbsolutePath());
-            Ontology hpo = OntologyLoader.loadOntology(hpJson.toFile());
+        if (validateSection.hpJson != null) {
+            LOGGER.debug("Reading HPO from '{}}'", validateSection.hpJson.toAbsolutePath());
+            Ontology hpo = OntologyLoader.loadOntology(validateSection.hpJson.toFile());
 
             // The entire logic of this command stands and falls on correct state of `element` and the read message(s).
             // This method requires an appropriate combination of `T` and `element`, as described in Javadoc.
             // We suppress warning and perform an unchecked cast here, assuming `T` and `element` are appropriate.
             // The app will crash and burn if this is not the case.
-            PhenopacketValidator<T> validator = switch (element) {
+            PhenopacketValidator<T> validator = switch (inputSection.element) {
                 case PHENOPACKET -> //noinspection unchecked
                         (PhenopacketValidator<T>) HpoPhenotypeValidators.phenopacketHpoPhenotypeValidator(hpo);
                 case FAMILY -> //noinspection unchecked
