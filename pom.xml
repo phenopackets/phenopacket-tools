@@ -6,7 +6,7 @@
 
     <groupId>org.phenopackets.phenopackettools</groupId>
     <artifactId>phenopacket-tools</artifactId>
-    <version>0.4.6-SNAPSHOT</version>
+    <version>0.4.6</version>
 
     <packaging>pom</packaging>
 
