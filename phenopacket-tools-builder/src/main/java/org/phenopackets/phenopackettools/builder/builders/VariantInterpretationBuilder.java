@@ -37,6 +37,11 @@ public class VariantInterpretationBuilder {
         return new VariantInterpretationBuilder(builder.build());
     }
 
+    public VariantInterpretationBuilder acmgNotProvided() {
+        builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.NOT_PROVIDED);
+        return this;
+    }
+
     public VariantInterpretationBuilder benign() {
         builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.BENIGN);
         return this;
@@ -59,6 +64,11 @@ public class VariantInterpretationBuilder {
 
     public VariantInterpretationBuilder pathogenic() {
         builder.setAcmgPathogenicityClassification(AcmgPathogenicityClassification.PATHOGENIC);
+        return this;
+    }
+
+    public VariantInterpretationBuilder actionabilityUnknown() {
+        builder.setTherapeuticActionability(TherapeuticActionability.UNKNOWN_ACTIONABILITY);
         return this;
     }
 

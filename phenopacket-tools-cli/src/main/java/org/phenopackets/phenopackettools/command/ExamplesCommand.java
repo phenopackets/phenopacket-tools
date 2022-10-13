@@ -24,8 +24,9 @@ import java.util.concurrent.Callable;
 
 @Command(name = "examples",
         mixinStandardHelpOptions = true,
-        description = "Write example phenopackets to directory.")
-public class ExamplesCommand implements Callable<Integer> {
+        sortOptions = false,
+        description = "Write example phenopackets to a directory.")
+public class ExamplesCommand extends BaseCommand {
 
     @CommandLine.Option(names = {"-o", "--output"},
             description = "Output directory (default: ${DEFAULT-VALUE})")
@@ -34,6 +35,8 @@ public class ExamplesCommand implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
+        printBanner();
+
         Path phenopacketDir = createADirectoryIfDoesNotExist(output.resolve("phenopackets"));
         Path familyDir = createADirectoryIfDoesNotExist(output.resolve("families"));
         Path cohortDir = createADirectoryIfDoesNotExist(output.resolve("cohorts"));

@@ -18,6 +18,11 @@
     <dependencies>
         <dependency>
             <groupId>org.phenopackets.phenopackettools</groupId>
+            <artifactId>phenopacket-tools-util</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phenopackets.phenopackettools</groupId>
             <artifactId>phenopacket-tools-validator-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>

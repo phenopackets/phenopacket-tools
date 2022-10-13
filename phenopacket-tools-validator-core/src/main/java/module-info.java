@@ -4,6 +4,7 @@ module org.phenopackets.phenopackettools.validator.core {
     exports org.phenopackets.phenopackettools.validator.core.except;
     exports org.phenopackets.phenopackettools.validator.core.metadata;
     exports org.phenopackets.phenopackettools.validator.core.phenotype;
+    exports org.phenopackets.phenopackettools.validator.core.writer;
 
     requires org.monarchinitiative.phenol.core;
     requires org.phenopackets.schema;

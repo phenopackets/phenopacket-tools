@@ -137,7 +137,7 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
         for (var descriptor : descriptors) {
             GenomicInterpretationBuilder genomicInterpretation = GenomicInterpretationBuilder.builder(v1.getSubject().getId())
                     .causative()
-                    .variantInterpretation(VariantInterpretationBuilder.builder(descriptor));
+                    .variantInterpretation(VariantInterpretationBuilder.builder(descriptor).acmgNotProvided().actionabilityUnknown());
             diagnosis.addGenomicInterpretation(genomicInterpretation.build());
         }
 

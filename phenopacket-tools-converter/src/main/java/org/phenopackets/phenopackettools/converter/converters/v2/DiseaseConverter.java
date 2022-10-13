@@ -20,14 +20,23 @@ public class DiseaseConverter {
                 .toList();
     }
 
+    /**
+     * Convert to V2 disease. Note that not all disease messageas have age of onset information.
+     * If we pass empty lists for the TnmFinding or disease stage, this does not cause the V2 element
+     * to show an empty list in this implementeation
+     * @param v1Disease Disease message from the version 1 Phenopacket Schema
+     * @return Disease message from the version 2 Phenopacket Schema
+     */
     public static Disease toDisease(org.phenopackets.schema.v1.core.Disease v1Disease) {
-        return Disease.newBuilder()
+        Disease.Builder builder = Disease.newBuilder()
                 .setTerm(toOntologyClass(v1Disease.getTerm()))
                 .addAllDiseaseStage(toOntologyClassList(v1Disease.getDiseaseStageList()))
-                .addAllClinicalTnmFinding(toOntologyClassList(v1Disease.getTnmFindingList()))
-                .setOnset(toDiseaseOnset(v1Disease))
-                // no excluded or resolution in v1
-                .build();
+                .addAllClinicalTnmFinding(toOntologyClassList(v1Disease.getTnmFindingList()));
+        if (v1Disease.hasAgeOfOnset() || v1Disease.hasAgeRangeOfOnset() || v1Disease.hasClassOfOnset()) {
+            builder.setOnset(toDiseaseOnset(v1Disease));
+                    // no excluded or resolution in v1
+        }
+        return builder.build();
     }
 
     public static TimeElement toDiseaseOnset(org.phenopackets.schema.v1.core.Disease v1Disease) {

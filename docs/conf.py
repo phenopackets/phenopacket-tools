@@ -39,5 +39,14 @@ source_suffix = ['.rst', '.md']
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-# html_theme = 'alabaster'
-# html_static_path = ['_static']
+html_theme = 'alabaster'
+html_static_path = ['_static']
+html_css_files = ['ptools.css']
+#html_style = 'ptools.css'
+
+
+# The name of the Pygments (syntax highlighting) style to use.
+pygments_style = 'sphinx'
+# If true, `todo` and `todoList` produce output, else they produce nothing.
+todo_include_todos = False
+html_theme = "sphinx_rtd_theme"
