@@ -70,6 +70,10 @@ In the next sections, we will run *phenopacket-tools* by using the following ali
 
   $ alias pxf="java -jar phenopacket-tools-cli-${project.version}.jar"
 
+.. note::
+  The commands report warnings and errors by default. Use `-v` to increase the verbosity and see what's
+  going on under the hood. The `-v` can be specified multiple times (e.g. `-vvv`).
+
 *examples* - generate examples of the top-level elements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
