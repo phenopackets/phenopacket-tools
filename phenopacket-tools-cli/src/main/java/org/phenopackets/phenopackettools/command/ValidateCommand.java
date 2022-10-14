@@ -49,10 +49,7 @@ public class ValidateCommand extends BaseIOCommand {
     }
 
     @Override
-    public Integer call() {
-        // (0) Print banner.
-        printBanner();
-
+    protected Integer execute() {
         // (1) Read the input v2 message(s).
         List<MessageAndPath> messages = readMessagesOrExit(PhenopacketSchemaVersion.V2);
 

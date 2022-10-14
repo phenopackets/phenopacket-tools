@@ -13,6 +13,7 @@ module org.phenopackets.phenopackettools.cli {
     requires commons.csv;
     requires info.picocli;
     requires org.slf4j;
+    requires logback.classic;
 
     opens org.phenopackets.phenopackettools.command to info.picocli;
     opens org.phenopackets.phenopackettools.command.validate to info.picocli;
