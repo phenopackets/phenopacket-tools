@@ -18,14 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A utility class that provides {@link JsonSchemaValidationWorkflowRunner.Builder} implementations for top-level
+ * A utility class that provides {@link JsonSchemaValidationWorkflowRunnerBuilder} implementations for top-level
  * elements of Phenopacket schema.
  * <p>
  * The class exists because we do not want to expose {@link JsonSchemaValidator} to the outside world.
  */
-abstract class ValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> extends JsonSchemaValidationWorkflowRunner.Builder<T> {
+abstract class BaseValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> extends JsonSchemaValidationWorkflowRunnerBuilder<T> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ValidationWorkflowRunnerBuilder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseValidationWorkflowRunnerBuilder.class);
 
     @Override
     public JsonSchemaValidationWorkflowRunner<T> build() {
@@ -33,6 +33,7 @@ abstract class ValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> exten
         return new JsonSchemaValidationWorkflowRunner<>(getFormatConverter(),
                 getBaseRequirementsValidator(),
                 requirementValidators,
+                syntaxValidators,
                 semanticValidators);
     }
 
@@ -56,7 +57,7 @@ abstract class ValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> exten
         return requirementValidators;
     }
 
-    static class PhenopacketWorkflowRunnerBuilder extends ValidationWorkflowRunnerBuilder<PhenopacketOrBuilder> {
+    static class PhenopacketWorkflowRunnerBuilder extends BaseValidationWorkflowRunnerBuilder<PhenopacketOrBuilder> {
 
         @Override
         protected PhenopacketFormatConverter<PhenopacketOrBuilder> getFormatConverter() {
@@ -69,7 +70,7 @@ abstract class ValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> exten
         }
     }
 
-    static class FamilyWorkflowRunnerBuilder extends ValidationWorkflowRunnerBuilder<FamilyOrBuilder> {
+    static class FamilyWorkflowRunnerBuilder extends BaseValidationWorkflowRunnerBuilder<FamilyOrBuilder> {
         @Override
         protected PhenopacketFormatConverter<FamilyOrBuilder> getFormatConverter() {
             return PhenopacketFormatConverters.familyConverter();
@@ -82,7 +83,7 @@ abstract class ValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> exten
     }
 
 
-    static class CohortWorkflowRunnerBuilder extends ValidationWorkflowRunnerBuilder<CohortOrBuilder> {
+    static class CohortWorkflowRunnerBuilder extends BaseValidationWorkflowRunnerBuilder<CohortOrBuilder> {
         @Override
         protected PhenopacketFormatConverter<CohortOrBuilder> getFormatConverter() {
             return PhenopacketFormatConverters.cohortConverter();
