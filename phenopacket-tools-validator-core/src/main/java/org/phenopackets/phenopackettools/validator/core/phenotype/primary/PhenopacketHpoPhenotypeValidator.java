@@ -1,4 +1,4 @@
-package org.phenopackets.phenopackettools.validator.core.phenotype;
+package org.phenopackets.phenopackettools.validator.core.phenotype.primary;
 
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
@@ -9,9 +9,9 @@ import org.phenopackets.schema.v2.core.PhenotypicFeature;
 import java.util.ArrayList;
 import java.util.List;
 
-class PhenopacketHpoPhenotypeValidator extends BaseHpoPhenotypeValidator<PhenopacketOrBuilder> {
+public class PhenopacketHpoPhenotypeValidator extends AbstractHpoPhenotypeValidator<PhenopacketOrBuilder> {
 
-    PhenopacketHpoPhenotypeValidator(Ontology hpo) {
+    public PhenopacketHpoPhenotypeValidator(Ontology hpo) {
         super(hpo);
     }
 

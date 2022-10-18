@@ -5,30 +5,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.TestData;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.schema.v2.Cohort;
-import org.phenopackets.schema.v2.Family;
-import org.phenopackets.schema.v2.Phenopacket;
+import org.phenopackets.schema.v2.*;
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class HpoPhenotypeValidatorTest {
+public class PrimaryHpoPhenotypeValidatorTest {
 
     private static final Ontology HPO = TestData.HPO;
 
     @Nested
     public class PhenopacketTest {
 
-        private PhenopacketHpoPhenotypeValidator validator;
+        private PhenopacketValidator<PhenopacketOrBuilder> validator;
 
         @BeforeEach
         public void setUp() {
-            validator = new PhenopacketHpoPhenotypeValidator(HPO);
+            validator = HpoPhenotypeValidators.Primary.phenopacketHpoPhenotypeValidator(HPO);
         }
 
         @Test
@@ -152,11 +151,11 @@ public class HpoPhenotypeValidatorTest {
      */
     @Nested
     public class FamilyTest {
-        private FamilyHpoPhenotypeValidator validator;
+        private PhenopacketValidator<FamilyOrBuilder> validator;
 
         @BeforeEach
         public void setUp() {
-            validator = new FamilyHpoPhenotypeValidator(HPO);
+            validator = HpoPhenotypeValidators.Primary.familyHpoPhenotypeValidator(HPO);
         }
 
         @Test
@@ -306,11 +305,11 @@ public class HpoPhenotypeValidatorTest {
     @Nested
     public class CohortTest {
 
-        private CohortHpoPhenotypeValidator validator;
+        private PhenopacketValidator<CohortOrBuilder> validator;
 
         @BeforeEach
         public void setUp() {
-            validator = new CohortHpoPhenotypeValidator(HPO);
+            validator = HpoPhenotypeValidators.Primary.cohortHpoPhenotypeValidator(HPO);
         }
 
         @Test
