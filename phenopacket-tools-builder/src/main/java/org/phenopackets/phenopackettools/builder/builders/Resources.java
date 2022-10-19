@@ -84,6 +84,15 @@ public class Resources {
             .setUrl("http://purl.obolibrary.org/obo/uo.owl")
             .setIriPrefix("http://purl.obolibrary.org/obo/UO_");
 
+    private static final Resource.Builder HGNC_BUILDER = Resource.newBuilder()
+            .setId("hgnc")
+            .setName("HUGO Gene Nomenclature Committee")
+            .setNamespacePrefix("HGNC")
+            .setUrl("https://www.genenames.org")
+            .setIriPrefix("https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/");
+
+    public static Resource hgncVersion(String version) { return HGNC_BUILDER.setVersion(version).build(); }
+
     public static Resource hpoVersion(String version) {
         return HPO_BUILDER.setVersion(version).build();
     }
