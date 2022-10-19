@@ -143,15 +143,15 @@ public class ValidateCommand extends BaseIOCommand {
             // This method requires an appropriate combination of `T` and `element`, as described in Javadoc.
             // We suppress warning and perform an unchecked cast here, assuming `T` and `element` are appropriate.
             // The app will crash and burn if this is not the case.
-            PhenopacketValidator<T> validator = switch (inputSection.element) {
+            PhenopacketValidator<T> primary = switch (inputSection.element) {
                 case PHENOPACKET -> //noinspection unchecked
-                        (PhenopacketValidator<T>) HpoPhenotypeValidators.phenopacketHpoPhenotypeValidator(hpo);
+                        (PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.phenopacketHpoPhenotypeValidator(hpo);
                 case FAMILY -> //noinspection unchecked
-                        (PhenopacketValidator<T>) HpoPhenotypeValidators.familyHpoPhenotypeValidator(hpo);
+                        (PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.familyHpoPhenotypeValidator(hpo);
                 case COHORT -> //noinspection unchecked
-                        (PhenopacketValidator<T>) HpoPhenotypeValidators.cohortHpoPhenotypeValidator(hpo);
+                        (PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.cohortHpoPhenotypeValidator(hpo);
             };
-            validators.add(validator);
+            validators.add(primary);
         }
 
         LOGGER.debug("Configured {} semantic validator(s)", validators.size());
