@@ -8,11 +8,11 @@ import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.TestData;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.schema.v2.PhenopacketOrBuilder;
+import org.phenopackets.schema.v2.*;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,7 +36,7 @@ public class AncestryHpoValidatorTest {
         public void testValidInput() {
             // Has some Abnormality of finger but no Arachnodactyly.
             Phenopacket pp = createPhenopacket(
-                    createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
+                    "example-phenopacket", createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", true)
             ).build();
 
@@ -49,7 +49,7 @@ public class AncestryHpoValidatorTest {
         public void testFailsIfTermAndAncestorIsObserved() {
             // Has some Abnormality of finger and Arachnodactyly. Only Arachnodactyly should be present.
             Phenopacket pp = createPhenopacket(
-                    createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
+                    "example-phenopacket", createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", false)
             ).build();
 
@@ -67,7 +67,7 @@ public class AncestryHpoValidatorTest {
         public void testFailsIfTermAndAncestorIsExcluded() {
             // Has neither Abnormality of finger nor Arachnodactyly. Only Abnormality of finger should be present.
             Phenopacket pp = createPhenopacket(
-                    createPhenotypicFeature("HP:0001167", "Abnormality of finger", true),
+                    "example-phenopacket", createPhenotypicFeature("HP:0001167", "Abnormality of finger", true),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", true)
             ).build();
 
@@ -84,7 +84,7 @@ public class AncestryHpoValidatorTest {
         public void testFailsIfTermIsPresentAndAncestorIsExcluded() {
             // Has neither Abnormality of finger nor Arachnodactyly. Only Abnormality of finger should be present.
             Phenopacket pp = createPhenopacket(
-                    createPhenotypicFeature("HP:0001167", "Abnormality of finger", true),
+                    "example-phenopacket", createPhenotypicFeature("HP:0001167", "Abnormality of finger", true),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", false)
             ).build();
 
@@ -96,23 +96,99 @@ public class AncestryHpoValidatorTest {
             assertThat(result.category(), equalTo("Violation of the annotation propagation rule"));
             assertThat(result.message(), equalTo("Phenotypic features of example-phenopacket must not contain both an observed term (Arachnodactyly, HP:0001166) and an excluded ancestor (Abnormality of finger, HP:0001167)"));
         }
+    }
 
-        private static Phenopacket.Builder createPhenopacket(PhenotypicFeature excludedArachnodactyly, PhenotypicFeature observedAbnormalityOfFinger) {
-            return Phenopacket.newBuilder()
-                    .setId("example-phenopacket")
-                    .addPhenotypicFeatures(excludedArachnodactyly)
-                    .addPhenotypicFeatures(observedAbnormalityOfFinger);
+    /**
+     * White-box testing - we know that the {@link PhenotypicFeature} is an attribute of a {@link Phenopacket}, so we
+     * test the validation logic extensively in {@link PhenopacketTest}. The {@link FamilyTest} test suite ensures
+     * there are not errors in valid input.
+     */
+    @Nested
+    public class FamilyTest {
+
+        private PhenopacketValidator<FamilyOrBuilder> validator;
+
+        @BeforeEach
+        public void setUp() {
+            validator = HpoPhenotypeValidators.Ancestry.familyHpoAncestryValidator(HPO);
         }
 
-        private static PhenotypicFeature createPhenotypicFeature(String id, String label, boolean excluded) {
-            return PhenotypicFeature.newBuilder()
-                    .setType(OntologyClass.newBuilder()
-                            .setId(id)
-                            .setLabel(label)
+        @Test
+        public void testValidInput() {
+            Family family = Family.newBuilder()
+                    .setProband(createPhenopacket("example-phenopacket",
+                            createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
+                            createPhenotypicFeature("HP:0001166", "Arachnodactyly", true))
                             .build())
-                    .setExcluded(excluded)
+                    .addRelatives(createPhenopacket("dad-phenopacket",
+                            createPhenotypicFeature("HP:0001238", "Slender finger", false),
+                            createPhenotypicFeature("HP:0100807", "Long fingers", false))
+                            .build())
+                    .addRelatives(createPhenopacket("mom-phenopacket",
+                            createPhenotypicFeature("HP:0001238", "Slender finger", false),
+                            createPhenotypicFeature("HP:0001166", "Arachnodactyly", true))
+                            .build())
                     .build();
+
+            List<ValidationResult> results = validator.validate(family);
+
+            assertThat(results, is(empty()));
         }
+    }
+
+    /**
+     * White-box testing (same as in {@link FamilyTest}) - we know that the {@link PhenotypicFeature}
+     * is an attribute of a {@link Phenopacket}, so we test the validation logic extensively
+     * in {@link PhenopacketTest}. The {@link CohortTest} test suite ensures there are not errors in valid input.
+     */
+    @Nested
+    public class CohortTest {
+
+        private PhenopacketValidator<CohortOrBuilder> validator;
+
+        @BeforeEach
+        public void setUp() {
+            validator = HpoPhenotypeValidators.Ancestry.cohortHpoAncestryValidator(HPO);
+        }
+
+        @Test
+        public void testValidInput() {
+            Cohort cohort = Cohort.newBuilder()
+                    .addMembers(createPhenopacket("joe-phenopacket",
+                            createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
+                            createPhenotypicFeature("HP:0001166", "Arachnodactyly", true))
+                            .build())
+                    .addMembers(createPhenopacket("jim-phenopacket",
+                            createPhenotypicFeature("HP:0001238", "Slender finger", false),
+                            createPhenotypicFeature("HP:0100807", "Long fingers", false))
+                            .build())
+                    .addMembers(createPhenopacket("jane-phenopacket",
+                            createPhenotypicFeature("HP:0001238", "Slender finger", false),
+                            createPhenotypicFeature("HP:0001166", "Arachnodactyly", true))
+                            .build())
+                    .build();
+
+            List<ValidationResult> results = validator.validate(cohort);
+
+            assertThat(results, is(empty()));
+        }
+    }
+
+    private static Phenopacket.Builder createPhenopacket(String phenopacketId,
+                                                         PhenotypicFeature... features) {
+        return Phenopacket.newBuilder()
+                .setId(phenopacketId)
+                .addAllPhenotypicFeatures(Arrays.asList(features));
+    }
+
+    private static PhenotypicFeature createPhenotypicFeature(String id, String label, boolean excluded) {
+        return PhenotypicFeature.newBuilder()
+                .setType(OntologyClass.newBuilder()
+                        .setId(id)
+                        .setLabel(label)
+                        .build())
+                .setExcluded(excluded)
+                .build();
     }
 
 }
