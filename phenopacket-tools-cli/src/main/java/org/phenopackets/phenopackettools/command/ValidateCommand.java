@@ -143,15 +143,26 @@ public class ValidateCommand extends BaseIOCommand {
             // This method requires an appropriate combination of `T` and `element`, as described in Javadoc.
             // We suppress warning and perform an unchecked cast here, assuming `T` and `element` are appropriate.
             // The app will crash and burn if this is not the case.
-            PhenopacketValidator<T> primary = switch (inputSection.element) {
-                case PHENOPACKET -> //noinspection unchecked
-                        (PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.phenopacketHpoPhenotypeValidator(hpo);
-                case FAMILY -> //noinspection unchecked
-                        (PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.familyHpoPhenotypeValidator(hpo);
-                case COHORT -> //noinspection unchecked
-                        (PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.cohortHpoPhenotypeValidator(hpo);
+            switch (inputSection.element) {
+                case PHENOPACKET -> {
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.phenopacketHpoPhenotypeValidator(hpo));
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.phenopacketHpoAncestryValidator(hpo));
+                }
+                case FAMILY -> {
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.familyHpoPhenotypeValidator(hpo));
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.familyHpoAncestryValidator(hpo));
+                }
+                case COHORT -> {
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.cohortHpoPhenotypeValidator(hpo));
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.cohortHpoAncestryValidator(hpo));
+                }
             };
-            validators.add(primary);
         }
 
         LOGGER.debug("Configured {} semantic validator(s)", validators.size());
