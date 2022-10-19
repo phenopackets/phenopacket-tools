@@ -1,16 +1,16 @@
-package org.phenopackets.phenopackettools.validator.core.phenotype;
+package org.phenopackets.phenopackettools.validator.core.phenotype.primary;
 
 import com.google.protobuf.MessageOrBuilder;
 import org.monarchinitiative.phenol.base.PhenolRuntimeException;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.validator.core.*;
+import org.phenopackets.phenopackettools.validator.core.phenotype.base.BaseHpoValidator;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
 
-import java.util.Objects;
 import java.util.stream.Stream;
 
-abstract class BaseHpoPhenotypeValidator<T extends MessageOrBuilder> implements PhenopacketValidator<T> {
+public abstract class AbstractHpoPhenotypeValidator<T extends MessageOrBuilder> extends BaseHpoValidator<T> {
 
     private static final ValidatorInfo VALIDATOR_INFO = ValidatorInfo.of(
             "HpoPhenotypeValidator",
@@ -19,12 +19,8 @@ abstract class BaseHpoPhenotypeValidator<T extends MessageOrBuilder> implements 
     private static final String INVALID_TERM_ID = "Invalid TermId";
     private static final String OBSOLETED_TERM_ID = "Obsoleted TermId";
 
-    private final Ontology hpo;
-    private final String hpoVersion;
-
-    public BaseHpoPhenotypeValidator(Ontology hpo) {
-        this.hpo = Objects.requireNonNull(hpo);
-        this.hpoVersion = this.hpo.getMetaInfo().getOrDefault("data-version", "HPO");
+    public AbstractHpoPhenotypeValidator(Ontology hpo) {
+        super(hpo);
     }
 
     @Override
@@ -43,23 +39,24 @@ abstract class BaseHpoPhenotypeValidator<T extends MessageOrBuilder> implements 
                     ValidationResult.error(VALIDATOR_INFO, INVALID_TERM_ID, msg)
             );
         }
+        if (termId.getPrefix().equals("HP")) {
+            // Check if the HPO contains the term.
+            if (!hpo.containsTerm(termId)) {
+                String msg = "%s in '%s' not found in %s".formatted(termId.getValue(), individualId, hpoVersion);
+                return Stream.of(
+                        ValidationResult.error(VALIDATOR_INFO, INVALID_TERM_ID, msg)
+                );
+            }
 
-        // Check if the HPO contains the term.
-        if (!hpo.containsTerm(termId)) {
-            String msg = "%s in '%s' not found in %s".formatted(termId.getValue(), individualId, hpoVersion);
-            return Stream.of(
-                    ValidationResult.error(VALIDATOR_INFO, INVALID_TERM_ID, msg)
-            );
-        }
-
-        // Check if the `termId` is a primary ID. // If not, this is a warning.
-        TermId primaryId = hpo.getPrimaryTermId(termId);
-        if (!primaryId.equals(termId)) {
-            String msg = "Using obsoleted id (%s) instead of current primary id (%s) in '%s'"
-                    .formatted(termId.getValue(), primaryId.getValue(), individualId);
-            return Stream.of(
-                    ValidationResult.warning(VALIDATOR_INFO, OBSOLETED_TERM_ID, msg)
-            );
+            // Check if the `termId` is a primary ID. // If not, this is a warning.
+            TermId primaryId = hpo.getPrimaryTermId(termId);
+            if (!primaryId.equals(termId)) {
+                String msg = "Using obsoleted id (%s) instead of current primary id (%s) in '%s'"
+                        .formatted(termId.getValue(), primaryId.getValue(), individualId);
+                return Stream.of(
+                        ValidationResult.warning(VALIDATOR_INFO, OBSOLETED_TERM_ID, msg)
+                );
+            }
         }
 
         return Stream.empty();
