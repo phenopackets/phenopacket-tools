@@ -86,7 +86,7 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
         var metformin = ontologyClass( "DrugCentral:1725", "metformin");
         var fiveHundredMg = QuantityBuilder.builder(milligram(), 500).build();
         var metforminAction = MedicalActionBuilder
-                .oralAdministration(metformin, fiveHundredMg, threetimesDaily(), interval)
+                .oralAdministration(metformin, fiveHundredMg, threeTimesDaily(), interval)
                 .build();
         return List.of(atorvastatinAction, aspirinAction, ramiprilAction, metforminAction);
     }
