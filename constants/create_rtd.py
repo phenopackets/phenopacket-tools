@@ -89,4 +89,4 @@ The following tables present the available static functions with predefined conc
 with open(RTD_PATH, "wt") as fh:
 	fh.write(RTD_HEADER)
 	for e in entries:
-    create_csv_table(e, fh=fh)
+		create_csv_table(e, fh=fh)
