@@ -94,13 +94,13 @@ Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are 
    :widths: 30, 200, 200
 
    "NCIT:C41331", "Adverse Event", "adverseEvent()"
-   "NCIT:C64530", "Four Times Daily", "fourtimesDaily()"
+   "NCIT:C64530", "Four Times Daily", "fourTimesDaily()"
    "NCIT:C38222", "Intraarterial Route of Administration", "intraArterialAdministration()"
    "NCIT:C38276", "Intravenous Route of Administration", "intravenousAdministration()"
    "NCIT:C38288", "Oral Route of Administration", "oralAdministration()"
    "NCIT:C64576", "Once", "once()"
    "NCIT:C125004", "Once Daily", "onceDaily()"
-   "NCIT:C64527", "Three Times Daily", "threetimesDaily()"
+   "NCIT:C64527", "Three Times Daily", "threeTimesDaily()"
    "NCIT:C64496", "Twice Daily", "twiceDaily()"
 
 
@@ -213,7 +213,7 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe s
    "HP:0033820", "Apical", "apical()"
    "HP:0030650", "Focal", "focal()"
    "HP:0030651", "Multifocal", "multifocal()"
-   "HP:0032540", "Jointflexorsurfacelocalization", "jointFlexorSurfaceLocalization()"
+   "HP:0032540", "Joint flexor surface localization", "jointFlexorSurfaceLocalization()"
 
 
 Unit
@@ -229,7 +229,7 @@ With some exceptions, terms from the `The Unified Code for Units of Measure <htt
    "UCUM:[diop]", "diopter", "diopter()"
    "UCUM:g", "gram", "gram()"
    "UCUM:g/kg", "gram per kilogram", "gramPerKilogram()"
-   "UCUM:kg", "kiligram", "kilogram()"
+   "UCUM:kg", "kilogram", "kilogram()"
    "UCUM:L", "liter", "liter()"
    "UCUM:m", "meter", "meter()"
    "UCUM:ug", "microgram", "microgram()"
