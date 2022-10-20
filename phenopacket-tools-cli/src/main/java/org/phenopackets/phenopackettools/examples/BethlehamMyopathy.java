@@ -1,10 +1,13 @@
 package org.phenopackets.phenopackettools.examples;
 
 
+import org.ga4gh.vrsatile.v1.GeneDescriptor;
+import org.ga4gh.vrsatile.v1.VcfRecord;
 import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
 import org.phenopackets.phenopackettools.builder.builders.*;
 import org.phenopackets.phenopackettools.builder.constants.Status;
 import org.phenopackets.schema.v2.Phenopacket;
+import org.phenopackets.schema.v2.core.GenomicInterpretation;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 
@@ -24,17 +27,9 @@ public class BethlehamMyopathy implements PhenopacketExample {
                 .addResource(Resources.genoVersion("2020-03-08"))
                 .addExternalReference(authorAssertion.getReference())
                 .build();
-        var variationDescriptor =
-                VariationDescriptorBuilder.builder("variant id")
-                        .heterozygous()
-                        .hgvs("NM_001848.2:c.877G>A")
-                        .build();
-        var col6a1VariantInterpretation =
-                VariantInterpretationBuilder.of(variationDescriptor, Status.pathogenic());
-        var genomicInterpretation =
-                GenomicInterpretationBuilder.builder(INTERPRETATION_ID)
-                        .causative()
-                        .variantInterpretation(col6a1VariantInterpretation).build();
+
+        var genomicInterpretation = COL6A1variant();
+
         var diagnosis = DiagnosisBuilder.builder(bethlehamMyopathy).addGenomicInterpretation(genomicInterpretation).build();
         var interpretation = InterpretationBuilder.builder(INTERPRETATION_ID).completed(diagnosis);
         var ventricularSeptalDefect =
@@ -98,6 +93,22 @@ public class BethlehamMyopathy implements PhenopacketExample {
                 .addPhenotypicFeature(unilateralCleftLip)
                 .addInterpretation(interpretation)
                 .build();
+    }
+
+
+    private GenomicInterpretation COL6A1variant() {
+        var variationDescriptor =
+                VariationDescriptorBuilder.builder("variant id")
+                        .heterozygous()
+                        .hgvs("NM_001848.2:c.877G>A")
+                        .geneContext(GeneDescriptorBuilder.of("HGNC:2211", "COL6A1"))
+                        .vcfHg38("chr21",45989626, "G","A")
+                        .build();
+        var col6a1VariantInterpretation =
+                VariantInterpretationBuilder.of(variationDescriptor, Status.pathogenic());
+        return GenomicInterpretationBuilder.builder(INTERPRETATION_ID)
+                .causative()
+                .variantInterpretation(col6a1VariantInterpretation).build();
     }
 
     @Override
