@@ -37,7 +37,7 @@ public class SpatialPattern {
   private static final OntologyClass APICAL = OntologyClassBuilder.ontologyClass("HP:0033820", "Apical");
   private static final OntologyClass FOCAL = OntologyClassBuilder.ontologyClass("HP:0030650", "Focal");
   private static final OntologyClass MULTIFOCAL = OntologyClassBuilder.ontologyClass("HP:0030651", "Multifocal");
-  private static final OntologyClass JOINT_FLEXOR_SURFACE_LOCALIZATION = OntologyClassBuilder.ontologyClass("HP:0032540", "Jointflexorsurfacelocalization");
+  private static final OntologyClass JOINT_FLEXOR_SURFACE_LOCALIZATION = OntologyClassBuilder.ontologyClass("HP:0032540", "Joint flexor surface localization");
 
 
   public static OntologyClass predominantSmallJointLocalization() { return PREDOMINANT_SMALL_JOINT_LOCALIZATION; }

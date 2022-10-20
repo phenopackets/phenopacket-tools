@@ -17,13 +17,13 @@ public class MedicalActions {
 
 
   public static OntologyClass adverseEvent() { return ADVERSE_EVENT; }
-  public static OntologyClass fourtimesDaily() { return FOUR_TIMES_DAILY; }
+  public static OntologyClass fourTimesDaily() { return FOUR_TIMES_DAILY; }
   public static OntologyClass intraArterialAdministration() { return INTRA_ARTERIAL; }
   public static OntologyClass intravenousAdministration() { return IV_ADMINISTRATION; }
   public static OntologyClass oralAdministration() { return ORAL_ADMINISTRATION; }
   public static OntologyClass once() { return ONCE; }
   public static OntologyClass onceDaily() { return ONCE_DAILY; }
-  public static OntologyClass threetimesDaily() { return THREE_TIMES_DAILY; }
+  public static OntologyClass threeTimesDaily() { return THREE_TIMES_DAILY; }
   public static OntologyClass twiceDaily() { return TWICE_DAILY; }
 
 }
