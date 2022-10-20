@@ -3,7 +3,7 @@ UCUM:degree	degree (plane angle)	DEGREE	degreeOfAngle
 UCUM:[diop]	diopter	DIOPTER	diopter
 UCUM:g	gram	GRAM	gram
 UCUM:g/kg	gram per kilogram	GRAM_PER_KG	gramPerKilogram
-UCUM:kg	kiligram	KILIGRAM	kilogram
+UCUM:kg	kilogram	KILOGRAM	kilogram
 UCUM:L	liter	LITER	liter
 UCUM:m	meter	METER	meter
 UCUM:ug	microgram	MICROGRAM	microgram
