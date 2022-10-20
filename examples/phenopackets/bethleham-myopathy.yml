@@ -159,9 +159,18 @@ phenopacket:
           acmgPathogenicityClassification: "PATHOGENIC"
           variationDescriptor:
             id: "variant id"
+            geneContext:
+              valueId: "HGNC:2211"
+              symbol: "COL6A1"
             expressions:
             - syntax: "hgvs"
               value: "NM_001848.2:c.877G>A"
+            vcfRecord:
+              genomeAssembly: "GRCh38"
+              chrom: "chr21"
+              pos: "45989626"
+              ref: "G"
+              alt: "A"
             allelicState:
               id: "GENO:0000135"
               label: "heterozygous"
