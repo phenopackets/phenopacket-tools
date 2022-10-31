@@ -1,4 +1,4 @@
-package org.phenopackets.phenopackettools.util.format;
+package org.phenopackets.phenopackettools.core;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

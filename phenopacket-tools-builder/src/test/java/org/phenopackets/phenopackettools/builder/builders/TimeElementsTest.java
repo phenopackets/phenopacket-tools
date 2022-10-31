@@ -3,7 +3,7 @@ package org.phenopackets.phenopackettools.builder.builders;
 import com.google.protobuf.Timestamp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.phenopackets.phenopackettools.builder.exceptions.PhenotoolsRuntimeException;
+import org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.TimeElement;
 
@@ -36,7 +36,7 @@ public class TimeElementsTest {
     public void testInvalidIso8601Age() {
         // B instead of Y -- invalid, should throw exception
         String iso8601 = "P31B3M2D";
-        Assertions.assertThrows(PhenotoolsRuntimeException.class, () -> {
+        Assertions.assertThrows(PhenopacketToolsRuntimeException.class, () -> {
             TimeElement age = TimeElements.age(iso8601);
         });
     }
@@ -80,6 +80,7 @@ public class TimeElementsTest {
         assertTrue(time.hasTimestamp());
         assertEquals(timestamp, time.getTimestamp());
     }
+
     @Test
     public void testTimeInterval() {
         String time1 = "2020-03-17T00:00:00Z";

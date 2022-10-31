@@ -14,6 +14,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.phenopackets.phenopackettools</groupId>
+            <artifactId>phenopacket-tools-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
         </dependency>

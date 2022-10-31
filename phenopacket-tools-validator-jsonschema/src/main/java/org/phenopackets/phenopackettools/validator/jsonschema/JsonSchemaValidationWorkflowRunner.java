@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.MessageOrBuilder;
 import org.phenopackets.phenopackettools.util.format.FormatSniffer;
-import org.phenopackets.phenopackettools.util.format.PhenopacketFormat;
+import org.phenopackets.phenopackettools.core.PhenopacketFormat;
 import org.phenopackets.phenopackettools.util.format.FormatSniffException;
 import org.phenopackets.phenopackettools.validator.core.*;
 import org.phenopackets.phenopackettools.validator.jsonschema.impl.JsonSchemaValidator;

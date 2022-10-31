@@ -11,4 +11,12 @@
 
     <artifactId>phenopacket-tools-util</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.phenopackets.phenopackettools</groupId>
+            <artifactId>phenopacket-tools-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

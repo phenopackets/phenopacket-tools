@@ -12,7 +12,7 @@ import org.phenopackets.schema.v2.Phenopacket;
  * assuming all {@link org.phenopackets.schema.v1.core.Variant}s are
  * {@link org.phenopackets.schema.v2.core.GenomicInterpretation.InterpretationStatus#CAUSATIVE}. For this to work,
  * there must be exactly one {@link org.phenopackets.schema.v1.core.Disease} in the phenopacket, otherwise
- * a {@link org.phenopackets.phenopackettools.builder.exceptions.PhenotoolsRuntimeException} is thrown.
+ * a {@link org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException} is thrown.
  */
 public interface V1ToV2Converter {
 
