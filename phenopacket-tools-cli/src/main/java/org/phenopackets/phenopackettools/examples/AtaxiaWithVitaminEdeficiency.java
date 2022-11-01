@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 import static org.phenopackets.phenopackettools.builder.constants.Assays.creatineKinaseActivity;
-import static org.phenopackets.phenopackettools.builder.constants.Response.favorable;
+import static org.phenopackets.phenopackettools.builder.constants.Response.favorableResponse;
 import static org.phenopackets.phenopackettools.builder.constants.SpatialPattern.generalized;
 import static org.phenopackets.phenopackettools.builder.constants.Unit.*;
 
@@ -217,7 +217,7 @@ public class AtaxiaWithVitaminEdeficiency implements PhenopacketExample {
         OntologyClass vitE = ontologyClass("DrugCentral:257", "Vitamin E");
         TreatmentBuilder tbuilder = TreatmentBuilder.oralAdministration(vitE);
         return MedicalActionBuilder.builder(tbuilder.build())
-                .responseToTreatment(favorable())
+                .responseToTreatment(favorableResponse())
                 .build();
     }
 

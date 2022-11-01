@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 import static org.phenopackets.phenopackettools.builder.constants.MedicalActions.*;
-import static org.phenopackets.phenopackettools.builder.constants.Response.favorable;
+import static org.phenopackets.phenopackettools.builder.constants.Response.favorableResponse;
 import static org.phenopackets.phenopackettools.builder.constants.Unit.*;
 
 /**
@@ -110,7 +110,7 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
         TimeInterval interval = TimeIntervalBuilder.of("2020-09-02", "2021-03-02");
         return MedicalActionBuilder
                 .intravenousAdministration(ivIg, quantity, everySixWeeks, interval)
-                .responseToTreatment(favorable())
+                .responseToTreatment(favorableResponse())
                 .build();
     }
 

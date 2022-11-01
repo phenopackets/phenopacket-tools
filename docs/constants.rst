@@ -168,8 +168,19 @@ These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ ca
    :header: "id", "label", "function name"
    :widths: 30, 200, 200
 
-   "NCIT:C102560", "Favorable", "favorable()"
-   "NCIT:C102561", "Unfavorable", "unfavorable()"
+   "NCIT:C123584", "Favorable Response", "favorableResponse()"
+   "NCIT:C123617", "Unfavorable Response", "unfavorableResponse()"
+   "NCIT:C123600", "No Response", "noResponse()"
+   "NCIT:C123614", "Stringent Complete Response", "stringentCompleteResponse()"
+   "NCIT:C123598", "Minimal Response", "minimalResponse()"
+   "NCIT:C4870", "Complete Remission", "completeRemission()"
+   "NCIT:C18058", "Partial Remission", "partialRemission()"
+   "NCIT:C70604", "Primary Refractory", "primaryRefractory()"
+   "NCIT:C142357", "iRECIST Complete Response", "iRECISTCompleteResponse()"
+   "NCIT:C142356", "iRECIST Confirmed Progressive Disease", "iRECISTConfirmedProgressiveDisease()"
+   "NCIT:C142358", "iRECIST Partial Response", "iRECISTPartialResponse()"
+   "NCIT:C142359", "iRECIST Stable Disease", "iRECISTStableDisease()"
+   "NCIT:C142360", "iRECIST Unconfirmed Progressive Disease", "iRECISTUnconfirmedProgressiveDisease()"
 
 
 SpatialPattern
