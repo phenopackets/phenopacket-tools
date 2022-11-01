@@ -8,7 +8,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.google.protobuf.Message;
 import com.google.protobuf.util.JsonFormat;
 
-import org.phenopackets.phenopackettools.builder.exceptions.PhenotoolsRuntimeException;
+import org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException;
 import org.phenopackets.phenopackettools.examples.*;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -108,7 +108,7 @@ public class ExamplesCommand extends BaseCommand {
             String json = JsonFormat.printer().print(message);
             writer.write(json);
         } catch (IOException e) {
-            throw new PhenotoolsRuntimeException(e.getMessage());
+            throw new PhenopacketToolsRuntimeException(e.getMessage());
         }
     }
 
@@ -121,7 +121,7 @@ public class ExamplesCommand extends BaseCommand {
             JsonNode node = JsonNodeFactory.instance.objectNode().set(messageName, jsonNodeTree);
             mapper.writeValue(writer, node);
         } catch (IOException e) {
-            throw new PhenotoolsRuntimeException(e.getMessage());
+            throw new PhenopacketToolsRuntimeException(e.getMessage());
         }
     }
 

@@ -4,6 +4,8 @@ package org.phenopackets.phenopackettools.command;
 import com.google.protobuf.MessageOrBuilder;
 import org.monarchinitiative.phenol.io.OntologyLoader;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.phenopackets.phenopackettools.core.PhenopacketElement;
+import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
 import org.phenopackets.phenopackettools.validator.core.*;
 import org.phenopackets.phenopackettools.validator.core.metadata.MetaDataValidators;
 import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
@@ -129,7 +131,7 @@ public class ValidateCommand extends BaseIOCommand {
      * for the current {@link org.phenopackets.phenopackettools.command.BaseIOCommand.InputSection#element}.
      * The app will crash and burn if e.g. {@link T} is {@link PhenopacketOrBuilder}
      * while {@link org.phenopackets.phenopackettools.command.BaseIOCommand.InputSection#element}
-     * is {@link org.phenopackets.phenopackettools.util.format.PhenopacketElement#FAMILY}.
+     * is {@link PhenopacketElement#FAMILY}.
      */
     private <T extends MessageOrBuilder> List<PhenopacketValidator<T>> configureSemanticValidators() {
         // Right now we only have one semantic validator, but we'll extend this in the future.
