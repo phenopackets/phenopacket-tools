@@ -10,3 +10,4 @@ Unit|With some exceptions, terms from the `The Unified Code for Units of Measure
 Response|These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ can be used to code the overall response of a patient to treatment. Favorable and Unfavorble can be used for general purposes and the remaining codes are intended to be used for oncology.
 Assays|If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify laboratory test assays.
 Gender|`LOINC <https://loinc.org/>`_ codes should be used to specify self-reported gender.
+pathologicalTnm|TNM staging performed as part of pathologic specimen (based on surgical specimens including sentinel lymph node biopsy specimens).
