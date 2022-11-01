@@ -69,7 +69,7 @@ public abstract class BaseIOCommand extends BaseCommand {
             // The user did not set `-i | --input` option, assuming a single input is coming from STDIN.
             InputStream is = System.in;
             try {
-                setFormatAndElement(is);
+                setFormatAndElement(is, schemaVersion);
                 Message message = parser.parse(inputSection.format, inputSection.element, is);
                 return List.of(new MessageAndPath(message, null));
             } catch (SniffException e) {
@@ -87,7 +87,7 @@ public abstract class BaseIOCommand extends BaseCommand {
             List<MessageAndPath> messages = new ArrayList<>();
             for (Path input : inputSection.inputs) {
                 try (InputStream is = new BufferedInputStream(Files.newInputStream(input))) {
-                    setFormatAndElement(is);
+                    setFormatAndElement(is, schemaVersion);
                     Message message = parser.parse(inputSection.format, inputSection.element, is);
                     messages.add(new MessageAndPath(message, input));
                 } catch (SniffException e) {
@@ -110,7 +110,7 @@ public abstract class BaseIOCommand extends BaseCommand {
      * @throws IOException if I/O error happens
      * @throws SniffException if we cannot sniff the format
      */
-    private void setFormatAndElement(InputStream is) throws IOException, SniffException {
+    private void setFormatAndElement(InputStream is, PhenopacketSchemaVersion schemaVersion) throws IOException, SniffException {
         // Set format.
         PhenopacketFormat fmt = FormatSniffer.sniff(is);
         if (inputSection.format == null) {
@@ -126,7 +126,7 @@ public abstract class BaseIOCommand extends BaseCommand {
         }
 
         // Set element.
-        PhenopacketElement element = ElementSniffer.sniff(is);
+        PhenopacketElement element = ElementSniffer.sniff(is, schemaVersion, inputSection.format);
         if (inputSection.element == null) {
             LOGGER.info("Input element type (-e | --element) was not provided, making an educated guess..");
             LOGGER.info("The input looks like a {} ", element);
