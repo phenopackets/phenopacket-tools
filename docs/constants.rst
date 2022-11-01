@@ -159,6 +159,53 @@ Terms from the `UBERON ontology <https://www.ebi.ac.uk/ols/ontologies/uberon>`_ 
    "UBERON:0002370", "thymus", "thymus()"
 
 
+PathologicalTnm
+^^^^^^^^^^^^^^^
+
+TNM staging performed as part of pathologic specimen (based on surgical specimens including sentinel lymph node biopsy specimens).
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C48740", "pM0 Stage Finding", "pM0StageFinding()"
+   "NCIT:C48741", "pM1 Stage Finding", "pM1StageFinding()"
+   "NCIT:C48742", "pM1a Stage Finding", "pM1aStageFinding()"
+   "NCIT:C48743", "pM1b Stage Finding", "pM1bStageFinding()"
+   "NCIT:C48744", "pM1c Stage Finding", "pM1cStageFinding()"
+   "NCIT:C48745", "pN0 Stage Finding", "pN0StageFinding()"
+   "NCIT:C48746", "pN1 Stage Finding", "pN1StageFinding()"
+   "NCIT:C48747", "pN1a Stage Finding", "pN1aStageFinding()"
+   "NCIT:C48748", "pN1b Stage Finding", "pN1bStageFinding()"
+   "NCIT:C48749", "pN1c Stage Finding", "pN1cStageFinding()"
+   "NCIT:C48750", "pN2 Stage Finding", "pN2StageFinding()"
+   "NCIT:C48751", "pN2a Stage Finding", "pN2aStageFinding()"
+   "NCIT:C48752", "pN2b Stage Finding", "pN2bStageFinding()"
+   "NCIT:C48753", "pN2c Stage Finding", "pN2cStageFinding()"
+   "NCIT:C48754", "pN3 Stage Finding", "pN3StageFinding()"
+   "NCIT:C48755", "pN3a Stage Finding", "pN3aStageFinding()"
+   "NCIT:C48756", "pN3b Stage Finding", "pN3bStageFinding()"
+   "NCIT:C48757", "pN3c Stage Finding", "pN3cStageFinding()"
+   "NCIT:C48758", "pT0 Stage Finding", "pT0StageFinding()"
+   "NCIT:C48759", "pT1 Stage Finding", "pT1StageFinding()"
+   "NCIT:C48760", "pT1a Stage Finding", "pT1aStageFinding()"
+   "NCIT:C48761", "pT1b Stage Finding", "pT1bStageFinding()"
+   "NCIT:C48763", "pT1c Stage Finding", "pT1cStageFinding()"
+   "NCIT:C48764", "pT2 Stage Finding", "pT2StageFinding()"
+   "NCIT:C48765", "pT2a Stage Finding", "pT2aStageFinding()"
+   "NCIT:C48766", "pT2b Stage Finding", "pT2bStageFinding()"
+   "NCIT:C48767", "pT2c Stage Finding", "pT2cStageFinding()"
+   "NCIT:C48768", "pT3 Stage Finding", "pT3StageFinding()"
+   "NCIT:C48769", "pT3a Stage Finding", "pT3aStageFinding()"
+   "NCIT:C48770", "pT3b Stage Finding", "pT3bStageFinding()"
+   "NCIT:C48771", "pT3c Stage Finding", "pT3cStageFinding()"
+   "NCIT:C48772", "pT4 Stage Finding", "pT4StageFinding()"
+   "NCIT:C48773", "pT4a Stage Finding", "pT4aStageFinding()"
+   "NCIT:C48774", "pT4b Stage Finding", "pT4bStageFinding()"
+   "NCIT:C48775", "pT4c Stage Finding", "pT4cStageFinding()"
+   "NCIT:C48776", "pT4d Stage Finding", "pT4dStageFinding()"
+
+
 Response
 ^^^^^^^^
 
@@ -168,8 +215,19 @@ These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ ca
    :header: "id", "label", "function name"
    :widths: 30, 200, 200
 
-   "NCIT:C102560", "Favorable", "favorable()"
-   "NCIT:C102561", "Unfavorable", "unfavorable()"
+   "NCIT:C123584", "Favorable Response", "favorableResponse()"
+   "NCIT:C123617", "Unfavorable Response", "unfavorableResponse()"
+   "NCIT:C123600", "No Response", "noResponse()"
+   "NCIT:C123614", "Stringent Complete Response", "stringentCompleteResponse()"
+   "NCIT:C123598", "Minimal Response", "minimalResponse()"
+   "NCIT:C4870", "Complete Remission", "completeRemission()"
+   "NCIT:C18058", "Partial Remission", "partialRemission()"
+   "NCIT:C70604", "Primary Refractory", "primaryRefractory()"
+   "NCIT:C142357", "iRECIST Complete Response", "iRECISTCompleteResponse()"
+   "NCIT:C142356", "iRECIST Confirmed Progressive Disease", "iRECISTConfirmedProgressiveDisease()"
+   "NCIT:C142358", "iRECIST Partial Response", "iRECISTPartialResponse()"
+   "NCIT:C142359", "iRECIST Stable Disease", "iRECISTStableDisease()"
+   "NCIT:C142360", "iRECIST Unconfirmed Progressive Disease", "iRECISTUnconfirmedProgressiveDisease()"
 
 
 SpatialPattern
