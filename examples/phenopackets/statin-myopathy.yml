@@ -197,8 +197,8 @@ phenopacket:
           start: "2020-09-02T00:00:00Z"
           end: "2021-03-02T00:00:00Z"
     responseToTreatment:
-      id: "NCIT:C102560"
-      label: "Favorable"
+      id: "NCIT:C123584"
+      label: "Favorable Response"
   metaData:
     created: "2022-04-21T10:35:00Z"
     createdBy: "anonymous biocurator"

@@ -239,8 +239,8 @@ phenopacket:
         id: "NCIT:C38288"
         label: "Oral Route of Administration"
     responseToTreatment:
-      id: "NCIT:C102560"
-      label: "Favorable"
+      id: "NCIT:C123584"
+      label: "Favorable Response"
   metaData:
     created: "2022-04-21T10:35:00Z"
     createdBy: "anonymous biocurator"
