@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class FamilyHpoOrganSystemValidator extends AbstractOrganSystemValidator<FamilyOrBuilder> {
 
-    protected FamilyHpoOrganSystemValidator(Ontology hpo, Collection<TermId> organSystemTermIds) {
+    public FamilyHpoOrganSystemValidator(Ontology hpo, Collection<TermId> organSystemTermIds) {
         super(hpo, organSystemTermIds);
     }
 

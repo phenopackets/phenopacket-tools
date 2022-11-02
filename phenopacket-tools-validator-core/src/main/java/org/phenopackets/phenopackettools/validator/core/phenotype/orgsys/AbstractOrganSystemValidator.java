@@ -20,7 +20,16 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> extends BaseHpoValidator<T> {
+/**
+ * The base class for an organ system validator to check if each phenopacket or family/cohort member have annotation
+ * for an organ system represented by a top-level HPO term
+ * (e.g. <a href="https://hpo.jax.org/app/browse/term/HP:0040064">Abnormality of limbs</a>).
+ * The annotation comprises either one or more observed descendants
+ * (e.g. <a href="https://hpo.jax.org/app/browse/term/HP:0001166">Arachnodactyly</a>),
+ * or excluded top-level HPO term
+ * (<em>NOT</em> <a href="https://hpo.jax.org/app/browse/term/HP:0040064">Abnormality of limbs</a>).
+ */
+public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> extends BaseHpoValidator<T> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractOrganSystemValidator.class);
 

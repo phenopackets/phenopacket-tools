@@ -4,13 +4,13 @@ import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 public class PhenopacketHpoOrganSystemValidator extends AbstractOrganSystemValidator<PhenopacketOrBuilder> {
 
     public PhenopacketHpoOrganSystemValidator(Ontology hpo,
-                                              List<TermId> organSystemTerms) {
+                                              Collection<TermId> organSystemTerms) {
         super(hpo, organSystemTerms);
     }
 

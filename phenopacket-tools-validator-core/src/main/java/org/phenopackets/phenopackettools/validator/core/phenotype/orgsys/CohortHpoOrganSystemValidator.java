@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class CohortHpoOrganSystemValidator extends AbstractOrganSystemValidator<CohortOrBuilder> {
 
-    protected CohortHpoOrganSystemValidator(Ontology hpo, Collection<TermId> organSystemTermIds) {
+    public CohortHpoOrganSystemValidator(Ontology hpo, Collection<TermId> organSystemTermIds) {
         super(hpo, organSystemTermIds);
     }
 
