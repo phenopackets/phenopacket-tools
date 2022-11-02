@@ -19,3 +19,4 @@ TumorProgression|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontolo
 TumorGrade|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to describe microscopic appearance of tumor. Grade 1: Well differentiated (low grade); Grade 2: Moderately differentiated (intermediate grade); Grade 3: Poorly differentiated (high grade); Grade 4: Undifferentiated (high grade).
 DiseaseGrade|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the tumor grade.
 MaterialSample|Terms from the `EFO <https://www.ebi.ac.uk/ols/ontologies/efo>`_ to specify the status of the sample.
+AdministrationRoute|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the way in which a medicinal product is introduced into the body.

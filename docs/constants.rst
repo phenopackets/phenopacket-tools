@@ -25,6 +25,26 @@ In contrast, this is the code required with phenopacket-tools (omitting import s
 The following tables present the available static functions with predefined concepts.
 
 
+AdministrationRoute
+^^^^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the way in which a medicinal product is introduced into the body.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C38276", "Intravenous Route of Administration", "intravenous()"
+   "NCIT:C38222", "Intraarterial Route of Administration", "intraarterial()"
+   "NCIT:C183503", "Administration via Wound Irrigation", "woundIrrigation()"
+   "NCIT:C149695", "Nebulizer Route of Administration", "nebulizer()"
+   "NCIT:C38288", "Oral Route of Administration", "oral()"
+   "NCIT:C38267", "Intrathecal Route of Administration", "intrathecal()"
+   "NCIT:C38677", "Peridural Route of Administration", "peridural()"
+   "NCIT:C38304", "Topical Route of Administration", "topical()"
+   "NCIT:C38305", "Transdermal Route of Administration", "transdermal()"
+
+
 AllelicState
 ^^^^^^^^^^^^
 
@@ -88,22 +108,6 @@ Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to r
    "NCIT:C28082", "Grade 4", "grade4()"
 
 
-Evidence
-^^^^^^^^
-
-Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.org/browse/#ECO_SN>` are used to specify evidence categories.
-
-.. csv-table:: 
-   :header: "id", "label", "function name"
-   :widths: 30, 200, 200
-
-   "ECO:0006016", "author statement from published clinical study", "authorStatementFromPublishedClinicalStudy()"
-   "ECO:0007539", "author statement from published clinical study used in automatic assertion", "authorStatementFromPublishedClinicalStudyAutomaticAssertion()"
-   "ECO:0006017", "author statement from published clinical study used in manual assertion", "authorStatementFromPublishedClinicalStudyManualAssertion()"
-   "ECO:0000033", "author statement supported by traceable reference", "authorStatementSupportedByTraceableReference()"
-   "ECO:0006154", "self-reported patient statement evidence", "selfReportedPatientStatementEvidence()"
-
-
 DiseaseStage
 ^^^^^^^^^^^^
 
@@ -123,6 +127,22 @@ These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ ca
    "NCIT:C66907", "New York Heart Association Class III", "nyhaClassIII()"
    "NCIT:C7922", "New York Heart Association Class III/IV", "nyhaClassIII_or_IV()"
    "NCIT:C66908", "New York Heart Association Class IV", "nyhaClassIV()"
+
+
+Evidence
+^^^^^^^^
+
+Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.org/browse/#ECO_SN>` are used to specify evidence categories.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "ECO:0006016", "author statement from published clinical study", "authorStatementFromPublishedClinicalStudy()"
+   "ECO:0007539", "author statement from published clinical study used in automatic assertion", "authorStatementFromPublishedClinicalStudyAutomaticAssertion()"
+   "ECO:0006017", "author statement from published clinical study used in manual assertion", "authorStatementFromPublishedClinicalStudyManualAssertion()"
+   "ECO:0000033", "author statement supported by traceable reference", "authorStatementSupportedByTraceableReference()"
+   "ECO:0006154", "self-reported patient statement evidence", "selfReportedPatientStatementEvidence()"
 
 
 Gender
