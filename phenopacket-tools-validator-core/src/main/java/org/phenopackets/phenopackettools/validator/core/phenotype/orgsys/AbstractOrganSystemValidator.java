@@ -87,15 +87,16 @@ public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> e
         // and report otherwise.
         organSystemLoop:
         for (TermId organSystemId : organSystemTermIds) {
+            // Check if the organ system abnormality has been specifically excluded.
+            if (featuresByExclusion.excludedPhenotypicFeatures().contains(organSystemId))
+                continue; // Yes, it was. Let's check the next organ system
+
+            // Check if we have at least one observed annotation for the organ system.
             for (TermId pf : featuresByExclusion.observedPhenotypicFeatures()) {
                 if (OntologyAlgorithm.existsPath(hpo, pf, organSystemId)) {
                     continue organSystemLoop; // It only takes one termId to annotate an organ system.
                 }
             }
-
-            // Check if the organ system abnormality has been specifically excluded.
-            if (featuresByExclusion.excludedPhenotypicFeatures().contains(organSystemId))
-                continue; // Yes, it was. Let's check the next organ system
 
             // The organSystemId is neither annotated nor excluded. We report a validation error.
             Term organSystem = hpo.getTermMap().get(organSystemId);
