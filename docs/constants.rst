@@ -51,8 +51,8 @@ If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify labor
    "LOINC:2157-6", "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma", "creatineKinaseActivity()"
 
 
-Biospecimen
-^^^^^^^^^^^
+BiospecimenType
+^^^^^^^^^^^^^^^
 
 Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to denote the source of a biospecimen.
 
@@ -69,6 +69,23 @@ Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are 
    "NCIT:C185197", "Peritoneal Fluid Sample", "Peritoneal Fluid Sample()"
    "NCIT:C163995", "Total RNA", "totalRNA()"
    "NCIT:C18009", "Tumor Tissue", "tumorTissue()"
+
+
+DiseaseGrade
+^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the tumor grade.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C28077", "Grade 1", "grade1()"
+   "NCIT:C28078", "Grade 2", "grade2()"
+   "NCIT:C28079", "Grade 3", "grade3()"
+   "NCIT:C28080", "Grade 3a", "grade3a()"
+   "NCIT:C28081", "Grade 3b", "grade3b()"
+   "NCIT:C28082", "Grade 4", "grade4()"
 
 
 Evidence
@@ -324,6 +341,20 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe s
    "HP:0030650", "Focal", "focal()"
    "HP:0030651", "Multifocal", "multifocal()"
    "HP:0032540", "Joint flexor surface localization", "jointFlexorSurfaceLocalization()"
+
+
+TumorProgression
+^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to indicate if a specimen is from the primary tumor, a metastasis or a recurrence.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C8509", "Primary Neoplasm", "primaryNeoplasm()"
+   "NCIT:C3261", "Metastatic Neoplasm", "metastaticNeoplasm()"
+   "NCIT:C4798", "Recurrent Neoplasm", "recurrentNeoplasm()"
 
 
 Unit

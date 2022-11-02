@@ -13,5 +13,7 @@ Gender|`LOINC <https://loinc.org/>`_ codes should be used to specify self-report
 PathologicalTnm|TNM staging performed as part of pathologic specimen (based on surgical specimens including sentinel lymph node biopsy specimens).
 Severity|Terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe the severity, defined as the intensity or degree of a manifestation.
 Evidence|Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.org/browse/#ECO_SN>` are used to specify evidence categories.
-Biospecimen|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to denote the source of a biospecimen.
+BiospecimenType|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to denote the source of a biospecimen.
 TumorProgression|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to indicate if a specimen is from the primary tumor, a metastasis or a recurrence.
+TumorGrade|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to describe microscopic appearance of tumor. Grade 1: Well differentiated (low grade); Grade 2: Moderately differentiated (intermediate grade); Grade 3: Poorly differentiated (high grade); Grade 4: Undifferentiated (high grade).
+DiseaseGrade|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the tumor grade.
