@@ -11,6 +11,7 @@ Response|These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/n
 Assays|If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify laboratory test assays.
 Gender|`LOINC <https://loinc.org/>`_ codes should be used to specify self-reported gender.
 PathologicalTnm|TNM staging performed as part of pathologic specimen (based on surgical specimens including sentinel lymph node biopsy specimens).
+DiseaseStage|These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ can be used to denote that clinical stage of cancer or heart failure. Other codes should be used for specific diseases with their own clinical stage systems.
 Severity|Terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe the severity, defined as the intensity or degree of a manifestation.
 Evidence|Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.org/browse/#ECO_SN>` are used to specify evidence categories.
 BiospecimenType|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to denote the source of a biospecimen.
@@ -18,3 +19,4 @@ TumorProgression|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontolo
 TumorGrade|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to describe microscopic appearance of tumor. Grade 1: Well differentiated (low grade); Grade 2: Moderately differentiated (intermediate grade); Grade 3: Poorly differentiated (high grade); Grade 4: Undifferentiated (high grade).
 DiseaseGrade|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the tumor grade.
 MaterialSample|Terms from the `EFO <https://www.ebi.ac.uk/ols/ontologies/efo>`_ to specify the status of the sample.
+AdministrationRoute|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the way in which a medicinal product is introduced into the body.

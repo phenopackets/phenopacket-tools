@@ -20,6 +20,7 @@ import static org.hamcrest.Matchers.*;
 public class V1PhenopacketParserTest {
 
     private static final Path BASE = TestBase.BASE_DIR.resolve("v1");
+
     private PhenopacketParser parser;
 
     @BeforeEach
@@ -35,10 +36,9 @@ public class V1PhenopacketParserTest {
             "    JSON,     PHENOPACKET,     phenopacket.json",
             "    JSON,          FAMILY,     family.json",
             "    JSON,          COHORT,     cohort.json",
-            // TODO - finalize once we settle down on the YAML format
-//            "    YAML,     PHENOPACKET,     phenopacket.yaml",
-//            "    YAML,          FAMILY,     family.yaml",
-//            "    YAML,          COHORT,     cohort.yaml",
+            "    YAML,     PHENOPACKET,     phenopacket.yaml",
+            "    YAML,          FAMILY,     family.yaml",
+            "    YAML,          COHORT,     cohort.yaml",
     })
     public void weGetExpectedClassForGivenFormatAndElement(PhenopacketFormat format,
                                                            PhenopacketElement element,

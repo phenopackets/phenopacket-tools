@@ -47,5 +47,9 @@ public abstract class BasePhenopacketParser implements PhenopacketParser {
 
     protected abstract Message.Builder prepareBuilder(PhenopacketElement element);
 
-    protected abstract Message readYamlMessage(PhenopacketElement element, InputStream is) throws IOException;
+    private Message readYamlMessage(PhenopacketElement element, InputStream is) throws IOException {
+        Message.Builder builder = prepareBuilder(element);
+        NaiveYamlParser.INSTANCE.deserializeYamlMessage(is, builder);
+        return builder.build();
+    }
 }

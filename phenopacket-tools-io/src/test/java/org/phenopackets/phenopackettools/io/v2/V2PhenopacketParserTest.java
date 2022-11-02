@@ -36,10 +36,9 @@ public class V2PhenopacketParserTest {
             "    JSON,     PHENOPACKET,     phenopacket.json",
             "    JSON,          FAMILY,     family.json",
             "    JSON,          COHORT,     cohort.json",
-            // TODO - finalize once we settle down on the YAML format
-//            "    YAML,     PHENOPACKET,     phenopacket.yaml",
-//            "    YAML,          FAMILY,     family.yaml",
-//            "    YAML,          COHORT,     cohort.yaml",
+            "    YAML,     PHENOPACKET,     phenopacket.yaml",
+            "    YAML,          FAMILY,     family.yaml",
+            "    YAML,          COHORT,     cohort.yaml",
     })
     public void weGetExpectedClassForGivenFormatAndElement(PhenopacketFormat format,
                                                            PhenopacketElement element,

@@ -25,6 +25,26 @@ In contrast, this is the code required with phenopacket-tools (omitting import s
 The following tables present the available static functions with predefined concepts.
 
 
+AdministrationRoute
+^^^^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the way in which a medicinal product is introduced into the body.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C38276", "Intravenous Route of Administration", "intravenous()"
+   "NCIT:C38222", "Intraarterial Route of Administration", "intraarterial()"
+   "NCIT:C183503", "Administration via Wound Irrigation", "woundIrrigation()"
+   "NCIT:C149695", "Nebulizer Route of Administration", "nebulizer()"
+   "NCIT:C38288", "Oral Route of Administration", "oral()"
+   "NCIT:C38267", "Intrathecal Route of Administration", "intrathecal()"
+   "NCIT:C38677", "Peridural Route of Administration", "peridural()"
+   "NCIT:C38304", "Topical Route of Administration", "topical()"
+   "NCIT:C38305", "Transdermal Route of Administration", "transdermal()"
+
+
 AllelicState
 ^^^^^^^^^^^^
 
@@ -86,6 +106,27 @@ Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to r
    "NCIT:C28080", "Grade 3a", "grade3a()"
    "NCIT:C28081", "Grade 3b", "grade3b()"
    "NCIT:C28082", "Grade 4", "grade4()"
+
+
+DiseaseStage
+^^^^^^^^^^^^
+
+These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ can be used to denote that clinical stage of cancer or heart failure. Other codes should be used for specific diseases with their own clinical stage systems.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C28051", "Stage 0", "stage0()"
+   "NCIT:C27966", "Stage I", "stageI()"
+   "NCIT:C28054", "Stage II", "stageII()"
+   "NCIT:C27970", "Stage III", "stageIII()"
+   "NCIT:C27971", "Stage IV", "stageIV()"
+   "NCIT:C66904", "New York Heart Association Class I", "nyhaClassI()"
+   "NCIT:C66905", "New York Heart Association Class II", "nyhaClassII()"
+   "NCIT:C66907", "New York Heart Association Class III", "nyhaClassIII()"
+   "NCIT:C7922", "New York Heart Association Class III/IV", "nyhaClassIII_or_IV()"
+   "NCIT:C66908", "New York Heart Association Class IV", "nyhaClassIV()"
 
 
 Evidence
