@@ -51,6 +51,42 @@ If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify labor
    "LOINC:2157-6", "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma", "creatineKinaseActivity()"
 
 
+Biospecimen
+^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to denote the source of a biospecimen.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C133261", "Bone Marrow Aspirate", "boneMarrowAspirate()"
+   "NCIT:C158416", "Blood DNA", "bloodDNA()"
+   "NCIT:C185194", "Cerebrospinal Fluid Sample", "cerebrospinalFluidSample()"
+   "NCIT:C156435", "Formalin-Fixed Paraffin-Embedded DNA", "formalinFixedParaffinEmbeddedDNA()"
+   "NCIT:C13195", "Bronchoalveolar Lavage Fluid", "bronchoalveolarLavageFluid()"
+   "NCIT:C187062", "Pericardial Fluid Specimen", "Pericardial Fluid Specimen()"
+   "NCIT:C185197", "Peritoneal Fluid Sample", "Peritoneal Fluid Sample()"
+   "NCIT:C163995", "Total RNA", "totalRNA()"
+   "NCIT:C18009", "Tumor Tissue", "tumorTissue()"
+
+
+Evidence
+^^^^^^^^
+
+Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.org/browse/#ECO_SN>` are used to specify evidence categories.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "ECO:0006016", "author statement from published clinical study", "authorStatementFromPublishedClinicalStudy()"
+   "ECO:0007539", "author statement from published clinical study used in automatic assertion", "authorStatementFromPublishedClinicalStudyAutomaticAssertion()"
+   "ECO:0006017", "author statement from published clinical study used in manual assertion", "AUTHOR_STATEMENT_FROM_PCS_MANUAL()"
+   "ECO:0000033", "author statement supported by traceable reference", "AUTHOR_STATEMENT_TRACEABLE_REFERENCE()"
+   "ECO:0006154", "self-reported patient statement evidence", "SELF_REPORTED_PATIENT_STATEMENT_EVIDENCE()"
+
+
 Gender
 ^^^^^^
 

@@ -1,0 +1,10 @@
+ontology.id	ontology.label	variable.name	function.name
+NCIT:C133261	Bone Marrow Aspirate	BONE_MARROW_ASPIRATE	boneMarrowAspirate
+NCIT:C158416	Blood DNA	BLOOD_DNA	bloodDNA
+NCIT:C185194	Cerebrospinal Fluid Sample	CSF_SAMPLE	cerebrospinalFluidSample
+NCIT:C156435	Formalin-Fixed Paraffin-Embedded DNA	FORMALIN_FIXED_PARAFIN_DNA	formalinFixedParaffinEmbeddedDNA
+NCIT:C13195	Bronchoalveolar Lavage Fluid	BAL_FLUID	bronchoalveolarLavageFluid
+NCIT:C187062	Pericardial Fluid Specimen	PERICARDIAL_FLUID_SAMPLE	Pericardial Fluid Specimen
+NCIT:C185197	Peritoneal Fluid Sample	PERTONIAL_FLUID_SAMPLE	Peritoneal Fluid Sample
+NCIT:C163995	Total RNA	TOTAL_RNA	totalRNA
+NCIT:C18009	Tumor Tissue	TUMOR_TISSUE	tumorTissue
