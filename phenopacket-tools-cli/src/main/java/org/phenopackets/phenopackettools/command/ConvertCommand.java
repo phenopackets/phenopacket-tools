@@ -1,10 +1,11 @@
 package org.phenopackets.phenopackettools.command;
 
 import com.google.protobuf.Message;
-import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenopackettools.converter.converters.V1ToV2Converter;
 import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
 import org.phenopackets.phenopackettools.core.PhenopacketFormat;
+import org.phenopackets.phenopackettools.io.PhenopacketPrinter;
+import org.phenopackets.phenopackettools.io.PhenopacketPrinterFactory;
 import org.phenopackets.schema.v1.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,14 +76,11 @@ public class ConvertCommand extends BaseIOCommand {
             converted.add(new MessageAndPath(v2, mp.path()));
         }
 
-        // (3) Set the output format if necessary.
-        if (convertSection.outputFormat == null) {
-            LOGGER.info("Output format (--output-format) not provided, writing data in the input format `{}`", inputSection.format);
-            convertSection.outputFormat = inputSection.format;
-        }
+        // (3) Configure the output format.
+        PhenopacketPrinter<Message> printer = configurePhenopacketPrinter();
 
         // (4) Write out the output(s).
-        return writeOutConverted(converted);
+        return writeOutConverted(converted, printer);
     }
 
     /**
@@ -110,7 +108,19 @@ public class ConvertCommand extends BaseIOCommand {
         return true;
     }
 
-    private int writeOutConverted(List<MessageAndPath> converted) {
+    private PhenopacketPrinter<Message> configurePhenopacketPrinter() {
+        PhenopacketFormat format;
+        if (convertSection.outputFormat == null) {
+            LOGGER.info("Output format (--output-format) not provided, writing data in the input format `{}`", inputSection.format);
+            format = inputSection.format;
+        } else
+            format = convertSection.outputFormat;
+
+        PhenopacketPrinterFactory factory = PhenopacketPrinterFactory.getInstance();
+        return factory.forFormat(PhenopacketSchemaVersion.V2, format);
+    }
+
+    private int writeOutConverted(List<MessageAndPath> converted, PhenopacketPrinter<Message> printer) {
         if (converted.size() == 1) {
             // Writing out item, either from STDIN or from one `-i` options.
             MessageAndPath mp = converted.get(0);
@@ -122,7 +132,7 @@ public class ConvertCommand extends BaseIOCommand {
                 } else {
                     os = openOutputStream(mp.path());
                 }
-                writeMessage(mp.message(), convertSection.outputFormat, os);
+                printer.print(mp.message(), os);
             } catch (IOException e) {
                 LOGGER.error("Error while writing out a phenopacket: {}", e.getMessage(), e);
                 return 1;
@@ -139,7 +149,7 @@ public class ConvertCommand extends BaseIOCommand {
             // Writing out >1 items provided by `-i` options.
             for (MessageAndPath mp : converted) {
                 try (OutputStream os = openOutputStream(mp.path())) {
-                    writeMessage(mp.message(), convertSection.outputFormat, os);
+                    printer.print(mp.message(), os);
                 } catch (IOException e) {
                     LOGGER.error("Error while writing out a phenopacket: {}", e.getMessage(), e);
                     return 1;
@@ -167,34 +177,6 @@ public class ConvertCommand extends BaseIOCommand {
         LOGGER.debug("Input path: {}, output path: {}", inputPath.toAbsolutePath(), output.toAbsolutePath());
 
         return new BufferedOutputStream(Files.newOutputStream(output));
-    }
-
-    /**
-     * Write the {@code message} in an appropriate {@code format} into the provided {@link OutputStream} {@code os}.
-     * <p>
-     * Uses {@link }
-     * @param message message to be written out.
-     * @param format format to write out
-     * @param os where to write
-     * @throws IOException in case of I/O errors during the output
-     */
-    protected static void writeMessage(Message message, PhenopacketFormat format, OutputStream os) throws IOException {
-        switch (format) {
-            case PROTOBUF -> {
-                LOGGER.debug("Writing protobuf message");
-                message.writeTo(os);
-            }
-            case JSON -> {
-                LOGGER.debug("Writing JSON message");
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));
-                JsonFormat.printer().appendTo(message, writer);
-                writer.flush();
-            }
-            case YAML -> {
-                // TODO - implement
-                throw new RuntimeException("YAML printer is not yet implemented");
-            }
-        }
     }
 
 }
