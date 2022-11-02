@@ -230,6 +230,22 @@ These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ ca
    "NCIT:C142360", "iRECIST Unconfirmed Progressive Disease", "iRECISTUnconfirmedProgressiveDisease()"
 
 
+Severity
+^^^^^^^^
+
+Terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe the severity, defined as the intensity or degree of a manifestation.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "HP:0012827", "Borderline", "borderline()"
+   "HP:0012825", "Mild", "mild()"
+   "HP:0012826", "Moderate", "moderate()"
+   "HP:0012828", "Severe", "severe()"
+   "HP:0012829", "Profound", "profound()"
+
+
 SpatialPattern
 ^^^^^^^^^^^^^^
 

@@ -11,3 +11,4 @@ Response|These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/n
 Assays|If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify laboratory test assays.
 Gender|`LOINC <https://loinc.org/>`_ codes should be used to specify self-reported gender.
 PathologicalTnm|TNM staging performed as part of pathologic specimen (based on surgical specimens including sentinel lymph node biopsy specimens).
+Severity|Terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe the severity, defined as the intensity or degree of a manifestation.
