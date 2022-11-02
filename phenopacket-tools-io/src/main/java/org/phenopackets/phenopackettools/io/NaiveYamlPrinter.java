@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import com.google.protobuf.Message;
 import com.google.protobuf.MessageOrBuilder;
 import com.google.protobuf.util.JsonFormat;
 
@@ -16,17 +17,14 @@ import java.io.OutputStream;
  * <p>
  * This is, of course, not efficient. However, it works OK as a prototype printer.
  */
-class NaiveYamlPrinter<T extends MessageOrBuilder> implements PhenopacketPrinter<T> {
+class NaiveYamlPrinter implements PhenopacketPrinter {
 
     private static final JsonFormat.Printer PB_PRINTER = JsonFormat.printer();
 
-    private static final NaiveYamlPrinter<?> INSTANCE = new NaiveYamlPrinter<>();
+    private static final NaiveYamlPrinter INSTANCE = new NaiveYamlPrinter();
 
-    static <T extends MessageOrBuilder> NaiveYamlPrinter<T> getInstance() {
-        // We know that JsonFormat can serialize ANY Message, hence the unchecked cast is safe.
-
-        //noinspection unchecked
-        return (NaiveYamlPrinter<T>) INSTANCE;
+    static NaiveYamlPrinter getInstance() {
+        return INSTANCE;
     }
 
     private final ObjectMapper jsonMapper;
@@ -40,9 +38,10 @@ class NaiveYamlPrinter<T extends MessageOrBuilder> implements PhenopacketPrinter
     }
 
     @Override
-    public void print(T message, OutputStream os) throws IOException {
+    public void print(Message message, OutputStream os) throws IOException {
         String jsonString = PB_PRINTER.print(message);
         JsonNode jsonNode = jsonMapper.readTree(jsonString);
         yamlMapper.writeValue(os, jsonNode);
     }
+
 }

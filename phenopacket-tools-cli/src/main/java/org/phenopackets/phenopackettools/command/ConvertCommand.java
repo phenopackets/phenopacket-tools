@@ -77,7 +77,7 @@ public class ConvertCommand extends BaseIOCommand {
         }
 
         // (3) Configure the output format.
-        PhenopacketPrinter<Message> printer = configurePhenopacketPrinter();
+        PhenopacketPrinter printer = configurePhenopacketPrinter();
 
         // (4) Write out the output(s).
         return writeOutConverted(converted, printer);
@@ -108,7 +108,7 @@ public class ConvertCommand extends BaseIOCommand {
         return true;
     }
 
-    private PhenopacketPrinter<Message> configurePhenopacketPrinter() {
+    private PhenopacketPrinter configurePhenopacketPrinter() {
         PhenopacketFormat format;
         if (convertSection.outputFormat == null) {
             LOGGER.info("Output format (--output-format) not provided, writing data in the input format `{}`", inputSection.format);
@@ -120,7 +120,7 @@ public class ConvertCommand extends BaseIOCommand {
         return factory.forFormat(PhenopacketSchemaVersion.V2, format);
     }
 
-    private int writeOutConverted(List<MessageAndPath> converted, PhenopacketPrinter<Message> printer) {
+    private int writeOutConverted(List<MessageAndPath> converted, PhenopacketPrinter printer) {
         if (converted.size() == 1) {
             // Writing out item, either from STDIN or from one `-i` options.
             MessageAndPath mp = converted.get(0);
