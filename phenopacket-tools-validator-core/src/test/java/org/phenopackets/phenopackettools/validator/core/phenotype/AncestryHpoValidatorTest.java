@@ -9,12 +9,11 @@ import org.phenopackets.phenopackettools.validator.core.TestData;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.schema.v2.*;
-import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
 
-import java.util.Arrays;
 import java.util.List;
 
+import static org.phenopackets.phenopackettools.validator.core.phenotype.Utils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -36,7 +35,8 @@ public class AncestryHpoValidatorTest {
         public void testValidInput() {
             // Has some Abnormality of finger but no Arachnodactyly.
             Phenopacket pp = createPhenopacket(
-                    "example-phenopacket", createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
+                    "example-phenopacket", "example-subject",
+                    createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", true)
             ).build();
 
@@ -49,7 +49,7 @@ public class AncestryHpoValidatorTest {
         public void testFailsIfTermAndAncestorIsObserved() {
             // Has some Abnormality of finger and Arachnodactyly. Only Arachnodactyly should be present.
             Phenopacket pp = createPhenopacket(
-                    "example-phenopacket", createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
+                    "example-phenopacket", "example-subject", createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", false)
             ).build();
 
@@ -67,7 +67,7 @@ public class AncestryHpoValidatorTest {
         public void testFailsIfTermAndAncestorIsExcluded() {
             // Has neither Abnormality of finger nor Arachnodactyly. Only Abnormality of finger should be present.
             Phenopacket pp = createPhenopacket(
-                    "example-phenopacket", createPhenotypicFeature("HP:0001167", "Abnormality of finger", true),
+                    "example-phenopacket", "example-subject", createPhenotypicFeature("HP:0001167", "Abnormality of finger", true),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", true)
             ).build();
 
@@ -84,7 +84,7 @@ public class AncestryHpoValidatorTest {
         public void testFailsIfTermIsPresentAndAncestorIsExcluded() {
             // Has neither Abnormality of finger nor Arachnodactyly. Only Abnormality of finger should be present.
             Phenopacket pp = createPhenopacket(
-                    "example-phenopacket", createPhenotypicFeature("HP:0001167", "Abnormality of finger", true),
+                    "example-phenopacket", "example-subject", createPhenotypicFeature("HP:0001167", "Abnormality of finger", true),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", false)
             ).build();
 
@@ -116,15 +116,15 @@ public class AncestryHpoValidatorTest {
         @Test
         public void testValidInput() {
             Family family = Family.newBuilder()
-                    .setProband(createPhenopacket("example-phenopacket",
+                    .setProband(createPhenopacket("example-phenopacket", "example-subject",
                             createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
                             createPhenotypicFeature("HP:0001166", "Arachnodactyly", true))
                             .build())
-                    .addRelatives(createPhenopacket("dad-phenopacket",
+                    .addRelatives(createPhenopacket("dad-phenopacket", "example-dad",
                             createPhenotypicFeature("HP:0001238", "Slender finger", false),
                             createPhenotypicFeature("HP:0100807", "Long fingers", false))
                             .build())
-                    .addRelatives(createPhenopacket("mom-phenopacket",
+                    .addRelatives(createPhenopacket("mom-phenopacket", "example-mom",
                             createPhenotypicFeature("HP:0001238", "Slender finger", false),
                             createPhenotypicFeature("HP:0001166", "Arachnodactyly", true))
                             .build())
@@ -154,15 +154,15 @@ public class AncestryHpoValidatorTest {
         @Test
         public void testValidInput() {
             Cohort cohort = Cohort.newBuilder()
-                    .addMembers(createPhenopacket("joe-phenopacket",
+                    .addMembers(createPhenopacket("joe-phenopacket", "example-subject",
                             createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
                             createPhenotypicFeature("HP:0001166", "Arachnodactyly", true))
                             .build())
-                    .addMembers(createPhenopacket("jim-phenopacket",
+                    .addMembers(createPhenopacket("jim-phenopacket", "example-jim",
                             createPhenotypicFeature("HP:0001238", "Slender finger", false),
                             createPhenotypicFeature("HP:0100807", "Long fingers", false))
                             .build())
-                    .addMembers(createPhenopacket("jane-phenopacket",
+                    .addMembers(createPhenopacket("jane-phenopacket", "example-jane",
                             createPhenotypicFeature("HP:0001238", "Slender finger", false),
                             createPhenotypicFeature("HP:0001166", "Arachnodactyly", true))
                             .build())
@@ -172,23 +172,6 @@ public class AncestryHpoValidatorTest {
 
             assertThat(results, is(empty()));
         }
-    }
-
-    private static Phenopacket.Builder createPhenopacket(String phenopacketId,
-                                                         PhenotypicFeature... features) {
-        return Phenopacket.newBuilder()
-                .setId(phenopacketId)
-                .addAllPhenotypicFeatures(Arrays.asList(features));
-    }
-
-    private static PhenotypicFeature createPhenotypicFeature(String id, String label, boolean excluded) {
-        return PhenotypicFeature.newBuilder()
-                .setType(OntologyClass.newBuilder()
-                        .setId(id)
-                        .setLabel(label)
-                        .build())
-                .setExcluded(excluded)
-                .build();
     }
 
 }

@@ -1,14 +1,20 @@
 package org.phenopackets.phenopackettools.validator.core.phenotype;
 
 import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.ancestry.CohortHpoAncestryValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.ancestry.FamilyHpoAncestryValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.ancestry.PhenopacketHpoAncestryValidator;
+import org.phenopackets.phenopackettools.validator.core.phenotype.orgsys.CohortHpoOrganSystemValidator;
+import org.phenopackets.phenopackettools.validator.core.phenotype.orgsys.FamilyHpoOrganSystemValidator;
+import org.phenopackets.phenopackettools.validator.core.phenotype.orgsys.PhenopacketHpoOrganSystemValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.primary.CohortHpoPhenotypeValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.primary.FamilyHpoPhenotypeValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.primary.PhenopacketHpoPhenotypeValidator;
 import org.phenopackets.schema.v2.*;
+
+import java.util.Collection;
 
 /**
  * Static factory class for getting {@link PhenopacketValidator}s for top-level Phenopacket schema components.
@@ -133,6 +139,68 @@ public class HpoPhenotypeValidators {
          */
         public static PhenopacketValidator<CohortOrBuilder> cohortHpoAncestryValidator(Ontology hpo) {
             return new CohortHpoAncestryValidator(hpo);
+        }
+    }
+
+    /**
+     * A static factory class for providing validators for checking annotation of organ systems.
+     * <p>
+     * The validators check if each phenopacket or family/cohort member have annotation
+     * for an organ system represented by a top-level HPO term
+     * (e.g. <a href="https://hpo.jax.org/app/browse/term/HP:0040064">Abnormality of limbs</a>).
+     * The annotation comprises either one or more observed descendants
+     * (e.g. <a href="https://hpo.jax.org/app/browse/term/HP:0001166">Arachnodactyly</a>),
+     * or excluded top-level HPO term
+     * (<em>NOT</em> <a href="https://hpo.jax.org/app/browse/term/HP:0040064">Abnormality of limbs</a>).
+     * <p>
+     */
+    public static class OrganSystem {
+        private OrganSystem() {
+        }
+
+        /**
+         * Get {@link PhenopacketValidator} to validate annotation of organ systems in a {@link Phenopacket}
+         * using provided {@link Ontology} and a collection of organ system {@link TermId}s.
+         * <p>
+         * <b>NOTE:</b> the organ system {@link TermId} that is absent from the {@link Ontology} is disregarded
+         * and not used for validation.
+         *
+         * @param hpo HPO ontology
+         * @param organSystemTermIds a collection of HPO {@link TermId}s corresponding to organ systems.
+         */
+        public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoOrganSystemValidator(Ontology hpo,
+                                                                                                    Collection<TermId> organSystemTermIds) {
+            return new PhenopacketHpoOrganSystemValidator(hpo, organSystemTermIds);
+        }
+
+        /**
+         * Get {@link PhenopacketValidator} to validate annotation of organ systems in a {@link Family}
+         * using provided {@link Ontology} and a collection of organ system {@link TermId}s.
+         * <p>
+         * <b>NOTE:</b> the organ system {@link TermId} that is absent from the {@link Ontology} is disregarded
+         * and not used for validation.
+         *
+         * @param hpo HPO ontology
+         * @param organSystemTermIds a collection of HPO {@link TermId}s corresponding to organ systems.
+         */
+        public static PhenopacketValidator<FamilyOrBuilder> familyHpoOrganSystemValidator(Ontology hpo,
+                                                                                          Collection<TermId> organSystemTermIds) {
+            return new FamilyHpoOrganSystemValidator(hpo, organSystemTermIds);
+        }
+
+        /**
+         * Get {@link PhenopacketValidator} to validate annotation of organ systems in a {@link Cohort}
+         * using provided {@link Ontology} and a collection of organ system {@link TermId}s.
+         * <p>
+         * <b>NOTE:</b> the organ system {@link TermId} that is absent from the {@link Ontology} is disregarded
+         * and not used for validation.
+         *
+         * @param hpo HPO ontology
+         * @param organSystemTermIds a collection of HPO {@link TermId}s corresponding to organ systems.
+         */
+        public static PhenopacketValidator<CohortOrBuilder> cohortHpoOrganSystemValidator(Ontology hpo,
+                                                                                          Collection<TermId> organSystemTermIds) {
+            return new CohortHpoOrganSystemValidator(hpo, organSystemTermIds);
         }
     }
 
