@@ -179,30 +179,30 @@ public class AtaxiaWithVitaminEdeficiency implements PhenopacketExample {
     private List<PhenotypicFeature> getPhenotypicFeatures() {
         String iso8601age = "P16Y";
         var pf1 = PhenotypicFeatureBuilder.builder("HP:0002066","Gait ataxia")
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf2 = PhenotypicFeatureBuilder.builder("HP:0001308","Tongue fasciculations")
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf3 = PhenotypicFeatureBuilder.builder("HP:0002080","Intention tremor")
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf4 = PhenotypicFeatureBuilder.builder("HP:0002075","Dysdiadochokinesis")
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf5 = PhenotypicFeatureBuilder.builder("HP:0001251","Ataxia")
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf6 = PhenotypicFeatureBuilder.builder("HP:0001284","Areflexia")
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf7 = PhenotypicFeatureBuilder.builder("HP:0011448","Ankle clonus")
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf8 = PhenotypicFeatureBuilder.builder("HP:0003690","Limb muscle weakness")
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf9 = PhenotypicFeatureBuilder.builder("HP:0003474","Somatic sensory dysfunction")
                 .excluded()
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf10 = PhenotypicFeatureBuilder.builder("HP:0002599","Head titubation")
                 .excluded()
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         var pf11 = PhenotypicFeatureBuilder.builder("HP:0031910","Abnormal cranial nerve physiology")
                 .excluded()
-                .isoISO8601onset(iso8601age).build();
+                .iso8601onset(iso8601age).build();
         return List.of(pf1,pf2,pf3, pf4, pf5, pf6, pf7, pf8, pf9, pf10,pf11);
     }
 
@@ -227,11 +227,11 @@ public class AtaxiaWithVitaminEdeficiency implements PhenopacketExample {
     private List<PhenotypicFeature> getMedicalHistory() {
         String iso8601age = "P10Y";
         var gaitDisturbance = PhenotypicFeatureBuilder.builder("HP:0001288", "Gait disturbance")
-                .isoISO8601onset(iso8601age)
+                .iso8601onset(iso8601age)
                 .build();
         var weakness = PhenotypicFeatureBuilder.builder("HP:0001324", "Muscle weakness")
                 .addModifier(generalized())
-                .isoISO8601onset(iso8601age)
+                .iso8601onset(iso8601age)
                 .build();
         return List.of(gaitDisturbance, weakness);
     }
