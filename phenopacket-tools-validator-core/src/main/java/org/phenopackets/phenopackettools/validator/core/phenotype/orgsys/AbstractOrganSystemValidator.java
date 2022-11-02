@@ -9,6 +9,8 @@ import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.core.phenotype.base.BaseHpoValidator;
+import org.phenopackets.phenopackettools.validator.core.phenotype.util.PhenotypicFeaturesByExclusionStatus;
+import org.phenopackets.phenopackettools.validator.core.phenotype.util.Util;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
@@ -36,7 +38,7 @@ public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> e
     private static final ValidatorInfo VALIDATOR_INFO = ValidatorInfo.of(
             "HpoOrganSystemValidator",
             "HPO organ system validator",
-            "Validate that HPO terms are well formatted, present, and non-obsolete based on the provided HPO");
+            "Validate annotation of selected organ systems");
 
     private static final String MISSING_ORGAN_SYSTEM_CATEGORY = "Missing organ system annotation";
 
@@ -78,27 +80,24 @@ public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> e
     protected abstract Stream<? extends PhenopacketOrBuilder> getPhenopackets(T component);
 
     private Stream<ValidationResult> checkPhenotypicFeatures(String individualId, List<PhenotypicFeature> features) {
-        // Get a list of observed phenotypic feature term IDs.
-        List<TermId> phenotypeFeatures = features.stream()
-                .filter(pf -> !pf.getExcluded()) // TODO - should we only work with the observed features?
-                .map(PhenotypicFeature::getType)
-                .map(toTermId(individualId))
-                .flatMap(Optional::stream)
-                .toList();
-
+        PhenotypicFeaturesByExclusionStatus featuresByExclusion = Util.partitionByExclusionStatus(features);
 
         Stream.Builder<ValidationResult> results = Stream.builder();
         // Check we have at least one phenotypeFeature (pf) that is a descendant of given organSystemId
         // and report otherwise.
         organSystemLoop:
         for (TermId organSystemId : organSystemTermIds) {
-            for (TermId pf : phenotypeFeatures) {
+            for (TermId pf : featuresByExclusion.observedPhenotypicFeatures()) {
                 if (OntologyAlgorithm.existsPath(hpo, pf, organSystemId)) {
                     continue organSystemLoop; // It only takes one termId to annotate an organ system.
                 }
             }
 
-            // If we get here, then the organSystemId is not annotated, and we report a validation error.
+            // Check if the organ system abnormality has been specifically excluded.
+            if (featuresByExclusion.excludedPhenotypicFeatures().contains(organSystemId))
+                continue; // Yes, it was. Let's check the next organ system
+
+            // The organSystemId is neither annotated nor excluded. We report a validation error.
             Term organSystem = hpo.getTermMap().get(organSystemId);
             ValidationResult result = ValidationResult.error(VALIDATOR_INFO,
                     MISSING_ORGAN_SYSTEM_CATEGORY,

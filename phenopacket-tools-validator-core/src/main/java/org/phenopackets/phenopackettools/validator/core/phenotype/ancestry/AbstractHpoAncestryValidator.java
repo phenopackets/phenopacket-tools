@@ -1,7 +1,6 @@
 package org.phenopackets.phenopackettools.validator.core.phenotype.ancestry;
 
 import com.google.protobuf.MessageOrBuilder;
-import org.monarchinitiative.phenol.base.PhenolRuntimeException;
 import org.monarchinitiative.phenol.ontology.algo.OntologyAlgorithm;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.monarchinitiative.phenol.ontology.data.Term;
@@ -9,14 +8,12 @@ import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.ValidatorInfo;
 import org.phenopackets.phenopackettools.validator.core.phenotype.base.BaseHpoValidator;
+import org.phenopackets.phenopackettools.validator.core.phenotype.util.PhenotypicFeaturesByExclusionStatus;
+import org.phenopackets.phenopackettools.validator.core.phenotype.util.Util;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -32,8 +29,6 @@ import java.util.stream.Stream;
  * with <em>"NOT"</em> Abnormality of finger. Only the <em>"NOT"</em> Abnormality of finger must be used.
  */
 public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> extends BaseHpoValidator<T> {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHpoAncestryValidator.class);
 
     private static final ValidatorInfo VALIDATOR_INFO = ValidatorInfo.of(
             "HpoAncestryValidator",
@@ -61,54 +56,33 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
     protected abstract Stream<? extends PhenopacketOrBuilder> extractPhenopackets(T message);
 
     private Stream<ValidationResult> validatePhenopacketPhenotypicFeatures(String id, List<PhenotypicFeature> phenotypicFeatures) {
-        Map<Boolean, Set<TermId>> featuresByExclusion = phenotypicFeatures.stream()
-                .map(toMaybeObservedTermId())
-                .flatMap(Optional::stream)
-                // Use `partitioningBy` instead of `groupingBy` to ensure the map contains keys
-                // for both `true` and `false`. Then extract `TermId` and collect in a `Set`.
-                .collect(Collectors.partitioningBy(MaybeExcludedTermId::excluded,
-                        Collectors.mapping(MaybeExcludedTermId::termId, Collectors.toSet())));
-
+        PhenotypicFeaturesByExclusionStatus featuresByExclusion = Util.partitionByExclusionStatus(phenotypicFeatures);
 
         Stream.Builder<ValidationResult> results = Stream.builder();
 
         // Check that the component does not contain both observed term and its ancestor.
-        Set<? extends TermId> allObserved = featuresByExclusion.get(false);
-        Set<? extends TermId> allExcluded = featuresByExclusion.get(true);
-        for (TermId observed : allObserved) {
+
+        for (TermId observed : featuresByExclusion.observedPhenotypicFeatures()) {
             for (TermId ancestor : OntologyAlgorithm.getAncestorTerms(hpo, observed, false)) {
-                if (allObserved.contains(ancestor))
+                if (featuresByExclusion.observedPhenotypicFeatures().contains(ancestor))
                     results.add(constructResultForAnObservedTerm(id, observed, ancestor, false));
-                if (allExcluded.contains(ancestor))
+                if (featuresByExclusion.excludedPhenotypicFeatures().contains(ancestor))
                     results.add(constructResultForAnObservedTerm(id, observed, ancestor, true));
             }
         }
 
         // Check that the component does not have negated descendant
-        for (TermId excluded : allExcluded) {
+        for (TermId excluded : featuresByExclusion.excludedPhenotypicFeatures()) {
             for (TermId child : OntologyAlgorithm.getDescendents(hpo, excluded)) {
                 if (child.equals(excluded))
                     // skip the parent term
                     continue;
-                if (allExcluded.contains(child))
+                if (featuresByExclusion.excludedPhenotypicFeatures().contains(child))
                     results.add(constructResultForAnExcludedTerm(id, excluded, child));
             }
         }
 
         return results.build();
-    }
-
-    private static Function<PhenotypicFeature, Optional<MaybeExcludedTermId>> toMaybeObservedTermId() {
-        return pf -> {
-            TermId termId;
-            try {
-                termId = TermId.of(pf.getType().getId());
-            } catch (PhenolRuntimeException e) {
-                LOGGER.warn("Skipping ancestry validation of malformed term ID {}", pf.getType().getId());
-                return Optional.empty();
-            }
-            return Optional.of(new MaybeExcludedTermId(termId, pf.getExcluded()));
-        };
     }
 
     private ValidationResult constructResultForAnObservedTerm(String id, TermId observedId, TermId ancestorId, boolean ancestorIsExcluded) {
@@ -122,7 +96,7 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
                     id, observedTermName, observedId.getValue(), ancestorTermName, ancestorId.getValue());
         else
             message = "Phenotypic features of %s must not contain both an observed term (%s, %s) and an observed ancestor (%s, %s)".formatted(
-                id, observedTermName, observedId.getValue(), ancestorTermName, ancestorId.getValue());
+                    id, observedTermName, observedId.getValue(), ancestorTermName, ancestorId.getValue());
 
         return ValidationResult.error(VALIDATOR_INFO, APR_VIOLATION, message);
     }
@@ -138,6 +112,4 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
         return ValidationResult.error(VALIDATOR_INFO, APR_VIOLATION, message);
     }
 
-    private record MaybeExcludedTermId(TermId termId, boolean excluded) {
-    }
 }
