@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.phenopackets.phenopackettools.builder.builders.OntologyClassBuilder.ontologyClass;
 import static org.phenopackets.phenopackettools.builder.constants.MedicalActions.*;
-import static org.phenopackets.phenopackettools.builder.constants.Response.favorable;
+import static org.phenopackets.phenopackettools.builder.constants.Response.favorableResponse;
 import static org.phenopackets.phenopackettools.builder.constants.Unit.*;
 
 /**
@@ -86,7 +86,7 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
         var metformin = ontologyClass( "DrugCentral:1725", "metformin");
         var fiveHundredMg = QuantityBuilder.builder(milligram(), 500).build();
         var metforminAction = MedicalActionBuilder
-                .oralAdministration(metformin, fiveHundredMg, threetimesDaily(), interval)
+                .oralAdministration(metformin, fiveHundredMg, threeTimesDaily(), interval)
                 .build();
         return List.of(atorvastatinAction, aspirinAction, ramiprilAction, metforminAction);
     }
@@ -110,7 +110,7 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
         TimeInterval interval = TimeIntervalBuilder.of("2020-09-02", "2021-03-02");
         return MedicalActionBuilder
                 .intravenousAdministration(ivIg, quantity, everySixWeeks, interval)
-                .responseToTreatment(favorable())
+                .responseToTreatment(favorableResponse())
                 .build();
     }
 

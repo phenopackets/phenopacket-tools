@@ -1,5 +1,7 @@
 package org.phenopackets.phenopackettools.util.format;
 
+import org.phenopackets.phenopackettools.core.PhenopacketFormat;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -48,21 +50,7 @@ public class FormatSniffer {
      * @throws FormatSniffException if there are not enough bytes available in the {@code input} of if the {@code input} does not
      * support {@link InputStream#mark(int)}.
      */
-    public static PhenopacketFormat sniff(InputStream input) throws IOException, FormatSniffException {
-        if (input.markSupported()) {
-            byte[] buffer = new byte[BUFFER_SIZE];
-            input.mark(BUFFER_SIZE);
-            int read = input.read(buffer);
-            if (read < BUFFER_SIZE) {
-                // We explode because there are not enough bytes available for format sniffing.
-                String message = read < 0
-                        ? "The stream must not be at the end"
-                        : "Need at least %d bytes to sniff the format but only %d was available".formatted(BUFFER_SIZE, read);
-                throw new FormatSniffException(message);
-            }
-            input.reset();
-            return sniff(buffer);
-        } else
-            throw new FormatSniffException("The provided InputStream does not support `mark()`");
+    public static PhenopacketFormat sniff(InputStream input) throws IOException, SniffException {
+        return sniff(Util.getFirstBytesAndReset(input, BUFFER_SIZE));
     }
 }

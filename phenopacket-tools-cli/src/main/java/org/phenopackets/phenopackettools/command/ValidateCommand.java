@@ -4,6 +4,8 @@ package org.phenopackets.phenopackettools.command;
 import com.google.protobuf.MessageOrBuilder;
 import org.monarchinitiative.phenol.io.OntologyLoader;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.phenopackets.phenopackettools.core.PhenopacketElement;
+import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
 import org.phenopackets.phenopackettools.validator.core.*;
 import org.phenopackets.phenopackettools.validator.core.metadata.MetaDataValidators;
 import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
@@ -49,10 +51,7 @@ public class ValidateCommand extends BaseIOCommand {
     }
 
     @Override
-    public Integer call() {
-        // (0) Print banner.
-        printBanner();
-
+    protected Integer execute() {
         // (1) Read the input v2 message(s).
         List<MessageAndPath> messages = readMessagesOrExit(PhenopacketSchemaVersion.V2);
 
@@ -132,7 +131,7 @@ public class ValidateCommand extends BaseIOCommand {
      * for the current {@link org.phenopackets.phenopackettools.command.BaseIOCommand.InputSection#element}.
      * The app will crash and burn if e.g. {@link T} is {@link PhenopacketOrBuilder}
      * while {@link org.phenopackets.phenopackettools.command.BaseIOCommand.InputSection#element}
-     * is {@link org.phenopackets.phenopackettools.util.format.PhenopacketElement#FAMILY}.
+     * is {@link PhenopacketElement#FAMILY}.
      */
     private <T extends MessageOrBuilder> List<PhenopacketValidator<T>> configureSemanticValidators() {
         // Right now we only have one semantic validator, but we'll extend this in the future.
@@ -146,15 +145,26 @@ public class ValidateCommand extends BaseIOCommand {
             // This method requires an appropriate combination of `T` and `element`, as described in Javadoc.
             // We suppress warning and perform an unchecked cast here, assuming `T` and `element` are appropriate.
             // The app will crash and burn if this is not the case.
-            PhenopacketValidator<T> validator = switch (inputSection.element) {
-                case PHENOPACKET -> //noinspection unchecked
-                        (PhenopacketValidator<T>) HpoPhenotypeValidators.phenopacketHpoPhenotypeValidator(hpo);
-                case FAMILY -> //noinspection unchecked
-                        (PhenopacketValidator<T>) HpoPhenotypeValidators.familyHpoPhenotypeValidator(hpo);
-                case COHORT -> //noinspection unchecked
-                        (PhenopacketValidator<T>) HpoPhenotypeValidators.cohortHpoPhenotypeValidator(hpo);
+            switch (inputSection.element) {
+                case PHENOPACKET -> {
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.phenopacketHpoPhenotypeValidator(hpo));
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.phenopacketHpoAncestryValidator(hpo));
+                }
+                case FAMILY -> {
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.familyHpoPhenotypeValidator(hpo));
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.familyHpoAncestryValidator(hpo));
+                }
+                case COHORT -> {
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.cohortHpoPhenotypeValidator(hpo));
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.cohortHpoAncestryValidator(hpo));
+                }
             };
-            validators.add(validator);
         }
 
         LOGGER.debug("Configured {} semantic validator(s)", validators.size());

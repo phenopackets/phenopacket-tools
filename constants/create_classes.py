@@ -54,6 +54,9 @@ class Entry:
     def items(self):
         return self._constant_items
 
+    def __repr__(self):
+        return f"Entry name={self._name} {len(self._constant_items)} items"
+
 
 def parse_csv(fname):
     if not isfile(fname):

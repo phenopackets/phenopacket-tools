@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.phenopackets.phenopackettools</groupId>
         <artifactId>phenopacket-tools</artifactId>
-        <version>0.4.6</version>
+        <version>0.4.7-SNAPSHOT</version>
     </parent>
 
     <artifactId>phenopacket-tools-converter</artifactId>
@@ -21,10 +21,6 @@
         <dependency>
             <groupId>org.phenopackets</groupId>
             <artifactId>phenopacket-schema</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
         </dependency>
 
         <dependency>

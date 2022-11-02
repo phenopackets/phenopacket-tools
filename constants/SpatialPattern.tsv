@@ -31,4 +31,4 @@ HP:0012840	Proximal	PROXIMAL	proximal
 HP:0033820	Apical	APICAL	apical
 HP:0030650	Focal	FOCAL	focal
 HP:0030651	Multifocal	MULTIFOCAL	multifocal
-HP:0032540	Jointflexorsurfacelocalization	JOINT_FLEXOR_SURFACE_LOCALIZATION	jointFlexorSurfaceLocalization
+HP:0032540	Joint flexor surface localization	JOINT_FLEXOR_SURFACE_LOCALIZATION	jointFlexorSurfaceLocalization

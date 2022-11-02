@@ -1,9 +1,11 @@
 package org.phenopackets.phenopackettools.validator.core;
 
+import org.phenopackets.phenopackettools.core.PhenopacketToolsException;
+
 /**
- * An {@link Exception} that is thrown in case the provided data has incorrect format.
+ * A {@link PhenopacketToolsException} that is thrown in case the provided data has incorrect format.
  */
-public class ConversionException extends Exception implements ValidationResult {
+public class ConversionException extends PhenopacketToolsException implements ValidationResult {
 
     private static final String VALIDATION_CATEGORY = "input";
 

@@ -2,6 +2,7 @@ package org.phenopackets.phenopackettools.util.format;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.phenopackets.phenopackettools.core.PhenopacketFormat;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

@@ -2,13 +2,15 @@ package org.phenopackets.phenopackettools.converter.converters;
 
 import org.ga4gh.vrsatile.v1.VariationDescriptor;
 import org.phenopackets.phenopackettools.builder.builders.*;
-import org.phenopackets.phenopackettools.builder.exceptions.PhenotoolsRuntimeException;
+import org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException;
 import org.phenopackets.schema.v1.core.Variant;
 import org.phenopackets.schema.v2.Cohort;
 import org.phenopackets.schema.v2.Family;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.Interpretation;
 import org.phenopackets.schema.v2.core.OntologyClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.function.Function;
@@ -26,6 +28,8 @@ import static org.phenopackets.phenopackettools.converter.converters.v2.Phenotyp
  * the {@link org.phenopackets.phenopackettools.converter.converters.v2} package.
  */
 class V1ToV2ConverterImpl implements V1ToV2Converter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(V1ToV2ConverterImpl.class);
 
     private final boolean convertVariants;
 
@@ -49,8 +53,11 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
             builder.addAllBiosamples(toBiosamples(phenopacket.getBiosamplesList()));
         }
 
-        if (convertVariants)
-            builder.addInterpretations(toV2Interpretation(phenopacket));
+        if (convertVariants) {
+            Interpretation interpretation = toV2Interpretation(phenopacket);
+            if (!Interpretation.getDefaultInstance().equals(interpretation))
+                builder.addInterpretations(interpretation);
+        }
 
         if (phenopacket.getDiseasesCount() > 0) {
             builder.addAllDiseases(toDiseases(phenopacket.getDiseasesList()));
@@ -123,7 +130,16 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
         so we will use the v1 phenopacket id for the interpretation id.
         */
         if (v1.getDiseasesCount() != 1) {
-            throw new PhenotoolsRuntimeException("Can only convert variants if there is exactly one disease in v1 phenopacket!");
+            if (v1.getVariantsCount() == 0) {
+                // If there are no variants then we do not care about having exactly one disease.
+                // We can still create a meaningful phenopacket, however, this may be not what the user intended,
+                // and we'll warn.
+                LOGGER.warn("Unable to convert disease and variant data since there are no variants in phenopacket '{}'", v1.getId());
+                return Interpretation.getDefaultInstance();
+            } else {
+                // Non-empty variant list but not a single disease, we throw.
+                throw new PhenopacketToolsRuntimeException("Can only convert variants if there is exactly one disease in v1 phenopacket!");
+            }
         }
 
         var v1disease = v1.getDiseases(0);
@@ -190,7 +206,7 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
                             .build();
                 }
                 // cannot ever happen, but if it does...
-                case ALLELE_NOT_SET -> throw new PhenotoolsRuntimeException("Did not recognize variant type");
+                case ALLELE_NOT_SET -> throw new PhenopacketToolsRuntimeException("Did not recognize variant type");
             };
         };
     }

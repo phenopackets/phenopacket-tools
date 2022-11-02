@@ -3,19 +3,13 @@
     <property name="pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
 
     <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
         <target>System.err</target>
         <encoder>
             <pattern>${pattern}</pattern>
         </encoder>
     </appender>
 
-    <logger name="org.phenopackets.phenopackettools" level="DEBUG"/>
-    <logger name="com.networknt.schema" level="INFO"/>
-
-    <root level="INFO">
+    <root>
         <appender-ref ref="STDERR" />
     </root>
 </configuration>
