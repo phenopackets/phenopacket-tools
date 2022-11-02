@@ -1,21 +1,17 @@
 package org.phenopackets.phenopackettools.command;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.google.protobuf.Message;
-import com.google.protobuf.util.JsonFormat;
 
+import org.phenopackets.phenopackettools.core.PhenopacketFormat;
+import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
 import org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException;
 import org.phenopackets.phenopackettools.examples.*;
+import org.phenopackets.phenopackettools.io.PhenopacketPrinter;
+import org.phenopackets.phenopackettools.io.PhenopacketPrinterFactory;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -29,6 +25,14 @@ public class ExamplesCommand extends BaseCommand {
             description = "Output directory (default: ${DEFAULT-VALUE})")
     public Path output = Path.of(".");
 
+    private final PhenopacketPrinter jsonPrinter;
+    private final PhenopacketPrinter yamlPrinter;
+
+    public ExamplesCommand() {
+        PhenopacketPrinterFactory factory = PhenopacketPrinterFactory.getInstance();
+        jsonPrinter = factory.forFormat(PhenopacketSchemaVersion.V2, PhenopacketFormat.JSON);
+        yamlPrinter = factory.forFormat(PhenopacketSchemaVersion.V2, PhenopacketFormat.YAML);
+     }
 
     @Override
     protected Integer execute() {
@@ -38,22 +42,22 @@ public class ExamplesCommand extends BaseCommand {
             Path cohortDir = createADirectoryIfDoesNotExist(output.resolve("cohorts"));
 
             // Phenopackets
-            output(new AtaxiaWithVitaminEdeficiency().getPhenopacket(), phenopacketDir, "AVED");
-            output(new BethlehamMyopathy().getPhenopacket(), phenopacketDir, "bethleham-myopathy");
-            output(new Holoprosencephaly5().getPhenopacket(), phenopacketDir, "holoprosencephaly5");
-            output(new Marfan().getPhenopacket(), phenopacketDir, "marfan");
-            output(new NemalineMyopathyPrenatal().getPhenopacket(), phenopacketDir, "nemalineMyopathy");
-            output(new Pseudoexfoliation().getPhenopacket(), phenopacketDir, "pseudoexfoliation");
-            output(new DuchenneExon51Deletion().getPhenopacket(), phenopacketDir, "duchenne");
-            output(new SquamousCellCancer().getPhenopacket(), phenopacketDir, "squamous-cell-esophageal-carcinoma");
-            output(new UrothelialCancer().getPhenopacket(), phenopacketDir, "urothelial-cancer");
-            output(new Covid().getPhenopacket(), phenopacketDir, "covid");
-            output(new Retinoblastoma().getPhenopacket(), phenopacketDir, "retinoblastoma");
-            output(new WarburgMicroSyndrome().getPhenopacket(), phenopacketDir, "warburg-micro-syndrome");
-            output(new SevereStatinInducedAutoimmuneMyopathy().getPhenopacket(), phenopacketDir, "statin-myopathy");
+            printJsonAndYaml(new AtaxiaWithVitaminEdeficiency().getPhenopacket(), phenopacketDir, "AVED");
+            printJsonAndYaml(new BethlehamMyopathy().getPhenopacket(), phenopacketDir, "bethleham-myopathy");
+            printJsonAndYaml(new Holoprosencephaly5().getPhenopacket(), phenopacketDir, "holoprosencephaly5");
+            printJsonAndYaml(new Marfan().getPhenopacket(), phenopacketDir, "marfan");
+            printJsonAndYaml(new NemalineMyopathyPrenatal().getPhenopacket(), phenopacketDir, "nemalineMyopathy");
+            printJsonAndYaml(new Pseudoexfoliation().getPhenopacket(), phenopacketDir, "pseudoexfoliation");
+            printJsonAndYaml(new DuchenneExon51Deletion().getPhenopacket(), phenopacketDir, "duchenne");
+            printJsonAndYaml(new SquamousCellCancer().getPhenopacket(), phenopacketDir, "squamous-cell-esophageal-carcinoma");
+            printJsonAndYaml(new UrothelialCancer().getPhenopacket(), phenopacketDir, "urothelial-cancer");
+            printJsonAndYaml(new Covid().getPhenopacket(), phenopacketDir, "covid");
+            printJsonAndYaml(new Retinoblastoma().getPhenopacket(), phenopacketDir, "retinoblastoma");
+            printJsonAndYaml(new WarburgMicroSyndrome().getPhenopacket(), phenopacketDir, "warburg-micro-syndrome");
+            printJsonAndYaml(new SevereStatinInducedAutoimmuneMyopathy().getPhenopacket(), phenopacketDir, "statin-myopathy");
 
             // Families
-            outputFamily(new FamilyWithPedigree().getFamily(), familyDir, "family");
+            printJsonAndYaml(new FamilyWithPedigree().getFamily(), familyDir, "family");
 
             // Cohorts
             // TODO - write a cohort
@@ -71,61 +75,28 @@ public class ExamplesCommand extends BaseCommand {
                 : Files.createDirectories(path);
     }
 
-    private static void output(Message phenopacket, Path outDir, String basename) {
-        String yamlName = basename + ".yml";
-        outputYamlPhenopacket(phenopacket, outDir, yamlName);
-        String jsonName = basename + ".json";
-        outputPhenopacket(phenopacket, outDir, jsonName);
+    private void printJsonAndYaml(Message message, Path outDir, String basename) {
+        Path jsonPath = outDir.resolve(basename + ".json");
+        printJsonMessage(message, jsonPath);
+
+        Path yamlPath = outDir.resolve(basename + ".yml");
+        printYamlMessage(message, yamlPath);
     }
 
-    private static void outputPhenopacket(Message phenopacket, Path outdir, String fileName) {
-        outputJsonMessage(phenopacket, outdir, fileName);
-    }
-
-    private static void outputYamlPhenopacket(Message phenopacket, Path outdir, String fileName) {
-        outputYamlMessage(phenopacket, outdir, fileName, "phenopacket");
-
-    }
-
-    private static void outputFamily(Message family, Path outDir, String basename) {
-        String yamlName = basename + ".yml";
-        outputYamlFamily(family, outDir, yamlName);
-        String jsonName = basename + ".json";
-        outputJsonFamily(family, outDir,jsonName);
-    }
-
-    private static void outputJsonFamily(Message family, Path outDir, String jsonName) {
-        outputJsonMessage(family, outDir, jsonName);
-    }
-
-    private static void outputYamlFamily(Message family, Path outDir, String yamlName) {
-        outputYamlMessage(family, outDir, yamlName, "family");
-    }
-
-    private static void outputJsonMessage(Message message, Path outDir, String fileName) {
-        Path path = outDir.resolve(fileName);
-        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-            String json = JsonFormat.printer().print(message);
-            writer.write(json);
+    private void printJsonMessage(Message message, Path path) {
+        try {
+            jsonPrinter.print(message, path);
         } catch (IOException e) {
-            throw new PhenopacketToolsRuntimeException(e.getMessage());
+            throw new PhenopacketToolsRuntimeException(e);
         }
     }
 
-    private static void outputYamlMessage(Message family, Path outDir, String yamlName, String messageName) {
-        Path path = outDir.resolve(yamlName);
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
-        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-            String jsonString = JsonFormat.printer().print(family);
-            JsonNode jsonNodeTree = new ObjectMapper().readTree(jsonString);
-            JsonNode node = JsonNodeFactory.instance.objectNode().set(messageName, jsonNodeTree);
-            mapper.writeValue(writer, node);
+    private void printYamlMessage(Message message, Path path) {
+        try {
+            yamlPrinter.print(message, path);
         } catch (IOException e) {
-            throw new PhenopacketToolsRuntimeException(e.getMessage());
+            throw new PhenopacketToolsRuntimeException(e);
         }
     }
-
-
-
 
 }

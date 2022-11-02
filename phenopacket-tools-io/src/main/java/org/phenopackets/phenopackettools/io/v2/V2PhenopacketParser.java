@@ -24,11 +24,6 @@ public class V2PhenopacketParser extends BasePhenopacketParser {
     }
 
     @Override
-    protected Message readYamlMessage(PhenopacketElement element, InputStream is) throws IOException {
-        throw new RuntimeException("Not yet implemented"); // TODO - implement
-    }
-
-    @Override
     protected Message.Builder prepareBuilder(PhenopacketElement element) {
         return switch (element) {
             case PHENOPACKET -> Phenopacket.newBuilder();
