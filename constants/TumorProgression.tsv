@@ -1,0 +1,4 @@
+ontology.id	ontology.label	variable.name	function.name
+NCIT:C8509	Primary Neoplasm	PRIMARY_NEOPLASM	primaryNeoplasm
+NCIT:C3261	Metastatic Neoplasm	METASTATIC_NEOPLASM	metastaticNeoplasm
+NCIT:C4798	Recurrent Neoplasm	RECURRENT_NEOPLASM	recurrentNeoplasm

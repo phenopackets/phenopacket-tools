@@ -51,6 +51,59 @@ If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify labor
    "LOINC:2157-6", "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma", "creatineKinaseActivity()"
 
 
+BiospecimenType
+^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to denote the source of a biospecimen.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C133261", "Bone Marrow Aspirate", "boneMarrowAspirate()"
+   "NCIT:C158416", "Blood DNA", "bloodDNA()"
+   "NCIT:C185194", "Cerebrospinal Fluid Sample", "cerebrospinalFluidSample()"
+   "NCIT:C156435", "Formalin-Fixed Paraffin-Embedded DNA", "formalinFixedParaffinEmbeddedDNA()"
+   "NCIT:C13195", "Bronchoalveolar Lavage Fluid", "bronchoalveolarLavageFluid()"
+   "NCIT:C187062", "Pericardial Fluid Specimen", "pericardialFluidSpecimen()"
+   "NCIT:C185197", "Peritoneal Fluid Sample", "peritonealFluidSample()"
+   "NCIT:C163995", "Total RNA", "totalRNA()"
+   "NCIT:C18009", "Tumor Tissue", "tumorTissue()"
+
+
+DiseaseGrade
+^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the tumor grade.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C28077", "Grade 1", "grade1()"
+   "NCIT:C28078", "Grade 2", "grade2()"
+   "NCIT:C28079", "Grade 3", "grade3()"
+   "NCIT:C28080", "Grade 3a", "grade3a()"
+   "NCIT:C28081", "Grade 3b", "grade3b()"
+   "NCIT:C28082", "Grade 4", "grade4()"
+
+
+Evidence
+^^^^^^^^
+
+Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.org/browse/#ECO_SN>` are used to specify evidence categories.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "ECO:0006016", "author statement from published clinical study", "authorStatementFromPublishedClinicalStudy()"
+   "ECO:0007539", "author statement from published clinical study used in automatic assertion", "authorStatementFromPublishedClinicalStudyAutomaticAssertion()"
+   "ECO:0006017", "author statement from published clinical study used in manual assertion", "authorStatementFromPublishedClinicalStudyManualAssertion()"
+   "ECO:0000033", "author statement supported by traceable reference", "authorStatementSupportedByTraceableReference()"
+   "ECO:0006154", "self-reported patient statement evidence", "selfReportedPatientStatementEvidence()"
+
+
 Gender
 ^^^^^^
 
@@ -82,6 +135,19 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe l
    "HP:0012835", "Left", "left()"
    "HP:0012833", "Unilateral", "unilateral()"
    "HP:0012832", "Bilateral", "bilateral()"
+
+
+MaterialSample
+^^^^^^^^^^^^^^
+
+Terms from the `EFO <https://www.ebi.ac.uk/ols/ontologies/efo>`_ to specify the status of the sample.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "EFO:0009655", "abnormal sample", "abnormalSample()"
+   "EFO:0009654", "reference sample", "referenceSample()"
 
 
 MedicalActions
@@ -230,6 +296,22 @@ These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ ca
    "NCIT:C142360", "iRECIST Unconfirmed Progressive Disease", "iRECISTUnconfirmedProgressiveDisease()"
 
 
+Severity
+^^^^^^^^
+
+Terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe the severity, defined as the intensity or degree of a manifestation.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "HP:0012827", "Borderline", "borderline()"
+   "HP:0012825", "Mild", "mild()"
+   "HP:0012826", "Moderate", "moderate()"
+   "HP:0012828", "Severe", "severe()"
+   "HP:0012829", "Profound", "profound()"
+
+
 SpatialPattern
 ^^^^^^^^^^^^^^
 
@@ -272,6 +354,20 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe s
    "HP:0030650", "Focal", "focal()"
    "HP:0030651", "Multifocal", "multifocal()"
    "HP:0032540", "Joint flexor surface localization", "jointFlexorSurfaceLocalization()"
+
+
+TumorProgression
+^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to indicate if a specimen is from the primary tumor, a metastasis or a recurrence.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C8509", "Primary Neoplasm", "primaryNeoplasm()"
+   "NCIT:C3261", "Metastatic Neoplasm", "metastaticNeoplasm()"
+   "NCIT:C4798", "Recurrent Neoplasm", "recurrentNeoplasm()"
 
 
 Unit
