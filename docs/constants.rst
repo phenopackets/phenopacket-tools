@@ -104,6 +104,27 @@ Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.or
    "ECO:0006154", "self-reported patient statement evidence", "selfReportedPatientStatementEvidence()"
 
 
+DiseaseStage
+^^^^^^^^^^^^
+
+These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ can be used to denote that clinical stage of cancer or heart failure. Other codes should be used for specific diseases with their own clinical stage systems.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C28051", "Stage 0", "stage0()"
+   "NCIT:C27966", "Stage I", "stageI()"
+   "NCIT:C28054", "Stage II", "stageII()"
+   "NCIT:C27970", "Stage III", "stageIII()"
+   "NCIT:C27971", "Stage IV", "stageIV()"
+   "NCIT:C66904", "New York Heart Association Class I", "nyhaClassI()"
+   "NCIT:C66905", "New York Heart Association Class II", "nyhaClassII()"
+   "NCIT:C66907", "New York Heart Association Class III", "nyhaClassIII()"
+   "NCIT:C7922", "New York Heart Association Class III/IV", "nyhaClassIII_or_IV()"
+   "NCIT:C66908", "New York Heart Association Class IV", "nyhaClassIV()"
+
+
 Gender
 ^^^^^^
 
