@@ -65,8 +65,8 @@ Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are 
    "NCIT:C185194", "Cerebrospinal Fluid Sample", "cerebrospinalFluidSample()"
    "NCIT:C156435", "Formalin-Fixed Paraffin-Embedded DNA", "formalinFixedParaffinEmbeddedDNA()"
    "NCIT:C13195", "Bronchoalveolar Lavage Fluid", "bronchoalveolarLavageFluid()"
-   "NCIT:C187062", "Pericardial Fluid Specimen", "Pericardial Fluid Specimen()"
-   "NCIT:C185197", "Peritoneal Fluid Sample", "Peritoneal Fluid Sample()"
+   "NCIT:C187062", "Pericardial Fluid Specimen", "pericardialFluidSpecimen()"
+   "NCIT:C185197", "Peritoneal Fluid Sample", "peritonealFluidSample()"
    "NCIT:C163995", "Total RNA", "totalRNA()"
    "NCIT:C18009", "Tumor Tissue", "tumorTissue()"
 
@@ -99,9 +99,9 @@ Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.or
 
    "ECO:0006016", "author statement from published clinical study", "authorStatementFromPublishedClinicalStudy()"
    "ECO:0007539", "author statement from published clinical study used in automatic assertion", "authorStatementFromPublishedClinicalStudyAutomaticAssertion()"
-   "ECO:0006017", "author statement from published clinical study used in manual assertion", "AUTHOR_STATEMENT_FROM_PCS_MANUAL()"
-   "ECO:0000033", "author statement supported by traceable reference", "AUTHOR_STATEMENT_TRACEABLE_REFERENCE()"
-   "ECO:0006154", "self-reported patient statement evidence", "SELF_REPORTED_PATIENT_STATEMENT_EVIDENCE()"
+   "ECO:0006017", "author statement from published clinical study used in manual assertion", "authorStatementFromPublishedClinicalStudyManualAssertion()"
+   "ECO:0000033", "author statement supported by traceable reference", "authorStatementSupportedByTraceableReference()"
+   "ECO:0006154", "self-reported patient statement evidence", "selfReportedPatientStatementEvidence()"
 
 
 Gender
@@ -135,6 +135,19 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe l
    "HP:0012835", "Left", "left()"
    "HP:0012833", "Unilateral", "unilateral()"
    "HP:0012832", "Bilateral", "bilateral()"
+
+
+MaterialSample
+^^^^^^^^^^^^^^
+
+Terms from the `EFO <https://www.ebi.ac.uk/ols/ontologies/efo>`_ to specify the status of the sample.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "EFO:0009655", "abnormal sample", "abnormalSample()"
+   "EFO:0009654", "reference sample", "referenceSample()"
 
 
 MedicalActions

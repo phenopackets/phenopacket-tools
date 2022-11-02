@@ -1,0 +1,3 @@
+ontology.id	ontology.label	variable.name	function.name
+EFO:0009655	abnormal sample	ABNORMAL_SAMPLE	abnormalSample
+EFO:0009654	reference sample	REFERENCE_SAMPLE	referenceSample
