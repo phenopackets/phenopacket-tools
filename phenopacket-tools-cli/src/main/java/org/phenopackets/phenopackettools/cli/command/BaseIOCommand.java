@@ -131,11 +131,13 @@ public abstract class BaseIOCommand extends BaseCommand {
             LOGGER.info("Input element type (-e | --element) was not provided, making an educated guess..");
             LOGGER.info("The input looks like a {} ", element);
             inputSection.element = element;
-        } else {
-            if (!inputSection.element.equals(element))
-                // Let's go an extra mile and check for the user.
-                LOGGER.warn("Input element is set to {} but the current input looks like a {}", inputSection.element, element);
         }
+//        else {
+            // TODO - enable once element sniffing is implemented
+//            if (!inputSection.element.equals(element))
+//                 Let's go an extra mile and check for the user.
+//                LOGGER.warn("Input element is set to {} but the current input looks like a {}", inputSection.element, element);
+//        }
     }
 
     protected record MessageAndPath(Message message, Path path) {}
