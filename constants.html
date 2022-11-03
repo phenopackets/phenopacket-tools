@@ -46,16 +46,24 @@
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Constants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#administrationroute">AdministrationRoute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#allelicstate">AllelicState</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#assays">Assays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#biospecimentype">BiospecimenType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diseasegrade">DiseaseGrade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diseasestage">DiseaseStage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evidence">Evidence</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#gender">Gender</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#laterality">Laterality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#materialsample">MaterialSample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#medicalactions">MedicalActions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#onset">Onset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#organ">Organ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pathologicaltnm">PathologicalTnm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#response">Response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#severity">Severity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#spatialpattern">SpatialPattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#treatmenttermination">TreatmentTermination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tumorprogression">TumorProgression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#unit">Unit</a></li>
 </ul>
 </li>
@@ -101,6 +109,61 @@ For instance, this is the code one would need to write using the native Protobuf
 </pre></div>
 </div>
 <p>The following tables present the available static functions with predefined concepts.</p>
+<section id="administrationroute">
+<h2>AdministrationRoute<a class="headerlink" href="#administrationroute" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> to represent the way in which a medicinal product is introduced into the body.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NCIT:C38276</p></td>
+<td><p>Intravenous Route of Administration</p></td>
+<td><p>intravenous()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C38222</p></td>
+<td><p>Intraarterial Route of Administration</p></td>
+<td><p>intraarterial()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C183503</p></td>
+<td><p>Administration via Wound Irrigation</p></td>
+<td><p>woundIrrigation()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C149695</p></td>
+<td><p>Nebulizer Route of Administration</p></td>
+<td><p>nebulizer()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C38288</p></td>
+<td><p>Oral Route of Administration</p></td>
+<td><p>oral()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C38267</p></td>
+<td><p>Intrathecal Route of Administration</p></td>
+<td><p>intrathecal()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C38677</p></td>
+<td><p>Peridural Route of Administration</p></td>
+<td><p>peridural()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C38304</p></td>
+<td><p>Topical Route of Administration</p></td>
+<td><p>topical()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C38305</p></td>
+<td><p>Transdermal Route of Administration</p></td>
+<td><p>transdermal()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="allelicstate">
 <h2>AllelicState<a class="headerlink" href="#allelicstate" title="Permalink to this heading"></a></h2>
 <p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/geno">GENE ontology</a> are used to describe the allelic state of variants.</p>
@@ -132,9 +195,9 @@ For instance, this is the code one would need to write using the native Protobuf
 </tbody>
 </table>
 </section>
-<section id="assays">
-<h2>Assays<a class="headerlink" href="#assays" title="Permalink to this heading"></a></h2>
-<p>If possible, <a class="reference external" href="https://loinc.org/">LOINC</a> codes should be used to specify laboratory test assays.</p>
+<section id="biospecimentype">
+<h2>BiospecimenType<a class="headerlink" href="#biospecimentype" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> are used to denote the source of a biospecimen.</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 7%" />
@@ -148,9 +211,182 @@ For instance, this is the code one would need to write using the native Protobuf
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>LOINC:2157-6</p></td>
-<td><p>Creatine kinase [Enzymatic activity/volume] in Serum or Plasma</p></td>
-<td><p>creatineKinaseActivity()</p></td>
+<tr class="row-even"><td><p>NCIT:C133261</p></td>
+<td><p>Bone Marrow Aspirate</p></td>
+<td><p>boneMarrowAspirate()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C158416</p></td>
+<td><p>Blood DNA</p></td>
+<td><p>bloodDNA()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C185194</p></td>
+<td><p>Cerebrospinal Fluid Sample</p></td>
+<td><p>cerebrospinalFluidSample()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C156435</p></td>
+<td><p>Formalin-Fixed Paraffin-Embedded DNA</p></td>
+<td><p>formalinFixedParaffinEmbeddedDNA()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C13195</p></td>
+<td><p>Bronchoalveolar Lavage Fluid</p></td>
+<td><p>bronchoalveolarLavageFluid()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C187062</p></td>
+<td><p>Pericardial Fluid Specimen</p></td>
+<td><p>pericardialFluidSpecimen()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C185197</p></td>
+<td><p>Peritoneal Fluid Sample</p></td>
+<td><p>peritonealFluidSample()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C163995</p></td>
+<td><p>Total RNA</p></td>
+<td><p>totalRNA()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C18009</p></td>
+<td><p>Tumor Tissue</p></td>
+<td><p>tumorTissue()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="diseasegrade">
+<h2>DiseaseGrade<a class="headerlink" href="#diseasegrade" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> to represent the tumor grade.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NCIT:C28077</p></td>
+<td><p>Grade 1</p></td>
+<td><p>grade1()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C28078</p></td>
+<td><p>Grade 2</p></td>
+<td><p>grade2()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C28079</p></td>
+<td><p>Grade 3</p></td>
+<td><p>grade3()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C28080</p></td>
+<td><p>Grade 3a</p></td>
+<td><p>grade3a()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C28081</p></td>
+<td><p>Grade 3b</p></td>
+<td><p>grade3b()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C28082</p></td>
+<td><p>Grade 4</p></td>
+<td><p>grade4()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="diseasestage">
+<h2>DiseaseStage<a class="headerlink" href="#diseasestage" title="Permalink to this heading"></a></h2>
+<p>These codes from <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> can be used to denote that clinical stage of cancer or heart failure. Other codes should be used for specific diseases with their own clinical stage systems.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NCIT:C28051</p></td>
+<td><p>Stage 0</p></td>
+<td><p>stage0()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C27966</p></td>
+<td><p>Stage I</p></td>
+<td><p>stageI()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C28054</p></td>
+<td><p>Stage II</p></td>
+<td><p>stageII()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C27970</p></td>
+<td><p>Stage III</p></td>
+<td><p>stageIII()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C27971</p></td>
+<td><p>Stage IV</p></td>
+<td><p>stageIV()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C66904</p></td>
+<td><p>New York Heart Association Class I</p></td>
+<td><p>nyhaClassI()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C66905</p></td>
+<td><p>New York Heart Association Class II</p></td>
+<td><p>nyhaClassII()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C66907</p></td>
+<td><p>New York Heart Association Class III</p></td>
+<td><p>nyhaClassIII()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C7922</p></td>
+<td><p>New York Heart Association Class III/IV</p></td>
+<td><p>nyhaClassIII_or_IV()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C66908</p></td>
+<td><p>New York Heart Association Class IV</p></td>
+<td><p>nyhaClassIV()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="evidence">
+<h2>Evidence<a class="headerlink" href="#evidence" title="Permalink to this heading"></a></h2>
+<p>Terms from the <cite>Evidence and Con   clusion Ontology &lt;https://evidenceontology.org/browse/#ECO_SN&gt;</cite> are used to specify evidence categories.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ECO:0006016</p></td>
+<td><p>author statement from published clinical study</p></td>
+<td><p>authorStatementFromPublishedClinicalStudy()</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECO:0007539</p></td>
+<td><p>author statement from published clinical study used in automatic assertion</p></td>
+<td><p>authorStatementFromPublishedClinicalStudyAutomaticAssertion()</p></td>
+</tr>
+<tr class="row-even"><td><p>ECO:0006017</p></td>
+<td><p>author statement from published clinical study used in manual assertion</p></td>
+<td><p>authorStatementFromPublishedClinicalStudyManualAssertion()</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECO:0000033</p></td>
+<td><p>author statement supported by traceable reference</p></td>
+<td><p>authorStatementSupportedByTraceableReference()</p></td>
+</tr>
+<tr class="row-even"><td><p>ECO:0006154</p></td>
+<td><p>self-reported patient statement evidence</p></td>
+<td><p>selfReportedPatientStatementEvidence()</p></td>
 </tr>
 </tbody>
 </table>
@@ -233,6 +469,33 @@ For instance, this is the code one would need to write using the native Protobuf
 <tr class="row-odd"><td><p>HP:0012832</p></td>
 <td><p>Bilateral</p></td>
 <td><p>bilateral()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="materialsample">
+<h2>MaterialSample<a class="headerlink" href="#materialsample" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/efo">EFO</a> to specify the status of the sample.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>EFO:0009655</p></td>
+<td><p>abnormal sample</p></td>
+<td><p>abnormalSample()</p></td>
+</tr>
+<tr class="row-odd"><td><p>EFO:0009654</p></td>
+<td><p>reference sample</p></td>
+<td><p>referenceSample()</p></td>
 </tr>
 </tbody>
 </table>
@@ -696,6 +959,45 @@ For instance, this is the code one would need to write using the native Protobuf
 </tbody>
 </table>
 </section>
+<section id="severity">
+<h2>Severity<a class="headerlink" href="#severity" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://hpo.jax.org/app/">HPO</a> are used to describe the severity, defined as the intensity or degree of a manifestation.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>HP:0012827</p></td>
+<td><p>Borderline</p></td>
+<td><p>borderline()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0012825</p></td>
+<td><p>Mild</p></td>
+<td><p>mild()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0012826</p></td>
+<td><p>Moderate</p></td>
+<td><p>moderate()</p></td>
+</tr>
+<tr class="row-odd"><td><p>HP:0012828</p></td>
+<td><p>Severe</p></td>
+<td><p>severe()</p></td>
+</tr>
+<tr class="row-even"><td><p>HP:0012829</p></td>
+<td><p>Profound</p></td>
+<td><p>profound()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="spatialpattern">
 <h2>SpatialPattern<a class="headerlink" href="#spatialpattern" title="Permalink to this heading"></a></h2>
 <p>Modifier terms from the <a class="reference external" href="https://hpo.jax.org/app/">HPO</a> are used to describe spatial patterns of phenotypic abnormalities.</p>
@@ -843,6 +1145,72 @@ For instance, this is the code one would need to write using the native Protobuf
 <tr class="row-even"><td><p>HP:0032540</p></td>
 <td><p>Joint flexor surface localization</p></td>
 <td><p>jointFlexorSurfaceLocalization()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="treatmenttermination">
+<h2>TreatmentTermination<a class="headerlink" href="#treatmenttermination" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> to represent the reason that the treatment was completed or stopped early.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NCIT:C105740</p></td>
+<td><p>Treatment Completed as Prescribed</p></td>
+<td><p>treatmentCompletedAsPrescribed()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C105741</p></td>
+<td><p>Treatment Terminated Due to Toxicity</p></td>
+<td><p>treatmentTerminatedDueToToxicity()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C106470</p></td>
+<td><p>Treatment on Hold</p></td>
+<td><p>treatmentOnHold()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C41331</p></td>
+<td><p>Adverse Event</p></td>
+<td><p>adverseEvent()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tumorprogression">
+<h2>TumorProgression<a class="headerlink" href="#tumorprogression" title="Permalink to this heading"></a></h2>
+<p>Terms from the <a class="reference external" href="https://www.ebi.ac.uk/ols/ontologies/ncit">NCI Thesaurus</a> are used to indicate if a specimen is from the primary tumor, a metastasis or a recurrence.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 47%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>id</p></th>
+<th class="head"><p>label</p></th>
+<th class="head"><p>function name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NCIT:C8509</p></td>
+<td><p>Primary Neoplasm</p></td>
+<td><p>primaryNeoplasm()</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCIT:C3261</p></td>
+<td><p>Metastatic Neoplasm</p></td>
+<td><p>metastaticNeoplasm()</p></td>
+</tr>
+<tr class="row-even"><td><p>NCIT:C4798</p></td>
+<td><p>Recurrent Neoplasm</p></td>
+<td><p>recurrentNeoplasm()</p></td>
 </tr>
 </tbody>
 </table>
