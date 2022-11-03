@@ -17,14 +17,17 @@ no special installation procedure if Java 17 or better is available in your envi
 Setup
 ~~~~~
 
-Most users should *download* the precompiled JAR file from *phenopacket-tools* release page.
+Most users should *download* the distribution ZIP file with precompiled JAR file from *phenopacket-tools* release page.
 However, it is also possible to *build* the JAR from sources.
 
 Download
 ^^^^^^^^
 
-*phenopacket-tools* JAR is provided as part of *phenopacket-tools*' release schedule
+*phenopacket-tools* JAR is provided in the distribution ZIP file as part of *phenopacket-tools*' release schedule
 from `Releases <https://github.com/phenopackets/phenopacket-tools/releases>`_.
+
+The ZIP archive contains the executable JAR file along with README and example phenopackets required to run the setup
+and the tutorial.
 
 Build from source code
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -44,9 +47,9 @@ Run the following commands to check out the stable source code and to build the 
   $ cd phenopacket-tools
   $ ./mvnw -Prelease package
 
-After a successful build, a file ``phenopacket-tools-cli-${project.version}.jar`` will be created in
-the ``phenopacket-tools-cli/target`` directory. Use the JAR file in the same way as the JAR downloaded
-from *phenopacket-tools* releases.
+After a successful build, a distribution ZIP file ``phenopacket-tools-cli-${project.version}-distribution.zip``
+will be created in the ``phenopacket-tools-cli/target`` directory. Use the ZIP archive in the same way as the archive
+downloaded from *phenopacket-tools* releases.
 
 .. note::
   Replace ``${project.version}`` with a given version (e.g. ``0.4.6``).

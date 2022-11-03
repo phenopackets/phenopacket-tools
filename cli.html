@@ -105,12 +105,14 @@ on Linux, Mac and Windows environments.</p>
 no special installation procedure if Java 17 or better is available in your environment.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
-<p>Most users should <em>download</em> the precompiled JAR file from <em>phenopacket-tools</em> release page.
+<p>Most users should <em>download</em> the distribution ZIP file with precompiled JAR file from <em>phenopacket-tools</em> release page.
 However, it is also possible to <em>build</em> the JAR from sources.</p>
 <section id="download">
 <h3>Download<a class="headerlink" href="#download" title="Permalink to this heading"></a></h3>
-<p><em>phenopacket-tools</em> JAR is provided as part of <em>phenopacket-tools</em>’ release schedule
+<p><em>phenopacket-tools</em> JAR is provided in the distribution ZIP file as part of <em>phenopacket-tools</em>’ release schedule
 from <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/releases">Releases</a>.</p>
+<p>The ZIP archive contains the executable JAR file along with README and example phenopackets required to run the setup
+and the tutorial.</p>
 </section>
 <section id="build-from-source-code">
 <h3>Build from source code<a class="headerlink" href="#build-from-source-code" title="Permalink to this heading"></a></h3>
@@ -129,9 +131,9 @@ $ cd phenopacket-tools
 $ ./mvnw -Prelease package
 </pre></div>
 </div>
-<p>After a successful build, a file <code class="docutils literal notranslate"><span class="pre">phenopacket-tools-cli-${project.version}.jar</span></code> will be created in
-the <code class="docutils literal notranslate"><span class="pre">phenopacket-tools-cli/target</span></code> directory. Use the JAR file in the same way as the JAR downloaded
-from <em>phenopacket-tools</em> releases.</p>
+<p>After a successful build, a distribution ZIP file <code class="docutils literal notranslate"><span class="pre">phenopacket-tools-cli-${project.version}-distribution.zip</span></code>
+will be created in the <code class="docutils literal notranslate"><span class="pre">phenopacket-tools-cli/target</span></code> directory. Use the ZIP archive in the same way as the archive
+downloaded from <em>phenopacket-tools</em> releases.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Replace <code class="docutils literal notranslate"><span class="pre">${project.version}</span></code> with a given version (e.g. <code class="docutils literal notranslate"><span class="pre">0.4.6</span></code>).</p>
