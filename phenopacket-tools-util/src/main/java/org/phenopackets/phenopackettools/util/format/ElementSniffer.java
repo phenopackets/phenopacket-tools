@@ -65,7 +65,7 @@ public class ElementSniffer {
 
     private static PhenopacketElement sniffProtobuf(byte[] payload, PhenopacketSchemaVersion schemaVersion) {
         // TODO - implement
-        LOGGER.warn("Sniffing is not yet implemented, assuming {}", PhenopacketElement.PHENOPACKET);
+        LOGGER.debug("Sniffing is not yet implemented, assuming {}", PhenopacketElement.PHENOPACKET);
         return PhenopacketElement.PHENOPACKET;
     }
 
@@ -74,13 +74,13 @@ public class ElementSniffer {
         // TODO - reconsider the sniffing workflow. In case of loosely defined formats like JSON and YAML,
         //  the fields can be in any order and we may not get enough information.
         //  Is it OK to throw upon sniffing failure or an Optional is enough?
-        LOGGER.warn("Sniffing is not yet implemented, assuming {}", PhenopacketElement.PHENOPACKET);
+        LOGGER.debug("Sniffing is not yet implemented, assuming {}", PhenopacketElement.PHENOPACKET);
         return PhenopacketElement.PHENOPACKET;
     }
 
     private static PhenopacketElement sniffYaml(byte[] payload, PhenopacketSchemaVersion schemaVersion) {
         // TODO - implement
-        LOGGER.warn("Sniffing is not yet implemented, assuming {}", PhenopacketElement.PHENOPACKET);
+        LOGGER.debug("Sniffing is not yet implemented, assuming {}", PhenopacketElement.PHENOPACKET);
         return PhenopacketElement.PHENOPACKET;
     }
 }
