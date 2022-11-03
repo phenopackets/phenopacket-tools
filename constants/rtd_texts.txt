@@ -20,3 +20,4 @@ TumorGrade|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/n
 DiseaseGrade|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the tumor grade.
 MaterialSample|Terms from the `EFO <https://www.ebi.ac.uk/ols/ontologies/efo>`_ to specify the status of the sample.
 AdministrationRoute|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the way in which a medicinal product is introduced into the body.
+TreatmentTermination|Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the reason that the treatment was completed or stopped early.

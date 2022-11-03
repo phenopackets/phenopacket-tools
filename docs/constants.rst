@@ -59,18 +59,6 @@ Terms from the `GENE ontology <https://www.ebi.ac.uk/ols/ontologies/geno>`_ are 
    "GENO:0000134", "hemizygous", "hemizygous()"
 
 
-Assays
-^^^^^^
-
-If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify laboratory test assays.
-
-.. csv-table:: 
-   :header: "id", "label", "function name"
-   :widths: 30, 200, 200
-
-   "LOINC:2157-6", "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma", "creatineKinaseActivity()"
-
-
 BiospecimenType
 ^^^^^^^^^^^^^^^
 
@@ -395,6 +383,21 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe s
    "HP:0030650", "Focal", "focal()"
    "HP:0030651", "Multifocal", "multifocal()"
    "HP:0032540", "Joint flexor surface localization", "jointFlexorSurfaceLocalization()"
+
+
+TreatmentTermination
+^^^^^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the reason that the treatment was completed or stopped early.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C105740", "Treatment Completed as Prescribed", "treatmentCompletedAsPrescribed()"
+   "NCIT:C105741", "Treatment Terminated Due to Toxicity", "treatmentTerminatedDueToToxicity()"
+   "NCIT:C106470", "Treatment on Hold", "treatmentOnHold()"
+   "NCIT:C41331", "Adverse Event", "adverseEvent()"
 
 
 TumorProgression

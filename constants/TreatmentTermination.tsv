@@ -1,0 +1,5 @@
+ontology.id	ontology.label	variable.name	function.name
+NCIT:C105740	Treatment Completed as Prescribed	TREATMENT_COMPLETED_AS_PRESCRIBED	treatmentCompletedAsPrescribed
+NCIT:C105741	Treatment Terminated Due to Toxicity	TREATMENT_TERMINATED_TOXICITY	treatmentTerminatedDueToToxicity
+NCIT:C106470	Treatment on Hold	TREATMENT_ON_HOLD	treatmentOnHold
+NCIT:C41331	Adverse Event	ADVERSE_EVENT	adverseEvent
