@@ -5,18 +5,8 @@ package org.phenopackets.phenopackettools.validator.core;
  */
 public interface ValidatorInfo {
 
-    static ValidatorInfo genericJsonSchema() {
-        return ValidatorInfoDefault.GENERIC;
-    }
-
-    /**
-     * This class implements additional validation of a phenopacket that is intended to be used
-     * for HPO rare disease phenotyping. By assumption, the phenopacket will have been first
-     * checked against the {@link ValidatorInfo#genericJsonSchema()} specification. This class performs validation with the
-     * file {@code hpo-rare-disease-schema.json}.
-     */
-    static ValidatorInfo rareDiseaseValidation() {
-        return ValidatorInfoDefault.RARE_DISEASE_VALIDATOR;
+    static ValidatorInfo baseSyntaxValidation() {
+        return ValidatorInfoDefault.BASE;
     }
 
     /**
