@@ -2,7 +2,7 @@ package org.phenopackets.phenopackettools.builder.builders;
 
 import org.ga4gh.vrs.v1.*;
 import org.ga4gh.vrs.v1.Number;
-import org.phenopackets.phenopackettools.builder.exceptions.PhenotoolsRuntimeException;
+import org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException;
 
 public class CopyNumberBuilder {
 
@@ -50,7 +50,7 @@ public class CopyNumberBuilder {
 
     public CopyNumberBuilder nCopies(int n) {
         if (n < 0) {
-            throw new PhenotoolsRuntimeException("Negative copy numbers are not allowed");
+            throw new PhenopacketToolsRuntimeException("Negative copy numbers are not allowed");
         }
         builder.setNumber(Number.newBuilder().setValue(n));
         return this;

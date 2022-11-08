@@ -14,8 +14,7 @@ The cli application works in a standard UNIX-like manner.
 ```shell
 cd phenopacket-tools
 ./mvnw package
-PXF_VERSION="0.4.6"
-alias pfx-tools="java -jar $(pwd)/phenopacket-tools-cli/target/phenopacket-tools-cli-${PXF_VERSION}.jar"
+alias pfx-tools="java -jar $(pwd)/phenopacket-tools-cli/target/phenopacket-tools-cli-@project.version@.jar"
 pfx-tools --help
 ```
 
@@ -51,6 +50,5 @@ pfx-tools validate family ~/phenopacket-examples/families/*.json
 pfx-tools convert phenopacket.json
 ```
 
-
-see this for VRS -- https://github.com/ga4gh/vrs/blob/76542a903b913110e67811885a8958625bbc3aae/schema/vrs.json
-import it like vrsatile
+### API
+A Javadoc description of the API of phenopacket-tools is available [here](https://javadoc.io/doc/org.phenopackets.phenopackettools).

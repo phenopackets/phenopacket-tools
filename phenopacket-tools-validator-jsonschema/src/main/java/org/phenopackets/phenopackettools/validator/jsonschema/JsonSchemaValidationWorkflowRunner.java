@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.MessageOrBuilder;
 import org.phenopackets.phenopackettools.util.format.FormatSniffer;
-import org.phenopackets.phenopackettools.util.format.PhenopacketFormat;
+import org.phenopackets.phenopackettools.core.PhenopacketFormat;
 import org.phenopackets.phenopackettools.util.format.FormatSniffException;
 import org.phenopackets.phenopackettools.validator.core.*;
 import org.phenopackets.phenopackettools.validator.jsonschema.impl.JsonSchemaValidator;
@@ -13,9 +13,6 @@ import org.phenopackets.schema.v2.CohortOrBuilder;
 import org.phenopackets.schema.v2.FamilyOrBuilder;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,17 +22,18 @@ import java.util.Objects;
  * Validates if given top-level element satisfies the following criteria:
  * <ul>
  *     <li><b>data format requirements</b> - for instance if the element is a valid JSON document if JSON input is provided</li>
- *     <li><b>basic Phenopacket schema requirements</b> - the requirements described by the reference documentation.
+ *     <li><b>basic Phenopacket schema syntax requirements</b> - the requirements described by the reference documentation.
  *     Absence of a <em>required</em> field is an {@link ValidationLevel#ERROR} and absence of a recommended field is
- *     a {@link ValidationLevel#WARNING}.</li>
- *     <li><b>custom requirements</b> - requirements provided in a JSON schema document(s) provided by the user.</li>
- *     <li><b>semantic requirements</b> - requirements checked by {@link PhenopacketValidator}s provided by the user.</li>
+ *     a {@link ValidationLevel#WARNING},</li>
+ *     <li><b>custom syntax requirements</b> - requirements provided in a JSON schema document(s) provided by the user,</li>
+ *     <li><b>syntax requirements</b> - requirements checked by the provided <em>ad hoc</em> {@link PhenopacketValidator}s,</li>
+ *     <li><b>semantic requirements</b> - requirements checked by the provided {@link PhenopacketValidator}s.</li>
  * </ul>
  * <p>
- * The validation is performed in steps as outlined by the list above. Note that the data format validation must
+ * The validation is performed in the order as outlined above. Note that the data format validation must
  * pass in order for the latter steps to run.
  * <p>
- * Use one of {@link Builder}s provided via static constructors (e.g. {@link #phenopacketBuilder()}) to build
+ * Use one of {@link JsonSchemaValidationWorkflowRunnerBuilder}s provided via static constructors (e.g. {@link #phenopacketBuilder()}) to build
  * the validation workflow.
  *
  * @param <T> must be one of the three top-level elements of the Phenopacket schema:
@@ -48,40 +46,43 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     private final PhenopacketFormatConverter<T> converter;
     private final JsonSchemaValidator baseValidator;
     private final Collection<JsonSchemaValidator> requirementValidators;
+    private final Collection<PhenopacketValidator<T>> syntaxValidators;
     private final Collection<PhenopacketValidator<T>> semanticValidators;
     private final List<ValidatorInfo> validatorInfos;
 
     /**
-     * @return a {@link Builder} for building a {@link JsonSchemaValidationWorkflowRunner} for validating
+     * @return a {@link JsonSchemaValidationWorkflowRunnerBuilder} for building a {@link JsonSchemaValidationWorkflowRunner} for validating
      * {@link PhenopacketOrBuilder}.
      */
-    public static Builder<PhenopacketOrBuilder> phenopacketBuilder() {
-        return new ValidationWorkflowRunnerBuilder.PhenopacketWorkflowRunnerBuilder();
+    public static JsonSchemaValidationWorkflowRunnerBuilder<PhenopacketOrBuilder> phenopacketBuilder() {
+        return new BaseValidationWorkflowRunnerBuilder.PhenopacketWorkflowRunnerBuilder();
     }
 
     /**
-     * @return a {@link Builder} for building a {@link JsonSchemaValidationWorkflowRunner} for validating
+     * @return a {@link JsonSchemaValidationWorkflowRunnerBuilder} for building a {@link JsonSchemaValidationWorkflowRunner} for validating
      * {@link FamilyOrBuilder}.
      */
-    public static Builder<FamilyOrBuilder> familyBuilder() {
-        return new ValidationWorkflowRunnerBuilder.FamilyWorkflowRunnerBuilder();
+    public static JsonSchemaValidationWorkflowRunnerBuilder<FamilyOrBuilder> familyBuilder() {
+        return new BaseValidationWorkflowRunnerBuilder.FamilyWorkflowRunnerBuilder();
     }
 
     /**
-     * @return a {@link Builder} for building a {@link JsonSchemaValidationWorkflowRunner} for validating
-     * {@link CohortOrBuilder}.
+     * @return a {@link JsonSchemaValidationWorkflowRunnerBuilder} for building a {@link JsonSchemaValidationWorkflowRunner} for validating
+     * {@link CohortOrBuilder}
      */
-    public static Builder<CohortOrBuilder> cohortBuilder() {
-        return new ValidationWorkflowRunnerBuilder.CohortWorkflowRunnerBuilder();
+    public static JsonSchemaValidationWorkflowRunnerBuilder<CohortOrBuilder> cohortBuilder() {
+        return new BaseValidationWorkflowRunnerBuilder.CohortWorkflowRunnerBuilder();
     }
 
     JsonSchemaValidationWorkflowRunner(PhenopacketFormatConverter<T> converter,
                                        JsonSchemaValidator baseValidator,
                                        Collection<JsonSchemaValidator> requirementValidators,
+                                       Collection<PhenopacketValidator<T>> syntaxValidators,
                                        Collection<PhenopacketValidator<T>> semanticValidators) {
         this.converter = Objects.requireNonNull(converter);
         this.baseValidator = Objects.requireNonNull(baseValidator);
         this.requirementValidators = Objects.requireNonNull(requirementValidators);
+        this.syntaxValidators = Objects.requireNonNull(syntaxValidators);
         this.semanticValidators = Objects.requireNonNull(semanticValidators);
         this.validatorInfos = summarizeValidatorInfos(baseValidator, requirementValidators, semanticValidators);
     }
@@ -134,6 +135,12 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
         }
 
         try {
+            validateSyntax(json, builder);
+        } catch (ConversionException e) {
+            return wrapUpValidation(e, builder);
+        }
+
+        try {
             validateSemantic(json, builder);
         } catch (ConversionException e) {
             return wrapUpValidation(e, builder);
@@ -154,6 +161,8 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
             // We must not proceed with semantic validation with item that does not meet the requirements.
             return wrapUpValidation(e, builder);
         }
+
+        validateSyntax(item, builder);
 
         // No conversion necessary, hence no need to guard against the `ConversionException`.
         validateSemantic(item, builder);
@@ -176,7 +185,7 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     /**
      * Validate requirements using {@link #baseValidator} and all {@link #requirementValidators}.
      *
-     * @throws ConversionException if {@code json} cannot be mapped into {@link JsonNode}.
+     * @throws ConversionException if {@code json} cannot be mapped into {@link JsonNode}
      */
     private void validateRequirements(String json, ValidationResults.Builder builder) throws ConversionException {
         JsonNode jsonNode;
@@ -194,10 +203,22 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
         }
     }
 
+    private void validateSyntax(String item, ValidationResults.Builder builder) throws ConversionException {
+        T component = converter.toItem(item);
+
+        validateSyntax(component, builder);
+    }
+
+    private void validateSyntax(T component, ValidationResults.Builder builder) {
+        for (PhenopacketValidator<T> validator : syntaxValidators) {
+            builder.addResults(validator.validatorInfo(), validator.validate(component));
+        }
+    }
+
     /**
      * Validate semantic requirements using {@link #semanticValidators}.
      *
-     * @throws ConversionException if {@code item} cannot be mapped into {@link T}.
+     * @throws ConversionException if {@code item} cannot be mapped into {@link T}
      */
     private void validateSemantic(String item, ValidationResults.Builder builder) throws ConversionException {
         T component = converter.toItem(item);
@@ -217,58 +238,6 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     private static ValidationResults wrapUpValidation(ConversionException e, ValidationResults.Builder builder) {
         return builder.addResult(e.validatorInfo(), e)
                 .build();
-    }
-
-    /**
-     * A builder for {@link JsonSchemaValidationWorkflowRunner}.
-     * <p>
-     * Build the {@link JsonSchemaValidationWorkflowRunner} by providing JSON schema documents
-     * either as {@link Path} or {@link URL}s, and {@link PhenopacketValidator}s for performing semantic validation.
-     *
-     * @param <T> one of top-level elements of the Phenopacket schema.
-     */
-    public static abstract class Builder<T extends MessageOrBuilder> {
-
-        protected final List<URL> jsonSchemaUrls = new ArrayList<>();
-        protected final List<PhenopacketValidator<T>> semanticValidators = new ArrayList<>();
-
-        protected Builder() {
-            // private no-op
-        }
-
-        public Builder<T> addJsonSchema(Path path) throws MalformedURLException {
-            return addJsonSchema(path.toUri().toURL());
-        }
-
-        public Builder<T> addJsonSchema(URL url) {
-            jsonSchemaUrls.add(url);
-            return this;
-        }
-
-        public Builder<T> addAllJsonSchemaPaths(List<Path> paths) throws MalformedURLException {
-            for (Path path : paths) {
-                jsonSchemaUrls.add(path.toUri().toURL());
-            }
-            return this;
-        }
-
-        public Builder<T> addAllJsonSchemaUrls(List<URL> urls) {
-            jsonSchemaUrls.addAll(urls);
-            return this;
-        }
-
-        public Builder<T> addSemanticValidator(PhenopacketValidator<T> semanticValidator) {
-            this.semanticValidators.add(semanticValidator);
-            return this;
-        }
-
-        public Builder<T> addAllSemanticValidators(List<PhenopacketValidator<T>> semanticValidators) {
-            this.semanticValidators.addAll(semanticValidators);
-            return this;
-        }
-
-        public abstract JsonSchemaValidationWorkflowRunner<T> build();
-
     }
 
 }

@@ -8,16 +8,27 @@ public class GeneDescriptorBuilder {
 
     private final GeneDescriptor.Builder builder;
 
-    private GeneDescriptorBuilder(String identifier, String symbol) {
-        builder = GeneDescriptor.newBuilder().setValueId(identifier).setSymbol(symbol);
+    private GeneDescriptorBuilder(String valueId, String symbol) {
+        builder = GeneDescriptor.newBuilder().setValueId(valueId).setSymbol(symbol);
     }
 
-    public static GeneDescriptor of(String identifier, String symbol) {
-        return GeneDescriptor.newBuilder().setValueId(identifier).setSymbol(symbol).build();
+    /**
+     * @param valueId Official identifier of the gene, e.g., HGNC:3603
+     * @param symbol Official gene symbol, e.g., FBN1
+     * @return completely built {@link GeneDescriptor} object
+     */
+    public static GeneDescriptor of(String valueId, String symbol) {
+        return GeneDescriptor.newBuilder().setValueId(valueId).setSymbol(symbol).build();
     }
 
-    public static GeneDescriptorBuilder builder(String identifier, String symbol) {
-        return new GeneDescriptorBuilder(identifier, symbol);
+
+    /**
+     * @param valueId Official identifier of the gene, e.g., HGNC:3603
+     * @param symbol Official gene symbol, e.g., FBN1
+     * @return GeneDescriptorBuilder that can be used to set additional field values
+     */
+    public static GeneDescriptorBuilder builder(String valueId, String symbol) {
+        return new GeneDescriptorBuilder(valueId, symbol);
     }
 
     public GeneDescriptorBuilder description(String desc) {

@@ -25,6 +25,26 @@ In contrast, this is the code required with phenopacket-tools (omitting import s
 The following tables present the available static functions with predefined concepts.
 
 
+AdministrationRoute
+^^^^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the way in which a medicinal product is introduced into the body.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C38276", "Intravenous Route of Administration", "intravenous()"
+   "NCIT:C38222", "Intraarterial Route of Administration", "intraarterial()"
+   "NCIT:C183503", "Administration via Wound Irrigation", "woundIrrigation()"
+   "NCIT:C149695", "Nebulizer Route of Administration", "nebulizer()"
+   "NCIT:C38288", "Oral Route of Administration", "oral()"
+   "NCIT:C38267", "Intrathecal Route of Administration", "intrathecal()"
+   "NCIT:C38677", "Peridural Route of Administration", "peridural()"
+   "NCIT:C38304", "Topical Route of Administration", "topical()"
+   "NCIT:C38305", "Transdermal Route of Administration", "transdermal()"
+
+
 AllelicState
 ^^^^^^^^^^^^
 
@@ -39,16 +59,78 @@ Terms from the `GENE ontology <https://www.ebi.ac.uk/ols/ontologies/geno>`_ are 
    "GENO:0000134", "hemizygous", "hemizygous()"
 
 
-Assays
-^^^^^^
+BiospecimenType
+^^^^^^^^^^^^^^^
 
-If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify laboratory test assays.
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to denote the source of a biospecimen.
 
 .. csv-table:: 
    :header: "id", "label", "function name"
    :widths: 30, 200, 200
 
-   "LOINC:2157-6", "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma", "creatineKinaseActivity()"
+   "NCIT:C133261", "Bone Marrow Aspirate", "boneMarrowAspirate()"
+   "NCIT:C158416", "Blood DNA", "bloodDNA()"
+   "NCIT:C185194", "Cerebrospinal Fluid Sample", "cerebrospinalFluidSample()"
+   "NCIT:C156435", "Formalin-Fixed Paraffin-Embedded DNA", "formalinFixedParaffinEmbeddedDNA()"
+   "NCIT:C13195", "Bronchoalveolar Lavage Fluid", "bronchoalveolarLavageFluid()"
+   "NCIT:C187062", "Pericardial Fluid Specimen", "pericardialFluidSpecimen()"
+   "NCIT:C185197", "Peritoneal Fluid Sample", "peritonealFluidSample()"
+   "NCIT:C163995", "Total RNA", "totalRNA()"
+   "NCIT:C18009", "Tumor Tissue", "tumorTissue()"
+
+
+DiseaseGrade
+^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the tumor grade.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C28077", "Grade 1", "grade1()"
+   "NCIT:C28078", "Grade 2", "grade2()"
+   "NCIT:C28079", "Grade 3", "grade3()"
+   "NCIT:C28080", "Grade 3a", "grade3a()"
+   "NCIT:C28081", "Grade 3b", "grade3b()"
+   "NCIT:C28082", "Grade 4", "grade4()"
+
+
+DiseaseStage
+^^^^^^^^^^^^
+
+These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ can be used to denote that clinical stage of cancer or heart failure. Other codes should be used for specific diseases with their own clinical stage systems.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C28051", "Stage 0", "stage0()"
+   "NCIT:C27966", "Stage I", "stageI()"
+   "NCIT:C28054", "Stage II", "stageII()"
+   "NCIT:C27970", "Stage III", "stageIII()"
+   "NCIT:C27971", "Stage IV", "stageIV()"
+   "NCIT:C66904", "New York Heart Association Class I", "nyhaClassI()"
+   "NCIT:C66905", "New York Heart Association Class II", "nyhaClassII()"
+   "NCIT:C66907", "New York Heart Association Class III", "nyhaClassIII()"
+   "NCIT:C7922", "New York Heart Association Class III/IV", "nyhaClassIII_or_IV()"
+   "NCIT:C66908", "New York Heart Association Class IV", "nyhaClassIV()"
+
+
+Evidence
+^^^^^^^^
+
+Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.org/browse/#ECO_SN>` are used to specify evidence categories.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "ECO:0006016", "author statement from published clinical study", "authorStatementFromPublishedClinicalStudy()"
+   "ECO:0007539", "author statement from published clinical study used in automatic assertion", "authorStatementFromPublishedClinicalStudyAutomaticAssertion()"
+   "ECO:0006017", "author statement from published clinical study used in manual assertion", "authorStatementFromPublishedClinicalStudyManualAssertion()"
+   "ECO:0000033", "author statement supported by traceable reference", "authorStatementSupportedByTraceableReference()"
+   "ECO:0006154", "self-reported patient statement evidence", "selfReportedPatientStatementEvidence()"
 
 
 Gender
@@ -84,6 +166,19 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe l
    "HP:0012832", "Bilateral", "bilateral()"
 
 
+MaterialSample
+^^^^^^^^^^^^^^
+
+Terms from the `EFO <https://www.ebi.ac.uk/ols/ontologies/efo>`_ to specify the status of the sample.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "EFO:0009655", "abnormal sample", "abnormalSample()"
+   "EFO:0009654", "reference sample", "referenceSample()"
+
+
 MedicalActions
 ^^^^^^^^^^^^^^
 
@@ -94,13 +189,13 @@ Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are 
    :widths: 30, 200, 200
 
    "NCIT:C41331", "Adverse Event", "adverseEvent()"
-   "NCIT:C64530", "Four Times Daily", "fourtimesDaily()"
+   "NCIT:C64530", "Four Times Daily", "fourTimesDaily()"
    "NCIT:C38222", "Intraarterial Route of Administration", "intraArterialAdministration()"
    "NCIT:C38276", "Intravenous Route of Administration", "intravenousAdministration()"
    "NCIT:C38288", "Oral Route of Administration", "oralAdministration()"
    "NCIT:C64576", "Once", "once()"
    "NCIT:C125004", "Once Daily", "onceDaily()"
-   "NCIT:C64527", "Three Times Daily", "threetimesDaily()"
+   "NCIT:C64527", "Three Times Daily", "threeTimesDaily()"
    "NCIT:C64496", "Twice Daily", "twiceDaily()"
 
 
@@ -159,6 +254,53 @@ Terms from the `UBERON ontology <https://www.ebi.ac.uk/ols/ontologies/uberon>`_ 
    "UBERON:0002370", "thymus", "thymus()"
 
 
+PathologicalTnm
+^^^^^^^^^^^^^^^
+
+TNM staging performed as part of pathologic specimen (based on surgical specimens including sentinel lymph node biopsy specimens).
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C48740", "pM0 Stage Finding", "pM0StageFinding()"
+   "NCIT:C48741", "pM1 Stage Finding", "pM1StageFinding()"
+   "NCIT:C48742", "pM1a Stage Finding", "pM1aStageFinding()"
+   "NCIT:C48743", "pM1b Stage Finding", "pM1bStageFinding()"
+   "NCIT:C48744", "pM1c Stage Finding", "pM1cStageFinding()"
+   "NCIT:C48745", "pN0 Stage Finding", "pN0StageFinding()"
+   "NCIT:C48746", "pN1 Stage Finding", "pN1StageFinding()"
+   "NCIT:C48747", "pN1a Stage Finding", "pN1aStageFinding()"
+   "NCIT:C48748", "pN1b Stage Finding", "pN1bStageFinding()"
+   "NCIT:C48749", "pN1c Stage Finding", "pN1cStageFinding()"
+   "NCIT:C48750", "pN2 Stage Finding", "pN2StageFinding()"
+   "NCIT:C48751", "pN2a Stage Finding", "pN2aStageFinding()"
+   "NCIT:C48752", "pN2b Stage Finding", "pN2bStageFinding()"
+   "NCIT:C48753", "pN2c Stage Finding", "pN2cStageFinding()"
+   "NCIT:C48754", "pN3 Stage Finding", "pN3StageFinding()"
+   "NCIT:C48755", "pN3a Stage Finding", "pN3aStageFinding()"
+   "NCIT:C48756", "pN3b Stage Finding", "pN3bStageFinding()"
+   "NCIT:C48757", "pN3c Stage Finding", "pN3cStageFinding()"
+   "NCIT:C48758", "pT0 Stage Finding", "pT0StageFinding()"
+   "NCIT:C48759", "pT1 Stage Finding", "pT1StageFinding()"
+   "NCIT:C48760", "pT1a Stage Finding", "pT1aStageFinding()"
+   "NCIT:C48761", "pT1b Stage Finding", "pT1bStageFinding()"
+   "NCIT:C48763", "pT1c Stage Finding", "pT1cStageFinding()"
+   "NCIT:C48764", "pT2 Stage Finding", "pT2StageFinding()"
+   "NCIT:C48765", "pT2a Stage Finding", "pT2aStageFinding()"
+   "NCIT:C48766", "pT2b Stage Finding", "pT2bStageFinding()"
+   "NCIT:C48767", "pT2c Stage Finding", "pT2cStageFinding()"
+   "NCIT:C48768", "pT3 Stage Finding", "pT3StageFinding()"
+   "NCIT:C48769", "pT3a Stage Finding", "pT3aStageFinding()"
+   "NCIT:C48770", "pT3b Stage Finding", "pT3bStageFinding()"
+   "NCIT:C48771", "pT3c Stage Finding", "pT3cStageFinding()"
+   "NCIT:C48772", "pT4 Stage Finding", "pT4StageFinding()"
+   "NCIT:C48773", "pT4a Stage Finding", "pT4aStageFinding()"
+   "NCIT:C48774", "pT4b Stage Finding", "pT4bStageFinding()"
+   "NCIT:C48775", "pT4c Stage Finding", "pT4cStageFinding()"
+   "NCIT:C48776", "pT4d Stage Finding", "pT4dStageFinding()"
+
+
 Response
 ^^^^^^^^
 
@@ -168,8 +310,35 @@ These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ ca
    :header: "id", "label", "function name"
    :widths: 30, 200, 200
 
-   "NCIT:C102560", "Favorable", "favorable()"
-   "NCIT:C102561", "Unfavorable", "unfavorable()"
+   "NCIT:C123584", "Favorable Response", "favorableResponse()"
+   "NCIT:C123617", "Unfavorable Response", "unfavorableResponse()"
+   "NCIT:C123600", "No Response", "noResponse()"
+   "NCIT:C123614", "Stringent Complete Response", "stringentCompleteResponse()"
+   "NCIT:C123598", "Minimal Response", "minimalResponse()"
+   "NCIT:C4870", "Complete Remission", "completeRemission()"
+   "NCIT:C18058", "Partial Remission", "partialRemission()"
+   "NCIT:C70604", "Primary Refractory", "primaryRefractory()"
+   "NCIT:C142357", "iRECIST Complete Response", "iRECISTCompleteResponse()"
+   "NCIT:C142356", "iRECIST Confirmed Progressive Disease", "iRECISTConfirmedProgressiveDisease()"
+   "NCIT:C142358", "iRECIST Partial Response", "iRECISTPartialResponse()"
+   "NCIT:C142359", "iRECIST Stable Disease", "iRECISTStableDisease()"
+   "NCIT:C142360", "iRECIST Unconfirmed Progressive Disease", "iRECISTUnconfirmedProgressiveDisease()"
+
+
+Severity
+^^^^^^^^
+
+Terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe the severity, defined as the intensity or degree of a manifestation.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "HP:0012827", "Borderline", "borderline()"
+   "HP:0012825", "Mild", "mild()"
+   "HP:0012826", "Moderate", "moderate()"
+   "HP:0012828", "Severe", "severe()"
+   "HP:0012829", "Profound", "profound()"
 
 
 SpatialPattern
@@ -213,7 +382,36 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe s
    "HP:0033820", "Apical", "apical()"
    "HP:0030650", "Focal", "focal()"
    "HP:0030651", "Multifocal", "multifocal()"
-   "HP:0032540", "Jointflexorsurfacelocalization", "jointFlexorSurfaceLocalization()"
+   "HP:0032540", "Joint flexor surface localization", "jointFlexorSurfaceLocalization()"
+
+
+TreatmentTermination
+^^^^^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the reason that the treatment was completed or stopped early.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C105740", "Treatment Completed as Prescribed", "treatmentCompletedAsPrescribed()"
+   "NCIT:C105741", "Treatment Terminated Due to Toxicity", "treatmentTerminatedDueToToxicity()"
+   "NCIT:C106470", "Treatment on Hold", "treatmentOnHold()"
+   "NCIT:C41331", "Adverse Event", "adverseEvent()"
+
+
+TumorProgression
+^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to indicate if a specimen is from the primary tumor, a metastasis or a recurrence.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C8509", "Primary Neoplasm", "primaryNeoplasm()"
+   "NCIT:C3261", "Metastatic Neoplasm", "metastaticNeoplasm()"
+   "NCIT:C4798", "Recurrent Neoplasm", "recurrentNeoplasm()"
 
 
 Unit
@@ -229,7 +427,7 @@ With some exceptions, terms from the `The Unified Code for Units of Measure <htt
    "UCUM:[diop]", "diopter", "diopter()"
    "UCUM:g", "gram", "gram()"
    "UCUM:g/kg", "gram per kilogram", "gramPerKilogram()"
-   "UCUM:kg", "kiligram", "kilogram()"
+   "UCUM:kg", "kilogram", "kilogram()"
    "UCUM:L", "liter", "liter()"
    "UCUM:m", "meter", "meter()"
    "UCUM:ug", "microgram", "microgram()"

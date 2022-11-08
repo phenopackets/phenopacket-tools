@@ -1,0 +1,11 @@
+ontology.id	ontology.label	variable.name	function.name
+NCIT:C28051	Stage 0	STAGE_0	stage0
+NCIT:C27966	Stage I	STAGE_I	stageI
+NCIT:C28054	Stage II	STAGE_II	stageII
+NCIT:C27970	Stage III	STAGE_III	stageIII
+NCIT:C27971	Stage IV	STAGE_IV	stageIV
+NCIT:C66904	New York Heart Association Class I	NYHA_I	nyhaClassI
+NCIT:C66905	New York Heart Association Class II	NYHA_II	nyhaClassII
+NCIT:C66907	New York Heart Association Class III	NYHA_III	nyhaClassIII
+NCIT:C7922	New York Heart Association Class III/IV	NYHA_III_IV	nyhaClassIII_or_IV
+NCIT:C66908	New York Heart Association Class IV	NYHA_IV	nyhaClassIV

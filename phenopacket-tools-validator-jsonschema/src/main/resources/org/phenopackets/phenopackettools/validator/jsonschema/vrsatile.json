@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2019-09/schema#",
   "$id": "https://www.ga4gh.org/phenopackets",
-  "title": "Phenopacket",
-  "description": "Schema for Global Alliance for Genomics and Health (GA4GH) Phenopacket",
+  "title": "VRS Added Tools for Interoperable Loquacious Exchange",
+  "description": "VRSATILE: A set of proposed extensions for GA4GH's Variation Representation Specification (VRS) to enable interoperable exchange of common descriptive data alongside variation concepts",
   "type": "object",
   "definitions": {
     "extension": {
@@ -97,17 +97,26 @@
           "type": "string"
         },
         "variation": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/vrs.json#/definitions/Variation"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/vrs.json#/definitions/Variation",
+          "description": "The VRS Variation object"
         },
         "label": {
-          "type": "string"
+          "type": "string",
+          "description": "A primary label for the variation"
+        },
+        "description": {
+          "type": "string",
+          "description": "A free-text description of the variation"
+        },
+        "geneContext": {
+          "$ref": "#/definitions/geneDescriptor",
+          "description": "A specific gene context that applies to this variant"
         },
         "expressions": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/expression"
-          },
-          "minItems": 0
+          }
         },
         "vcfRecord": {
           "$ref": "#/definitions/vcfRecord"
@@ -116,22 +125,19 @@
           "type": "array",
           "items": {
             "type": "string"
-          },
-          "minItems": 0
+          }
         },
         "alternateLabels": {
           "type": "array",
           "items": {
             "type": "string"
-          },
-          "minItems": 0
+          }
         },
         "extensions": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/extension"
-          },
-          "minItems": 0
+          }
         },
         "moleculeContext": {
           "enum": [
@@ -142,16 +148,21 @@
           ]
         },
         "structuralType" : {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass",
+          "description": "The structural variant type associated with this variant, such as a substitution, deletion, or fusion. We RECOMMEND using a descendent term of SO:0001537."
         },
-        "vrs_ref_allele_seq": {
+        "vrsRefAlleleSeq": {
           "type": "string",
-          "description": "A Sequence corresponding to a “ref allele”, describing the sequence expected at a SequenceLocation reference"
+          "description": "A Sequence corresponding to a \"ref allele\", describing the sequence expected at a SequenceLocation reference"
         },
         "allelicState" :  {
           "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/v2/base.json#/definitions/ontologyClass"
         }
-      }
+      },
+      "required": [
+        "id", "moleculeContext"
+      ],
+      "additionalProperties": false
     },
     "geneDescriptor" : {
       "type": "object",
@@ -166,30 +177,34 @@
         },
         "description": {
           "type": "string",
-          "description": "Free-text description"
+          "description": "Free-text description of the gene"
         },
         "alternateIds" : {
           "type": "array",
+          "description": "Alternative identifier(s) of the gene",
           "items": {
             "type": "string"
-          },
-          "minItems": 0
-        },
-        "alternateSymbols" : {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 0
+          }
         },
         "xrefs" : {
           "type": "array",
+          "description": "Related concept IDs (e.g. gene ortholog IDs) may be placed in xrefs",
           "items": {
             "type": "string"
-          },
-          "minItems": 0
+          }
+        },
+        "alternateSymbols" : {
+          "type": "array",
+          "description": "Alternative symbol(s) of the gene",
+          "items": {
+            "type": "string"
+          }
         }
-      }
+      },
+      "required": [
+        "valueId", "symbol"
+      ],
+      "additionalProperties": false
     }
   }
 }

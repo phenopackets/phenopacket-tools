@@ -1,6 +1,6 @@
 package org.phenopackets.phenopackettools.builder.builders;
 
-import org.phenopackets.phenopackettools.builder.exceptions.PhenotoolsRuntimeException;
+import org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException;
 import org.phenopackets.schema.v2.core.Age;
 import org.phenopackets.schema.v2.core.AgeRange;
 import org.phenopackets.schema.v2.core.GestationalAge;
@@ -17,7 +17,7 @@ public class Ages {
         try {
             Period.parse(iso8601duration);
         } catch (DateTimeParseException ex) {
-            throw new PhenotoolsRuntimeException("Invalid iso8601 age (period) string: \"" + iso8601duration + "\".");
+            throw new PhenopacketToolsRuntimeException("Invalid iso8601 age (period) string: \"" + iso8601duration + "\".");
         }
         return Age.newBuilder().setIso8601Duration(iso8601duration).build();
     }

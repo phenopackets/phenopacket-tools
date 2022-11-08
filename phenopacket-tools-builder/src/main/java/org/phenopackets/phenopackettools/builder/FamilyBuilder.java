@@ -1,6 +1,6 @@
 package org.phenopackets.phenopackettools.builder;
 
-import org.phenopackets.phenopackettools.builder.exceptions.PhenotoolsRuntimeException;
+import org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException;
 import org.phenopackets.schema.v2.Family;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.File;
@@ -57,11 +57,11 @@ public class FamilyBuilder {
 
     public Family build() {
         if (! builder.hasMetaData()) {
-            throw new PhenotoolsRuntimeException("MetaData element missing from Family");
+            throw new PhenopacketToolsRuntimeException("MetaData element missing from Family");
         } else if (! builder.hasPedigree()) {
-            throw new PhenotoolsRuntimeException("Pedigree element missing from Family");
+            throw new PhenopacketToolsRuntimeException("Pedigree element missing from Family");
         } else if (! builder.hasProband()) {
-            throw new PhenotoolsRuntimeException("Proband Phenopacket element missing from Family");
+            throw new PhenopacketToolsRuntimeException("Proband Phenopacket element missing from Family");
         }
 
         return builder.build();

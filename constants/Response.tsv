@@ -1,3 +1,14 @@
 ontology.id	ontology.label	variable.name	function.name
-NCIT:C102560	Favorable	FAVORABLE	favorable
-NCIT:C102561	Unfavorable	UNFAVORABLE	unfavorable
+NCIT:C123584	Favorable Response	FAVORABLE_RESPONSE	favorableResponse
+NCIT:C123617	Unfavorable Response	UNFAVORABLE_RESPONSE	unfavorableResponse
+NCIT:C123600	No Response	NO_RESPONSE	noResponse
+NCIT:C123614	Stringent Complete Response	STRINGENT_COMPLETE_RESPONSE	stringentCompleteResponse
+NCIT:C123598	Minimal Response	MINIMAL_RESPONSE	minimalResponse
+NCIT:C4870	Complete Remission	COMPLETE_REMISSION	completeRemission
+NCIT:C18058	Partial Remission	PARTIAL_REMISSION	partialRemission
+NCIT:C70604	Primary Refractory	PRIMARY_REFRACTORY	primaryRefractory
+NCIT:C142357	iRECIST Complete Response	iRECIST_COMPLETE_RESPONSE	iRECISTCompleteResponse
+NCIT:C142356	iRECIST Confirmed Progressive Disease	iRECIST_CONFIRMED_PROGRESSIVE_DISEASE	iRECISTConfirmedProgressiveDisease
+NCIT:C142358	iRECIST Partial Response	iRECIST_PARTIAL_RESPONSE	iRECISTPartialResponse
+NCIT:C142359	iRECIST Stable Disease	iRECIST_STABLE_DISEASE	iRECISTStableDisease
+NCIT:C142360	iRECIST Unconfirmed Progressive Disease	iRECIST_UNCONFIRMED_PROGRESSIVE_DISEASE	iRECISTUnconfirmedProgressiveDisease
