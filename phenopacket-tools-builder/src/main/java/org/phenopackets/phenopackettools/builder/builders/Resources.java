@@ -91,6 +91,27 @@ public class Resources {
             .setUrl("https://www.genenames.org")
             .setIriPrefix("https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/");
 
+    private static final Resource.Builder UCUM_BUILDER = Resource.newBuilder()
+            .setId("ucum")
+            .setName("Unified Code for Units of Measure")
+            .setNamespacePrefix("UCUM")
+            .setUrl("https://ucum.org")
+            .setIriPrefix("https://ucum.org/"); // TODO - we need to get a real prefix
+
+    private static final Resource.Builder LOINC_BUILDER = Resource.newBuilder()
+            .setId("loinc")
+            .setName("Logical Observation Identifiers Names and Codes")
+            .setNamespacePrefix("LOINC")
+            .setUrl("https://loinc.org")
+            .setIriPrefix("https://loinc.org/");
+
+    private static final Resource.Builder DRUG_CENTRAL_BUILDER = Resource.newBuilder()
+            .setId("drugcentral")
+            .setName("Drug Central")
+            .setNamespacePrefix("DrugCentral")
+            .setUrl("https://drugcentral.org/")
+            .setIriPrefix("https://drugcentral.org/drugcard/");
+
     public static Resource hgncVersion(String version) { return HGNC_BUILDER.setVersion(version).build(); }
 
     public static Resource hpoVersion(String version) {
@@ -135,5 +156,17 @@ public class Resources {
 
     public static Resource uoVersion(String version) {
         return UO_BUILDER.setVersion(version).build();
+    }
+
+    public static Resource ucumVersion(String version) {
+        return UCUM_BUILDER.setVersion(version).build();
+    }
+
+    public static Resource loincVersion(String version) {
+        return LOINC_BUILDER.setVersion(version).build();
+    }
+
+    public static Resource drugCentralVersion(String version) {
+        return DRUG_CENTRAL_BUILDER.setVersion(version).build();
     }
 }

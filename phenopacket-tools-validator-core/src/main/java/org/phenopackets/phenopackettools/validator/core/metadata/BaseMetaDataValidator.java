@@ -18,8 +18,8 @@ abstract class BaseMetaDataValidator<T extends MessageOrBuilder> implements Phen
 
     private static final ValidatorInfo VALIDATOR_INFO = ValidatorInfo.of(
             "MetaDataValidator",
-            "MetaDataValidator for Phenopacket, Family, and Cohort",
-            "Validate that the MetaData section includes information about all ontologies used");
+            "MetaData validator",
+            "Validate that the MetaData section describes all used ontologies");
 
     @Override
     public ValidatorInfo validatorInfo() {

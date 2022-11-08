@@ -113,7 +113,7 @@ public class JsonSchemaValidatorConfigurer {
     private static JsonSchemaNodeAndInfo phenopacketJsonSchemaAndInfo() {
         try (InputStream is = JsonSchemaValidatorConfigurer.class.getResourceAsStream(PHENOPACKET_SCHEMA_PATH)) {
             JsonNode schemaNode = readJsonSchemaNode(is);
-            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.genericJsonSchema());
+            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.baseSyntaxValidation());
         } catch (IOException e) {
             throw new PhenopacketValidatorRuntimeException("Invalid JSON schema specification: " + e.getMessage());
         }
@@ -125,7 +125,7 @@ public class JsonSchemaValidatorConfigurer {
     private static JsonSchemaNodeAndInfo familyJsonSchemaAndInfo() {
         try (InputStream is = JsonSchemaValidatorConfigurer.class.getResourceAsStream(FAMILY_SCHEMA_PATH)) {
             JsonNode schemaNode = readJsonSchemaNode(is);
-            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.genericJsonSchema());
+            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.baseSyntaxValidation());
         } catch (IOException e) {
             throw new PhenopacketValidatorRuntimeException("Invalid JSON schema specification: " + e.getMessage());
         }
@@ -137,7 +137,7 @@ public class JsonSchemaValidatorConfigurer {
     private static JsonSchemaNodeAndInfo cohortJsonSchemaAndInfo() {
         try (InputStream is = JsonSchemaValidatorConfigurer.class.getResourceAsStream(COHORT_SCHEMA_PATH)) {
             JsonNode schemaNode = readJsonSchemaNode(is);
-            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.genericJsonSchema());
+            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.baseSyntaxValidation());
         } catch (IOException e) {
             throw new PhenopacketValidatorRuntimeException("Invalid JSON schema specification: " + e.getMessage());
         }
