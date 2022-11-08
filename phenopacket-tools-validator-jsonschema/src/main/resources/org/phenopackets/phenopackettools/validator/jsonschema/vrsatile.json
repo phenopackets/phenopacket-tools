@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
   "$id": "https://www.ga4gh.org/phenopackets",
   "title": "VRS Added Tools for Interoperable Loquacious Exchange",
   "description": "VRSATILE: A set of proposed extensions for GA4GH's Variation Representation Specification (VRS) to enable interoperable exchange of common descriptive data alongside variation concepts",
@@ -58,7 +58,8 @@
         },
         "pos" : {
           "description": "position on the chromosome (VCF convention)",
-          "type": "integer"
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
         },
         "id" : {
           "description": "identifier as used in VCF line",
@@ -97,7 +98,7 @@
           "type": "string"
         },
         "variation": {
-          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/vrs.json#/definitions/Variation",
+          "type": "object",
           "description": "The VRS Variation object"
         },
         "label": {
