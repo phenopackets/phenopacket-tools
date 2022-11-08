@@ -18,7 +18,7 @@ public class Unit {
   private static final OntologyClass MICROLITER = OntologyClassBuilder.ontologyClass("UCUM:uL", "microliter");
   private static final OntologyClass MICROMETER = OntologyClassBuilder.ontologyClass("UCUM:um", "micrometer");
   private static final OntologyClass MILLIGRAM = OntologyClassBuilder.ontologyClass("UCUM:mg", "milligram");
-  private static final OntologyClass MILLIGRAM_PER_LITER = OntologyClassBuilder.ontologyClass("UCUM:mg/L", "milligram per liter");
+  private static final OntologyClass MILLIGRAM_PER_DAY = OntologyClassBuilder.ontologyClass("UCUM:mg/dL", "milligram per day");
   private static final OntologyClass MILLIGRAM_PER_DL = OntologyClassBuilder.ontologyClass("UCUM:mg/dL", "milligram per deciliter");
   private static final OntologyClass MILLIGRAM_PER_KG = OntologyClassBuilder.ontologyClass("UCUM:mg.kg-1", "milligram per kilogram");
   private static final OntologyClass MILLILITER = OntologyClassBuilder.ontologyClass("UCUM:mL", "milliliter");
@@ -44,7 +44,7 @@ public class Unit {
   public static OntologyClass microliter() { return MICROLITER; }
   public static OntologyClass micrometer() { return MICROMETER; }
   public static OntologyClass milligram() { return MILLIGRAM; }
-  public static OntologyClass milligramPerLiter() { return MILLIGRAM_PER_LITER; }
+  public static OntologyClass milligramPerDay() { return MILLIGRAM_PER_DAY; }
   public static OntologyClass milligramPerDeciliter() { return MILLIGRAM_PER_DL; }
   public static OntologyClass mgPerKg() { return MILLIGRAM_PER_KG; }
   public static OntologyClass milliliter() { return MILLILITER; }
