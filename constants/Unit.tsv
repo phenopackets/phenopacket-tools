@@ -12,7 +12,7 @@ UCUM:ug/L	microgram per liter	MICROGRAM_PER_LITER	microgramPerLiter
 UCUM:uL	microliter	MICROLITER	microliter
 UCUM:um	micrometer	MICROMETER	micrometer
 UCUM:mg	milligram	MILLIGRAM	milligram
-UCUM:mg/L	milligram per liter	MILLIGRAM_PER_LITER	milligramPerLiter
+UCUM:mg/dL	milligram per day	MILLIGRAM_PER_DAY	milligramPerDay
 UCUM:mg/dL	milligram per deciliter	MILLIGRAM_PER_DL	milligramPerDeciliter
 UCUM:mg.kg-1	milligram per kilogram	MILLIGRAM_PER_KG	mgPerKg
 UCUM:mL	milliliter	MILLILITER	milliliter

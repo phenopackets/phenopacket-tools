@@ -238,7 +238,7 @@ With some exceptions, terms from the `The Unified Code for Units of Measure <htt
    "UCUM:uL", "microliter", "microliter()"
    "UCUM:um", "micrometer", "micrometer()"
    "UCUM:mg", "milligram", "milligram()"
-   "UCUM:mg/L", "milligram per liter", "milligramPerLiter()"
+   "UCUM:mg/dL", "milligram per day", "milligramPerDay()"
    "UCUM:mg/dL", "milligram per deciliter", "milligramPerDeciliter()"
    "UCUM:mg.kg-1", "milligram per kilogram", "mgPerKg()"
    "UCUM:mL", "milliliter", "milliliter()"
