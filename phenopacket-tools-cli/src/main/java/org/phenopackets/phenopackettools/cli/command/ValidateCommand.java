@@ -43,11 +43,15 @@ public class ValidateCommand extends BaseIOCommand {
         @CommandLine.Option(names = {"--require"},
                 arity = "*",
                 description = "Path to JSON schema with additional requirements to enforce.")
-        protected List<Path> requirements = List.of();
+        public List<Path> requirements = List.of();
 
         @CommandLine.Option(names = "--hpo",
                 description = "Path to hp.json file")
-        protected Path hpJson;
+        public Path hpJson;
+
+        @CommandLine.Option(names = {"-H", "--no-header"},
+                description = {"Do not print validation header", "Default: ${DEFAULT-VALUE}"})
+        public boolean noHeader = false;
     }
 
     @Override
@@ -66,7 +70,10 @@ public class ValidateCommand extends BaseIOCommand {
 
         // (4) Write out the validation results into STDOUT.
         try {
-            CSVValidationResultsWriter writer = new CSVValidationResultsWriter(System.out, PHENOPACKET_TOOLS_VERSION, LocalDateTime.now());
+            CSVValidationResultsWriter writer = new CSVValidationResultsWriter(System.out,
+                    PHENOPACKET_TOOLS_VERSION,
+                    LocalDateTime.now(),
+                    validateSection.noHeader);
             writer.writeValidationResults(runner.validators(), results);
             return 0;
         } catch (IOException e) {
