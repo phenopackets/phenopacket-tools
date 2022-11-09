@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2019-09/schema",
-  "$id": "https://www.ga4gh.org/phenopackets",
+  "$id": "https://www.ga4gh.org/phenopackets/vrsatile",
   "title": "VRS Added Tools for Interoperable Loquacious Exchange",
   "description": "VRSATILE: A set of proposed extensions for GA4GH's Variation Representation Specification (VRS) to enable interoperable exchange of common descriptive data alongside variation concepts",
   "type": "object",
@@ -98,8 +98,8 @@
           "type": "string"
         },
         "variation": {
-          "type": "object",
-          "description": "The VRS Variation object"
+          "$ref": "classpath:/org/phenopackets/phenopackettools/validator/jsonschema/vrs-variation-adapter.json",
+          "description": "An adapter for the VRS Variation representation that is embedded into Phenopacket schema. Note that the adapter does not map 1:1 to VRS Variation."
         },
         "label": {
           "type": "string",
