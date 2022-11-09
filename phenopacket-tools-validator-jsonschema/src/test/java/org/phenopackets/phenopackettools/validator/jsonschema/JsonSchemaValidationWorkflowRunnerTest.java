@@ -226,10 +226,31 @@ public class JsonSchemaValidationWorkflowRunnerTest {
 
             @ParameterizedTest
             @CsvSource({
-                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor,                DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor: is missing but it is required'",
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor/id,              DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor.id: is missing but it is required'",
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor/moleculeContext, DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor.moleculeContext: is missing but it is required'",
             })
             public void checkVariationDescriptorConstraints(String path, String action, String expected) {
                 testErrors(runner, readRetinoblastomaPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * As of Nov 9, 2022, the {@link org.ga4gh.vrs.v1.Variation} validator does not check presence
+             * of required fields. The validator can only check presence of {@code oneof} fields.
+             * <p>
+             * Note that the {@code path} is split into a prefix and sub-path to increase legibility of the
+             * test parameters.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/variation/copyNumber,                DELETE,          'HERE.allele: is missing but it is required|HERE.haplotype: is missing but it is required|HERE.copyNumber: is missing but it is required|HERE.text: is missing but it is required|HERE.variationSet: is missing but it is required'",
+            })
+            public void removingAOneOfFieldFromVariationProducesValidationError(String subPath, String action, String subExpected) {
+                String pathPrefix = "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor";
+                String path = pathPrefix.concat(subPath);
+
+                String validationMessagePrefix = "\\$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor.variation";
+                String expectedValidationMessage = subExpected.replaceAll("HERE", validationMessagePrefix);
+                testErrors(runner, readRetinoblastomaPhenopacketNode(), path, action, expectedValidationMessage);
             }
 
             /**
