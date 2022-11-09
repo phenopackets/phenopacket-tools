@@ -211,10 +211,12 @@
           "acmgPathogenicityClassification": "PATHOGENIC",
           "therapeuticActionability": "ACTIONABLE",
           "variationDescriptor": {
+            "id": "example-cnv",
+            "moleculeContext": "genomic",
             "variation": {
               "copyNumber": {
-                "allele": {
-                  "sequenceLocation": {
+                "derivedSequenceExpression": {
+                  "location": {
                     "sequenceId": "refseq:NC_000013.14",
                     "sequenceInterval": {
                       "startNumber": {
