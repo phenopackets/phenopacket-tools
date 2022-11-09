@@ -1,0 +1,6 @@
+ontology.id	ontology.label	variable.name	function.name
+HP:0012827	Borderline	BORDERLINE	borderline
+HP:0012825	Mild	MILD	mild
+HP:0012826	Moderate	MODERATE	moderate
+HP:0012828	Severe	SEVERE	severe
+HP:0012829	Profound	PROFOUND	profound

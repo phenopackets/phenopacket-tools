@@ -1,5 +1,7 @@
 package org.phenopackets.phenopackettools.cli.examples;
 
+import org.ga4gh.vrs.v1.*;
+import org.ga4gh.vrs.v1.Number;
 import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
 import org.phenopackets.phenopackettools.builder.builders.*;
 import org.phenopackets.phenopackettools.builder.constants.Laterality;
@@ -71,10 +73,10 @@ public class Retinoblastoma implements PhenopacketExample {
      * @return Genomic interpretation related to a somatic missense mutation in the RB1 gene.
      */
     GenomicInterpretation somaticRb1Missense() {
-        AlleleBuilder abuilder = AlleleBuilder.builder();
-        abuilder.sequenceId("refseq:NC_000013.11");
-        abuilder.interbaseStartEnd( 48367511, 48367512);
-        abuilder.altAllele("T");
+        AlleleBuilder abuilder = AlleleBuilder.builder()
+                .sequenceId("refseq:NC_000013.11")
+                .interbaseStartEnd( 48367511, 48367512)
+                .altAllele("T");
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("rs121913300")
                 .variation(abuilder.buildVariation())
                 .genomic()
@@ -100,15 +102,31 @@ public class Retinoblastoma implements PhenopacketExample {
 
 
     GenomicInterpretation germlineRb1Deletion() {
-        CopyNumberBuilder abuilder = CopyNumberBuilder.builder();
+        CopyNumber cnv = CopyNumber.newBuilder()
+                .setDerivedSequenceExpression(DerivedSequenceExpression.newBuilder()
+                        .setLocation(SequenceLocation.newBuilder()
+                                .setSequenceId("refseq:NC_000013.14")
+                                .setSequenceInterval(SequenceInterval.newBuilder()
+                                        .setStartNumber(Number.newBuilder().
+                                                setValue(25981249)
+                                                .build())
+                                        .setEndNumber(Number.newBuilder()
+                                                .setValue(61706822)
+                                                .build())
+                                        .build())
+                                .build())
+                        .build())
+                .setNumber(Number.newBuilder().setValue(1).build())
+                .build();
         //abuilder.copyNumberId("ga4gh:VCN.AFfJws1M4Lg8w1O3XknmHYc9TU2hHYpp");
         // original coordinates in paper were given as 13q12.13q21.2(26,555,387–62,280,955 for hg19
         //chr13	25981249	61706822 -- lifted over to hg38
+        Variation variation = Variation.newBuilder()
+                .setCopyNumber(cnv)
+                .build();
 
-        abuilder.alleleLocation("refseq:NC_000013.14",25981249, 61706822);//VRS uses inter-residue coordinates
-        abuilder.oneCopy();
         VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder();
-        vbuilder.variation(abuilder.buildVariation());
+        vbuilder.variation(variation);
         vbuilder.mosaicism(40.0);
         VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.builder(vbuilder);
         vibuilder.pathogenic();

@@ -25,6 +25,26 @@ In contrast, this is the code required with phenopacket-tools (omitting import s
 The following tables present the available static functions with predefined concepts.
 
 
+AdministrationRoute
+^^^^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the way in which a medicinal product is introduced into the body.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C38276", "Intravenous Route of Administration", "intravenous()"
+   "NCIT:C38222", "Intraarterial Route of Administration", "intraarterial()"
+   "NCIT:C183503", "Administration via Wound Irrigation", "woundIrrigation()"
+   "NCIT:C149695", "Nebulizer Route of Administration", "nebulizer()"
+   "NCIT:C38288", "Oral Route of Administration", "oral()"
+   "NCIT:C38267", "Intrathecal Route of Administration", "intrathecal()"
+   "NCIT:C38677", "Peridural Route of Administration", "peridural()"
+   "NCIT:C38304", "Topical Route of Administration", "topical()"
+   "NCIT:C38305", "Transdermal Route of Administration", "transdermal()"
+
+
 AllelicState
 ^^^^^^^^^^^^
 
@@ -39,16 +59,78 @@ Terms from the `GENE ontology <https://www.ebi.ac.uk/ols/ontologies/geno>`_ are 
    "GENO:0000134", "hemizygous", "hemizygous()"
 
 
-Assays
-^^^^^^
+BiospecimenType
+^^^^^^^^^^^^^^^
 
-If possible, `LOINC <https://loinc.org/>`_ codes should be used to specify laboratory test assays.
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to denote the source of a biospecimen.
 
 .. csv-table:: 
    :header: "id", "label", "function name"
    :widths: 30, 200, 200
 
-   "LOINC:2157-6", "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma", "creatineKinaseActivity()"
+   "NCIT:C133261", "Bone Marrow Aspirate", "boneMarrowAspirate()"
+   "NCIT:C158416", "Blood DNA", "bloodDNA()"
+   "NCIT:C185194", "Cerebrospinal Fluid Sample", "cerebrospinalFluidSample()"
+   "NCIT:C156435", "Formalin-Fixed Paraffin-Embedded DNA", "formalinFixedParaffinEmbeddedDNA()"
+   "NCIT:C13195", "Bronchoalveolar Lavage Fluid", "bronchoalveolarLavageFluid()"
+   "NCIT:C187062", "Pericardial Fluid Specimen", "pericardialFluidSpecimen()"
+   "NCIT:C185197", "Peritoneal Fluid Sample", "peritonealFluidSample()"
+   "NCIT:C163995", "Total RNA", "totalRNA()"
+   "NCIT:C18009", "Tumor Tissue", "tumorTissue()"
+
+
+DiseaseGrade
+^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the tumor grade.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C28077", "Grade 1", "grade1()"
+   "NCIT:C28078", "Grade 2", "grade2()"
+   "NCIT:C28079", "Grade 3", "grade3()"
+   "NCIT:C28080", "Grade 3a", "grade3a()"
+   "NCIT:C28081", "Grade 3b", "grade3b()"
+   "NCIT:C28082", "Grade 4", "grade4()"
+
+
+DiseaseStage
+^^^^^^^^^^^^
+
+These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ can be used to denote that clinical stage of cancer or heart failure. Other codes should be used for specific diseases with their own clinical stage systems.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C28051", "Stage 0", "stage0()"
+   "NCIT:C27966", "Stage I", "stageI()"
+   "NCIT:C28054", "Stage II", "stageII()"
+   "NCIT:C27970", "Stage III", "stageIII()"
+   "NCIT:C27971", "Stage IV", "stageIV()"
+   "NCIT:C66904", "New York Heart Association Class I", "nyhaClassI()"
+   "NCIT:C66905", "New York Heart Association Class II", "nyhaClassII()"
+   "NCIT:C66907", "New York Heart Association Class III", "nyhaClassIII()"
+   "NCIT:C7922", "New York Heart Association Class III/IV", "nyhaClassIII_or_IV()"
+   "NCIT:C66908", "New York Heart Association Class IV", "nyhaClassIV()"
+
+
+Evidence
+^^^^^^^^
+
+Terms from the `Evidence and Con   clusion Ontology <https://evidenceontology.org/browse/#ECO_SN>` are used to specify evidence categories.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "ECO:0006016", "author statement from published clinical study", "authorStatementFromPublishedClinicalStudy()"
+   "ECO:0007539", "author statement from published clinical study used in automatic assertion", "authorStatementFromPublishedClinicalStudyAutomaticAssertion()"
+   "ECO:0006017", "author statement from published clinical study used in manual assertion", "authorStatementFromPublishedClinicalStudyManualAssertion()"
+   "ECO:0000033", "author statement supported by traceable reference", "authorStatementSupportedByTraceableReference()"
+   "ECO:0006154", "self-reported patient statement evidence", "selfReportedPatientStatementEvidence()"
 
 
 Gender
@@ -82,6 +164,19 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe l
    "HP:0012835", "Left", "left()"
    "HP:0012833", "Unilateral", "unilateral()"
    "HP:0012832", "Bilateral", "bilateral()"
+
+
+MaterialSample
+^^^^^^^^^^^^^^
+
+Terms from the `EFO <https://www.ebi.ac.uk/ols/ontologies/efo>`_ to specify the status of the sample.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "EFO:0009655", "abnormal sample", "abnormalSample()"
+   "EFO:0009654", "reference sample", "referenceSample()"
 
 
 MedicalActions
@@ -230,6 +325,22 @@ These codes from `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ ca
    "NCIT:C142360", "iRECIST Unconfirmed Progressive Disease", "iRECISTUnconfirmedProgressiveDisease()"
 
 
+Severity
+^^^^^^^^
+
+Terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe the severity, defined as the intensity or degree of a manifestation.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "HP:0012827", "Borderline", "borderline()"
+   "HP:0012825", "Mild", "mild()"
+   "HP:0012826", "Moderate", "moderate()"
+   "HP:0012828", "Severe", "severe()"
+   "HP:0012829", "Profound", "profound()"
+
+
 SpatialPattern
 ^^^^^^^^^^^^^^
 
@@ -272,6 +383,35 @@ Modifier terms from the `HPO <https://hpo.jax.org/app/>`_ are used to describe s
    "HP:0030650", "Focal", "focal()"
    "HP:0030651", "Multifocal", "multifocal()"
    "HP:0032540", "Joint flexor surface localization", "jointFlexorSurfaceLocalization()"
+
+
+TreatmentTermination
+^^^^^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ to represent the reason that the treatment was completed or stopped early.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C105740", "Treatment Completed as Prescribed", "treatmentCompletedAsPrescribed()"
+   "NCIT:C105741", "Treatment Terminated Due to Toxicity", "treatmentTerminatedDueToToxicity()"
+   "NCIT:C106470", "Treatment on Hold", "treatmentOnHold()"
+   "NCIT:C41331", "Adverse Event", "adverseEvent()"
+
+
+TumorProgression
+^^^^^^^^^^^^^^^^
+
+Terms from the `NCI Thesaurus <https://www.ebi.ac.uk/ols/ontologies/ncit>`_ are used to indicate if a specimen is from the primary tumor, a metastasis or a recurrence.
+
+.. csv-table:: 
+   :header: "id", "label", "function name"
+   :widths: 30, 200, 200
+
+   "NCIT:C8509", "Primary Neoplasm", "primaryNeoplasm()"
+   "NCIT:C3261", "Metastatic Neoplasm", "metastaticNeoplasm()"
+   "NCIT:C4798", "Recurrent Neoplasm", "recurrentNeoplasm()"
 
 
 Unit
