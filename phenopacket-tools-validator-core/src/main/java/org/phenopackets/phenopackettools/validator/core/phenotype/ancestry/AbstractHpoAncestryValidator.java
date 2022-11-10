@@ -12,6 +12,8 @@ import org.phenopackets.phenopackettools.validator.core.phenotype.util.Phenotypi
 import org.phenopackets.phenopackettools.validator.core.phenotype.util.Util;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -29,6 +31,8 @@ import java.util.stream.Stream;
  * with <em>"NOT"</em> Abnormality of finger. Only the <em>"NOT"</em> Abnormality of finger must be used.
  */
 public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> extends BaseHpoValidator<T> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHpoAncestryValidator.class);
 
     private static final ValidatorInfo VALIDATOR_INFO = ValidatorInfo.of(
             "HpoAncestryValidator",
@@ -63,6 +67,11 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
         // Check that the component does not contain both observed term and its ancestor.
 
         for (TermId observed : featuresByExclusion.observedPhenotypicFeatures()) {
+            if (isObsoleteTermId(observed)) {
+                LOGGER.debug("Ignoring unknown/obsolete term ID {}", observed.getValue());
+                continue;
+            }
+
             for (TermId ancestor : OntologyAlgorithm.getAncestorTerms(hpo, observed, false)) {
                 if (featuresByExclusion.observedPhenotypicFeatures().contains(ancestor))
                     results.add(constructResultForAnObservedTerm(id, observed, ancestor, false));
@@ -73,6 +82,11 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
 
         // Check that the component does not have negated descendant
         for (TermId excluded : featuresByExclusion.excludedPhenotypicFeatures()) {
+            if (isObsoleteTermId(excluded)) {
+                LOGGER.debug("Ignoring unknown/obsolete term ID {}", excluded.getValue());
+                continue;
+            }
+
             for (TermId child : OntologyAlgorithm.getDescendents(hpo, excluded)) {
                 if (child.equals(excluded))
                     // skip the parent term
@@ -83,6 +97,10 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
         }
 
         return results.build();
+    }
+
+    private boolean isObsoleteTermId(TermId termId) {
+        return hpo.getObsoleteTermIds().contains(termId);
     }
 
     private ValidationResult constructResultForAnObservedTerm(String id, TermId observedId, TermId ancestorId, boolean ancestorIsExcluded) {

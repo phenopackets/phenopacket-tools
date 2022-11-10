@@ -85,7 +85,7 @@ public class PrimaryHpoPhenotypeValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
             assertThat(result.category(), equalTo("Invalid TermId"));
-            assertThat(result.message(), equalTo("HP:0001182 in 'proband A' not found in http://purl.obolibrary.org/obo/hp/releases/2021-06-08/hp.json"));
+            assertThat(result.message(), equalTo("HP:0001182 in proband A not found in http://purl.obolibrary.org/obo/hp/releases/2021-06-08/hp.json"));
         }
 
         @Test
@@ -116,7 +116,7 @@ public class PrimaryHpoPhenotypeValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.level(), equalTo(ValidationLevel.WARNING));
             assertThat(result.category(), equalTo("Obsoleted TermId"));
-            assertThat(result.message(), equalTo("Using obsoleted id (HP:0001505) instead of current primary id (HP:0001166) in 'proband A'"));
+            assertThat(result.message(), equalTo("Using obsolete id (HP:0001505) instead of current primary id (HP:0001166) in proband A"));
         }
 
         @Test
@@ -142,7 +142,7 @@ public class PrimaryHpoPhenotypeValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
             assertThat(result.category(), equalTo("Invalid TermId"));
-            assertThat(result.message(), equalTo("The HP_0100807 found in 'proband A' is not a valid value"));
+            assertThat(result.message(), equalTo("The HP_0100807 found in proband A is not a valid term ID"));
         }
     }
 
@@ -247,7 +247,7 @@ public class PrimaryHpoPhenotypeValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
             assertThat(result.category(), equalTo("Invalid TermId"));
-            assertThat(result.message(), equalTo("The HP_0001238 found in 'Flynn' is not a valid value"));
+            assertThat(result.message(), equalTo("The HP_0001238 found in Flynn is not a valid term ID"));
         }
 
         @Test
@@ -295,7 +295,7 @@ public class PrimaryHpoPhenotypeValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
             assertThat(result.category(), equalTo("Invalid TermId"));
-            assertThat(result.message(), equalTo("The HP_0001238 found in 'Walt' is not a valid value"));
+            assertThat(result.message(), equalTo("The HP_0001238 found in Walt is not a valid term ID"));
         }
     }
 
@@ -383,7 +383,7 @@ public class PrimaryHpoPhenotypeValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
             assertThat(result.category(), equalTo("Invalid TermId"));
-            assertThat(result.message(), equalTo("The HP_0001238 found in 'Thing 1' is not a valid value"));
+            assertThat(result.message(), equalTo("The HP_0001238 found in Thing 1 is not a valid term ID"));
         }
     }
 

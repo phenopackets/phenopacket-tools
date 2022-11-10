@@ -1,6 +1,8 @@
 # README
 
-The folder contains a few phenopackets for demonstrating the validation functionality of *phenopacket-tools*. 
+The folder contains a few phenopackets for demonstrating the base validation functionality of *phenopacket-tools*; 
+the validation that any phenopacket must pass.
+
 The validator will report the validation issues, one issue per line. The next sections show different types 
 of validation errors that can be found using *phenopacket-tools*. 
 
