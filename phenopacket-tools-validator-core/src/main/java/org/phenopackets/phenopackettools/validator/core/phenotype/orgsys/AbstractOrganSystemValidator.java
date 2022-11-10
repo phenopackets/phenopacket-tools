@@ -109,18 +109,4 @@ public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> e
 
         return results.build();
     }
-
-    /**
-     * @return a function that maps {@link OntologyClass} into a {@link TermId} and emit warning otherwise.
-     */
-    private static Function<OntologyClass, Optional<TermId>> toTermId(String individualId) {
-        return oc -> {
-            try {
-                return Optional.of(TermId.of(oc.getId()));
-            } catch (PhenolRuntimeException e) {
-                LOGGER.warn("Invalid term ID {} in individual {}", oc.getId(), individualId);
-                return Optional.empty();
-            }
-        };
-    }
 }

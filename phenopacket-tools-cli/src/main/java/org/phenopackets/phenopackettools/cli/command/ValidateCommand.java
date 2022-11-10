@@ -2,8 +2,10 @@ package org.phenopackets.phenopackettools.cli.command;
 
 
 import com.google.protobuf.MessageOrBuilder;
+import org.monarchinitiative.phenol.base.PhenolRuntimeException;
 import org.monarchinitiative.phenol.io.OntologyLoader;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.core.PhenopacketElement;
 import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
 import org.phenopackets.phenopackettools.validator.core.*;
@@ -27,6 +29,9 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Command(name = "validate",
         description = "Validate top-level elements of the Phenopacket schema.",
@@ -40,6 +45,10 @@ public class ValidateCommand extends BaseIOCommand {
     public ValidateSection validateSection = new ValidateSection();
 
     public static class ValidateSection {
+        @CommandLine.Option(names = {"-H", "--include-header"},
+                description = {"Include header in the output", "Default: ${DEFAULT-VALUE}"})
+        public boolean includeHeader = false;
+
         @CommandLine.Option(names = {"--require"},
                 arity = "*",
                 description = "Path to JSON schema with additional requirements to enforce.")
@@ -49,9 +58,11 @@ public class ValidateCommand extends BaseIOCommand {
                 description = "Path to hp.json file")
         public Path hpJson;
 
-        @CommandLine.Option(names = {"-H", "--no-header"},
-                description = {"Do not print validation header", "Default: ${DEFAULT-VALUE}"})
-        public boolean noHeader = false;
+        @CommandLine.Option(names = {"-s", "--organ-system"},
+                arity = "*",
+                description = {"Organ system HPO term IDs",
+                        "Default: empty"})
+        public List<String> organSystems = List.of();
     }
 
     @Override
@@ -73,7 +84,7 @@ public class ValidateCommand extends BaseIOCommand {
             CSVValidationResultsWriter writer = new CSVValidationResultsWriter(System.out,
                     PHENOPACKET_TOOLS_VERSION,
                     LocalDateTime.now(),
-                    validateSection.noHeader);
+                    validateSection.includeHeader);
             writer.writeValidationResults(runner.validators(), results);
             return 0;
         } catch (IOException e) {
@@ -144,9 +155,10 @@ public class ValidateCommand extends BaseIOCommand {
         // Right now we only have one semantic validator, but we'll extend this in the future.
         LOGGER.debug("Configuring semantic validators");
         List<PhenopacketValidator<T>> validators = new ArrayList<>();
+        Ontology hpo = null;
         if (validateSection.hpJson != null) {
-            LOGGER.debug("Reading HPO from '{}}'", validateSection.hpJson.toAbsolutePath());
-            Ontology hpo = OntologyLoader.loadOntology(validateSection.hpJson.toFile());
+            LOGGER.debug("Reading HPO from {}", validateSection.hpJson.toAbsolutePath());
+            hpo = OntologyLoader.loadOntology(validateSection.hpJson.toFile());
 
             // The entire logic of this command stands and falls on correct state of `element` and the read message(s).
             // This method requires an appropriate combination of `T` and `element`, as described in Javadoc.
@@ -171,11 +183,74 @@ public class ValidateCommand extends BaseIOCommand {
                     //noinspection unchecked
                     validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.cohortHpoAncestryValidator(hpo));
                 }
-            };
+            }
+        }
+
+        if (!validateSection.organSystems.isEmpty()) {
+            PhenopacketValidator<T> validator = prepareOrganSystemValidator(hpo, validateSection.organSystems, inputSection.element);
+            if (validator != null)
+                validators.add(validator);
+
         }
 
         LOGGER.debug("Configured {} semantic validator(s)", validators.size());
         return validators;
+    }
+
+    private static <T extends MessageOrBuilder> PhenopacketValidator<T> prepareOrganSystemValidator(Ontology hpo,
+                                                                                                    List<String> organSystems,
+                                                                                                    PhenopacketElement element) {
+        // Organ system validation can only be done when HPO is provided.
+        if (hpo == null) {
+            LOGGER.warn("Terms for organ system validation were provided but the path to HPO is unset. Use --hpo option to enable organ system validation.");
+            return null;
+        }
+
+        // Prepare organ system IDs.
+        List<TermId> organSystemIds = prepareOrganSystemIds(organSystems);
+
+        // Create the validator.
+        if (!organSystemIds.isEmpty()) {
+            return switch (element) {
+                case PHENOPACKET -> //noinspection unchecked
+                        (PhenopacketValidator<T>) HpoPhenotypeValidators.OrganSystem.phenopacketHpoOrganSystemValidator(hpo, organSystemIds);
+                case FAMILY -> //noinspection unchecked
+                        (PhenopacketValidator<T>) HpoPhenotypeValidators.OrganSystem.familyHpoOrganSystemValidator(hpo, organSystemIds);
+                case COHORT -> //noinspection unchecked
+                        (PhenopacketValidator<T>) HpoPhenotypeValidators.OrganSystem.cohortHpoOrganSystemValidator(hpo, organSystemIds);
+            };
+        }
+
+        return null;
+    }
+
+    private static List<TermId> prepareOrganSystemIds(List<String> organSystems) {
+        LOGGER.trace("Found {} organ system IDs: {}", organSystems.size(), organSystems.stream()
+                .collect(Collectors.joining(", ", "{", "}")));
+        List<TermId> organSystemIds = organSystems.stream()
+                .map(toTermId())
+                .flatMap(Optional::stream)
+                .toList();
+        LOGGER.trace("{} organ system IDs are valid term IDs: {}", organSystemIds.size(),
+                organSystemIds.stream()
+                        .map(TermId::getValue)
+                        .collect(Collectors.joining(", ", "{", "}")));
+        return organSystemIds;
+    }
+
+    /**
+     * @return a function that maps a {@link String} into a {@link TermId} or emits a warning if the value
+     * cannot be mapped.
+     */
+    private static Function<String, Optional<TermId>> toTermId() {
+        return value -> {
+            try {
+                return Optional.of(TermId.of(value));
+            } catch (PhenolRuntimeException e) {
+                LOGGER.warn("Invalid term ID {}", value);
+                return Optional.empty();
+            }
+        };
     }
 
 }

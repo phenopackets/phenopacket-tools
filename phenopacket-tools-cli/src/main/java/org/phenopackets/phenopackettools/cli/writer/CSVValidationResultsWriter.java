@@ -27,7 +27,7 @@ public class CSVValidationResultsWriter implements ValidationResultsWriter {
     private final OutputStream os;
     private final String phenopacketToolsVersion;
     private final LocalDateTime dateTime;
-    private final boolean noHeader;
+    private final boolean printHeader;
 
     /**
      * Create the writer using a given {@link OutputStream}. Note that the {@link OutputStream} is <em>not</em> closed.
@@ -35,13 +35,13 @@ public class CSVValidationResultsWriter implements ValidationResultsWriter {
      * @param os                      where to write to
      * @param phenopacketToolsVersion phenopacket tools version
      * @param dateTime                the time of validation
-     * @param noHeader                skip writing header
+     * @param printHeader             print header into the output
      */
-    public CSVValidationResultsWriter(OutputStream os, String phenopacketToolsVersion, LocalDateTime dateTime, boolean noHeader) {
+    public CSVValidationResultsWriter(OutputStream os, String phenopacketToolsVersion, LocalDateTime dateTime, boolean printHeader) {
         this.os = os;
         this.phenopacketToolsVersion = phenopacketToolsVersion;
         this.dateTime = dateTime;
-        this.noHeader = noHeader;
+        this.printHeader = printHeader;
     }
 
     @Override
@@ -53,7 +53,8 @@ public class CSVValidationResultsWriter implements ValidationResultsWriter {
                     .setCommentMarker('#')
                     .build()
                     .print(writer);
-            if (!noHeader)
+
+            if (printHeader)
                 printHeader(validators, printer);
 
             printValidationResults(results, printer);
