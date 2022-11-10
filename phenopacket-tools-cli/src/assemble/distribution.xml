@@ -30,8 +30,11 @@
             <directory>${project.basedir}/src/examples</directory>
             <outputDirectory>./examples</outputDirectory>
             <includes>
-                <include>phenopackets/*</include>
-                <include>schemas/*</include>
+                <include>base/*</include>
+                <include>convert/*</include>
+                <include>custom-json-schema/*</include>
+                <include>organ-systems/*</include>
+                <include>phenotype-validation/*</include>
             </includes>
         </fileSet>
     </fileSets>

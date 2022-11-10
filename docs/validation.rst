@@ -1,12 +1,9 @@
-.. _rstvalidating:
+.. _rstvalidation:
 
 
 =======================
 Validating Phenopackets
 =======================
-
-
-
 
 Protobuf
 ^^^^^^^^
@@ -25,16 +22,16 @@ other formats.
 Validation
 ^^^^^^^^^^
 
-The phenopacket-tools library offers JSON-Schema-based and semantic validations. The syntactic validation
+The *phenopacket-tools* library offers JSON-Schema-based and semantic validations. The syntactic validation
 is done using JSON schema. Additionally, an interface is provided to perform arbitrary kinds of validation.
-This validation should be performed for all phenophenopackets.
+This validation should be performed for all phenopackets.
 
 Additional constraints and requirements may be made for phenopackets that are used in a specific
 project or for a specific collaboration or consortium. For instance, a rare-disease consortium
 may require that all phenotypic features be recorded using valid HPO terms. An example class is
 provided that checks all ``PhenotypicFeature`` elements, ensures that they use HPO terms with valid
 (i.e., primary) id's, and checks whether both a term and an ancestor of the term are used - if so
-a wanring is emitted, because an annotation with a specific HPO term
+a warning is emitted, because an annotation with a specific HPO term
 (e.g., `Perimembranous ventricular septal defect <https://hpo.jax.org/app/browse/term/HP:0011682>`_)
 implies all of the ancestors of the term (e.g., a patient with perimembranous VSD by necessity also has
 `Ventricular septal defect <https://hpo.jax.org/app/browse/term/HP:0001629>`_).
@@ -64,6 +61,6 @@ In code, this can be implemented as follows.
          System.out.println("Error opening the phenopacket: " + e);
     }
 
-
+.. TODO - continue
 
 
