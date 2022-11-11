@@ -1,7 +1,6 @@
 package org.phenopackets.phenopackettools.validator.core.phenotype.orgsys;
 
 import com.google.protobuf.MessageOrBuilder;
-import org.monarchinitiative.phenol.base.PhenolRuntimeException;
 import org.monarchinitiative.phenol.ontology.algo.OntologyAlgorithm;
 import org.monarchinitiative.phenol.ontology.data.Ontology;
 import org.monarchinitiative.phenol.ontology.data.Term;
@@ -12,13 +11,11 @@ import org.phenopackets.phenopackettools.validator.core.phenotype.base.BaseHpoVa
 import org.phenopackets.phenopackettools.validator.core.phenotype.util.PhenotypicFeaturesByExclusionStatus;
 import org.phenopackets.phenopackettools.validator.core.phenotype.util.Util;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
-import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -73,13 +70,13 @@ public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> e
     @Override
     public List<ValidationResult> validate(T component) {
         return getPhenopackets(component)
-                .flatMap(p -> checkPhenotypicFeatures(p.getSubject().getId(), p.getPhenotypicFeaturesList()))
+                .flatMap(p -> checkPhenotypicFeatures(p, p.getPhenotypicFeaturesList()))
                 .toList();
     }
 
     protected abstract Stream<? extends PhenopacketOrBuilder> getPhenopackets(T component);
 
-    private Stream<ValidationResult> checkPhenotypicFeatures(String individualId, List<PhenotypicFeature> features) {
+    private Stream<ValidationResult> checkPhenotypicFeatures(PhenopacketOrBuilder phenopacket, List<PhenotypicFeature> features) {
         PhenotypicFeaturesByExclusionStatus featuresByExclusion = Util.partitionByExclusionStatus(features);
 
         Stream.Builder<ValidationResult> results = Stream.builder();
@@ -102,8 +99,8 @@ public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> e
             Term organSystem = hpo.getTermMap().get(organSystemId);
             ValidationResult result = ValidationResult.error(VALIDATOR_INFO,
                     MISSING_ORGAN_SYSTEM_CATEGORY,
-                    "Missing annotation for %s [%s] in '%s'"
-                            .formatted(organSystem.getName(), organSystem.id().getValue(), individualId));
+                    "Missing annotation for %s [%s]%s"
+                            .formatted(organSystem.getName(), organSystem.id().getValue(), summarizePhenopacketAndIndividualId(phenopacket)));
             results.add(result);
         }
 

@@ -36,6 +36,15 @@ a warning is emitted, because an annotation with a specific HPO term
 implies all of the ancestors of the term (e.g., a patient with perimembranous VSD by necessity also has
 `Ventricular septal defect <https://hpo.jax.org/app/browse/term/HP:0001629>`_).
 
+API
+~~~
+
+See the ``TODO - add JavaDoc link`` for the API documentation.
+
+.. TODO - refer to org.phenopackets.phenopackettools.validator.jsonschema module
+.. Describe validation workflow in general
+
+.. _rstbasevalidation:
 
 Base validation
 ^^^^^^^^^^^^^^^
@@ -61,6 +70,86 @@ In code, this can be implemented as follows.
          System.out.println("Error opening the phenopacket: " + e);
     }
 
+API
+~~~
+
+See the ``TODO - add JavaDoc link`` for the API documentation.
+
+.. TODO - refer to ... and to org/phenopackets/phenopackettools/validator/core/metadata
+
+.. _rstphenotypevalidation:
+
+Phenotype validation
+^^^^^^^^^^^^^^^^^^^^
+
+TODO - write
 .. TODO - continue
+
+API
+~~~
+
+See the ``TODO - add JavaDoc link`` for the API documentation.
+
+.. TODO - refer to org/phenopackets/phenopackettools/validator/core/phenotype
+
+.. _rstcustomvalidation:
+
+Custom validation
+^^^^^^^^^^^^^^^^^
+
+TODO - write
+.. TODO - continue
+
+
+API
+~~~
+
+See the ``TODO - add JavaDoc link`` for the API documentation.
+
+.. TODO - refer to TODO - somewhere in JSON-schema validation
+
+
+.. _rstorgsysvalidation:
+
+Organ system validation
+^^^^^^^^^^^^^^^^^^^^^^^
+
+TODO - write
+.. TODO - continue
+
+We can validate presence of annotation for specific organ systems in a phenopacket.
+
+As an example, we work with toy phenopackets that represent patients with
+`Marfan syndrome <https://hpo.jax.org/app/browse/disease/OMIM:154700>`_. Due to the nature of the Marfan syndrome,
+we may require annotation of three organ systems:
+
+* Eye
+* Cardiovascular system
+* Respiratory system
+
+The annotation is done either by *excluding* the corresponding top-level HPO term or by adding a descendent term:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Organ system
+     - Top-level HPO term
+     - Example descendent
+   * - Eye
+     - `Abnormality of the eye <https://hpo.jax.org/app/browse/term/HP:0000478>`_
+     - `Ectopia lentis <https://hpo.jax.org/app/browse/term/HP:0001083>`_
+   * - Cardiovascular system
+     - `Abnormality of the cardiovascular system <https://hpo.jax.org/app/browse/term/HP:0001626>`_
+     - `Mitral regurgitation <https://hpo.jax.org/app/browse/term/HP:0001653>`_
+   * - Respiratory system
+     - `Abnormality of the respiratory system <https://hpo.jax.org/app/browse/term/HP:0002086>`_
+     - `Pneumothorax <https://hpo.jax.org/app/browse/term/HP:0002107>`_
+
+API
+~~~
+
+See the ``TODO - add JavaDoc link`` for the API documentation.
+
+.. TODO - refer to org/phenopackets/phenopackettools/validator/core/phenotype/orgsys
 
 

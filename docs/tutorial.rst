@@ -50,15 +50,12 @@ In general, Java command line applications are invoked as ``java -jar executable
 too verbose and we can shorten the command by defining an alias.
 
 Let's define an alias for *phenopacket-tools*. Assuming the distribution ZIP was unpacked into
-phenopacket-tools-cli-|release| directory, run the following to set up the alias:
+phenopacket-tools-cli-|release| directory, run the following to set up the alias and to check that the alias works:
 
 .. parsed-literal::
   alias pxf="java -jar $(pwd)/phenopacket-tools-cli-\ |release|\ /phenopacket-tools-cli-|release|.jar"
-
-Now, let's check that the alias works by printing the help message:
-
-.. parsed-literal::
   pxf --help
+
 
 Convert
 =======
@@ -113,6 +110,9 @@ The phenopackets are located in `examples` folder next to the executable JAR fil
 .. parsed-literal::
   examples=$(pwd)/phenopacket-tools-cli-\ |release|\ /examples
 
+.. note::
+  See :ref:`rsttutorialexamples` for detailed info of the example phenopackets.
+
 We will describe each validation and show an example validation errors and a proposed solution in a table.
 
 .. note::
@@ -129,12 +129,14 @@ Base validation
 First, let's check if the phenopackets meet the base requirements, as described by the Phenopacket Schema.
 All phenopackets, regardless of their aim or scope must pass this requirement to be valid.
 
+See :ref:`rstbasevalidation` for more details.
+
 All required fields must be present
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The `BaseValidator` checks that all required fields are not empty::
 
-  pxf validate -i ${examples}/base/missing-fields.json
+  pxf validate -i ${examples}/validate/base/missing-fields.json
 
 The validator emits 3 lines with the following issues:
 
@@ -155,7 +157,7 @@ the ontologies used in the particular phenopacket.
 
 The `MetaDataValidator` checks if the `MetaData` has an ontology `Resource` for all concepts used in the phenopacket::
 
-  pxf validate -i ${examples}/base/missing-resources.json
+  pxf validate -i ${examples}/validate/base/missing-resources.json
 
 The validator points out the absence of `NCBITaxon` definition:
 
@@ -181,11 +183,11 @@ The schema is located at ``examples/custom-json-schema/hpo-rare-disease-schema.j
 
 Using the custom JSON schema via ``--require`` option will point out issues in the 4 example phenopackets::
 
-  pxf validate --require ${examples}/custom-json-schema/hpo-rare-disease-schema.json \
-    -i ${examples}/custom-json-schema/marfan.no-subject.invalid.json \
-    -i ${examples}/custom-json-schema/marfan.no-phenotype.invalid.json \
-    -i ${examples}/custom-json-schema/marfan.not-hpo.invalid.json \
-    -i ${examples}/custom-json-schema/marfan.no-time-at-last-encounter.invalid.json
+  pxf validate --require ${examples}/validate/custom-json-schema/hpo-rare-disease-schema.json \
+    -i ${examples}/validate/custom-json-schema/marfan.no-subject.invalid.json \
+    -i ${examples}/validate/custom-json-schema/marfan.no-phenotype.invalid.json \
+    -i ${examples}/validate/custom-json-schema/marfan.not-hpo.invalid.json \
+    -i ${examples}/validate/custom-json-schema/marfan.no-time-at-last-encounter.invalid.json
 
 .. csv-table::
   :header: "Validation error", "Solution"
@@ -196,6 +198,10 @@ Using the custom JSON schema via ``--require`` option will point out issues in t
   'phenotypicFeatures[0].type.id' does not match the regex pattern ``^HP:\d{7}$``, Use Human Phenotype Ontology in `PhenotypicFeature`\ s
   'subject.timeAtLastEncounter' is missing but it is required, Add the time at last encounter field
 
+See :ref:`rstcustomvalidation` for more details.
+
+
+.. _rstphenotypevalidationtutorial:
 
 Phenotype validation
 ^^^^^^^^^^^^^^^^^^^^
@@ -207,13 +213,15 @@ The phenotype validation requires the Human Phenotype Ontology (HPO) file to wor
   The examples below assume that the latest HPO in JSON format has been downloaded to ``hp.json``.
   The HPO file can be downloaded from `HPO releases`_.
 
+See :ref:`rstphenotypevalidation` for more details.
+
 
 Phenopackets use non-obsolete term IDs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The `HpoPhenotypeValidator` checks if the phenopacket contains obsolete HPO terms::
 
-  pxf validate --hpo hp.json -i ${examples}/phenotype-validation/marfan.obsolete-term.invalid.json
+  pxf validate --hpo hp.json -i ${examples}/validate/phenotype-validation/marfan.obsolete-term.invalid.json
 
 It turns out that ``marfan.obsolete-term.invalid.json`` uses an obsolete ``HP:0002631`` instead of
 the primary ``HP:0002616`` for *Aortic root aneurysm*:
@@ -235,7 +243,7 @@ In contrary, the *least* specific terms should be used for the *excluded* clinic
 
 The `HpoAncestryValidator` checks that the annotation propagation rule is not violated::
 
-  pxf validate --hpo hp.json -i ${examples}/phenotype-validation/marfan.annotation-propagation-rule.invalid.json
+  pxf validate --hpo hp.json -i ${examples}/validate/phenotype-validation/marfan.annotation-propagation-rule.invalid.json
 
 .. csv-table::
   :header: "Validation error", "Solution"
@@ -248,7 +256,38 @@ The `HpoAncestryValidator` checks that the annotation propagation rule is not vi
   A phenopacket with excluded *Aortic root aneurysm* and present *Aortic aneurysm* is valid,
   see ``marfan.valid.json``.
 
-.. TODO - Organ system validation
+
+Annotation of organ systems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We can validate presence of annotation for specific organ systems in a phenopacket.
+
+Using the term IDs of the top-level HPO terms, we can validate annotation of
+`Eye <https://hpo.jax.org/app/browse/term/HP:0000478>`_,
+`Cardiovascular <https://hpo.jax.org/app/browse/term/HP:0001626>`_, and
+`Respiratory <https://hpo.jax.org/app/browse/term/HP:0002086>`_ organ systems
+in 3 phenopackets of toy `Marfan syndrome <https://hpo.jax.org/app/browse/disease/OMIM:154700>`_ patients::
+
+  pxf validate --hpo hp.json \
+     --organ-system HP:0000478 --organ-system HP:0001626 --organ-system HP:0002086 \
+    -i ${examples}/validate/organ-systems/marfan.all-organ-system-annotated.valid.json \
+    -i ${examples}/validate/organ-systems/marfan.missing-eye-annotation.invalid.json \
+    -i ${examples}/validate/organ-systems/marfan.no-abnormalities.valid.json
+
+.. note::
+  Organ system validation requires HPO ontology. See the :ref:`rstphenotypevalidationtutorial` for more details about getting
+  the HPO file.
+
+The `HpoOrganSystemValidator` will point out one error in the `marfan.missing-eye-annotation.invalid.json` phenopacket:
+
+.. csv-table::
+   :header: "Validation error", "Solution"
+   :widths: 350, 550
+
+   Missing annotation for Abnormality of the eye [HP:0000478] in id-C, Annotate the eye or exclude any abnormality.
+
+See :ref:`rstorgsysvalidation` for more details.
+
 
 .. [1] https://pubmed.ncbi.nlm.nih.gov/32755546
 .. [2] https://zenodo.org/record/3905420

@@ -2,15 +2,27 @@
   "id": "id-C",
   "phenotypicFeatures": [{
     "type": {
-      "id": "HP:0004942",
-      "label": "Aortic aneurysm"
-    }
-  }, {
-    "type": {
-      "id": "HP:0002616",
-      "label": "Aortic root aneurysm"
+      "id": "HP:0000478",
+      "label": "Abnormality of the eye"
     },
     "excluded": true
+  }, {
+    "type": {
+      "id": "HP:0001626",
+      "label": "Abnormality of the cardiovascular system"
+    },
+    "excluded": true
+  }, {
+    "type": {
+      "id": "HP:0002086",
+      "label": "Abnormality of the respiratory system"
+    },
+    "excluded": true
+  }, {
+    "type": {
+      "id": "HP:0001166",
+      "label": "Arachnodactyly"
+    }
   }],
   "metaData": {
     "created": "2021-05-14T10:35:00Z",
