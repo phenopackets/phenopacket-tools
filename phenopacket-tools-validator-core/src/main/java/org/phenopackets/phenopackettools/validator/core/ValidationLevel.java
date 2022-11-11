@@ -1,5 +1,8 @@
 package org.phenopackets.phenopackettools.validator.core;
 
+/**
+ * {@code ValidationLevel} represents a severity level for {@link ValidationResult}.
+ */
 public enum ValidationLevel {
 
     /**

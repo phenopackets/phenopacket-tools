@@ -7,8 +7,9 @@ import java.util.List;
 
 /**
  * The base builder for constructing {@link ValidationWorkflowRunner}. The builder keeps track of
- * the <em>syntax</em> validators and <em>semantic</em> validators.
- * @param <T>
+ * the <em>syntax</em> and <em>semantic</em> validators.
+ *
+ * @param <T> type of the top-level element of the Phenopacket Schema.
  */
 public abstract class ValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> {
 
