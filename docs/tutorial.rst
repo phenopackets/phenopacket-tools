@@ -4,8 +4,8 @@
 Tutorial
 ========
 
-This tutorial walks through the installation of *phenopacket-tools* and provides an overview
-of the command-line interface functionality.
+This tutorial walks through the installation of *phenopacket-tools* and provides an overview and an intended usage
+of the command-line interface. The tutorial sections point to the parts of documentations which offer more detail.
 
 Setup
 =====
@@ -65,8 +65,41 @@ In response to this feedback, the schema was extended and refined and version 2 
 and published in 2022 by the International Standards Organization (ISO).
 
 The `convert` command of *phenopacket-tools* converts version 1 phenopackets into version 2. In this tutorial,
-we will convert 384 v1 phenopackets published by Robinson et al., 2020\ [1]_ into version 2. The phenopackets
-represent 384 individuals described in published case reports with Human Phenotype Ontology terms,
+we will first convert an example v1 phenopacket and then 384 v1 phenopackets published by Robinson et al., 2020\ [1]_.
+
+A toy example
+^^^^^^^^^^^^^
+
+We will convert a phenopacket ``Schreckenbach-2014-TPM3-II.2.json`` that is bundled
+in the *phenopacket-tools* distribution ZIP file.
+The phenopacket can be found in `examples/convert` folder next to the executable JAR file.
+
+.. note::
+  See :ref:`rsttutorialexamples` for detailed info of the example phenopackets.
+
+Due to differences between version 1 and 2, there are two ways how to convert *v1* phenopackets into *v2*.
+Briefly, the conversion either assumes that the `Variant`\ s are *causal* with respect to a `Disease` of the
+v1 phenopacket, or skips conversion of `Variant`\ s altogether. The logic is controlled with ``--convert-variants``
+CLI option and the conversion can be done iff the *v1* phenopacket has one `Disease`.
+
+.. note::
+  See the :ref:`rstconverting` section for more information.
+
+Let's convert the phenopacket by running::
+
+  pxf convert -i ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json > Schreckenbach-2014-TPM3-II.2.v2.json
+
+The phenopacket represents a case report with several variants that are causal with respect to the disease.
+Therefore, we can use ``--convert-variants`` to convert `Variant`\ s into v2 `Interpretation` element::
+
+  pxf convert --convert-variants \
+    -i ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json > Schreckenbach-2014-TPM3-II.2.v2-with-variants.json
+
+
+A real-life example
+^^^^^^^^^^^^^^^^^^^
+
+Let's convert 384 individuals described in published case reports with Human Phenotype Ontology terms,
 causal genetic variants, and OMIM disease identifiers.
 
 Let's start by downloading and unpacking the phenopacket dataset.
@@ -75,12 +108,6 @@ a folder named as ``v1``::
 
   curl -o phenopackets.v1.zip https://zenodo.org/record/3905420/files/phenopackets.zip
   unzip -d v1 phenopackets.v1.zip
-
-Due to differences between version 1 and 2, there are two ways how to convert *v1* phenopackets into *v2*.
-Briefly, the conversion either assumes that the `Variant`s are *causal* with respect to a `Disease` of the
-v1 phenopacket, or skips conversion of `Variant`s altogether. The logic is controlled with ``--convert-variants``
-CLI option and the conversion can be done iff the *v1* phenopacket has one `Disease`.
-See the :ref:`rstconverting` section for more information.
 
 Let's convert all *v1* phenopackets and store the results in JSON format in a new folder ``v2``::
 
@@ -102,7 +129,9 @@ Validate
 
 The `validate` command of *phenopacket-tools* validates correctness of phenopackets, families and cohorts.
 This section focuses on the *off-the-shelf* phenopacket validators.
-See the :ref:`rstvalidation` and the `Java Documentation`_ to learn how to implement a custom validator.
+
+.. note::
+  See the :ref:`rstvalidation` and the `Java Documentation`_ to learn how to implement a custom validator.
 
 We will work with a suite of phenopackets that are bundled in the *phenopacket-tools* distribution ZIP file.
 The phenopackets are located in `examples` folder next to the executable JAR file:
@@ -115,12 +144,12 @@ The phenopackets are located in `examples` folder next to the executable JAR fil
 
 We will describe each validation and show an example validation errors and a proposed solution in a table.
 
-.. note::
-  The validation examples use `Phenopacket`\ s, but the validation functionality is available for all top-level Phenopacket Schema
-  elements, including `Cohort` and `Family`.
-.. note::
-  The validation is implemented for *v2* phenopackets only. The *v1* phenopackets must be converted to *v2* prior
-  running validation.
+
+The validation examples use `Phenopacket`\ s, but the validation functionality is available for all top-level Phenopacket Schema
+elements, including `Cohort` and `Family`.
+
+The validation is implemented for *v2* phenopackets only. The *v1* phenopackets must be converted to *v2* prior
+running validation.
 
 
 Base validation
@@ -129,7 +158,8 @@ Base validation
 First, let's check if the phenopackets meet the base requirements, as described by the Phenopacket Schema.
 All phenopackets, regardless of their aim or scope must pass this requirement to be valid.
 
-See :ref:`rstbasevalidation` for more details.
+.. note::
+  See :ref:`rstbasevalidation` for more details.
 
 All required fields must be present
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -198,7 +228,8 @@ Using the custom JSON schema via ``--require`` option will point out issues in t
   'phenotypicFeatures[0].type.id' does not match the regex pattern ``^HP:\d{7}$``, Use Human Phenotype Ontology in `PhenotypicFeature`\ s
   'subject.timeAtLastEncounter' is missing but it is required, Add the time at last encounter field
 
-See :ref:`rstcustomvalidation` for more details.
+.. note::
+  See :ref:`rstcustomvalidation` for more details.
 
 
 .. _rstphenotypevalidationtutorial:
@@ -213,7 +244,8 @@ The phenotype validation requires the Human Phenotype Ontology (HPO) file to wor
   The examples below assume that the latest HPO in JSON format has been downloaded to ``hp.json``.
   The HPO file can be downloaded from `HPO releases`_.
 
-See :ref:`rstphenotypevalidation` for more details.
+.. note::
+  See :ref:`rstphenotypevalidation` for more details.
 
 
 Phenopackets use non-obsolete term IDs
@@ -286,7 +318,8 @@ The `HpoOrganSystemValidator` will point out one error in the `marfan.missing-ey
 
    Missing annotation for Abnormality of the eye [HP:0000478] in id-C, Annotate the eye or exclude any abnormality.
 
-See :ref:`rstorgsysvalidation` for more details.
+.. note::
+  See :ref:`rstorgsysvalidation` for more details.
 
 
 .. [1] https://pubmed.ncbi.nlm.nih.gov/32755546
