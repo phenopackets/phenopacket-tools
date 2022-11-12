@@ -18,6 +18,7 @@ import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -223,14 +224,34 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                 testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
             }
 
-//            TODO - implement tests
-//            @ParameterizedTest
-//            @CsvSource({
-//                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor,                DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor: is missing but it is required'",
-//            })
-//            public void checkVariationDescriptorConstraints(String path, String action, String expected) {
-//                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
-//            }
+            @ParameterizedTest
+            @CsvSource({
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor/id,              DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor.id: is missing but it is required'",
+                    "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor/moleculeContext, DELETE,          '$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor.moleculeContext: is missing but it is required'",
+            })
+            public void checkVariationDescriptorConstraints(String path, String action, String expected) {
+                testErrors(runner, readRetinoblastomaPhenopacketNode(), path, action, expected);
+            }
+
+            /**
+             * As of Nov 9, 2022, the {@link org.ga4gh.vrs.v1.Variation} validator does not check presence
+             * of required fields. The validator can only check presence of {@code oneof} fields.
+             * <p>
+             * Note that the {@code path} is split into a prefix and sub-path to increase legibility of the
+             * test parameters.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/variation/copyNumber,                DELETE,          'HERE.allele: is missing but it is required|HERE.haplotype: is missing but it is required|HERE.copyNumber: is missing but it is required|HERE.text: is missing but it is required|HERE.variationSet: is missing but it is required'",
+            })
+            public void removingAOneOfFieldFromVariationProducesValidationError(String subPath, String action, String subExpected) {
+                String pathPrefix = "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor";
+                String path = pathPrefix.concat(subPath);
+
+                String validationMessagePrefix = "\\$.interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor.variation";
+                String expectedValidationMessage = subExpected.replaceAll("HERE", validationMessagePrefix);
+                testErrors(runner, readRetinoblastomaPhenopacketNode(), path, action, expectedValidationMessage);
+            }
 
             /**
              * Absence of `term` leads to an {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
@@ -372,7 +393,15 @@ public class JsonSchemaValidationWorkflowRunnerTest {
         }
 
         private static JsonNode readBethlemPhenopacketNode() {
-            try (InputStream is = Files.newInputStream(TestData.BETHLEM_MYOPATHY_PHENOPACKET_JSON)){
+            return readJsonTree(TestData.BETHLEM_MYOPATHY_PHENOPACKET_JSON);
+        }
+
+        private static JsonNode readRetinoblastomaPhenopacketNode() {
+            return readJsonTree(TestData.RETINOBLASTOMA_PHENOPACKET_JSON);
+        }
+
+        private static JsonNode readJsonTree(Path jsonPath) {
+            try (InputStream is = Files.newInputStream(jsonPath)){
                 return MAPPER.readTree(is);
             } catch (IOException e) {
                 throw new RuntimeException(e);

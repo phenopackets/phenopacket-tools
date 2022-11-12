@@ -18,6 +18,12 @@ public class TestData {
      */
     public static final Path BETHLEM_MYOPATHY_PHENOPACKET_JSON = TEST_BASE_DIR.resolve("bethlem-myopathy.json");
 
+    /**
+     * A path to an example phenopacket representing a case of retinoblastoma. The phenopacket is useful since
+     * it contains a VRS-like Variation object.
+     */
+    public static final Path RETINOBLASTOMA_PHENOPACKET_JSON = TEST_BASE_DIR.resolve("retinoblastoma.json");
+
 
     /**
      * A path to an example family that, despite being medically invalid/nonsense, is complete from the testing
