@@ -1,9 +1,8 @@
 {
-  "$schema": "https://json-schema.org/draft/2019-09/schema#",
-  "$id": "example.hpo.jsonschema.validator",
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://example.com/hpo-rare-disease-validator",
   "title": "HPO Rare Disease Phenopacket Schema",
-  "description": "HPO Rare Disease Schema for GA4GH Phenopacket",
-  "_comment": "Here we require the phenopacket to have the following elements that are not required by the default schema 1. subject (proband being investigated) 2. at least one phenotypicFeature element 3. time_at_last encounter (subelement of subject), representing the age of the proband. In addition, we require that Human Phenotype Ontology (HPO) terms are used to represent phenotypicFeature",
+  "description": "An example JSON schema for validating a phenopacket in context of the rare-disease research",
   "type": "object",
   "properties": {
     "subject": {
@@ -25,13 +24,19 @@
         {
           "type": "object",
           "properties": {
-            "id": {
-              "type": "string",
-              "pattern": "^HP:\\([0-9]{7}$"
+            "type": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^HP:\\d{7}$"
+                }
+              }
             }
           }
         }
-      ]
+      ],
+      "minItems": 1
     }
   },
   "required": [

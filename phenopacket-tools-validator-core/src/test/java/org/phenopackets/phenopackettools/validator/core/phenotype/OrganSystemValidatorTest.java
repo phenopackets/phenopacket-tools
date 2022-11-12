@@ -82,7 +82,7 @@ public class OrganSystemValidatorTest {
             assertThat(result.validatorInfo(), equalTo(slenderFingerValidator.validatorInfo()));
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
             assertThat(result.category(), equalTo("Missing organ system annotation"));
-            assertThat(result.message(), equalTo("Missing annotation for Slender finger [HP:0001238] in 'example-subject'"));
+            assertThat(result.message(), equalTo("Missing annotation for Slender finger [HP:0001238] in example-phenopacket/example-subject"));
         }
     }
 

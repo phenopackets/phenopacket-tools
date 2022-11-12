@@ -1,3 +1,6 @@
+/**
+ * A module for reading and writing top-level elements of Phenopacket Schema.
+ */
 module org.phenopackets.phenopackettools.io {
     requires org.phenopackets.phenopackettools.util;
 

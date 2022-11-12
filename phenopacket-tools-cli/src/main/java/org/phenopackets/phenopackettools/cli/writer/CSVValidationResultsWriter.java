@@ -27,18 +27,21 @@ public class CSVValidationResultsWriter implements ValidationResultsWriter {
     private final OutputStream os;
     private final String phenopacketToolsVersion;
     private final LocalDateTime dateTime;
+    private final boolean printHeader;
 
     /**
      * Create the writer using a given {@link OutputStream}. Note that the {@link OutputStream} is <em>not</em> closed.
      *
      * @param os                      where to write to
      * @param phenopacketToolsVersion phenopacket tools version
-     * @param dateTime
+     * @param dateTime                the time of validation
+     * @param printHeader             print header into the output
      */
-    public CSVValidationResultsWriter(OutputStream os, String phenopacketToolsVersion, LocalDateTime dateTime) {
+    public CSVValidationResultsWriter(OutputStream os, String phenopacketToolsVersion, LocalDateTime dateTime, boolean printHeader) {
         this.os = os;
         this.phenopacketToolsVersion = phenopacketToolsVersion;
         this.dateTime = dateTime;
+        this.printHeader = printHeader;
     }
 
     @Override
@@ -50,7 +53,10 @@ public class CSVValidationResultsWriter implements ValidationResultsWriter {
                     .setCommentMarker('#')
                     .build()
                     .print(writer);
-            printHeader(validators, printer);
+
+            if (printHeader)
+                printHeader(validators, printer);
+
             printValidationResults(results, printer);
         } finally {
             try {
@@ -70,12 +76,12 @@ public class CSVValidationResultsWriter implements ValidationResultsWriter {
         for (ValidatorInfo validator : results) {
             printer.printComment("validator_id=%s;validator_name=%s;description=%s".formatted(validator.validatorId(), validator.validatorName(), validator.description()));
         }
+
+        // Print column names
+        printer.printRecord("PATH", "LEVEL", "VALIDATOR_ID", "CATEGORY", "MESSAGE");
     }
 
     private static void printValidationResults(List<ValidationResultsAndPath> results, CSVPrinter printer) throws IOException {
-        // Header
-        printer.printRecord("PATH", "LEVEL", "VALIDATOR_ID", "CATEGORY", "MESSAGE");
-        // Validation results
         for (ValidationResultsAndPath rp : results) {
             String path = rp.path() == null ? "-" : rp.path().toAbsolutePath().toString();
             for (ValidationResult result : rp.results().validationResults()) {

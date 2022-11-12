@@ -30,8 +30,7 @@
             <directory>${project.basedir}/src/examples</directory>
             <outputDirectory>./examples</outputDirectory>
             <includes>
-                <include>phenopackets/*</include>
-                <include>schemas/*</include>
+                <include>**/**</include>
             </includes>
         </fileSet>
     </fileSets>
