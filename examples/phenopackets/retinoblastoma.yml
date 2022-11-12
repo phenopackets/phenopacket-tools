@@ -146,8 +146,8 @@ interpretations:
         variationDescriptor:
           variation:
             copyNumber:
-              allele:
-                sequenceLocation:
+              derivedSequenceExpression:
+                location:
                   sequenceId: "refseq:NC_000013.14"
                   sequenceInterval:
                     startNumber:
