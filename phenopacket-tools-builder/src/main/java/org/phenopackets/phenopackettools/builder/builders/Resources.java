@@ -77,6 +77,9 @@ public class Resources {
             .setUrl("http://purl.obolibrary.org/obo/so.owl")
             .setIriPrefix("http://purl.obolibrary.org/obo/SO_");
 
+    /** this is the version of the UCUM schema that has been valid since 2017-11-21 */
+    private static final String DEFAULT_UCUM_VERSION = "2.1";
+
     private static final Resource.Builder UO_BUILDER = Resource.newBuilder()
             .setId("uo")
             .setName("Units of measurement ontology")
@@ -96,7 +99,7 @@ public class Resources {
             .setName("Unified Code for Units of Measure")
             .setNamespacePrefix("UCUM")
             .setUrl("https://ucum.org")
-            .setIriPrefix("https://ucum.org/"); // TODO - we need to get a real prefix
+            .setIriPrefix("https://ucum.org/");
 
     private static final Resource.Builder LOINC_BUILDER = Resource.newBuilder()
             .setId("loinc")
@@ -160,6 +163,10 @@ public class Resources {
 
     public static Resource ucumVersion(String version) {
         return UCUM_BUILDER.setVersion(version).build();
+    }
+
+    public static Resource ucum() {
+        return ucumVersion(DEFAULT_UCUM_VERSION);
     }
 
     public static Resource loincVersion(String version) {
