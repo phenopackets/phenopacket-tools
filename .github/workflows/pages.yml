@@ -42,7 +42,7 @@ jobs:
         pip install sphinx-rtd-theme
     
     - name: MVN clean
-      run: ./mvnw -Prerelease clean package
+      run: ./mvnw -Prelease clean package
 
     - name: Get CLI JAR file
       id: cli-jar
