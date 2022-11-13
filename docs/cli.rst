@@ -47,12 +47,9 @@ Run the following commands to check out the stable source code and to build the 
   $ cd phenopacket-tools
   $ ./mvnw -Prelease package
 
-After a successful build, a distribution ZIP file ``phenopacket-tools-cli-${project.version}-distribution.zip``
+After a successful build, a distribution ZIP file "phenopacket-tools-cli-|release|-distribution.zip"
 will be created in the ``phenopacket-tools-cli/target`` directory. Use the ZIP archive in the same way as the archive
 downloaded from *phenopacket-tools* releases.
-
-.. note::
-  Replace ``${project.version}`` with a given version (e.g. ``0.4.6``).
 
 
 Commands
@@ -186,3 +183,4 @@ Set up autocompletion
 
 .. TODO - write the section
 
+TODO - write
