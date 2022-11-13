@@ -1,7 +1,7 @@
 package org.phenopackets.phenopackettools.validator.core;
 
 /**
- * Information regarding validator.
+ * A description of a {@link PhenopacketValidator}.
  */
 public interface ValidatorInfo {
 

@@ -1,0 +1,108 @@
+{
+  "id": "missing-fields-valid-phenopacket-id",
+  "subject": {
+    "id": "example-subject-id",
+    "dateOfBirth": "1998-01-01T00:00:00Z",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P3Y"
+      }
+    },
+    "sex": "MALE",
+    "taxonomy": {
+      "id": "NCBITaxon:9606",
+      "label": "Homo sapiens"
+    }
+  },
+  "phenotypicFeatures": [{
+    "type": {
+      "id": "HP:0001159",
+      "label": "Syndactyly"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003577",
+        "label": "Congenital onset"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0002090",
+      "label": "Pneumonia"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0011463",
+        "label": "Childhood onset"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0000028",
+      "label": "Cryptorchidism"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003577",
+        "label": "Congenital onset"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0011109",
+      "label": "Chronic sinusitis"
+    },
+    "severity": {
+      "id": "HP:0012828",
+      "label": "Severe"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003581",
+        "label": "Adult onset"
+      }
+    }
+  }],
+  "files": [{
+    "uri": "file://data/file.vcf.gz",
+    "individualToFileIdentifiers": {
+      "kindred 1A": "SAME000234"
+    },
+    "fileAttributes": {
+      "genomeAssembly": "GRCh38",
+      "fileFormat": "vcf"
+    }
+  }],
+  "metaData": {
+    "created": "2021-07-01T19:32:35Z",
+    "createdBy": "HPO:probinson",
+    "submittedBy": "HPO:probinson",
+    "resources": [{
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2018-03-08",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }, {
+      "id": "ncbitaxon",
+      "name": "NCBI organismal classification",
+      "url": "http://purl.obolibrary.org/obo/ncbitaxon.owl",
+      "version": "2020-07-13",
+      "namespacePrefix": "NCBITaxon",
+      "iriPrefix": "http://purl.obolibrary.org/obo/NCBITaxon_"
+    }, {
+      "id": "geno",
+      "name": "Genotype Ontology",
+      "url": "http://purl.obolibrary.org/obo/geno.owl",
+      "version": "19-03-2018",
+      "namespacePrefix": "GENO",
+      "iriPrefix": "http://purl.obolibrary.org/obo/GENO_"
+    }    ],
+    "phenopacketSchemaVersion": "2.0",
+    "externalReferences": [{
+      "id": "PMID:20842687",
+      "description": "Severe dystonic encephalopathy without hyperphenylalaninemia associated with an 18-bp deletion within the proximal GCH1 promoter."
+    }]
+  }
+}

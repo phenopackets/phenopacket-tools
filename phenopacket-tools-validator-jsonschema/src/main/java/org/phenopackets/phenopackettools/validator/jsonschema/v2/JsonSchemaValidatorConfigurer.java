@@ -151,11 +151,11 @@ public class JsonSchemaValidatorConfigurer {
     }
 
     private static ValidatorInfo decodeValidatorInfo(JsonNode schemaNode) {
-        String schema = getNodeAsTextOrDefaultText(schemaNode, "$schema", "UNKNOWN_SCHEMA");
+        String id = getNodeAsTextOrDefaultText(schemaNode, "$id", "UNKNOWN_SCHEMA");
         String title = getNodeAsTextOrDefaultText(schemaNode, "title", "UNKNOWN_TITLE");
         String description = getNodeAsTextOrDefaultText(schemaNode, "description", "UNKNOWN VALIDATOR");
 
-        return ValidatorInfo.of(schema, title, description);
+        return ValidatorInfo.of(id, title, description);
     }
 
     private static String getNodeAsTextOrDefaultText(JsonNode schemaNode, String fieldName, String defaultValue) {

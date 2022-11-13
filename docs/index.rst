@@ -35,6 +35,7 @@ how to use the CLI application on your system.
    :maxdepth: 1
    :caption: Contents:
 
+   tutorial
    creating
    validation
    converting

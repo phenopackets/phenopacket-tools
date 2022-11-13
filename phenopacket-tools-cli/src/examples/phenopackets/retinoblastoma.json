@@ -1,0 +1,498 @@
+{
+  "id": "arbitrary.id",
+  "subject": {
+    "id": "proband A",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P6M"
+      }
+    },
+    "sex": "FEMALE",
+    "karyotypicSex": "XX"
+  },
+  "phenotypicFeatures": [{
+    "type": {
+      "id": "HP:0030084",
+      "label": "Clinodactyly"
+    },
+    "modifiers": [{
+      "id": "HP:0012834",
+      "label": "Right"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P3M"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0000555",
+      "label": "Leukocoria"
+    },
+    "modifiers": [{
+      "id": "HP:0012835",
+      "label": "Left"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P4M"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0000486",
+      "label": "Strabismus"
+    },
+    "modifiers": [{
+      "id": "HP:0012835",
+      "label": "Left"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P5M15D"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0000541",
+      "label": "Retinal detachment"
+    },
+    "modifiers": [{
+      "id": "HP:0012835",
+      "label": "Left"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P6M"
+      }
+    }
+  }],
+  "measurements": [{
+    "assay": {
+      "id": "LOINC:79893-4",
+      "label": "Left eye Intraocular pressure"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:mm[Hg]",
+          "label": "millimetres of mercury"
+        },
+        "value": 25.0,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:56844-4",
+            "label": "Intraocular pressure of Eye"
+          },
+          "low": 10.0,
+          "high": 21.0
+        }
+      }
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P6M"
+      }
+    }
+  }, {
+    "assay": {
+      "id": "LOINC:79892-6",
+      "label": "Right eye Intraocular pressure"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:mm[Hg]",
+          "label": "millimetres of mercury"
+        },
+        "value": 15.0,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:56844-4",
+            "label": "Intraocular pressure of Eye"
+          },
+          "low": 10.0,
+          "high": 21.0
+        }
+      }
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P6M"
+      }
+    }
+  }],
+  "biosamples": [{
+    "id": "biosample.1",
+    "sampledTissue": {
+      "id": "UBERON:0000970",
+      "label": "eye"
+    },
+    "phenotypicFeatures": [{
+      "type": {
+        "id": "NCIT:C35941",
+        "label": "Flexner-Wintersteiner Rosette Formation"
+      }
+    }, {
+      "type": {
+        "id": "NCIT:C132485",
+        "label": "Apoptosis and Necrosis"
+      }
+    }],
+    "measurements": [{
+      "assay": {
+        "id": "LOINC:33728-7",
+        "label": "Size.maximum dimension in Tumor"
+      },
+      "value": {
+        "quantity": {
+          "unit": {
+            "id": "UCUM:mm",
+            "label": "millimeter"
+          },
+          "value": 15.0
+        }
+      },
+      "timeObserved": {
+        "age": {
+          "iso8601duration": "P8M2W"
+        }
+      }
+    }],
+    "tumorProgression": {
+      "id": "NCIT:C8509",
+      "label": "Primary Neoplasm"
+    },
+    "pathologicalTnmFinding": [{
+      "id": "NCIT:C140720",
+      "label": "Retinoblastoma pT3 TNM Finding v8"
+    }, {
+      "id": "NCIT:C140711",
+      "label": "Retinoblastoma pN0 TNM Finding v8"
+    }],
+    "procedure": {
+      "code": {
+        "id": "NCIT:C48601",
+        "label": "Enucleation"
+      },
+      "bodySite": {
+        "id": "UBERON:0004548",
+        "label": "left eye"
+      },
+      "performed": {
+        "age": {
+          "iso8601duration": "P8M2W"
+        }
+      }
+    },
+    "files": [{
+      "uri": "file://data/fileSomaticWgs.vcf.gz",
+      "individualToFileIdentifiers": {
+        "biosample.1": "specimen.1"
+      },
+      "fileAttributes": {
+        "genomeAssembly": "GRCh38",
+        "fileFormat": "VCF"
+      }
+    }]
+  }],
+  "interpretations": [{
+    "id": "interpretation.id",
+    "progressStatus": "SOLVED",
+    "diagnosis": {
+      "disease": {
+        "id": "NCIT:C7541",
+        "label": "Retinoblastoma"
+      },
+      "genomicInterpretations": [{
+        "subjectOrBiosampleId": "proband A",
+        "interpretationStatus": "CAUSATIVE",
+        "variantInterpretation": {
+          "acmgPathogenicityClassification": "PATHOGENIC",
+          "therapeuticActionability": "ACTIONABLE",
+          "variationDescriptor": {
+            "id": "cnv-1",
+            "moleculeContext": "genomic",
+            "variation": {
+              "copyNumber": {
+                "derivedSequenceExpression": {
+                  "location": {
+                    "sequenceId": "refseq:NC_000013.14",
+                    "sequenceInterval": {
+                      "startNumber": {
+                        "value": "25981249"
+                      },
+                      "endNumber": {
+                        "value": "61706822"
+                      }
+                    }
+                  }
+                },
+                "number": {
+                  "value": "1"
+                }
+              }
+            },
+            "extensions": [{
+              "name": "mosaicism",
+              "value": "40.0%"
+            }]
+          }
+        }
+      }, {
+        "subjectOrBiosampleId": "biosample.1",
+        "interpretationStatus": "CAUSATIVE",
+        "variantInterpretation": {
+          "acmgPathogenicityClassification": "PATHOGENIC",
+          "therapeuticActionability": "ACTIONABLE",
+          "variationDescriptor": {
+            "id": "rs121913300",
+            "variation": {
+              "allele": {
+                "sequenceLocation": {
+                  "sequenceId": "refseq:NC_000013.11",
+                  "sequenceInterval": {
+                    "startNumber": {
+                      "value": "48367511"
+                    },
+                    "endNumber": {
+                      "value": "48367512"
+                    }
+                  }
+                },
+                "literalSequenceExpression": {
+                  "sequence": "T"
+                }
+              }
+            },
+            "label": "RB1 c.958C\u003eT (p.Arg320Ter)",
+            "geneContext": {
+              "valueId": "HGNC:9884",
+              "symbol": "RB1"
+            },
+            "expressions": [{
+              "syntax": "hgvs.c",
+              "value": "NM_000321.2:c.958C\u003eT"
+            }, {
+              "syntax": "transcript_reference",
+              "value": "NM_000321.2"
+            }],
+            "vcfRecord": {
+              "genomeAssembly": "GRCh38",
+              "chrom": "NC_000013.11",
+              "pos": "48367512",
+              "ref": "C",
+              "alt": "T"
+            },
+            "extensions": [{
+              "name": "allele-frequency",
+              "value": "25.0%"
+            }],
+            "moleculeContext": "genomic",
+            "allelicState": {
+              "id": "GENO:0000135",
+              "label": "heterozygous"
+            }
+          }
+        }
+      }]
+    }
+  }],
+  "diseases": [{
+    "term": {
+      "id": "NCIT:C7541",
+      "label": "Retinoblastoma"
+    },
+    "onset": {
+      "age": {
+        "iso8601duration": "P4M"
+      }
+    },
+    "diseaseStage": [{
+      "id": "LOINC:LA24739-7",
+      "label": "Group E"
+    }],
+    "clinicalTnmFinding": [{
+      "id": "NCIT:C140678",
+      "label": "Retinoblastoma cM0 TNM Finding v8"
+    }],
+    "primarySite": {
+      "id": "UBERON:0004548",
+      "label": "left eye"
+    }
+  }],
+  "medicalActions": [{
+    "treatment": {
+      "agent": {
+        "id": "DrugCentral:1678",
+        "label": "melphalan"
+      },
+      "routeOfAdministration": {
+        "id": "NCIT:C38222",
+        "label": "Intraarterial Route of Administration"
+      },
+      "doseIntervals": [{
+        "quantity": {
+          "unit": {
+            "id": "UCUM:mg.kg-1",
+            "label": "milligram per kilogram"
+          },
+          "value": 0.4
+        },
+        "scheduleFrequency": {
+          "id": "NCIT:C64576",
+          "label": "Once"
+        },
+        "interval": {
+          "start": "2020-09-02T00:00:00Z",
+          "end": "2020-09-02T00:00:00Z"
+        }
+      }]
+    },
+    "treatmentTarget": {
+      "id": "NCIT:C7541",
+      "label": "Retinoblastoma"
+    },
+    "treatmentIntent": {
+      "id": "NCIT:C62220",
+      "label": "Cure"
+    },
+    "adverseEvents": [{
+      "id": "HP:0025637",
+      "label": "Vasospasm"
+    }],
+    "treatmentTerminationReason": {
+      "id": "NCIT:C41331",
+      "label": "Adverse Event"
+    }
+  }, {
+    "therapeuticRegimen": {
+      "ontologyClass": {
+        "id": "NCIT:C10894",
+        "label": "Carboplatin/Etoposide/Vincristine"
+      },
+      "startTime": {
+        "age": {
+          "iso8601duration": "P7M"
+        }
+      },
+      "endTime": {
+        "age": {
+          "iso8601duration": "P8M"
+        }
+      },
+      "regimenStatus": "COMPLETED"
+    },
+    "treatmentTarget": {
+      "id": "NCIT:C7541",
+      "label": "Retinoblastoma"
+    },
+    "treatmentIntent": {
+      "id": "NCIT:C62220",
+      "label": "Cure"
+    }
+  }, {
+    "procedure": {
+      "code": {
+        "id": "NCIT:C48601",
+        "label": "Enucleation"
+      },
+      "bodySite": {
+        "id": "UBERON:0004548",
+        "label": "left eye"
+      },
+      "performed": {
+        "age": {
+          "iso8601duration": "P8M2W"
+        }
+      }
+    },
+    "treatmentTarget": {
+      "id": "NCIT:C7541",
+      "label": "Retinoblastoma"
+    },
+    "treatmentIntent": {
+      "id": "NCIT:C62220",
+      "label": "Cure"
+    }
+  }],
+  "files": [{
+    "uri": "file://data/germlineWgs.vcf.gz",
+    "individualToFileIdentifiers": {
+      "proband A": "sample1"
+    },
+    "fileAttributes": {
+      "genomeAssembly": "GRCh38",
+      "fileFormat": "VCF"
+    }
+  }],
+  "metaData": {
+    "created": "2021-05-14T10:35:00Z",
+    "createdBy": "anonymous biocurator",
+    "resources": [{
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2018-03-08",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }, {
+      "id": "ncit",
+      "name": "NCI Thesaurus",
+      "url": "http://purl.obolibrary.org/obo/ncit.owl",
+      "version": "21.05d",
+      "namespacePrefix": "NCIT",
+      "iriPrefix": "http://purl.obolibrary.org/obo/NCIT_"
+    }, {
+      "id": "efo",
+      "name": "Experimental Factor Ontology",
+      "url": "http://www.ebi.ac.uk/efo/efo.owl",
+      "version": "3.34.0",
+      "namespacePrefix": "EFO",
+      "iriPrefix": "http://purl.obolibrary.org/obo/EFO_"
+    }, {
+      "id": "uberon",
+      "name": "Uber-anatomy ontology",
+      "url": "http://purl.obolibrary.org/obo/uberon.owl",
+      "version": "2021-07-27",
+      "namespacePrefix": "UBERON",
+      "iriPrefix": "http://purl.obolibrary.org/obo/UBERON_"
+    }, {
+      "id": "ncbitaxon",
+      "name": "NCBI organismal classification",
+      "url": "http://purl.obolibrary.org/obo/ncbitaxon.owl",
+      "version": "2021-06-10",
+      "namespacePrefix": "NCBITaxon",
+      "iriPrefix": "http://purl.obolibrary.org/obo/NCBITaxon_"
+    }, {
+      "id": "loinc",
+      "name": "Logical Observation Identifiers Names and Codes",
+      "url": "https://loinc.org",
+      "version": "2.7.3",
+      "namespacePrefix": "LOINC",
+      "iriPrefix": "https://loinc.org/"
+    }, {
+      "id": "ucum",
+      "name": "Unified Code for Units of Measure",
+      "url": "https://ucum.org",
+      "version": "2.1",
+      "namespacePrefix": "UCUM",
+      "iriPrefix": "https://ucum.org/"
+    }, {
+      "id": "geno",
+      "name": "Genotype Ontology",
+      "url": "http://purl.obolibrary.org/obo/geno.owl",
+      "version": "2022-03-05",
+      "namespacePrefix": "GENO",
+      "iriPrefix": "http://purl.obolibrary.org/obo/GENO_"
+    }, {
+      "id": "drugcentral",
+      "name": "Drug Central",
+      "url": "https://drugcentral.org/",
+      "version": "08/22/2022",
+      "namespacePrefix": "DrugCentral",
+      "iriPrefix": "https://drugcentral.org/drugcard/"
+    }],
+    "phenopacketSchemaVersion": "2.0.0"
+  }
+}

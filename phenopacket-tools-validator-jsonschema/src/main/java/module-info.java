@@ -1,5 +1,9 @@
 /**
- * The module provides a {@link org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner} implementation
+ * Defines a {@link org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner} with <em>base</em>
+ * validation backed by a JSON schema.
+ * <p>
+ * The module provides {@link org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidationWorkflowRunner}
+ * an implementation of {@link org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner}
  * backed by a JSON schema validator.
  *
  * @see org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidationWorkflowRunner

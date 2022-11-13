@@ -179,11 +179,10 @@ Results are written into STDOUT in CSV/TSV format. The CSV output has a header, 
 The header contains phenopacket-tools version, date time of validation, and list of validators that were run.
 A row with column names follows the header, and then the individual validation results.
 
-..
-  TODO - check the validation description.
+.. TODO - check the validation description.
 
 Set up autocompletion
 ~~~~~~~~~~~~~~~~~~~~~
 
-TODO - write the section
+.. TODO - write the section
 

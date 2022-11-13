@@ -1,3 +1,7 @@
+/**
+ * A module with pre-defined ontology constants, convenience methods, and concise builders
+ * to simplify phenopacket construction.
+ */
 module org.phenopackets.phenopackettools.builder {
     // No need to make it transitive since we only use runtime exceptions.
     requires org.phenopackets.phenopackettools.core;

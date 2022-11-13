@@ -1,3 +1,6 @@
+/**
+ * Defines the base APIs for phenopacket validation.
+ */
 module org.phenopackets.phenopackettools.validator.core {
 
     exports org.phenopackets.phenopackettools.validator.core;

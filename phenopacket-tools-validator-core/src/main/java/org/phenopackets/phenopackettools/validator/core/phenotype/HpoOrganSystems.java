@@ -3,16 +3,19 @@ package org.phenopackets.phenopackettools.validator.core.phenotype;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 
 /**
- * This class contains constants that correspond to the upper-level HPO organ-system phenotypic abnormalities.
- * They can be used together with the {@link org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators.OrganSystem}
- * validators, which enforce that a phenopacket contains at least one term from a set of organ systems (observed or excluded).
- * Note that users can also use any HPO term in this way -- the validator will enforce that the phenopacket has an HPO term that descends from it,
- * but the most common use cases are these organ-level terms
- * <pre>{@code
- * Ontology hpo = ...;
+ * A class with constants that correspond to the upper-level HPO organ-system phenotypic abnormalities.
+ * <p>
+ * The constants can be used together with the
+ * {@link org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators.OrganSystem} validators,
+ * which enforce that a phenopacket contains at least one term from a set of organ systems (observed or excluded).
+ * <p>
+ * Note that users can also use any HPO term in this way -- the validator will enforce that the phenopacket
+ * has an HPO term that descends from it, but the most common use cases are these organ-level terms.
+ *
+ * <pre>
+ * Ontology hpo = ...; // get the ontology
  * var requiredOrganSystems = Set.of(BLOOD, CARDIOVASCULAR, SKELETAL);
  * var validator = HpoPhenotypeValidators.OrganSystem.phenopacketHpoOrganSystemValidator(hpo, requiredOrganSystems);
- * }
  * </pre>
  */
 public class HpoOrganSystems {
