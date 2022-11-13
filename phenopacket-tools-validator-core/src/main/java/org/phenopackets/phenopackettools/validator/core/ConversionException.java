@@ -1,9 +1,19 @@
 package org.phenopackets.phenopackettools.validator.core;
 
+import org.phenopackets.phenopackettools.core.PhenopacketToolsException;
+
 /**
- * An {@link Exception} that is thrown in case the provided data has incorrect format.
+ * A {@link PhenopacketToolsException} that is thrown by {@link org.phenopackets.phenopackettools.validator.core.convert.PhenopacketConverter}
+ * in case the provided data has incorrect format.
+ * <p>
+ * This can happen if e.g. the {@code payload} to
+ * {@link org.phenopackets.phenopackettools.validator.core.convert.PhenopacketConverter#toJson(byte[])}
+ * is not valid JSON.
+ * <p>
+ * {@code ConversionException} implements {@link ValidationResult} so that it can be reported
+ * by a {@link PhenopacketValidator}.
  */
-public class ConversionException extends Exception implements ValidationResult {
+public class ConversionException extends PhenopacketToolsException implements ValidationResult {
 
     private static final String VALIDATION_CATEGORY = "input";
 

@@ -31,4 +31,22 @@ class Util {
         }
     }
 
+    static byte[] getFirstBytesAndReset(InputStream input, int nBytes) throws SniffException, IOException {
+        if (input.markSupported()) {
+            byte[] buffer = new byte[nBytes];
+            input.mark(nBytes);
+            int read = input.read(buffer);
+            if (read < nBytes) {
+                // We explode because there are not enough bytes available for format sniffing.
+                String message = read < 0
+                        ? "The stream must not be at the end"
+                        : "Need at least %d bytes to sniff the format but only %d was available".formatted(nBytes, read);
+                throw new SniffException(message);
+            }
+            input.reset();
+            return buffer;
+        } else
+            throw new SniffException("The provided InputStream does not support `mark()`");
+
+    }
 }

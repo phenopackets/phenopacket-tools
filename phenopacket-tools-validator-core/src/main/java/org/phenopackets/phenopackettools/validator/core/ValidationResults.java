@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link ValidationResults} contain validation results for one Phenopacket schema <em>top-level element</em>
- * (phenopacket, family, or cohort).
- * The results contain info regarding which validators were run and the issues found during the validation.
+ * {@code ValidationResults} contain validation results for one Phenopacket schema <em>top-level element</em>
+ * ({@link org.phenopackets.schema.v2.Phenopacket}, {@link org.phenopackets.schema.v2.Family},
+ * or {@link org.phenopackets.schema.v2.Cohort}).
+ * <p>
+ * The results contain info regarding which validators were run ({@link #validators()}) and the issues found during
+ * the validation ({@link #validationResults()}).
  */
 public interface ValidationResults {
 
@@ -42,6 +45,9 @@ public interface ValidationResults {
         return validationResults().isEmpty();
     }
 
+    /**
+     * A builder for creating {@link ValidationResults}.
+     */
     class Builder {
 
         private final List<ValidatorInfo> validators = new ArrayList<>();

@@ -87,7 +87,7 @@ public class JsonSchemaDiseaseValidatorTest {
         assertEquals(1, errors.size());
         ValidationResult error = errors.get(0);
 //        Assertions.assertEquals(JsonError.REQUIRED, error.category());
-        assertEquals("$.id: is missing but it is required", error.message());
+        assertEquals("'id' is missing but it is required", error.message());
     }
 
     private static JsonNode mapPhenopacketToJsonNode(PhenopacketOrBuilder phenopacket) throws Exception {

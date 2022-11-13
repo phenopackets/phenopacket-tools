@@ -56,7 +56,7 @@ public class JsonSchemaValidatorTest {
             assertEquals(1, errors.size());
             ValidationResult error = errors.get(0);
             Assertions.assertEquals("required", error.category());
-            assertEquals("$.id: is missing but it is required", error.message());
+            assertEquals("'id' is missing but it is required", error.message());
         }
 
         /**
@@ -74,14 +74,14 @@ public class JsonSchemaValidatorTest {
             ValidationResult error = errors.get(0);
             // JsonError.CATEGORY is "JSON"
             assertEquals("required", error.category());
-            assertEquals("$.id: is missing but it is required", error.message());
+            assertEquals("'id' is missing but it is required", error.message());
             error = errors.get(1);
             assertEquals("required", error.category());
-            assertEquals("$.metaData: is missing but it is required", error.message());
+            assertEquals("'metaData' is missing but it is required", error.message());
             error = errors.get(2);
 
             assertEquals("additionalProperties", error.category());
-            assertEquals("$.disney: is not defined in the schema and the schema does not allow additional properties", error.message());
+            assertEquals("'disney' is not defined in the schema and the schema does not allow additional properties", error.message());
         }
 
         @Test
@@ -130,7 +130,7 @@ public class JsonSchemaValidatorTest {
             assertEquals(1, errors.size());
             ValidationResult error = errors.get(0);
             assertEquals("enum", error.category());
-            assertEquals("$.subject.sex: does not have a value in the enumeration [UNKNOWN_SEX, FEMALE, MALE, OTHER_SEX]", error.message());
+            assertEquals("'subject.sex' does not have a value in the enumeration [UNKNOWN_SEX, FEMALE, MALE, OTHER_SEX]", error.message());
             assertEquals(ValidationLevel.ERROR, error.level());
         }
 

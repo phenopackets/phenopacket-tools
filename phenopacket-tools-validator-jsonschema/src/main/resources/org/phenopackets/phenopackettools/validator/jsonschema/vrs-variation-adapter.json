@@ -1,0 +1,470 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://www.ga4gh.org/phenopackets/vrs-facade",
+  "title": "VRS Variation facade",
+  "description": "An adapter for the VRS Variation representation that is embedded into Phenopacket schema. Note that the adapter does not map 1:1 to VRS Variation.",
+  "type": "object",
+  "properties": {
+    "allele": {
+      "$ref": "#/definitions/Allele"
+    },
+    "haplotype": {
+      "$ref": "#/definitions/Haplotype"
+    },
+    "copyNumber": {
+      "$ref": "#/definitions/CopyNumber"
+    },
+    "text": {
+      "$ref": "#/definitions/Text"
+    },
+    "variationSet": {
+      "$ref": "#/definitions/VariationSet"
+    }
+  },
+  "oneOf": [
+    { "required": [ "allele" ]},
+    { "required": [ "haplotype" ]},
+    { "required": [ "copyNumber" ]},
+    { "required": [ "text" ]},
+    { "required": [ "variationSet"]}
+  ],
+  "additionalProperties": false,
+
+
+  "definitions": {
+    "Allele": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "curie": {
+          "type": "string"
+        },
+        "chromosomeLocation": {
+          "$ref": "#/definitions/ChromosomeLocation"
+        },
+        "sequenceLocation": {
+          "$ref": "#/definitions/SequenceLocation"
+        },
+
+        "sequenceState": {
+          "$ref": "#/definitions/SequenceState"
+        },
+        "literalSequenceExpression": {
+          "$ref": "#/definitions/LiteralSequenceExpression"
+        },
+        "derivedSequenceExpression": {
+          "$ref": "#/definitions/DerivedSequenceExpression"
+        },
+        "repeatedSequenceExpression": {
+          "$ref": "#/definitions/RepeatedSequenceExpression"
+        }
+      },
+      "allOf": [
+        {
+          "oneOf": [
+            { "required":  ["curie"] },
+            { "required":  ["chromosomeLocation"] },
+            { "required":  ["sequenceLocation"] }
+          ]
+        }, {
+          "oneOf": [
+            { "required":  ["sequenceState"] },
+            { "required":  ["literalSequenceExpression"] },
+            { "required":  ["derivedSequenceExpression"] },
+            { "required":  ["repeatedSequenceExpression"] }
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+
+    "Haplotype": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HaplotypeMember"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "HaplotypeMember": {
+      "type": "object",
+      "description": "A utility object for representing Haplotype.Member of vrs.proto",
+      "properties": {
+        "allele": {
+          "$ref": "#/definitions/Allele"
+        },
+        "curie": {
+          "type": "string"
+        }
+      },
+      "oneOf": [
+        { "required":  ["allele"] },
+        { "required":  ["curie"] }
+      ],
+      "additionalProperties": false
+    },
+
+    "CopyNumber": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+
+        "allele": {
+          "$ref": "#/definitions/Allele"
+        },
+        "haplotype": {
+          "$ref": "#/definitions/Haplotype"
+        },
+        "gene": {
+          "$ref": "#/definitions/Gene"
+        },
+        "literalSequenceExpression": {
+          "$ref": "#/definitions/LiteralSequenceExpression"
+        },
+        "derivedSequenceExpression": {
+          "$ref": "#/definitions/DerivedSequenceExpression"
+        },
+        "repeatedSequenceExpression": {
+          "$ref": "#/definitions/RepeatedSequenceExpression"
+        },
+        "curie": {
+          "type": "string"
+        },
+
+        "number": {
+          "$ref": "#/definitions/Number"
+        },
+        "indefiniteRange": {
+          "$ref": "#/definitions/IndefiniteRange"
+        },
+        "definiteRange": {
+          "$ref": "#/definitions/DefiniteRange"
+        }
+      },
+      "allOf": [
+        {
+          "oneOf": [
+            { "required":  ["allele"] },
+            { "required":  ["haplotype"] },
+            { "required":  ["gene"] },
+            { "required":  ["literalSequenceExpression"] },
+            { "required":  ["derivedSequenceExpression"] },
+            { "required":  ["repeatedSequenceExpression"] },
+            { "required":  ["curie"] }
+          ]
+        }, {
+          "oneOf": [
+            { "required":  ["number"] },
+            { "required":  ["indefiniteRange"] },
+            { "required":  ["definiteRange"] }
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+
+    "Text": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "VariationSet": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VariationSetMember"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "VariationSetMember": {
+      "type": "object",
+      "description": "A utility object for representing VariationSet.Member of vrs.proto",
+      "properties": {
+        "curie": {
+          "type": "string"
+        },
+        "allele": {
+          "$ref": "#/definitions/Allele"
+        },
+        "haplotype": {
+          "$ref": "#/definitions/Haplotype"
+        },
+        "copyNumber": {
+          "$ref": "#/definitions/CopyNumber"
+        },
+        "text": {
+          "$ref": "#/definitions/Text"
+        },
+        "variationSet": {
+          "$ref": "#/definitions/VariationSet"
+        }
+      },
+      "oneOf": [
+        { "required":  ["curie"] },
+        { "required":  ["allele"] },
+        { "required":  ["haplotype"] },
+        { "required":  ["copyNumber"] },
+        { "required":  ["text"] },
+        { "required":  ["variationSet"] }
+      ],
+      "additionalProperties": false
+    },
+
+    "ChromosomeLocation": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "speciesId": {
+          "type": "string"
+        },
+        "chr": {
+          "type": "string"
+        },
+        "interval": {
+          "$ref": "#/definitions/CytobandInterval"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "SequenceLocation": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "sequenceId": {
+          "type": "string"
+        },
+        "sequenceInterval": {
+          "$ref": "#/definitions/SequenceInterval"
+        },
+        "simpleInterval": {
+          "$ref": "#/definitions/SimpleInterval"
+        }
+      },
+      "oneOf": [
+        { "required":  ["sequenceInterval"] },
+        { "required":  ["simpleInterval"] }
+      ],
+      "additionalProperties": false
+    },
+
+    "SequenceInterval": {
+      "type": "object",
+      "properties": {
+        "startNumber": {
+          "$ref": "#/definitions/Number"
+        },
+        "startIndefiniteRange": {
+          "$ref": "#/definitions/IndefiniteRange"
+        },
+        "startDefiniteRange": {
+          "$ref": "#/definitions/DefiniteRange"
+        },
+        "endNumber": {
+          "$ref": "#/definitions/Number"
+        },
+        "endIndefiniteRange": {
+          "$ref": "#/definitions/IndefiniteRange"
+        },
+        "endDefiniteRange": {
+          "$ref": "#/definitions/DefiniteRange"
+        }
+      },
+      "allOf": [
+        {
+          "oneOf": [
+            { "required":  ["startNumber"] },
+            { "required":  ["startIndefiniteRange"] },
+            { "required":  ["startDefiniteRange"] }
+          ]
+        }, {
+          "oneOf": [
+            { "required":  ["endNumber"] },
+            { "required":  ["endIndefiniteRange"] },
+            { "required":  ["endDefiniteRange"] }
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+
+    "SimpleInterval": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/definitions/UnsignedInt64"
+        },
+        "end": {
+          "$ref": "#/definitions/UnsignedInt64"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "CytobandInterval": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "Gene": {
+      "type": "object",
+      "properties": {
+        "geneId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "Number": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/definitions/UnsignedInt64"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "IndefiniteRange": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/definitions/UnsignedInt64"
+        },
+        "comparator": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "DefiniteRange": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "$ref": "#/definitions/UnsignedInt64"
+        },
+        "max": {
+          "$ref": "#/definitions/UnsignedInt64"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "SequenceState": {
+      "type": "object",
+      "properties": {
+        "sequence": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "LiteralSequenceExpression": {
+      "type": "object",
+      "properties": {
+        "sequence": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "DerivedSequenceExpression": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/SequenceLocation"
+        },
+        "reverseComplement": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "RepeatedSequenceExpression": {
+      "type": "object",
+      "properties": {
+        "literalSequenceExpression": {
+          "$ref": "#/definitions/LiteralSequenceExpression"
+        },
+        "derivedSequenceExpression": {
+          "$ref": "#/definitions/DerivedSequenceExpression"
+        },
+        "number": {
+          "$ref": "#/definitions/Number"
+        },
+        "indefiniteRange": {
+          "$ref": "#/definitions/IndefiniteRange"
+        },
+        "definiteRange": {
+          "$ref": "#/definitions/DefiniteRange"
+        }
+      },
+      "allOf": [
+        {
+          "oneOf": [
+            { "required":  ["literalSequenceExpression"] },
+            { "required":  ["derivedSequenceExpression"] }
+          ]
+        }, {
+          "oneOf": [
+            { "required":  ["number"] },
+            { "required":  ["indefiniteRange"] },
+            { "required":  ["definiteRange"] }
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+
+    "UnsignedInt64": {
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "description": "A utility to represent Protobuf `uint64` data type"
+    }
+  }
+}

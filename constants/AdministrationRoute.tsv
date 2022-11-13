@@ -1,0 +1,10 @@
+ontology.id	ontology.label	variable.name	function.name
+NCIT:C38276	Intravenous Route of Administration	INTRAVENOUS_ROUTE	intravenous
+NCIT:C38222	Intraarterial Route of Administration	INTRAARTERIAL_ROUTE	intraarterial
+NCIT:C183503	Administration via Wound Irrigation	WOUND_IRRIGATION_ROUTE	woundIrrigation
+NCIT:C149695	Nebulizer Route of Administration	NEBULIZER_ROUTE	nebulizer
+NCIT:C38288	Oral Route of Administration	ORAL_ROUTE	oral
+NCIT:C38267	Intrathecal Route of Administration	INTRATHECAL_ROUTE	intrathecal
+NCIT:C38677	Peridural Route of Administration	PERIDURAL_ROUTE	peridural
+NCIT:C38304	Topical Route of Administration	TOPICAL_ROUTE	topical
+NCIT:C38305	Transdermal Route of Administration	TRANSDERMAL	transdermal

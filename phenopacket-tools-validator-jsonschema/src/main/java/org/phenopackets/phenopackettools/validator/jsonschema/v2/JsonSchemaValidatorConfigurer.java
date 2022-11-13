@@ -113,7 +113,7 @@ public class JsonSchemaValidatorConfigurer {
     private static JsonSchemaNodeAndInfo phenopacketJsonSchemaAndInfo() {
         try (InputStream is = JsonSchemaValidatorConfigurer.class.getResourceAsStream(PHENOPACKET_SCHEMA_PATH)) {
             JsonNode schemaNode = readJsonSchemaNode(is);
-            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.genericJsonSchema());
+            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.baseSyntaxValidation());
         } catch (IOException e) {
             throw new PhenopacketValidatorRuntimeException("Invalid JSON schema specification: " + e.getMessage());
         }
@@ -125,7 +125,7 @@ public class JsonSchemaValidatorConfigurer {
     private static JsonSchemaNodeAndInfo familyJsonSchemaAndInfo() {
         try (InputStream is = JsonSchemaValidatorConfigurer.class.getResourceAsStream(FAMILY_SCHEMA_PATH)) {
             JsonNode schemaNode = readJsonSchemaNode(is);
-            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.genericJsonSchema());
+            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.baseSyntaxValidation());
         } catch (IOException e) {
             throw new PhenopacketValidatorRuntimeException("Invalid JSON schema specification: " + e.getMessage());
         }
@@ -137,7 +137,7 @@ public class JsonSchemaValidatorConfigurer {
     private static JsonSchemaNodeAndInfo cohortJsonSchemaAndInfo() {
         try (InputStream is = JsonSchemaValidatorConfigurer.class.getResourceAsStream(COHORT_SCHEMA_PATH)) {
             JsonNode schemaNode = readJsonSchemaNode(is);
-            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.genericJsonSchema());
+            return new JsonSchemaNodeAndInfo(schemaNode, ValidatorInfo.baseSyntaxValidation());
         } catch (IOException e) {
             throw new PhenopacketValidatorRuntimeException("Invalid JSON schema specification: " + e.getMessage());
         }
@@ -151,11 +151,11 @@ public class JsonSchemaValidatorConfigurer {
     }
 
     private static ValidatorInfo decodeValidatorInfo(JsonNode schemaNode) {
-        String schema = getNodeAsTextOrDefaultText(schemaNode, "$schema", "UNKNOWN_SCHEMA");
+        String id = getNodeAsTextOrDefaultText(schemaNode, "$id", "UNKNOWN_SCHEMA");
         String title = getNodeAsTextOrDefaultText(schemaNode, "title", "UNKNOWN_TITLE");
         String description = getNodeAsTextOrDefaultText(schemaNode, "description", "UNKNOWN VALIDATOR");
 
-        return ValidatorInfo.of(schema, title, description);
+        return ValidatorInfo.of(id, title, description);
     }
 
     private static String getNodeAsTextOrDefaultText(JsonNode schemaNode, String fieldName, String defaultValue) {

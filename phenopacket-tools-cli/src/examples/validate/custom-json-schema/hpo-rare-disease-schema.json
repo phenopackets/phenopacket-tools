@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://example.com/hpo-rare-disease-validator",
+  "title": "HPO Rare Disease Phenopacket Schema",
+  "description": "An example JSON schema for validating a phenopacket in context of the rare-disease research",
+  "type": "object",
+  "properties": {
+    "subject": {
+      "type": "object",
+      "description": "The subject element is required for a rare-disease Phenopacket",
+      "properties": {
+        "timeAtLastEncounter": {
+          "type": "object",
+          "description": "The time at last encounter is required for a rare-disease phenopacket"
+        }
+      },
+      "required": [
+        "timeAtLastEncounter"
+      ]
+    },
+    "phenotypicFeatures": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^HP:\\d{7}$"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "minItems": 1
+    }
+  },
+  "required": [
+    "subject",
+    "phenotypicFeatures"
+  ]
+}

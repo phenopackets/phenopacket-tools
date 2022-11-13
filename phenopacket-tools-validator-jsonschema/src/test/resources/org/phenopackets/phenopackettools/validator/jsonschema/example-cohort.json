@@ -378,6 +378,7 @@
                 "therapeuticActionability": "ACTIONABLE",
                 "variationDescriptor": {
                   "id": "variant id",
+                  "moleculeContext": "transcript",
                   "expressions": [
                     {
                       "syntax": "hgvs",

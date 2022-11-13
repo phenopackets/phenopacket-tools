@@ -1,6 +1,8 @@
 package org.phenopackets.phenopackettools.validator.core.except;
 
-public class PhenopacketValidatorException extends  Exception {
+import org.phenopackets.phenopackettools.core.PhenopacketToolsException;
+
+public class PhenopacketValidatorException extends PhenopacketToolsException {
     public PhenopacketValidatorException() {
         super();
     }
