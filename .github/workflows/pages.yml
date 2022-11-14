@@ -42,14 +42,18 @@ jobs:
         pip install sphinx-rtd-theme
     
     - name: MVN clean
-      run: ./mvnw -Prerelease clean package
+      run: ./mvnw -Prelease clean package
 
     - name: Get CLI JAR file
       id: cli-jar
-      uses: Rishabh510/Path-lister-action@master
+      uses: ielis/Path-lister-action@try_pattern
       with:
           path: "phenopacket-tools-cli/target/"
-          type: ".jar"
+          # The pattern should match two types of inputs:
+          #  - bla-bla-1.2.3.jar          (release)
+          #  - bla-bla-1.2.3-SNAPSHOT.jar (snapshot)
+          # Using named groups below in attempt to improve legibility.
+          regex: ".*(?P<semantic_version>\\d\\.\\d\\.\\d)(?P<snapshot>-SNAPSHOT)?\\.jar$"
 
     - name: Output results
       id: jar-file
