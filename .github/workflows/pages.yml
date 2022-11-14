@@ -6,7 +6,10 @@ on:
   workflow_dispatch:
   # Runs on pushes targeting the default branch
   push:
-    branches: [ "develop" ]
+    branches: [ develop ]
+  # TODO - remove
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-docs:
