@@ -1,8 +1,8 @@
-# Phenopacket-tools
-
-[![GitHub release](https://img.shields.io/github/release/phenopackets/phenopacket-tools.svg)](https://github.com/phenopackets/phenopacket-tools/releases)
 [![Java CI](https://github.com/phenopackets/phenopacket-tools/workflows/Java%20CI/badge.svg)](https://github.com/phenopackets/phenopacket-tools/actions/workflows/main.yml)
+[![GitHub release](https://img.shields.io/github/release/phenopackets/phenopacket-tools.svg)](https://github.com/phenopackets/phenopacket-tools/releases)
 [![Javadoc](https://javadoc.io/badge2/org.phenopackets.phenopackettools/phenopacket-tools-core/javadoc.svg)](https://javadoc.io/doc/org.phenopackets.phenopackettools)
+
+# Phenopacket-tools
 
 An app and library for building, conversion, and validation of GA4GH Phenopackets. 
 
