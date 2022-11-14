@@ -8,7 +8,14 @@
     <artifactId>phenopacket-tools</artifactId>
     <version>0.4.8-SNAPSHOT</version>
 
+    <name>Phenopacket-tools</name>
+    <description>An app and library for building, conversion and validation of GA4GH Phenopackets</description>
     <packaging>pom</packaging>
+
+    <!-- This is a temporary fix/hack to enable links between classes across phenopacket-tools modules in Javadoc.
+         The URL is, of course, not a real URL. In the long term, we'll need to generate a site and
+         an aggregator Javadoc. -->
+    <url>https://javadoc.io/doc/org.phenopackets.phenopackettools</url>
 
     <prerequisites>
         <maven>3.6.0</maven>

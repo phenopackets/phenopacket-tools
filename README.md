@@ -4,7 +4,7 @@
 [![Java CI](https://github.com/phenopackets/phenopacket-tools/workflows/Java%20CI/badge.svg)](https://github.com/phenopackets/phenopacket-tools/actions/workflows/main.yml)
 [![Javadoc](https://javadoc.io/badge2/org.phenopackets.phenopackettools/phenopacket-tools-core/javadoc.svg)](https://javadoc.io/doc/org.phenopackets.phenopackettools)
 
-Multimodule Java library/app that contains a "streamlined builder" module, a v1 to v2 converter app, a validator API and a JSON validator. 
+An app and library for building, conversion and validation of GA4GH Phenopackets. 
 
 Both library and app requires Java 17 or better to run.
 
