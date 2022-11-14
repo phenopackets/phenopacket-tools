@@ -4,9 +4,9 @@ name: Deploy static content to Pages
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes targeting the main branch
   push:
-    branches: [ "develop" ]
+    branches: [ main ]
 
 jobs:
   build-docs:
@@ -41,15 +41,19 @@ jobs:
         pip install sphinx
         pip install sphinx-rtd-theme
     
-    - name: MVN clean
-      run: ./mvnw -Prerelease clean package
+    - name: Build phenopacket-tools
+      run: ./mvnw -Prelease clean package
 
     - name: Get CLI JAR file
       id: cli-jar
-      uses: Rishabh510/Path-lister-action@master
+      uses: ielis/Path-lister-action@try_pattern
       with:
           path: "phenopacket-tools-cli/target/"
-          type: ".jar"
+          # The pattern should match two types of inputs:
+          #  - bla-bla-1.2.3.jar          (release)
+          #  - bla-bla-1.2.3-SNAPSHOT.jar (snapshot)
+          # Using named groups below in attempt to improve legibility.
+          regex: ".*(?P<semantic_version>\\d\\.\\d\\.\\d)(?P<snapshot>-SNAPSHOT)?\\.jar$"
 
     - name: Output results
       id: jar-file
@@ -59,7 +63,7 @@ jobs:
         echo $i
         done
         
-    - name: Build documentation
+    - name: Generate examples and build documentation
       run: | 
         java -jar ${{ steps.cli-jar.outputs.paths }} examples
         make yaml-docs -B
