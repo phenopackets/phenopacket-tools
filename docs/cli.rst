@@ -1,29 +1,29 @@
 .. _rstcli:
 
-============================
-Command line interface (CLI)
-============================
+======================
+Command-line interface
+======================
 
-*phenopacket-tools* CLI provides functionality for viewing, conversion and validation
+*Phenopacket-tools* command-line interface (CLI) provides functionality for viewing, conversion and validation
 of the top-level elements of Phenopacket schema. This document describes how to set up the CLI application
 on Linux, Mac and Windows environments.
 
 .. note::
-  *phenopacket-tools* is written in Java 17 and requires Java 17 or newer to run.
+  *Phenopacket-tools* is written in Java 17 and requires Java 17 or newer to run.
 
-*phenopacket-tools* is distributed as a standalone executable Java Archive (JAR) file. The application requires
+*Phenopacket-tools* is distributed as a standalone executable Java Archive (JAR) file. The application requires
 no special installation procedure if Java 17 or better is available in your environment.
 
 Setup
 ~~~~~
 
-Most users should *download* the distribution ZIP file with precompiled JAR file from *phenopacket-tools* release page.
+Most users should *download* the distribution ZIP file with precompiled JAR file from *Phenopacket-tools* release page.
 However, it is also possible to *build* the JAR from sources.
 
 Download
 ^^^^^^^^
 
-*phenopacket-tools* JAR is provided in the distribution ZIP file as part of *phenopacket-tools*' release schedule
+*Phenopacket-tools* JAR is provided in the distribution ZIP file as part of *Phenopacket-tools*' release schedule
 from `Releases <https://github.com/phenopackets/phenopacket-tools/releases>`_.
 
 The ZIP archive contains the executable JAR file along with README and example phenopackets required to run the setup
@@ -38,7 +38,7 @@ There are 2 requirements for building the app from sources:
 * **Java Development Kit** (JDK) 17 or newer must be present in the environment and ``$JAVA_HOME`` variable must point
   to JDK's location. See `Installing Apache Maven <https://maven.apache.org/install.html>`_ for more details regarding
   setting up JDK and ``$JAVA_HOME`` on your system.
-* *phenopacket-tools* leverages several open-source Java libraries and a **working internet connection**
+* *Phenopacket-tools* leverages several open-source Java libraries and a **working internet connection**
   is required to download the libraries.
 
 Run the following commands to check out the stable source code and to build the application::
@@ -49,13 +49,13 @@ Run the following commands to check out the stable source code and to build the 
 
 After a successful build, a distribution ZIP file "phenopacket-tools-cli-|release|-distribution.zip"
 will be created in the ``phenopacket-tools-cli/target`` directory. Use the ZIP archive in the same way as the archive
-downloaded from *phenopacket-tools* releases.
+downloaded from *Phenopacket-tools* releases.
 
 
 Commands
 ~~~~~~~~
 
-*phenopacket-tools* CLI provides the following commands:
+*Phenopacket-tools* CLI provides the following commands:
 
 * ``examples`` - generate examples of the top-level elements
 * ``convert`` - convert top-level elements from *v1* to *v2* format
@@ -66,7 +66,7 @@ into the provided directory. The ``convert`` and ``validate`` commands, despite 
 a similar manner. The parts shared by the both command are be described in greater detail
 in the ``convert`` command section.
 
-In the next sections, we will run *phenopacket-tools* by using the following alias::
+In the next sections, we will run *Phenopacket-tools* by using the following alias::
 
   $ alias pxf="java -jar phenopacket-tools-cli-${project.version}.jar"
 
@@ -110,7 +110,7 @@ We can convert a *v1* phenopacket into *v2* by running::
 
 
 
-*phenopacket-tools* makes an educated guess to determine if the input is in *JSON*, *Protobuf*, or *YAML* format.
+*Phenopacket-tools* makes an educated guess to determine if the input is in *JSON*, *Protobuf*, or *YAML* format.
 The guessing is, however, naive and can fail in parsing e.g. gzipped *JSON* file. Turn of the format guessing
 by providing the ``-f | --format`` option::
 

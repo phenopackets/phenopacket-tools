@@ -36,11 +36,11 @@ how to use the CLI application on your system.
    :caption: Contents:
 
    tutorial
+   cli
    creating
    validation
    converting
    constants
-   cli
 
 
 .. figure:: https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg
