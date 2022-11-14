@@ -4,8 +4,6 @@
 
 # Phenopacket-tools
 
-An app and library for building, conversion, and validation of GA4GH Phenopackets. 
-
 *Phenopacket-tools* is an open-source Java library and command-line interface (CLI) application for construction, conversion, 
 and validation of phenopackets. 
 
