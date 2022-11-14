@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Converting V1 Phenopackets &mdash; phenopacket-tools  documentation</title>
+  <title>Converting V1 Phenopackets &mdash; phenopacket-tools 0.4.7 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
@@ -32,6 +32,9 @@
         <div class="wy-side-nav-search" >
             <a href="index.html" class="icon icon-home"> phenopacket-tools
           </a>
+              <div class="version">
+                0.4
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -42,6 +45,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Converting V1 Phenopackets</a></li>
@@ -74,16 +78,17 @@
            <div itemprop="articleBody">
              
   <section id="converting-v1-phenopackets">
-<span id="rstcoverting"></span><h1>Converting V1 Phenopackets<a class="headerlink" href="#converting-v1-phenopackets" title="Permalink to this heading"></a></h1>
+<span id="rstconverting"></span><h1>Converting V1 Phenopackets<a class="headerlink" href="#converting-v1-phenopackets" title="Permalink to this heading"></a></h1>
 <p>The Phenopacket is a Global Alliance for Genomics and Health (GA4GH) standard for sharing disease and phenotype information.
 To build the standard, requirements and specifications were established through a community effort.
 Version 1 of the GA4GH standard was released in 2019 to elicit feedback from the community.
 Version 2 was developed on the basis of this feedback and should be used henceforth. Version 2 has many additional fields compared to version 1, but
 the fields used for reporting phenotype ontology terms are nearly identical and version 1 can easily be converted to version 2.
 Version 1 had fields for reporting variants but did not specify how the variants related to disease diagnoses that were reported.</p>
-<p>The conversion methods provided by the phenopacket-tools library only convert the list of phenotype ontology terms by default. Optionally,
-variants can be converted under the assumption that only one disease was specified in the <code class="docutils literal notranslate"><span class="pre">diseases</span></code> field of the version 1 phenopacket and that
-the reported variants are interpreted to be causal for the disease. If this is not the case, then users would need to write new code to perform
+<p>The conversion methods provided by the <em>phenopacket-tools</em> library does not convert the variants by default.
+The variants can be converted under the assumption that only one disease was specified in the <code class="docutils literal notranslate"><span class="pre">diseases</span></code> field
+of the version 1 phenopacket and that the reported variants are interpreted to be causal for the disease.
+If this is not the case, then users would need to write new code to perform
 the conversion according to the logic of their application.</p>
 <p>To use library code for converting a phenopacket, adapt the following.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">boolean</span><span class="w"> </span><span class="n">convertVariants</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// or false, as desired</span><span class="w"></span>
@@ -91,12 +96,16 @@ the conversion according to the logic of their application.</p>
 <span class="n">Phenopacket</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">converter</span><span class="p">.</span><span class="na">convertPhenopacket</span><span class="p">(</span><span class="n">v1Phenopacket</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-<p>Alternatively, use the <code class="docutils literal notranslate"><span class="pre">ConvertCommand</span></code> in the phenopacket-tools-cli module to perform conversion. Both of the following
-commands print output to the shell (optionally use the <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">filename</span></code> option to write to an outfile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span> <span class="nv">pfx</span><span class="o">=</span><span class="s2">&quot;java -jar phenopacket-tools-cli/target/phenopacket-tools-cli-0.4.6-SNAPSHOT.jar&quot;</span>
-pfx /path/to/v1phenopacket.json
-pdf /path/to/v1phenopacket.json --convert-variants
+<p>Alternatively, use the <code class="docutils literal notranslate"><span class="pre">convert</span></code> command of the command-line interface.
+Both of the following commands print output to the standard output.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pfx convert -i <span class="si">${</span><span class="nv">examples</span><span class="si">}</span>/convert/Schreckenbach-2014-TPM3-II.2.json
+pfx convert --convert-variants -i <span class="si">${</span><span class="nv">examples</span><span class="si">}</span>/convert/Schreckenbach-2014-TPM3-II.2.json
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The commands above assume <cite>pfx</cite> is an alias and <code class="docutils literal notranslate"><span class="pre">${examples}</span></code> points ot location of examples folder,
+both set up in <a class="reference internal" href="tutorial.html#rsttutorial"><span class="std std-ref">Tutorial</span></a>.</p>
 </div>
 </section>
 
@@ -111,7 +120,7 @@ pdf /path/to/v1phenopacket.json --convert-variants
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Peter Robinson.</p>
+    <p>&#169; Copyright 2022, Daniel Danis, Peter Robinson.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

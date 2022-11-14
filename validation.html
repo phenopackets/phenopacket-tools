@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Validating Phenopackets &mdash; phenopacket-tools  documentation</title>
+  <title>Validating Phenopackets &mdash; phenopacket-tools 0.4.7 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
@@ -32,6 +32,9 @@
         <div class="wy-side-nav-search" >
             <a href="index.html" class="icon icon-home"> phenopacket-tools
           </a>
+              <div class="version">
+                0.4
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -42,11 +45,17 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Validating Phenopackets</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#protobuf">Protobuf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#base-validation">Base validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation-workflow">Validation workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#off-the-shelf-validators"><em>Off-the-shelf</em> validators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#base-validation">Base validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenotype-validation">Phenotype validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-validation">Custom validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#organ-system-validation">Organ system validation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
@@ -79,38 +88,36 @@
            <div itemprop="articleBody">
              
   <section id="validating-phenopackets">
-<span id="rstvalidating"></span><h1>Validating Phenopackets<a class="headerlink" href="#validating-phenopackets" title="Permalink to this heading"></a></h1>
-<section id="protobuf">
-<h2>Protobuf<a class="headerlink" href="#protobuf" title="Permalink to this heading"></a></h2>
-<p>Phenopackets schema uses protobuf, an exchange format developed
-in 2008 by Google. We refer readers to the excellent
+<span id="rstvalidation"></span><h1>Validating Phenopackets<a class="headerlink" href="#validating-phenopackets" title="Permalink to this heading"></a></h1>
+<p>Phenopackets schema uses protobuf, an exchange format developed in 2008 by Google. We refer readers to the excellent
 <a class="reference external" href="https://en.wikipedia.org/wiki/Protocol_Buffers">Wikipedia page</a>
-on Protobuf and to <a class="reference external" href="https://developers.google.com/protocol-buffers/">Google’s documentation</a>
-for details.
-In Protobuf (version 3, which is what the Phenopacket Schema uses),
-all fields are optional. However, the Phenopacket Schema defines
-certain fields to be optional
+on Protobuf and to <a class="reference external" href="https://developers.google.com/protocol-buffers/">Google’s documentation</a> for details.
+In Protobuf (version 3, which is what the Phenopacket Schema uses), all fields are optional.
+However, the Phenopacket Schema defines certain fields to be optional
 (See <a class="reference external" href="https://phenopacket-schema.readthedocs.io/en/latest/index.html">documentation</a> for details).
-Also, a phenopacket message can be represented in native protobuf (binary) format, JSON, YAML, and
-other formats.</p>
+Moreover, projects and consortia can require application of specific constraints and requirements for the phenopackets.</p>
+<p><em>Phenopacket-tools</em> provides a functionality for validating phenopackets.</p>
+<p>This document provides a comprehensive description of the functionality of the <em>off-the-shelf</em> validators
+as well as the validation workflow API.</p>
+<section id="validation-workflow">
+<h2>Validation workflow<a class="headerlink" href="#validation-workflow" title="Permalink to this heading"></a></h2>
+<p><em>Phenopacket-tools</em> defines an API for phenopacket validation workflow. The workflow is consists of
+a list of validation steps. There are two types of steps: <em>syntax</em> and <em>semantic</em>. The syntax steps check syntax
+and cardinality of each component separately. The semantic validators are run after syntax checks and validate
+the components in the context of the entire phenopacket.</p>
+<p>There is one mandatory syntax validation step that is always run first: the <em>base</em> validation. The base validation
+ensures the phenopacket message meets the requirements of the Phenopacket Schema.</p>
+<p>The results of the validation are aggregated into a container object that consists
+of immutable value objects that describe the performed validations and the validation results suitable
+for reporting back to the user.</p>
+<p><strong>API</strong></p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
 </section>
-<section id="validation">
-<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this heading"></a></h2>
-<p>The phenopacket-tools library offers JSON-Schema-based and semantic validations. The syntactic validation
-is done using JSON schema. Additionally, an interface is provided to perform arbitrary kinds of validation.
-This validation should be performed for all phenophenopackets.</p>
-<p>Additional constraints and requirements may be made for phenopackets that are used in a specific
-project or for a specific collaboration or consortium. For instance, a rare-disease consortium
-may require that all phenotypic features be recorded using valid HPO terms. An example class is
-provided that checks all <code class="docutils literal notranslate"><span class="pre">PhenotypicFeature</span></code> elements, ensures that they use HPO terms with valid
-(i.e., primary) id’s, and checks whether both a term and an ancestor of the term are used - if so
-a wanring is emitted, because an annotation with a specific HPO term
-(e.g., <a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0011682">Perimembranous ventricular septal defect</a>)
-implies all of the ancestors of the term (e.g., a patient with perimembranous VSD by necessity also has
-<a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001629">Ventricular septal defect</a>).</p>
-</section>
+<section id="off-the-shelf-validators">
+<h2><em>Off-the-shelf</em> validators<a class="headerlink" href="#off-the-shelf-validators" title="Permalink to this heading"></a></h2>
+<p>TODO - describe <em>off-the-shelf</em> validators in great detail.</p>
 <section id="base-validation">
-<h2>Base validation<a class="headerlink" href="#base-validation" title="Permalink to this heading"></a></h2>
+<span id="rstbasevalidation"></span><h3>Base validation<a class="headerlink" href="#base-validation" title="Permalink to this heading"></a></h3>
 <p>All phenopackets should be tested against the base JSON Schema (analogously for all <code class="docutils literal notranslate"><span class="pre">Family</span></code> and <code class="docutils literal notranslate"><span class="pre">Cohort</span></code> messages).
 In code, this can be implemented as follows.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">JsonSchemaValidator</span><span class="w"> </span><span class="n">validator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhenopacketWorkflowRunnerBuilder</span><span class="p">.</span><span class="na">getBaseRequirementsValidator</span><span class="p">();</span><span class="w"></span>
@@ -131,6 +138,67 @@ In code, this can be implemented as follows.</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
+<p><strong>API</strong></p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
+</section>
+<section id="phenotype-validation">
+<span id="rstphenotypevalidation"></span><h3>Phenotype validation<a class="headerlink" href="#phenotype-validation" title="Permalink to this heading"></a></h3>
+<p>TODO - write
+.. TODO - continue</p>
+<p><strong>API</strong></p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
+</section>
+<section id="custom-validation">
+<span id="rstcustomvalidation"></span><h3>Custom validation<a class="headerlink" href="#custom-validation" title="Permalink to this heading"></a></h3>
+<p>TODO - write
+.. TODO - continue</p>
+<p><strong>API</strong></p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
+</section>
+<section id="organ-system-validation">
+<span id="rstorgsysvalidation"></span><h3>Organ system validation<a class="headerlink" href="#organ-system-validation" title="Permalink to this heading"></a></h3>
+<p>TODO - write
+.. TODO - continue</p>
+<p>We can validate presence of annotation for specific organ systems in a phenopacket.</p>
+<p>As an example, we work with toy phenopackets that represent patients with
+<a class="reference external" href="https://hpo.jax.org/app/browse/disease/OMIM:154700">Marfan syndrome</a>. Due to the nature of the Marfan syndrome,
+we may require annotation of three organ systems:</p>
+<ul class="simple">
+<li><p>Eye</p></li>
+<li><p>Cardiovascular system</p></li>
+<li><p>Respiratory system</p></li>
+</ul>
+<p>The annotation is done either by <em>excluding</em> the corresponding top-level HPO term or by adding a descendent term:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Organ system</p></th>
+<th class="head"><p>Top-level HPO term</p></th>
+<th class="head"><p>Example descendent</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Eye</p></td>
+<td><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0000478">Abnormality of the eye</a></p></td>
+<td><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001083">Ectopia lentis</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Cardiovascular system</p></td>
+<td><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001626">Abnormality of the cardiovascular system</a></p></td>
+<td><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001653">Mitral regurgitation</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Respiratory system</p></td>
+<td><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0002086">Abnormality of the respiratory system</a></p></td>
+<td><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0002107">Pneumothorax</a></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>API</strong></p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
+</section>
 </section>
 </section>
 
@@ -145,7 +213,7 @@ In code, this can be implemented as follows.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Peter Robinson.</p>
+    <p>&#169; Copyright 2022, Daniel Danis, Peter Robinson.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
