@@ -2,6 +2,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/phenopackets/phenopacket-tools.svg)](https://github.com/phenopackets/phenopacket-tools/releases)
 [![Java CI](https://github.com/phenopackets/phenopacket-tools/workflows/Java%20CI/badge.svg)](https://github.com/phenopackets/phenopacket-tools/actions/workflows/main.yml)
+[![Javadoc](https://javadoc.io/badge2/org.phenopackets.phenopackettools/phenopacket-tools-core/javadoc.svg)](https://javadoc.io/doc/org.phenopackets.phenopackettools)
 
 Multimodule Java library/app that contains a "streamlined builder" module, a v1 to v2 converter app, a validator API and a JSON validator. 
 
@@ -49,6 +50,3 @@ pfx-tools validate family ~/phenopacket-examples/families/*.json
 ```shell
 pfx-tools convert phenopacket.json
 ```
-
-### API
-A Javadoc description of the API of phenopacket-tools is available [here](https://javadoc.io/doc/org.phenopackets.phenopackettools).
