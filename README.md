@@ -13,6 +13,11 @@ such as anatomical organs, age of onset, biospecimen type, and clinical modifier
 The library validates the basic syntax and semantic requirements of the Phenopacket Schema as well 
 as the adherence to additional user-defined requirements. 
 
+## Availability
+
+Most users should download the latest distribution archive from the [Releases page](https://github.com/phenopackets/phenopacket-tools/releases).
+Alternatively, *phenopacket-tools* can be built from source, as described in the user guide.
+
 ## Documentation
 
 The documentation includes a [Tutorial](http://phenopackets.org/phenopacket-tools/tutorial.html) showing 
@@ -20,10 +25,6 @@ how to use the CLI,
 a comprehensive [CLI user guide](http://phenopackets.org/phenopacket-tools/cli.html),
 a [Library user guide](http://phenopackets.org/phenopacket-tools),
 and the [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/apidocs).
-
-## Availability
-
-Most users should download the latest distribution archive from the [Releases page](https://github.com/phenopackets/phenopacket-tools/releases).
 
 ## Issues
 
