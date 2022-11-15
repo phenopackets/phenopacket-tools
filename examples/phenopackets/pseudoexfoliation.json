@@ -1,0 +1,492 @@
+{
+  "id": "arbitrary.id",
+  "subject": {
+    "id": "proband A",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P70Y"
+      }
+    },
+    "sex": "MALE",
+    "karyotypicSex": "XY"
+  },
+  "phenotypicFeatures": [{
+    "type": {
+      "id": "HP:0000539",
+      "label": "Abnormality of refraction"
+    },
+    "excluded": true,
+    "modifiers": [{
+      "id": "HP:0012834",
+      "label": "Right"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P70Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0000545",
+      "label": "Myopia"
+    },
+    "modifiers": [{
+      "id": "HP:0012834",
+      "label": "Right"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P71Y1M"
+      }
+    }
+  }, {
+    "type": {
+      "id": "NCIT:C50618",
+      "label": "Intraocular Pressure Increased"
+    },
+    "modifiers": [{
+      "id": "HP:0012834",
+      "label": "Right"
+    }],
+    "onset": {
+      "age": {
+        "iso8601duration": "P71Y1M"
+      }
+    }
+  }, {
+    "type": {
+      "id": " HP:0007686",
+      "label": "Abnormal pupillary function"
+    },
+    "excluded": true
+  }, {
+    "type": {
+      "id": "HP:0012629",
+      "label": "Phakodonesis"
+    },
+    "excluded": true
+  }, {
+    "type": {
+      "id": " SCTID: 414775001",
+      "label": "monovision"
+    },
+    "excluded": true
+  }],
+  "measurements": [{
+    "assay": {
+      "id": "LOINC:79892-6",
+      "label": "Right eye Intraocular pressure"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:mm[Hg]",
+          "label": "millimetres of mercury"
+        },
+        "value": 14.0,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:56844-4",
+            "label": "Intraocular pressure of Eye"
+          },
+          "low": 10.0,
+          "high": 21.0
+        }
+      }
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P71Y1M1D"
+      }
+    }
+  }, {
+    "assay": {
+      "id": "NCIT:C156778",
+      "label": "Vision Assessment"
+    },
+    "complexValue": {
+      "typedQuantities": [{
+        "type": {
+          "id": "NCIT:C87149",
+          "label": "Visual Acuity"
+        },
+        "quantity": {
+          "unit": {
+            "id": "NCIT:C48570",
+            "label": "Percent Unit"
+          },
+          "value": 100.0
+        }
+      }]
+    }
+  }, {
+    "assay": {
+      "id": "SCTID:397312009",
+      "label": "Intraocular lens anterior chamber depth"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:mm",
+          "label": "millimeter"
+        },
+        "value": 3.93,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:56844-4",
+            "label": "Intraocular pressure of Eye"
+          },
+          "low": 10.0,
+          "high": 21.0
+        }
+      }
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P71Y1M1D"
+      }
+    }
+  }, {
+    "assay": {
+      "id": "SCTID:397312009",
+      "label": "Intraocular lens anterior chamber depth"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:mm",
+          "label": "millimeter"
+        },
+        "value": 5.21,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:56844-4",
+            "label": "Intraocular pressure of Eye"
+          },
+          "low": 10.0,
+          "high": 21.0
+        }
+      }
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P71Y1M1D"
+      }
+    }
+  }, {
+    "assay": {
+      "id": "NCIT:C156778",
+      "label": "Vision Assessment"
+    },
+    "complexValue": {
+      "typedQuantities": [{
+        "type": {
+          "id": "NCIT:C87149",
+          "label": "Visual Acuity"
+        },
+        "quantity": {
+          "unit": {
+            "id": "NCIT:C48570",
+            "label": "Percent Unit"
+          },
+          "value": 100.0
+        }
+      }]
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P70Y1W"
+      }
+    }
+  }, {
+    "assay": {
+      "id": "LOINC:79895-9",
+      "label": "Subjective refraction method"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:[diop]",
+          "label": "diopter"
+        },
+        "value": -0.25,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:79895-9",
+            "label": "Subjective refraction method"
+          },
+          "low": -30.0,
+          "high": 30.0
+        }
+      }
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P70Y1W"
+      }
+    }
+  }, {
+    "assay": {
+      "id": "SNOMEDCT:252886007",
+      "label": "Refraction assessment (procedure)"
+    },
+    "complexValue": {
+      "typedQuantities": [{
+        "type": {
+          "id": "LOINC:79846-2",
+          "label": "Right eye cylindrical refraction"
+        },
+        "quantity": {
+          "unit": {
+            "id": "UCUM:[diop]",
+            "label": "diopter"
+          },
+          "value": -0.5,
+          "referenceRange": {
+            "unit": {
+              "id": "LOINC:79895-9",
+              "label": "Subjective refraction method"
+            },
+            "low": -30.0,
+            "high": 30.0
+          }
+        }
+      }, {
+        "type": {
+          "id": "LOINC:9829-8",
+          "label": "Recht eye cylindrical degree"
+        },
+        "quantity": {
+          "unit": {
+            "id": "UCUM:degree",
+            "label": "degree (plane angle)"
+          },
+          "value": 110.0,
+          "referenceRange": {
+            "unit": {
+              "id": "LOINC:79895-9",
+              "label": "Subjective refraction method"
+            },
+            "low": -30.0,
+            "high": 30.0
+          }
+        }
+      }]
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P70Y1W"
+      }
+    }
+  }, {
+    "assay": {
+      "id": "LOINC:79850-4",
+      "label": "Right eye spherical refraction"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:[diop]",
+          "label": "diopter"
+        },
+        "value": -0.25,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:79895-9",
+            "label": "Subjective refraction method"
+          },
+          "low": -30.0,
+          "high": 30.0
+        }
+      }
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P70Y1W"
+      }
+    }
+  }, {
+    "assay": {
+      "id": "LOINC:79892-6",
+      "label": "Right eye Intraocular pressure"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:mm[Hg]",
+          "label": "millimetres of mercury"
+        },
+        "value": 29.0,
+        "referenceRange": {
+          "unit": {
+            "id": "LOINC:56844-4",
+            "label": "Intraocular pressure of Eye"
+          },
+          "low": 10.0,
+          "high": 21.0
+        }
+      }
+    },
+    "timeObserved": {
+      "age": {
+        "iso8601duration": "P71Y1M"
+      }
+    }
+  }],
+  "diseases": [{
+    "term": {
+      "id": "MONDO:0008327",
+      "label": "exfoliation syndrome"
+    },
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0003581",
+        "label": "Adult onset"
+      }
+    },
+    "primarySite": {
+      "id": "UBERON:0004549",
+      "label": "right eye"
+    }
+  }],
+  "medicalActions": [{
+    "procedure": {
+      "code": {
+        "id": "NCIT:C157809",
+        "label": "Cataract Surgery"
+      },
+      "bodySite": {
+        "id": "UBERON:0004549",
+        "label": "right eye"
+      },
+      "performed": {
+        "age": {
+          "iso8601duration": "P70Y"
+        }
+      }
+    },
+    "treatmentTarget": {
+      "id": "HP:0000518",
+      "label": "cataract"
+    },
+    "treatmentIntent": {
+      "id": "HP:0500081",
+      "label": "Pseudophakia"
+    }
+  }, {
+    "procedure": {
+      "code": {
+        "id": "NCIT:C157809",
+        "label": "Cataract Surgery"
+      },
+      "bodySite": {
+        "id": "UBERON:0004548",
+        "label": "left eye"
+      },
+      "performed": {
+        "age": {
+          "iso8601duration": "P70Y6W"
+        }
+      }
+    },
+    "treatmentTarget": {
+      "id": "HP:0000518",
+      "label": "cataract"
+    },
+    "treatmentIntent": {
+      "id": "HP:0500081",
+      "label": "Pseudophakia"
+    }
+  }, {
+    "treatment": {
+      "agent": {
+        "id": "DrugCentral:395",
+        "label": "brimonidine"
+      },
+      "routeOfAdministration": {
+        "id": "NCIT:C29302",
+        "label": "Ophthalmic Solution"
+      },
+      "doseIntervals": [{
+        "quantity": {
+          "unit": {
+            "id": "UCUM:mg.kg-1",
+            "label": "milligram per kilogram"
+          },
+          "value": 0.002
+        },
+        "scheduleFrequency": {
+          "id": "NCIT:C64576",
+          "label": "Once"
+        },
+        "interval": {
+          "start": "2022-07-07T00:00:00Z",
+          "end": "2022-07-07T00:00:00Z"
+        }
+      }]
+    },
+    "treatmentTarget": {
+      "id": "HP:0007906",
+      "label": "Ocular hypertension"
+    },
+    "adverseEvents": [{
+      "id": "HP:0025637",
+      "label": "Vasospasm"
+    }],
+    "treatmentTerminationReason": {
+      "id": "NCIT:C41331",
+      "label": "Adverse Event"
+    }
+  }, {
+    "procedure": {
+      "code": {
+        "id": "LOINC:29031-2",
+        "label": "Right eye YAG mode"
+      },
+      "bodySite": {
+        "id": "UBERON:0004549",
+        "label": "right eye"
+      },
+      "performed": {
+        "age": {
+          "iso8601duration": "P71Y1M"
+        }
+      }
+    },
+    "treatmentTarget": {
+      "id": "HP:0000518",
+      "label": "cataract"
+    },
+    "treatmentIntent": {
+      "id": "HP:0500081",
+      "label": "Pseudophakia"
+    }
+  }],
+  "metaData": {
+    "created": "2021-05-14T10:35:00Z",
+    "createdBy": "anonymous biocurator",
+    "resources": [{
+      "id": "uberon",
+      "name": "Uber-anatomy ontology",
+      "url": "http://purl.obolibrary.org/obo/uberon.owl",
+      "version": "2022-08-19",
+      "namespacePrefix": "UBERON",
+      "iriPrefix": "http://purl.obolibrary.org/obo/UBERON_"
+    }, {
+      "id": "ncit",
+      "name": "NCI Thesaurus",
+      "url": "http://purl.obolibrary.org/obo/ncit.owl",
+      "version": "22.07d",
+      "namespacePrefix": "NCIT",
+      "iriPrefix": "http://purl.obolibrary.org/obo/NCIT_"
+    }, {
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2022-06-11",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }],
+    "phenopacketSchemaVersion": "2.0.0"
+  }
+}

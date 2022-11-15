@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command line interface (CLI) &mdash; phenopacket-tools 0.4.7 documentation</title>
+  <title>Command-line interface &mdash; phenopacket-tools 0.4.7 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
@@ -21,7 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Constants" href="constants.html" /> 
+    <link rel="next" title="Creating Phenopackets" href="creating.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,11 +46,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Command line interface (CLI)</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command-line interface</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#download">Download</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#build-from-source-code">Build from source code</a></li>
@@ -70,6 +67,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#set-up-autocompletion">Set up autocompletion</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 </ul>
 
         </div>
@@ -86,7 +87,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Command line interface (CLI)</li>
+      <li class="breadcrumb-item active">Command-line interface</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/cli.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -96,24 +97,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="command-line-interface-cli">
-<span id="rstcli"></span><h1>Command line interface (CLI)<a class="headerlink" href="#command-line-interface-cli" title="Permalink to this heading"></a></h1>
-<p><em>phenopacket-tools</em> CLI provides functionality for viewing, conversion and validation
+  <section id="command-line-interface">
+<span id="rstcli"></span><h1>Command-line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this heading"></a></h1>
+<p><em>Phenopacket-tools</em> command-line interface (CLI) provides functionality for viewing, conversion and validation
 of the top-level elements of Phenopacket schema. This document describes how to set up the CLI application
 on Linux, Mac and Windows environments.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><em>phenopacket-tools</em> is written in Java 17 and requires Java 17 or newer to run.</p>
+<p><em>Phenopacket-tools</em> is written in Java 17 and requires Java 17 or newer to run.</p>
 </div>
-<p><em>phenopacket-tools</em> is distributed as a standalone executable Java Archive (JAR) file. The application requires
+<p><em>Phenopacket-tools</em> is distributed as a standalone executable Java Archive (JAR) file. The application requires
 no special installation procedure if Java 17 or better is available in your environment.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
-<p>Most users should <em>download</em> the distribution ZIP file with precompiled JAR file from <em>phenopacket-tools</em> release page.
+<p>Most users should <em>download</em> the distribution ZIP file with precompiled JAR file from <em>Phenopacket-tools</em> release page.
 However, it is also possible to <em>build</em> the JAR from sources.</p>
 <section id="download">
 <h3>Download<a class="headerlink" href="#download" title="Permalink to this heading"></a></h3>
-<p><em>phenopacket-tools</em> JAR is provided in the distribution ZIP file as part of <em>phenopacket-tools</em>’ release schedule
+<p><em>Phenopacket-tools</em> JAR is provided in the distribution ZIP file as part of <em>Phenopacket-tools</em>’ release schedule
 from <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/releases">Releases</a>.</p>
 <p>The ZIP archive contains the executable JAR file along with README and example phenopackets required to run the setup
 and the tutorial.</p>
@@ -126,7 +127,7 @@ There are 2 requirements for building the app from sources:</p>
 <li><p><strong>Java Development Kit</strong> (JDK) 17 or newer must be present in the environment and <code class="docutils literal notranslate"><span class="pre">$JAVA_HOME</span></code> variable must point
 to JDK’s location. See <a class="reference external" href="https://maven.apache.org/install.html">Installing Apache Maven</a> for more details regarding
 setting up JDK and <code class="docutils literal notranslate"><span class="pre">$JAVA_HOME</span></code> on your system.</p></li>
-<li><p><em>phenopacket-tools</em> leverages several open-source Java libraries and a <strong>working internet connection</strong>
+<li><p><em>Phenopacket-tools</em> leverages several open-source Java libraries and a <strong>working internet connection</strong>
 is required to download the libraries.</p></li>
 </ul>
 <p>Run the following commands to check out the stable source code and to build the application:</p>
@@ -137,12 +138,12 @@ $ ./mvnw -Prelease package
 </div>
 <p>After a successful build, a distribution ZIP file “phenopacket-tools-cli-0.4.7-distribution.zip”
 will be created in the <code class="docutils literal notranslate"><span class="pre">phenopacket-tools-cli/target</span></code> directory. Use the ZIP archive in the same way as the archive
-downloaded from <em>phenopacket-tools</em> releases.</p>
+downloaded from <em>Phenopacket-tools</em> releases.</p>
 </section>
 </section>
 <section id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading"></a></h2>
-<p><em>phenopacket-tools</em> CLI provides the following commands:</p>
+<p><em>Phenopacket-tools</em> CLI provides the following commands:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">examples</span></code> - generate examples of the top-level elements</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">convert</span></code> - convert top-level elements from <em>v1</em> to <em>v2</em> format</p></li>
@@ -152,7 +153,7 @@ downloaded from <em>phenopacket-tools</em> releases.</p>
 into the provided directory. The <code class="docutils literal notranslate"><span class="pre">convert</span></code> and <code class="docutils literal notranslate"><span class="pre">validate</span></code> commands, despite being a bit more elaborate, work in
 a similar manner. The parts shared by the both command are be described in greater detail
 in the <code class="docutils literal notranslate"><span class="pre">convert</span></code> command section.</p>
-<p>In the next sections, we will run <em>phenopacket-tools</em> by using the following alias:</p>
+<p>In the next sections, we will run <em>Phenopacket-tools</em> by using the following alias:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ alias pxf=&quot;java -jar phenopacket-tools-cli-${project.version}.jar&quot;
 </pre></div>
 </div>
@@ -189,7 +190,7 @@ and cohort <code class="docutils literal notranslate"><span class="pre">cohort.v
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat phenopacket.v1.json | pxf convert &gt; phenopacket.v2.json
 </pre></div>
 </div>
-<p><em>phenopacket-tools</em> makes an educated guess to determine if the input is in <em>JSON</em>, <em>Protobuf</em>, or <em>YAML</em> format.
+<p><em>Phenopacket-tools</em> makes an educated guess to determine if the input is in <em>JSON</em>, <em>Protobuf</em>, or <em>YAML</em> format.
 The guessing is, however, naive and can fail in parsing e.g. gzipped <em>JSON</em> file. Turn of the format guessing
 by providing the <code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">|</span> <span class="pre">--format</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ # Explicit JSON input
@@ -254,7 +255,8 @@ A row with column names follows the header, and then the individual validation r
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="constants.html" class="btn btn-neutral float-left" title="Constants" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="creating.html" class="btn btn-neutral float-right" title="Creating Phenopackets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
