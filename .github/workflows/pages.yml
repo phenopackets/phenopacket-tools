@@ -58,6 +58,11 @@ jobs:
         make html
         mv _build/* ../gh-pages/
         cd ..
+        
+        ## Deploy Javadoc
+        # Copy aggregated Javadoc into `apidocs` folder. 
+        # The aggregated docs are built by Maven in `package` phase.
+        cp -r target/site/apidocs ./apidocs 
 
 
     - name: Deploy documentation.
