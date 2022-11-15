@@ -63,9 +63,6 @@ jobs:
         make html
         mv _build/html/* ../gh-pages/
         cd ..
-        
-        # TODO - remove
-        tree -L 3
 
 
     - name: Deploy documentation.
