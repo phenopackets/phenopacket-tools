@@ -17,8 +17,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
-        # TODO - remove
-        ref: host_javadocs
+        ref: main
     
     - name: Set up Python 3.
       uses: actions/setup-python@v4
@@ -45,8 +44,6 @@ jobs:
         # We will put all site documentation there.
         mkdir -p gh-pages
         touch gh-pages/.nojekyll
-        # TODO - remove
-        tree -L 3
         
         ## Copy Javadoc
         # Copy aggregated Javadoc into `apidocs` folder. 
@@ -66,6 +63,9 @@ jobs:
         make html
         mv _build/* ../gh-pages/
         cd ..
+        
+        # TODO - remove
+        tree -L 3
 
 
     - name: Deploy documentation.
