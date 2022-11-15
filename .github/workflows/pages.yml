@@ -12,13 +12,6 @@ on:
 jobs:
   build-docs:
     runs-on: ubuntu-latest
-#    env:
-#      JDK_VERSION: ${{ matrix.jdk }}
-
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        jdk: [ 17 ]
 
     steps:
     - name: Checkout
@@ -85,12 +78,12 @@ jobs:
         # Build the docs
         # Generate the HTML pages and move the generated content into the target folder. 
         cd docs/ 
-#        sphinx-build -b html . _build
+        # sphinx-build -b html . _build
         make html
         mv _build/* ../gh-pages/
         cd ..
-#        cp -r _build/* ../gh-pages/
-#        cp -r yaml/* ../gh-pages/examples
+        # cp -r _build/* ../gh-pages/
+        # cp -r yaml/* ../gh-pages/examples
         #
 
 # TODO - re-enable
