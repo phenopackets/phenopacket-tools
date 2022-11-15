@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
   # Runs on pushes targeting the main branch
   push:
-    # TODO - revert back to just `main`
-    branches: [ main, develop ]
+    branches: [ main ]
 
 jobs:
   build-docs:
@@ -41,39 +40,32 @@ jobs:
 
     - name: Generate examples and build documentation
       run: |
-        # Init the target folder. 
+        ## Init the target folder. 
         # We will put all site documentation there.
         mkdir -p gh-pages
         touch gh-pages/.nojekyll
         
-        # Generate examples
+        ## Generate examples
         # Find the CLI jar and run the `examples` command.
         pxfcli="phenopacket-tools-cli"
         find ${pxfcli}/target \
              -regex "^${pxfcli}/target/${pxfcli}-[0-9]\.[0-9]\.[0-9]\(-SNAPSHOT\)?\.jar$" \
              -exec java -jar {} examples --output gh-pages/examples \;
-        # java -jar ${{ steps.cli-jar.outputs.paths }} examples
-        # make yaml-docs -B
-        # mkdir gh-pages gh-pages/examples
         
-        # Build the docs
+        ## Build the docs
         # Generate the HTML pages and move the generated content into the target folder. 
         cd docs/ 
-        # sphinx-build -b html . _build
         make html
         mv _build/* ../gh-pages/
         cd ..
-        # cp -r _build/* ../gh-pages/
-        # cp -r yaml/* ../gh-pages/examples
-        #
 
-# TODO - re-enable
-#    - name: Deploy documentation.
-#      if: ${{ github.event_name == 'push' }}
-#      uses: JamesIves/github-pages-deploy-action@v4.3.0
-#      with:
-#        branch: gh-pages
-#        force: true
-#        folder: gh-pages
+
+    - name: Deploy documentation.
+      if: ${{ github.event_name == 'push' }}
+      uses: JamesIves/github-pages-deploy-action@v4.3.0
+      with:
+        branch: gh-pages
+        force: true
+        folder: gh-pages
 
 
