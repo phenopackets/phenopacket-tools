@@ -8,7 +8,11 @@
     <artifactId>phenopacket-tools</artifactId>
     <version>0.4.8-SNAPSHOT</version>
 
+    <name>Phenopacket-tools</name>
+    <description>An app and library for building, conversion and validation of GA4GH Phenopackets</description>
     <packaging>pom</packaging>
+
+    <url>https://phenopackets.org/phenopacket-tools</url>
 
     <prerequisites>
         <maven>3.6.0</maven>
@@ -267,10 +271,20 @@
                             </configuration>
                             <executions>
                                 <execution>
+                                    <!-- Prepare Javadoc JARs for Maven Central. -->
                                     <id>attach-javadocs</id>
                                     <goals>
                                         <goal>jar</goal>
                                     </goals>
+                                </execution>
+                                <execution>
+                                    <!-- Aggregate Javadoc for hosting at the project site. -->
+                                    <id>aggregate</id>
+                                    <goals>
+                                        <goal>aggregate</goal>
+                                    </goals>
+                                    <phase>package</phase>
+                                    <inherited>false</inherited>
                                 </execution>
                             </executions>
                         </plugin>
