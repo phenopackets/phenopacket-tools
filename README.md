@@ -1,6 +1,5 @@
 [![Java CI](https://github.com/phenopackets/phenopacket-tools/workflows/Java%20CI/badge.svg)](https://github.com/phenopackets/phenopacket-tools/actions/workflows/main.yml)
 [![GitHub release](https://img.shields.io/github/release/phenopackets/phenopacket-tools.svg)](https://github.com/phenopackets/phenopacket-tools/releases)
-[![Javadoc](https://javadoc.io/badge2/org.phenopackets.phenopackettools/phenopacket-tools-core/javadoc.svg)](https://javadoc.io/doc/org.phenopackets.phenopackettools)
 
 # Phenopacket-tools
 
@@ -20,7 +19,7 @@ The documentation includes a [Tutorial](http://phenopackets.org/phenopacket-tool
 how to use the CLI, 
 a comprehensive [CLI user guide](http://phenopackets.org/phenopacket-tools/cli.html),
 a [Library user guide](http://phenopackets.org/phenopacket-tools),
-and the [Java API documentation](https://javadoc.io/doc/org.phenopackets.phenopackettools).
+and the [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/apidocs).
 
 ## Availability
 
