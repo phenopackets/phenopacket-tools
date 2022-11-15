@@ -45,6 +45,11 @@ jobs:
         mkdir -p gh-pages
         touch gh-pages/.nojekyll
         
+        ## Copy Javadoc
+        # Copy aggregated Javadoc into `apidocs` folder. 
+        # The aggregated docs are built by Maven in `package` phase.
+        cp -r target/site/apidocs ./gh-pages/apidocs 
+        
         ## Generate examples
         # Find the CLI jar and run the `examples` command.
         pxfcli="phenopacket-tools-cli"
@@ -58,11 +63,6 @@ jobs:
         make html
         mv _build/* ../gh-pages/
         cd ..
-        
-        ## Deploy Javadoc
-        # Copy aggregated Javadoc into `apidocs` folder. 
-        # The aggregated docs are built by Maven in `package` phase.
-        cp -r target/site/apidocs ./apidocs 
 
 
     - name: Deploy documentation.
