@@ -64,7 +64,7 @@ jobs:
 #        for i in ${{ steps.cli-jar.outputs.paths }}; do
 #        echo $i
 #        done
-        
+
     - name: Generate examples and build documentation
       run: |
         # Init the target folder. 
