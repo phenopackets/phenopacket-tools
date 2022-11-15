@@ -44,6 +44,8 @@ jobs:
         # We will put all site documentation there.
         mkdir -p gh-pages
         touch gh-pages/.nojekyll
+        # TODO - remove
+        tree -L 3
         
         ## Copy Javadoc
         # Copy aggregated Javadoc into `apidocs` folder. 
