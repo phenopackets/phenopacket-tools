@@ -17,7 +17,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+        fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
         ref: main
     
     - name: Set up Python 3.
@@ -37,26 +37,7 @@ jobs:
         distribution: 'adopt'
     
     - name: Build phenopacket-tools
-      run: ./mvnw -Prelease clean package
-
-#    - name: Get CLI JAR file
-#      id: cli-jar
-#      uses: ielis/Path-lister-action@try_pattern
-#      with:
-#          path: "phenopacket-tools-cli/target/"
-#          # The pattern should match two types of inputs:
-#          #  - bla-bla-1.2.3.jar          (release)
-#          #  - bla-bla-1.2.3-SNAPSHOT.jar (snapshot)
-#          # Using named groups below in attempt to improve legibility.
-#          regex: ".*(?P<semantic_version>\\d\\.\\d\\.\\d)(?P<snapshot>-SNAPSHOT)?\\.jar$"
-
-#    - name: Output results
-#      id: jar-file
-#      run: |
-#        echo "Found ${{ steps.cli-jar.outputs.path_count }} file(s) with this extension:"
-#        for i in ${{ steps.cli-jar.outputs.paths }}; do
-#        echo $i
-#        done
+      run: ./mvnw -Prelease -DskipTests clean package # We test elsewhere
 
     - name: Generate examples and build documentation
       run: |
@@ -68,7 +49,7 @@ jobs:
         # Generate examples
         # Find the CLI jar and run the `examples` command.
         pxfcli="phenopacket-tools-cli"
-        find ${pfxcli}/target \
+        find ${pxfcli}/target \
              -regex "^${pxfcli}/target/${pxfcli}-[0-9]\.[0-9]\.[0-9]\(-SNAPSHOT\)?\.jar$" \
              -exec java -jar {} examples --output gh-pages/examples \;
         # java -jar ${{ steps.cli-jar.outputs.paths }} examples
