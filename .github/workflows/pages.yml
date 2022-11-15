@@ -17,7 +17,8 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
-        ref: main
+        # TODO - remove
+        ref: ielis/host_javadocs
     
     - name: Set up Python 3.
       uses: actions/setup-python@v4
@@ -36,7 +37,7 @@ jobs:
         distribution: 'adopt'
     
     - name: Build phenopacket-tools
-      run: ./mvnw -Prelease -DskipTests clean package # We test elsewhere
+      run: ./mvnw -Prelease -DskipTests package # We test elsewhere
 
     - name: Generate examples and build documentation
       run: |
