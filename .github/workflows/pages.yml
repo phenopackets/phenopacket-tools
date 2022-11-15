@@ -61,7 +61,7 @@ jobs:
         # Generate the HTML pages and move the generated content into the target folder. 
         cd docs/ 
         make html
-        mv _build/* ../gh-pages/
+        mv _build/html/* ../gh-pages/
         cd ..
         
         # TODO - remove
