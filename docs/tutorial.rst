@@ -214,10 +214,10 @@ The schema is located at ``examples/custom-json-schema/hpo-rare-disease-schema.j
 Using the custom JSON schema via ``--require`` option will point out issues in the 4 example phenopackets::
 
   pxf validate --require ${examples}/validate/custom-json-schema/hpo-rare-disease-schema.json \
-    -i ${examples}/validate/custom-json-schema/marfan.no-subject.invalid.json \
-    -i ${examples}/validate/custom-json-schema/marfan.no-phenotype.invalid.json \
-    -i ${examples}/validate/custom-json-schema/marfan.not-hpo.invalid.json \
-    -i ${examples}/validate/custom-json-schema/marfan.no-time-at-last-encounter.invalid.json
+    -i ${examples}/validate/custom-json-schema/marfan.no-subject.json \
+    -i ${examples}/validate/custom-json-schema/marfan.no-phenotype.json \
+    -i ${examples}/validate/custom-json-schema/marfan.not-hpo.json \
+    -i ${examples}/validate/custom-json-schema/marfan.no-time-at-last-encounter.json
 
 .. csv-table::
   :header: "Validation error", "Solution"
@@ -253,9 +253,9 @@ Phenopackets use non-obsolete term IDs
 
 The `HpoPhenotypeValidator` checks if the phenopacket contains obsolete HPO terms::
 
-  pxf validate --hpo hp.json -i ${examples}/validate/phenotype-validation/marfan.obsolete-term.invalid.json
+  pxf validate --hpo hp.json -i ${examples}/validate/phenotype-validation/marfan.obsolete-term.json
 
-It turns out that ``marfan.obsolete-term.invalid.json`` uses an obsolete ``HP:0002631`` instead of
+It turns out that ``marfan.obsolete-term.json`` uses an obsolete ``HP:0002631`` instead of
 the primary ``HP:0002616`` for *Aortic root aneurysm*:
 
 .. csv-table::
@@ -275,13 +275,13 @@ In contrary, the *least* specific terms should be used for the *excluded* clinic
 
 The `HpoAncestryValidator` checks that the annotation propagation rule is not violated::
 
-  pxf validate --hpo hp.json -i ${examples}/validate/phenotype-validation/marfan.annotation-propagation-rule.invalid.json
+  pxf validate --hpo hp.json -i ${examples}/validate/phenotype-validation/marfan.annotation-propagation-rule.json
 
 .. csv-table::
   :header: "Validation error", "Solution"
   :widths: 350, 550
 
-  "Phenotypic features of id-C must not contain both an observed term (Aortic root aneurysm, HP:0002616) and an observed ancestor (Aortic aneurysm, HP:0004942)", Remove the less specific term
+  "Phenotypic features of id-C must not contain both an observed term (Aortic root aneurysm, HP:0002616) and an observed ancestor (Aortic aneurysm, HP:0004942)", Remove the ancestor term
 
 .. note::
   Presence of excluded descendant and observed ancestor does not violate the annotation propagation rule.
@@ -303,14 +303,14 @@ in 3 phenopackets of toy `Marfan syndrome <https://hpo.jax.org/app/browse/diseas
   pxf validate --hpo hp.json \
      --organ-system HP:0000478 --organ-system HP:0001626 --organ-system HP:0002086 \
     -i ${examples}/validate/organ-systems/marfan.all-organ-system-annotated.valid.json \
-    -i ${examples}/validate/organ-systems/marfan.missing-eye-annotation.invalid.json \
+    -i ${examples}/validate/organ-systems/marfan.missing-eye-annotation.json \
     -i ${examples}/validate/organ-systems/marfan.no-abnormalities.valid.json
 
 .. note::
   Organ system validation requires HPO ontology. See the :ref:`rstphenotypevalidationtutorial` for more details about getting
   the HPO file.
 
-The `HpoOrganSystemValidator` will point out one error in the `marfan.missing-eye-annotation.invalid.json` phenopacket:
+The `HpoOrganSystemValidator` will point out one error in the `marfan.missing-eye-annotation.validjson` phenopacket:
 
 .. csv-table::
    :header: "Validation error", "Solution"
@@ -320,6 +320,13 @@ The `HpoOrganSystemValidator` will point out one error in the `marfan.missing-ey
 
 .. note::
   See :ref:`rstorgsysvalidation` for more details.
+
+Bulk validation
+^^^^^^^^^^^^^^^
+
+The validation can be performed at once::
+
+pxf validate --hpo hp.json
 
 
 .. [1] https://pubmed.ncbi.nlm.nih.gov/32755546
