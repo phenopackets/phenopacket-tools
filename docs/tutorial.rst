@@ -47,6 +47,8 @@ Download and unpack the ZIP file of the latest release |release| from the releas
   curl -o phenopacket-tools-cli-|release|-distribution.zip ${URL}
   unzip phenopacket-tools-cli-|release|-distribution.zip
 
+.. _rstsetupaliastutorial:
+
 Set up alias
 ^^^^^^^^^^^^
 

@@ -10,7 +10,7 @@ import java.util.Locale;
 
 import static picocli.CommandLine.Help.Ansi.Style.*;
 
-@CommandLine.Command(name = "phenopacket-tools",
+@CommandLine.Command(name = "pxf",
         header = Main.HEADER,
         version = Main.VERSION,
         mixinStandardHelpOptions = true,
@@ -25,8 +25,8 @@ import static picocli.CommandLine.Help.Ansi.Style.*;
         footer = Main.FOOTER)
 public class Main {
 
-    public static final String HEADER = "phenopacket-tools\nAn application for creating, converting and validating GA4GH phenopackets.\n";
-    public static final String VERSION = "phenopacket-tools v0.4.7";
+    public static final String HEADER = "phenopacket-tools\nAn application and library for building, conversion, and validation of GA4GH Phenopackets.\n";
+    public static final String VERSION = "phenopacket-tools v0.4.8-SNAPSHOT";
 
     // Maximum number of characters in line of the usage message.
     public static final int USAGE_WIDTH = 120;
@@ -38,7 +38,7 @@ public class Main {
             .optionParams(italic)
             .build();
 
-    public static final String FOOTER = "\nSee the full documentation at https://phenopacket-tools.readthedocs.io\n";
+    public static final String FOOTER = "\nSee the full documentation at http://phenopackets.org/phenopacket-tools\n";
 
     private Main() {
         // private no-op

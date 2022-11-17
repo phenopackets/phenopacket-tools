@@ -4,30 +4,33 @@
 Command-line interface
 ======================
 
-*Phenopacket-tools* command-line interface (CLI) provides functionality for viewing, conversion and validation
-of the top-level elements of Phenopacket schema. This document describes how to set up the CLI application
+*Phenopacket-tools* command-line interface (CLI) provides functionality for conversion and validation
+of the top-level elements of Phenopacket Schema. Here we describe how to set up the CLI application
 on Linux, Mac and Windows environments.
 
 .. note::
-  *Phenopacket-tools* is written in Java 17 and requires Java 17 or newer to run.
+  *phenopacket-tools* is written in Java 17 and requires Java 17 or newer to run.
 
-*Phenopacket-tools* is distributed as a standalone executable Java Archive (JAR) file. The application requires
-no special installation procedure if Java 17 or better is available in your environment.
+We distribute *phenopacket-tools* in a ZIP archive. The application requires no special installation procedure
+if Java 17 or better is available in your environment.
+
 
 Setup
-~~~~~
+=====
 
-Most users should *download* the distribution ZIP file with precompiled JAR file from *Phenopacket-tools* release page.
+Most users should *download* the distribution ZIP file with precompiled JAR file from *phenopacket-tools* release page.
 However, it is also possible to *build* the JAR from sources.
+
 
 Download
 ^^^^^^^^
 
-*Phenopacket-tools* JAR is provided in the distribution ZIP file as part of *Phenopacket-tools*' release schedule
+*phenopacket-tools* JAR is provided in the distribution ZIP file as part of *phenopacket-tools*' release schedule
 from `Releases <https://github.com/phenopackets/phenopacket-tools/releases>`_.
 
-The ZIP archive contains the executable JAR file along with README and example phenopackets required to run the setup
-and the tutorial.
+The ZIP archive contains the executable JAR file along with a `README` file and example phenopackets required
+to run the setup and the tutorial.
+
 
 Build from source code
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -36,26 +39,68 @@ The source code is available in our `GitHub repository <https://github.com/pheno
 There are 2 requirements for building the app from sources:
 
 * **Java Development Kit** (JDK) 17 or newer must be present in the environment and ``$JAVA_HOME`` variable must point
-  to JDK's location. See `Installing Apache Maven <https://maven.apache.org/install.html>`_ for more details regarding
-  setting up JDK and ``$JAVA_HOME`` on your system.
-* *Phenopacket-tools* leverages several open-source Java libraries and a **working internet connection**
+  to JDK's location. See `Setting JAVA_HOME <https://docs.oracle.com/en/cloud/saas/enterprise-performance-management-common/diepm/epm_set_java_home_104x6dd63633_106x6dd6441c.html>`_
+  for more details regarding setting up ``$JAVA_HOME`` on Windows, Mac, and Linux.
+* *phenopacket-tools* uses several open-source Java libraries and a **working internet connection**
   is required to download the libraries.
 
-Run the following commands to check out the stable source code and to build the application::
+Run the following commands to check out the source code and to build the application:
 
-  $ git clone https://github.com/phenopackets/phenopacket-tools
-  $ cd phenopacket-tools
-  $ ./mvnw -Prelease package
+.. parsed-literal::
+  git clone https://github.com/phenopackets/phenopacket-tools
+  cd phenopacket-tools
+  git checkout tags/|release|
+  ./mvnw -Prelease package
 
-After a successful build, a distribution ZIP file "phenopacket-tools-cli-|release|-distribution.zip"
-will be created in the ``phenopacket-tools-cli/target`` directory. Use the ZIP archive in the same way as the archive
-downloaded from *Phenopacket-tools* releases.
+If the build completes, a ZIP archive "phenopacket-tools-cli-|release|-distribution.zip"
+is created in the ``phenopacket-tools-cli/target`` directory. Use the archive in the same way as the archive
+downloaded from *phenopacket-tools* releases.
+
+Set up alias and autocompletion
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In this *optional* step, we set up an alias and autocompletion for *phenopacket-tools* command-line application.
+The autocompletion works thanks to the awesome `Picocli <https://picocli.info>`_ library and it works
+on Bash or ZSH Unix shells.
+
+Let's set up the alias first. To reiterate the tutorial :ref:`rstsetupaliastutorial` section,
+Java command line applications are invoked as ``java -jar executable.jar``. However, such incantation is
+a bit too verbose and we can shorten it a bit by defining an alias.
+
+Assuming the distribution ZIP was unpacked into phenopacket-tools-cli-|release| directory, let's run the following
+to set up the alias:
+
+.. parsed-literal::
+  alias pxf="java -jar $(pwd)/phenopacket-tools-cli-\ |release|\ /phenopacket-tools-cli-|release|.jar"
+  pxf --help
+
+Now the autocompletion. The autocompletion can simplify using the CLI options by completing the command
+or option after pressing the `TAB` key.
+To enable the autocompletion, make sure the alias for `pxf` is set up correctly and run:
+
+.. parsed-literal::
+  source <(pxf generate-completion)
+
+The ``pxf generate-completion`` command generates the autocompletion script and ``source`` uses it to set up
+the completion. However, the autocompletion will last only for the duration of the current shell session.
+
+To make the autocompletion permanent, store the script file and add the alias and and sourcing into your `.bashrc`
+or `.bash_profile` file:
+
+.. parsed-literal::
+  echo "### Install phenopacket-tools" >> .bashrc
+  echo alias pxf="java -jar $(pwd)/phenopacket-tools-cli-\ |release|\ /phenopacket-tools-cli-|release|.jar" >> .bashrc
+  pxf generate-completion > pxf-completion.sh
+  echo source $(pwd)/pxf-completion.sh >> .bashrc
+
+.. warning::
+  The autocompletion only works if the alias is set to `pxf`. Other alias values will *not* work.
 
 
 Commands
-~~~~~~~~
+========
 
-*Phenopacket-tools* CLI provides the following commands:
+The command-line interface provides the following commands:
 
 * ``examples`` - generate examples of the top-level elements
 * ``convert`` - convert top-level elements from *v1* to *v2* format
@@ -66,13 +111,9 @@ into the provided directory. The ``convert`` and ``validate`` commands, despite 
 a similar manner. The parts shared by the both command are be described in greater detail
 in the ``convert`` command section.
 
-In the next sections, we will run *Phenopacket-tools* by using the following alias::
-
-  $ alias pxf="java -jar phenopacket-tools-cli-${project.version}.jar"
-
 .. note::
-  The commands report warnings and errors by default. Use `-v` to increase the verbosity and see what's
-  going on under the hood. The `-v` can be specified multiple times (e.g. `-vvv`).
+  The commands only report warnings and errors by default. Use `-v` to increase the verbosity and see what's
+  going on under the hood. The `-v` option can be specified multiple times (e.g. `-vvv`).
 
 *examples* - generate examples of the top-level elements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -90,7 +131,7 @@ into the current directory.
 
 The following command writes the examples into the ``path/to/examples`` directory::
 
-  $ pxf examples -o path/to/examples
+  pxf examples -o path/to/examples
 
 
 *convert* - convert top-level elements from *v1* to *v2* format
@@ -106,7 +147,7 @@ and cohort ``cohort.v1.json``.
 
 We can convert a *v1* phenopacket into *v2* by running::
 
-  $ cat phenopacket.v1.json | pxf convert > phenopacket.v2.json
+  cat phenopacket.v1.json | pxf convert > phenopacket.v2.json
 
 
 
@@ -114,11 +155,11 @@ We can convert a *v1* phenopacket into *v2* by running::
 The guessing is, however, naive and can fail in parsing e.g. gzipped *JSON* file. Turn of the format guessing
 by providing the ``-f | --format`` option::
 
-  $ # Explicit JSON input
-  $ cat phenopacket.v1.json | pxf convert -f json > phenopacket.v2.json
-  $
-  $ # Explicit protobuf input
-  $ cat phenopacket.v1.pb | pxf convert -f protobuf > phenopacket.v2.pb
+  # Explicit JSON input
+  cat phenopacket.v1.json | pxf convert -f json > phenopacket.v2.json
+
+  # Explicit protobuf input
+  cat phenopacket.v1.pb | pxf convert -f protobuf > phenopacket.v2.pb
 
 The ``-f | --format`` option accepts one of the following 3 values: ``{json, pb, yaml}``.
 
@@ -127,7 +168,7 @@ The ``-f | --format`` option accepts one of the following 3 values: ``{json, pb,
 By default, the output is written in the format of the input data.
 However, we can override this by using ``--output-format`` option::
 
-  $ cat phenopacket.v1.json | pxf convert --output-format pb > phenopacket.v2.pb
+  cat phenopacket.v1.json | pxf convert --output-format pb > phenopacket.v2.pb
 
 The ``--output-format`` option takes the same values as ``--format``: ``{json, pb, yaml}``.
 
@@ -136,8 +177,8 @@ The ``convert`` command expects to receive a phenopacket by default. However, it
 top-level elements of the Phenopacket schema: family and cohort. Use the ``-e | --element`` option to indicate if
 the input is a ``family`` or a ``cohort``::
 
-  $ cat family.v1.json | pxf convert -e family > family.v2.json
-  $ cat cohort.v1.json | pxf convert -e cohort > cohort.v2.json
+  cat family.v1.json | pxf convert -e family > family.v2.json
+  cat cohort.v1.json | pxf convert -e cohort > cohort.v2.json
 
 We can convert one or more item at the time by using the ``-i | --input`` option. If the ``-i`` option is used only once,
 the STDIN is ignored and the conversion proceeds in the same way as in the examples above. However, ``-i`` option can
@@ -147,7 +188,7 @@ are written into a directory supplied via the ``-O | --output-directory`` option
 
 For instance::
 
-  $ pxf convert -i phenopacket.a.v1.json -i phenopacket.b.v1.json -O converted
+  pxf convert -i phenopacket.a.v1.json -i phenopacket.b.v1.json -O converted
 
 converts the input phenopackets and stores the results in the ``converted`` folder. The converted files will be stored
 under the same names.
@@ -178,9 +219,3 @@ A row with column names follows the header, and then the individual validation r
 
 .. TODO - check the validation description.
 
-Set up autocompletion
-~~~~~~~~~~~~~~~~~~~~~
-
-.. TODO - write the section
-
-TODO - write
