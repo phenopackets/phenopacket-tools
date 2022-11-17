@@ -18,6 +18,7 @@ import java.util.List;
 @CommandLine.Command(name = "phenopacket",
         description = "Validate phenopackets using builtin and custom JSON Schemas.",
         mixinStandardHelpOptions = true)
+@Deprecated(forRemoval = true)
 public class ValidatePhenopacketCommand extends BaseValidateCommand<PhenopacketOrBuilder> {
 
     @Override
