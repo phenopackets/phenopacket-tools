@@ -1,3 +1,4 @@
+=============================================
 Welcome to phenopacket-tools's documentation!
 =============================================
 
@@ -17,19 +18,21 @@ the basis of defined relationships between diagnoses, lab measurements, and geno
 
 The *phenopacket-tools* library was written as a modular Java 17 library and has three main goals.
 
-- To simplify creating phenopackets with Java code using streamlined builders and predefined building blocks such
+- To simplify *creating* phenopackets with Java code using streamlined builders and predefined building blocks such
   as units, anatomical organs, and clinical modifiers.
-- To provide a validation framework for checking phenopackets for syntactical and semantic correctness
+- To *convert* phenopackets from the obsoleted version 1 to the version 2 (current) of the Schema.
+- To provide a *validation* framework for checking phenopackets for syntactical and semantic correctness
   and to enable developers to extend the validation framework to encode the specific requirements of consortia
   or projects using either JSON schema or programmatic tools.
-- To convert/lift phenopackets from the obsoleted version 1 to the version 2 (current) of the Schema.
 
 On top of the library, we provide a standalone command-line interface (CLI) application for
-conversion and validation. The following sections first describe the library and the last section instructs
-how to use the CLI application on your system.
+conversion and validation.
 
-..
-    TODO - review the three points and sync them with the manuscript.
+The following sections describe phenopacket-tools library and CLI application.
+We start with :ref:`rsttutorial` to provide a quick overview of the CLI application functionality.
+We follow with the comprehensive :ref:`rstcli` description.
+The rest of the documentation offers an in-depth user guide for using the library functionality
+in a JVM-based application.
 
 .. toctree::
    :maxdepth: 1
@@ -44,7 +47,7 @@ how to use the CLI application on your system.
 
 
 .. figure:: https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg
-    :alt: GA4GH Phenopacket
+    :alt: GA4GH Phenopacket Schema
     :width: 800px
 
     Overview of the GA4GH Phenopacket Schema.

@@ -60,11 +60,11 @@ A bunch of phenopackets for showing how a custom JSON schema can be used to vali
    :header: "File name", "Description"
 
    hpo-rare-disease-schema.json,                      A custom JSON schema for enforcing user-specific requirements.
-   marfan.no-phenotype.invalid.json,                  The phenopacket is *invalid* since it contains no phenotypic features.
-   marfan.no-subject.invalid.json,                    The phenopacket is *invalid* since the `subject` is missing.
-   marfan.no-time-at-last-encounter.invalid.json,     The phenopacket is *invalid* due to missing time at last encounter.
-   marfan.not-hpo.invalid.json,                       The phenopacket is *invalid* because HPO terms are not used to represent phenotypic features.
-   marfan.valid.json,                                 A phenopacket that meets the custom requirements.
+   marfan.no-phenotype.json,                          The phenopacket is *invalid* since it contains no phenotypic features.
+   marfan.no-subject.json,                            The phenopacket is *invalid* since the `subject` is missing.
+   marfan.no-time-at-last-encounter.json,             The phenopacket is *invalid* due to missing time at last encounter.
+   marfan.not-hpo.json,                               The phenopacket is *invalid* because HPO terms are not used to represent phenotypic features.
+   marfan.json,                                       A phenopacket that meets the custom requirements.
 
 
 ``organ-systems`` - validate annotation of organ systems
@@ -85,13 +85,13 @@ The phenopackets include
 
    * - File name
      - Description
-   * - marfan.no-abnormalities.valid.json
+   * - marfan.no-abnormalities.json
      - A valid phenopacket of a proband with no abnormalities of the target organ systems.
-   * - marfan.all-organ-system-annotated.valid.json
+   * - marfan.all-organ-system-annotated.json
      - A valid phenopacket of a proband who had an abnormality of eye and cardiovascular systems but
        no abnormality of respiratory system. Note that it is OK to have phenotypic feature of other organ system,
        such as Arachnodactyly in this case.
-   * - marfan.missing-eye-annotation.invalid.json
+   * - marfan.missing-eye-annotation.json
      - An invalid phenopacket of a proband without any annotation of the eye.
 
 ``phenotype-validation`` - validate custom requirements
@@ -104,11 +104,11 @@ Phenopackets for demonstrating ontology-based validation.
 
    * - File name
      - Description
-   * - marfan.annotation-propagation-rule.invalid.json
+   * - marfan.annotation-propagation-rule.json
      - | Invalid phenopacket due to logical inconsistency in phenotypic features. The phenopacket contains
        | both *Aortic root aneurysm* and its ancestor *Aortic aneurysm*. Only the more specific term should be used.
-   * - marfan.obsolete-term.invalid.json
+   * - marfan.obsolete-term.json
      - The phenopacket is *invalid* because it contains an obsolete HPO term.
-   * - marfan.valid.json
+   * - marfan.json
      - A phenopacket that meets the phenotype validation requirements.
 
