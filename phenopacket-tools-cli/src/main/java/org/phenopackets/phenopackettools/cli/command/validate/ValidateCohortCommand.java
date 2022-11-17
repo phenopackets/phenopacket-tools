@@ -17,6 +17,7 @@ import java.util.List;
 @CommandLine.Command(name = "cohort",
         description = "Validate cohorts using builtin and custom JSON Schemas.",
         mixinStandardHelpOptions = true)
+@Deprecated(forRemoval = true)
 public class ValidateCohortCommand extends BaseValidateCommand<CohortOrBuilder> {
 
     @Override

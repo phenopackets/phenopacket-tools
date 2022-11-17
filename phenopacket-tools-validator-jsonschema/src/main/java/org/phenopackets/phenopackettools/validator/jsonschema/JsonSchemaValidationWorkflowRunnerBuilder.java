@@ -13,8 +13,9 @@ import java.util.List;
 /**
  * A builder for {@link JsonSchemaValidationWorkflowRunner}.
  * <p>
- * Build the {@link JsonSchemaValidationWorkflowRunner} by providing JSON schema documents
- * either as {@link Path} or {@link URL}s, and {@link PhenopacketValidator}s for performing semantic validation.
+ * Build the {@link JsonSchemaValidationWorkflowRunner} for running base validation, and additional JSON schema-based
+ * validation (provide either {@link Path}s or {@link URL}s to JSON schema documents),
+ * and {@link PhenopacketValidator}s for performing additional validation.
  *
  * @param <T> one of top-level elements of the Phenopacket schema.
  */
@@ -27,7 +28,7 @@ public abstract class JsonSchemaValidationWorkflowRunnerBuilder<T extends Messag
     }
 
     /**
-     * Register a JSON schema present at a given {@code path} to be used as a syntax validator. The {@code path}
+     * Register a JSON schema present at a given {@code path} to be used as a validator. The {@code path}
      * will be interpreted as a {@link URL}.
      *
      * @param path path to the JSON schema document
@@ -39,7 +40,7 @@ public abstract class JsonSchemaValidationWorkflowRunnerBuilder<T extends Messag
     }
 
     /**
-     * Register a JSON schema present at a given {@code url} to be used as a syntax validator.
+     * Register a JSON schema present at a given {@code url} to be used as a validator.
      *
      * @param url url to the JSON schema document
      * @return the builder
