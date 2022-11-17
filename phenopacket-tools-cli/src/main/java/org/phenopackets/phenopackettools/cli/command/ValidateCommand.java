@@ -97,27 +97,27 @@ public class ValidateCommand extends BaseIOCommand {
         List<URL> customJsonSchemas = prepareCustomSchemaUrls();
         Object runner = switch (inputSection.element) {
             case PHENOPACKET -> {
-                List<PhenopacketValidator<PhenopacketOrBuilder>> semanticValidators = configureSemanticValidators();
+                List<PhenopacketValidator<PhenopacketOrBuilder>> validators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
                         .addAllJsonSchemaUrls(customJsonSchemas)
-                        .addSemanticValidator(MetaDataValidators.phenopacketValidator())
-                        .addAllSemanticValidators(semanticValidators)
+                        .addValidator(MetaDataValidators.phenopacketValidator())
+                        .addValidators(validators)
                         .build();
             }
             case FAMILY -> {
-                List<PhenopacketValidator<FamilyOrBuilder>> semanticValidators = configureSemanticValidators();
+                List<PhenopacketValidator<FamilyOrBuilder>> validators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.familyBuilder()
                         .addAllJsonSchemaUrls(customJsonSchemas)
-                        .addSemanticValidator(MetaDataValidators.familyValidator())
-                        .addAllSemanticValidators(semanticValidators)
+                        .addValidator(MetaDataValidators.familyValidator())
+                        .addValidators(validators)
                         .build();
             }
             case COHORT -> {
-                List<PhenopacketValidator<CohortOrBuilder>> semanticValidators = configureSemanticValidators();
+                List<PhenopacketValidator<CohortOrBuilder>> validators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.cohortBuilder()
                         .addAllJsonSchemaUrls(customJsonSchemas)
-                        .addSemanticValidator(MetaDataValidators.cohortValidator())
-                        .addAllSemanticValidators(semanticValidators)
+                        .addValidator(MetaDataValidators.cohortValidator())
+                        .addValidators(validators)
                         .build();
             }
         };

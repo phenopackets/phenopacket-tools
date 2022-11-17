@@ -33,8 +33,7 @@ abstract class BaseValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> e
         return new JsonSchemaValidationWorkflowRunner<>(getFormatConverter(),
                 getBaseRequirementsValidator(),
                 requirementValidators,
-                syntaxValidators,
-                semanticValidators);
+                validators);
     }
 
 

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * Validates if given top-level element satisfies the following criteria:
@@ -25,9 +26,8 @@ import java.util.Objects;
  *     <li><b>basic Phenopacket schema syntax requirements</b> - the requirements described by the reference documentation.
  *     Absence of a <em>required</em> field is an {@link ValidationLevel#ERROR} and absence of a recommended field is
  *     a {@link ValidationLevel#WARNING},</li>
- *     <li><b>custom syntax requirements</b> - requirements provided in a JSON schema document(s) provided by the user,</li>
- *     <li><b>syntax requirements</b> - requirements checked by the provided <em>ad hoc</em> {@link PhenopacketValidator}s,</li>
- *     <li><b>semantic requirements</b> - requirements checked by the provided {@link PhenopacketValidator}s.</li>
+ *     <li><b>custom requirements</b> - requirements provided in a JSON schema document(s) provided by the user or
+ *     provided as <em>ad hoc</em> {@link PhenopacketValidator}s.</li>
  * </ul>
  * <p>
  * The validation is performed in the order as outlined above. Note that the data format validation must
@@ -46,8 +46,7 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     private final PhenopacketFormatConverter<T> converter;
     private final JsonSchemaValidator baseValidator;
     private final Collection<JsonSchemaValidator> requirementValidators;
-    private final Collection<PhenopacketValidator<T>> syntaxValidators;
-    private final Collection<PhenopacketValidator<T>> semanticValidators;
+    private final Collection<PhenopacketValidator<T>> validators;
     private final List<ValidatorInfo> validatorInfos;
 
     /**
@@ -77,19 +76,29 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     JsonSchemaValidationWorkflowRunner(PhenopacketFormatConverter<T> converter,
                                        JsonSchemaValidator baseValidator,
                                        Collection<JsonSchemaValidator> requirementValidators,
-                                       Collection<PhenopacketValidator<T>> syntaxValidators,
-                                       Collection<PhenopacketValidator<T>> semanticValidators) {
+                                       Collection<PhenopacketValidator<T>> validators) {
         this.converter = Objects.requireNonNull(converter);
         this.baseValidator = Objects.requireNonNull(baseValidator);
         this.requirementValidators = Objects.requireNonNull(requirementValidators);
-        this.syntaxValidators = Objects.requireNonNull(syntaxValidators);
-        this.semanticValidators = Objects.requireNonNull(semanticValidators);
-        this.validatorInfos = summarizeValidatorInfos(baseValidator, requirementValidators, semanticValidators);
+        this.validators = Objects.requireNonNull(validators);
+        this.validatorInfos = summarizeValidatorInfos(baseValidator, requirementValidators, validators);
+    }
+
+    /**
+     * @deprecated use the other constructor
+     */
+    @Deprecated(forRemoval = true, since = "0.4.8")
+    JsonSchemaValidationWorkflowRunner(PhenopacketFormatConverter<T> converter,
+                                       JsonSchemaValidator baseValidator,
+                                       Collection<JsonSchemaValidator> requirementValidators,
+                                       Collection<PhenopacketValidator<T>> syntaxValidators,
+                                       Collection<PhenopacketValidator<T>> semanticValidators) {
+        this(converter, baseValidator, requirementValidators, Stream.concat(syntaxValidators.stream(), semanticValidators.stream()).toList());
     }
 
     private static <T extends MessageOrBuilder> List<ValidatorInfo> summarizeValidatorInfos(JsonSchemaValidator base,
                                                                                             Collection<JsonSchemaValidator> requirements,
-                                                                                            Collection<PhenopacketValidator<T>> semantics) {
+                                                                                            Collection<PhenopacketValidator<T>> validators) {
         List<ValidatorInfo> infos = new ArrayList<>();
 
         infos.add(base.validatorInfo());
@@ -97,7 +106,7 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
             infos.add(validator.validatorInfo());
         }
 
-        for (PhenopacketValidator<T> validator : semantics) {
+        for (PhenopacketValidator<T> validator : validators) {
             infos.add(validator.validatorInfo());
         }
 
@@ -135,13 +144,7 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
         }
 
         try {
-            validateSyntax(json, builder);
-        } catch (ConversionException e) {
-            return wrapUpValidation(e, builder);
-        }
-
-        try {
-            validateSemantic(json, builder);
+            convertAndRunValidation(json, builder);
         } catch (ConversionException e) {
             return wrapUpValidation(e, builder);
         }
@@ -162,10 +165,8 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
             return wrapUpValidation(e, builder);
         }
 
-        validateSyntax(item, builder);
-
         // No conversion necessary, hence no need to guard against the `ConversionException`.
-        validateSemantic(item, builder);
+        runValidation(item, builder);
 
         return builder.build();
     }
@@ -203,35 +204,23 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
         }
     }
 
-    private void validateSyntax(String item, ValidationResults.Builder builder) throws ConversionException {
-        T component = converter.toItem(item);
-
-        validateSyntax(component, builder);
-    }
-
-    private void validateSyntax(T component, ValidationResults.Builder builder) {
-        for (PhenopacketValidator<T> validator : syntaxValidators) {
-            builder.addResults(validator.validatorInfo(), validator.validate(component));
-        }
-    }
-
     /**
-     * Validate semantic requirements using {@link #semanticValidators}.
+     * Convert the {@code item} into {@link T} and validate the requirements.
      *
      * @throws ConversionException if {@code item} cannot be mapped into {@link T}
      */
-    private void validateSemantic(String item, ValidationResults.Builder builder) throws ConversionException {
+    private void convertAndRunValidation(String item, ValidationResults.Builder builder) throws ConversionException {
         T component = converter.toItem(item);
 
-        validateSemantic(component, builder);
+        runValidation(component, builder);
     }
 
     /**
-     * Validate semantic requirements using {@link #semanticValidators}. Unlike {@link #validateSemantic(String, ValidationResults.Builder)},
+     * Validate semantic requirements using {@link #validators}. Unlike {@link #convertAndRunValidation(String, ValidationResults.Builder)},
      * this method does not throw {@link ConversionException}.
      */
-    private void validateSemantic(T component, ValidationResults.Builder builder) {
-        for (PhenopacketValidator<T> validator : semanticValidators)
+    private void runValidation(T component, ValidationResults.Builder builder) {
+        for (PhenopacketValidator<T> validator : validators)
             builder.addResults(validator.validatorInfo(), validator.validate(component));
     }
 
