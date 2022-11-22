@@ -11,8 +11,11 @@ import java.util.Locale;
 import static picocli.CommandLine.Help.Ansi.Style.*;
 
 @CommandLine.Command(name = "pxf",
-        header = Main.HEADER,
-        version = Main.VERSION,
+        header = {
+                "phenopacket-tools (pxf)",
+                "An application and library for building, conversion, and validation of GA4GH Phenopackets.\n"
+        },
+        version = "v0.4.8-SNAPSHOT",
         mixinStandardHelpOptions = true,
         subcommands = {
                 // see https://picocli.info/autocomplete.html
@@ -24,9 +27,6 @@ import static picocli.CommandLine.Help.Ansi.Style.*;
         usageHelpWidth = Main.USAGE_WIDTH,
         footer = Main.FOOTER)
 public class Main {
-
-    public static final String HEADER = "phenopacket-tools\nAn application and library for building, conversion, and validation of GA4GH Phenopackets.\n";
-    public static final String VERSION = "phenopacket-tools v0.4.8-SNAPSHOT";
 
     // Maximum number of characters in line of the usage message.
     public static final int USAGE_WIDTH = 120;

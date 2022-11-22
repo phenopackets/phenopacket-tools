@@ -87,14 +87,14 @@ public class ConvertCommand extends BaseIOCommand {
      * Return {@code true} if CLI argument combination makes sense or {@code false} if the app should abort.
      */
     private boolean checkInputArgumentsAreOk() {
-        if (inputSection.inputs == null) {
+        if (inputs == null) {
             if (convertSection.outputDirectory != null)
                 LOGGER.warn("Output directory was provided but the input is coming from STDIN. The output will be written to STDOUT");
         } else {
-            if (inputSection.inputs.isEmpty()) {
+            if (inputs.isEmpty()) {
                 throw new RuntimeException("Input list should never be empty!"); // A bug guard.
             } else {
-                if (inputSection.inputs.size() > 1) {
+                if (inputs.size() > 1) {
                     if (convertSection.outputDirectory == null) {
                         LOGGER.error("Output directory (-O | --output-directory) must be provided when processing >1 inputs");
                         return false;

@@ -106,17 +106,32 @@ The command-line interface provides the following commands:
 * ``convert`` - convert top-level elements from *v1* to *v2* format
 * ``validate`` - validate semantic and syntactic correctness of top-level Phenopacket schema elements
 
-The ``examples`` command is fairly simple; it writes a bunch of example phenopackets, cohorts and families
-into the provided directory. The ``convert`` and ``validate`` commands, despite being a bit more elaborate, work in
-a similar manner. The parts shared by the both command are be described in greater detail
-in the ``convert`` command section.
+Before we dive into the commands, let's discuss some common concepts shared by all CLI commands.
 
-.. note::
-  The commands only report warnings and errors by default. Use `-v` to increase the verbosity and see what's
-  going on under the hood. The `-v` option can be specified multiple times (e.g. `-vvv`).
+Common concepts
+^^^^^^^^^^^^^^^
 
-*examples* - generate examples of the top-level elements
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+We designed the CLI with aim to make it as easy to use as possible. As a result, the *phenopacket-tools* commands
+use several common design principles:
+
+* The input data can be provided either via the standard input *OR* as a list of positional parameters.
+* The input *data format* is provided using ``-f | --format`` option.
+  *phenopacket-tools* supports phenopackets in `JSON`, `YAML`, or `protobuf` formats.
+  In absence of the explicit data format, *phenopacket-tools* makes an educated guess.
+* The output is written in the input data format.
+* The top-level *element type* of the data input is indicated by the ``-e | --element`` option.
+  According to the Phenopacket Schema, the commands supports `phenopacket`, `family`, or `cohort` elements.
+* The output is written into the standard output stream. Progress, warnings, and errors are reported
+  into standard error.
+* The CLI operates in a silent mode by default; only warnings and errors are reported.
+  Use ``-v`` to increase the verbosity; the ``-v`` option can be specified multiple times (e.g. ``-vvv``).
+
+
+We discuss the common concepts further at the relevant places of the next sections.
+
+
+``examples`` - generate phenopacket examples
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``examples`` command writes example phenopackets (including family and cohort examples) into
 a provided base directory. Starting from a `base` directory, the examples are written into three sub-folders::
@@ -134,10 +149,10 @@ The following command writes the examples into the ``path/to/examples`` director
   pxf examples -o path/to/examples
 
 
-*convert* - convert top-level elements from *v1* to *v2* format
+``convert`` - convert top-level elements from *v1* to *v2* format
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``convert`` command converts a phenopacket, family, or a cohort from *v1* to *v2* format of Phenopacket schema.
+The ``convert`` command converts a phenopacket, family, or a cohort from *v1* to *v2* format of Phenopacket Schema.
 
 Usage
 #####
@@ -151,9 +166,9 @@ We can convert a *v1* phenopacket into *v2* by running::
 
 
 
-*Phenopacket-tools* makes an educated guess to determine if the input is in *JSON*, *Protobuf*, or *YAML* format.
-The guessing is, however, naive and can fail in parsing e.g. gzipped *JSON* file. Turn of the format guessing
-by providing the ``-f | --format`` option::
+*Phenopacket-tools* makes an educated guess to determine if the input is in `JSON`, `protobuf`, or `YAML` format.
+The current format guessing implementation is, however, naïve and can fail in parsing e.g. gzipped `JSON` file.
+Turn the format guessing off by providing the ``-f | --format`` option::
 
   # Explicit JSON input
   cat phenopacket.v1.json | pxf convert -f json > phenopacket.v2.json
@@ -180,42 +195,103 @@ the input is a ``family`` or a ``cohort``::
   cat family.v1.json | pxf convert -e family > family.v2.json
   cat cohort.v1.json | pxf convert -e cohort > cohort.v2.json
 
-We can convert one or more item at the time by using the ``-i | --input`` option. If the ``-i`` option is used only once,
-the STDIN is ignored and the conversion proceeds in the same way as in the examples above. However, ``-i`` option can
-be provided more than once, to convert a collection of items in a single run. The results of the bulk processing
-are written into a directory supplied via the ``-O | --output-directory`` option (the option is mandatory if using
->1 ``-i``).
+We can convert one or more item at the time by passing the paths to the input files as a positional parameters.
+In case one parameter is provided, the STDIN is ignored and the conversion proceeds in the same way as in the examples
+above. The command can accept two or more files as positional parameters for bulk conversion. To perform
+the bulk conversion, the ``-O | --output-directory`` option must be provided to set the location of the directory
+for writing the converted phenopackets.
 
 For instance::
 
-  pxf convert -i phenopacket.a.v1.json -i phenopacket.b.v1.json -O converted
+  pxf convert -O converted phenopacket.a.v1.json phenopacket.b.v1.json
 
 converts the input phenopackets and stores the results in the ``converted`` folder. The converted files will be stored
 under the same names.
 
 
-*validate* - validate semantic and syntactic correctness
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+``validate`` - validate Phenopacket Schema elements
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``validate`` command checks *syntactic* and *semantic* correctness of a *phenopacket*, *family*, or *cohort*.
+The ``validate`` command checks *phenopacket*, *family*, or *cohort* for the *base* requirements imposed by
+the Phenopacket Schema as well as additional user-defined constraints.
 
-Briefly, to be syntactically correct, a phenopacket must be well formatted (valid Protobuf message, JSON document, etc.)
-and meet the requirements of the Phenopacket schema; all REQUIRED attributes are set  (e.g. ``phenopacket.id`` and
+Briefly, to meet the base requirements, the phenopacket must be well formatted (valid Protobuf message, JSON document, etc.)
+and meet the requirements of the Phenopacket schema; all REQUIRED attributes are set (e.g. ``phenopacket.id`` and
 ``phenopacket.meta_data``), and ``MetaData`` includes a ``Resource`` for all ontology concepts.
 
-The *semantic* correctness ensures that the element, when taken as a whole, is ... TODO - finish
+The validation can include a number of additional steps, as required by a project or a consortium.
+*Phenopacket-tools* offers several off-the-shelf validators and the CLI uses the validators in the validation workflow
+if the required resources are present.
 
 Usage
 #####
 
-The ``validate`` command shares many CLI options with ``convert``.
+The ``validate`` command can validate one or more phenopacket files provided either via standard input or
+as positional parameters. Results are written into the standard output in CSV format including an optional header
+containing the validation metadata. The header lines start with ``#`` and contain *phenopacket-tools* version,
+date and time of validation, and the list of validators that were run.
+The header is followed by a row with column names, and the individual validation results.
 
-The same options are used to indicate the input formats and element types. The input can be provided through STDIN
-as well as in bulk. The bulk processing makes sense especially if we e.g. load the HPO graph for each validation.
+Base validation example
+~~~~~~~~~~~~~~~~~~~~~~~
 
-Results are written into STDOUT in CSV/TSV format. The CSV output has a header, each header line starts with ``#`` character.
-The header contains phenopacket-tools version, date time of validation, and list of validators that were run.
-A row with column names follows the header, and then the individual validation results.
+Let's demonstrate the base validation usage using a few examples. Phenopacket can be validated on a stream::
 
-.. TODO - check the validation description.
+  cat phenopacket.json | pxf validate
+
+or as a positional parameter::
+
+  pxf validate phenopacket.json
+
+Use ``-H | --include-header`` to include the validation metadata in the output and store the results in a file::
+
+  pxf validate -H phenopacket.json > phenopacket.validation.csv
+
+
+Custom validation example
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+On top of the base validation, *phenopacket-tools* supports validation using a custom requirements.
+See the :ref:`rstcustomvalidation` section to learn how to define a custom JSON schema.
+
+The CLI can be provided with one or more JSON schema documents using the ``--require`` option::
+
+  pxf validate --require custom-schema.json phenopacket.json
+
+Phenotype validation
+~~~~~~~~~~~~~~~~~~~~
+
+*Phenopacket-tools* includes off-the-shelf validators for pointing out annotation errors in phenopackets that use
+Human Phenotype Ontology (HPO) to represent clinical findings of the subjects.
+The validators check presence of obsolete or unknown ontology concepts and violations
+of the annotation propagation rule based on a HPO file.
+
+The CLI will automatically add the phenotype validation steps into the validation workflow if path to a HPO JSON file
+is provided via the ``--hpo`` option::
+
+  pxf validate --hpo hp.json phenopacket.json
+
+.. note::
+  The bulk validation where phenopackets are provided as positional parameters is much faster
+  since the HPO graph parsing, a computationally expensive operation, is done only once.
+
+Organ system validation
+~~~~~~~~~~~~~~~~~~~~~~~
+
+It can be desirable to check annotation of specific organ systems in the phenopacket. *Phenopacket-tools* can validate
+annotation of specific organ systems by using the corresponding top-level HPO concepts, such as
+`Eye <https://hpo.jax.org/app/browse/term/HP:0000478>`_,
+`Cardiovascular <https://hpo.jax.org/app/browse/term/HP:0001626>`_, or
+`Respiratory <https://hpo.jax.org/app/browse/term/HP:0002086>`_ organ systems.
+
+The organ systems are provided using ``-s | --organ-system`` option::
+
+  pxf validate --hpo hp.json \
+    -s HP:0000478 \
+    -s HP:0001626 \
+    -s HP:0002086 \
+    phenopacket.json
+
+.. note::
+  The organ system validation requires HPO file to run.
 

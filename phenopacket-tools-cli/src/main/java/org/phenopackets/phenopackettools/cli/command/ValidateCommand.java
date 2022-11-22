@@ -34,7 +34,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Command(name = "validate",
-        description = "Validate top-level elements of the Phenopacket schema.",
+        description = "Validate top-level elements of the Phenopacket Schema.",
         sortOptions = false,
         mixinStandardHelpOptions = true)
 public class ValidateCommand extends BaseIOCommand {

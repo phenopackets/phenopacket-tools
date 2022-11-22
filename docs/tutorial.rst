@@ -8,6 +8,7 @@ This tutorial walks through the installation of *phenopacket-tools* command-line
 and provides an overview of the *conversion* of phenopackets from `v1` to the current `v2` format and
 *validation* functionality, including custom validation rules.
 
+
 Setup
 =====
 
@@ -15,8 +16,6 @@ Setup
 We distribute the CLI application as a ZIP archive with an executable Java Archive (JAR) file
 and several examples for running this tutorial.
 
-As a prerequisite, Java 17 or newer  is installed on the machine,
-download the distribution ZIP and set up an alias as a shortcut for running the *phenopacket-tools*.
 
 Prerequisites
 ^^^^^^^^^^^^^
@@ -32,11 +31,12 @@ The command should print a similar output::
   OpenJDK Runtime Environment (build 17+35-2724)
   OpenJDK 64-Bit Server VM (build 17+35-2724, mixed mode, sharing)
 
+
 Download *phenopacket-tools*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A prebuilt distribution ZIP file is available for download from
-`phenopacket-tools release section <https://github.com/phenopackets/phenopacket-tools/releases>`_
+A prebuilt distribution ZIP file is available for download from the
+`release section <https://github.com/phenopackets/phenopacket-tools/releases>`_
 of the GitHub repository.
 
 Download and unpack the ZIP file of the latest release |release| from the release assets:
@@ -48,6 +48,7 @@ Download and unpack the ZIP file of the latest release |release| from the releas
   unzip phenopacket-tools-cli-|release|-distribution.zip
 
 .. _rstsetupaliastutorial:
+
 
 Set up alias
 ^^^^^^^^^^^^
@@ -65,6 +66,21 @@ phenopacket-tools-cli-|release| directory, run the following to set up the alias
 .. note::
   From now on, we will use the ``pxf`` alias instead of the longer form. However, feel free to choose whichever
   you like more.
+
+
+Set up autocompletion
+^^^^^^^^^^^^^^^^^^^^^
+
+As a quick way to increase the user convenience, *phenopacket-tools* offers autocompletion for completing the command
+or options after pressing the `TAB` key on Bash or ZSH Unix shells.
+
+Run the following to enable the autocompletion for the tutorial session:
+
+.. parsed-literal::
+  source <(pxf generate-completion)
+
+.. note::
+  See the :ref:`rstcli` for setting up the autocompletion to last beyond the current shell session.
 
 
 Convert
@@ -144,7 +160,7 @@ Validate
 ========
 
 The `validate` command of *phenopacket-tools* validates correctness of phenopackets, families and cohorts.
-This section outlines usage opf the *off-the-shelf* validators available in the CLI application.
+This section outlines usage of the off-the-shelf validators available in the CLI application.
 
 In this tutorial section, we will work with a suite of phenopackets that are bundled in the distribution ZIP archive.
 The phenopackets are located in `examples/validate` folder next to the executable JAR file:
