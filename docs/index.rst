@@ -16,8 +16,8 @@ genetic information, diagnoses, and treatments. The Phenopacket schema supports 
 Phenopackets are designed to be both human and machine-interpretable, enabling computing operations and validation on
 the basis of defined relationships between diagnoses, lab measurements, and genotypic information.
 
-The *phenopacket-tools* library was written as a modular Java 17 library. It is available
-at https://github.com/phenopackets/phenopacket-tools. It has three main goals:
+*Phenopacket-tools* is an open-source Java library and command-line interface (CLI) application for working
+with GA4GH phenopackets. The library has three main goals:
 
 - To simplify *creating* phenopackets with Java code using streamlined builders and predefined building blocks such
   as units, anatomical organs, and clinical modifiers.
@@ -26,14 +26,14 @@ at https://github.com/phenopackets/phenopacket-tools. It has three main goals:
   and to enable developers to extend the validation framework to encode the specific requirements of consortia
   or projects using either JSON schema or programmatic tools.
 
-On top of the library, we provide a standalone command-line interface (CLI) application for
-conversion and validation.
+On top of the library, we provide a standalone CLI application for
+conversion and validation. The source code is available at https://github.com/phenopackets/phenopacket-tools.
 
 The following sections describe phenopacket-tools library and CLI application.
-We start with :ref:`rsttutorial` to provide a quick overview of the CLI application functionality.
-We follow with the comprehensive :ref:`rstcli` description.
+We start with :ref:`rsttutorial` to provide a quick overview of the CLI functionality.
+We follow with comprehensive description of the :ref:`rstcli`.
 The rest of the documentation offers an in-depth user guide for using the library functionality
-in a JVM-based application.
+in JVM-based applications.
 
 .. toctree::
    :maxdepth: 1
