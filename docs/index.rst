@@ -27,7 +27,8 @@ with GA4GH phenopackets. The library has three main goals:
   or projects using either JSON schema or programmatic tools.
 
 On top of the library, we provide a standalone CLI application for
-conversion and validation. The source code is available at https://github.com/phenopackets/phenopacket-tools.
+conversion and validation. The source code is available
+from our `GitHub repository <https://github.com/phenopackets/phenopacket-tools>`_.
 
 The following sections describe phenopacket-tools library and CLI application.
 We start with :ref:`rsttutorial` to provide a quick overview of the CLI functionality.
