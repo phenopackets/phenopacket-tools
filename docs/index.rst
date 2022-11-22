@@ -16,7 +16,8 @@ genetic information, diagnoses, and treatments. The Phenopacket schema supports 
 Phenopackets are designed to be both human and machine-interpretable, enabling computing operations and validation on
 the basis of defined relationships between diagnoses, lab measurements, and genotypic information.
 
-The *phenopacket-tools* library was written as a modular Java 17 library and has three main goals.
+The *phenopacket-tools* library was written as a modular Java 17 library. It is available
+at https://github.com/phenopackets/phenopacket-tools. It has three main goals:
 
 - To simplify *creating* phenopackets with Java code using streamlined builders and predefined building blocks such
   as units, anatomical organs, and clinical modifiers.
@@ -44,6 +45,7 @@ in a JVM-based application.
    validation
    converting
    constants
+   examples
 
 
 .. figure:: https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg
