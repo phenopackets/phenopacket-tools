@@ -81,7 +81,7 @@
         "value": 25.0,
         "referenceRange": {
           "unit": {
-            "id": "56844-4",
+            "id": "LOINC:56844-4",
             "label": "Intraocular pressure of Eye"
           },
           "low": 10.0,
@@ -108,7 +108,7 @@
         "value": 15.0,
         "referenceRange": {
           "unit": {
-            "id": "56844-4",
+            "id": "LOINC:56844-4",
             "label": "Intraocular pressure of Eye"
           },
           "low": 10.0,
@@ -430,34 +430,61 @@
     "created": "2021-05-14T10:35:00Z",
     "createdBy": "anonymous biocurator",
     "resources": [{
-      "id": "ncit",
-      "name": "NCI Thesaurus",
-      "url": "http://purl.obolibrary.org/obo/ncit.owl",
-      "version": "21.05d",
-      "namespacePrefix": "NCIT",
-      "iriPrefix": "http://purl.obolibrary.org/obo/NCIT_"
-    }, {
-      "id": "efo",
-      "name": "Experimental Factor Ontology",
-      "url": "http://www.ebi.ac.uk/efo/efo.owl",
-      "version": "3.34.0",
-      "namespacePrefix": "EFO",
-      "iriPrefix": "http://purl.obolibrary.org/obo/EFO_"
-    }, {
-      "id": "uberon",
-      "name": "Uber-anatomy ontology",
-      "url": "http://purl.obolibrary.org/obo/uberon.owl",
-      "version": "2021-07-27",
-      "namespacePrefix": "UBERON",
-      "iriPrefix": "http://purl.obolibrary.org/obo/UBERON_"
-    }, {
-      "id": "ncbitaxon",
-      "name": "NCBI organismal classification",
-      "url": "http://purl.obolibrary.org/obo/ncbitaxon.owl",
-      "version": "2021-06-10",
-      "namespacePrefix": "NCBITaxon",
-      "iriPrefix": "http://purl.obolibrary.org/obo/NCBITaxon_"
-    }],
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2021-08-02",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    },
+      {
+        "id": "geno",
+        "name": "Genotype Ontology",
+        "url": "http://purl.obolibrary.org/obo/geno.owl",
+        "version": "2020-03-08",
+        "namespacePrefix": "GENO",
+        "iriPrefix": "http://purl.obolibrary.org/obo/GENO_"
+      },
+      {
+        "id": "ncit",
+        "name": "NCI Thesaurus",
+        "url": "http://purl.obolibrary.org/obo/ncit.owl",
+        "version": "VERSION",
+        "namespacePrefix": "NCIT",
+        "iriPrefix": "http://purl.obolibrary.org/obo/NCIT_"
+      },
+      {
+        "id": "uberon",
+        "name": "Uber-anatomy ontology",
+        "url": "http://purl.obolibrary.org/obo/uberon.owl",
+        "version": "VERSION",
+        "namespacePrefix": "UBERON",
+        "iriPrefix": "http://purl.obolibrary.org/obo/UBERON_"
+      },
+      {
+        "id": "loinc",
+        "name": "Logical Observation Identifiers Names and Codes",
+        "url": "https://loinc.org",
+        "version": "VERSION",
+        "namespacePrefix": "LOINC",
+        "iriPrefix": "https://loinc.org"
+      },
+      {
+        "id": "drugcentral",
+        "name": "Drug Central",
+        "url": "https://drugcentral.org/",
+        "version": "VERSION",
+        "namespacePrefix": "DrugCentral",
+        "iriPrefix": "https://drugcentral.org/drugcard"
+      },
+      {
+        "id": "ucum",
+        "name": "Unified Code for Units of Measure",
+        "url": "https://ucum.org",
+        "version": "2.1",
+        "namespacePrefix": "UCUM",
+        "iriPrefix": "https://ucum.org/"
+      }],
     "phenopacketSchemaVersion": "2.0.0"
   }
 }
