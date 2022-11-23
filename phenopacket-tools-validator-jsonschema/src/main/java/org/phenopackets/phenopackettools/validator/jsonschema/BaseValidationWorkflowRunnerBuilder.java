@@ -3,6 +3,8 @@ package org.phenopackets.phenopackettools.validator.jsonschema;
 import com.google.protobuf.MessageOrBuilder;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketFormatConverter;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketFormatConverters;
+import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
+import org.phenopackets.phenopackettools.validator.core.metadata.MetaDataValidators;
 import org.phenopackets.phenopackettools.validator.jsonschema.impl.JsonSchemaValidator;
 import org.phenopackets.phenopackettools.validator.jsonschema.v2.JsonSchemaValidatorConfigurer;
 import org.phenopackets.schema.v2.CohortOrBuilder;
@@ -32,6 +34,7 @@ abstract class BaseValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> e
         List<JsonSchemaValidator> requirementValidators = readRequirementValidators(jsonSchemaUrls);
         return new JsonSchemaValidationWorkflowRunner<>(getFormatConverter(),
                 getBaseRequirementsValidator(),
+                getMetadataValidator(),
                 requirementValidators,
                 validators);
     }
@@ -39,6 +42,7 @@ abstract class BaseValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> e
 
     protected abstract PhenopacketFormatConverter<T> getFormatConverter();
     protected abstract JsonSchemaValidator getBaseRequirementsValidator();
+    protected abstract PhenopacketValidator<T> getMetadataValidator();
 
 
     private List<JsonSchemaValidator> readRequirementValidators(List<URL> schemaUrls) {
@@ -67,6 +71,11 @@ abstract class BaseValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> e
         protected JsonSchemaValidator getBaseRequirementsValidator() {
             return JsonSchemaValidatorConfigurer.getBasePhenopacketValidator();
         }
+
+        @Override
+        protected PhenopacketValidator<PhenopacketOrBuilder> getMetadataValidator() {
+            return MetaDataValidators.phenopacketValidator();
+        }
     }
 
     static class FamilyWorkflowRunnerBuilder extends BaseValidationWorkflowRunnerBuilder<FamilyOrBuilder> {
@@ -78,6 +87,11 @@ abstract class BaseValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> e
         @Override
         protected JsonSchemaValidator getBaseRequirementsValidator() {
             return JsonSchemaValidatorConfigurer.getBaseFamilyValidator();
+        }
+
+        @Override
+        protected PhenopacketValidator<FamilyOrBuilder> getMetadataValidator() {
+            return MetaDataValidators.familyValidator();
         }
     }
 
@@ -91,6 +105,11 @@ abstract class BaseValidationWorkflowRunnerBuilder<T extends MessageOrBuilder> e
         @Override
         protected JsonSchemaValidator getBaseRequirementsValidator() {
             return JsonSchemaValidatorConfigurer.getBaseCohortValidator();
+        }
+
+        @Override
+        protected PhenopacketValidator<CohortOrBuilder> getMetadataValidator() {
+            return MetaDataValidators.cohortValidator();
         }
     }
 }
