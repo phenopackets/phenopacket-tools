@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 /**
  * Validates if given top-level element satisfies the following criteria:
@@ -45,6 +44,7 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final PhenopacketFormatConverter<T> converter;
     private final JsonSchemaValidator baseValidator;
+    private final PhenopacketValidator<T> metadataValidator;
     private final Collection<JsonSchemaValidator> requirementValidators;
     private final Collection<PhenopacketValidator<T>> validators;
     private final List<ValidatorInfo> validatorInfos;
@@ -75,25 +75,15 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
 
     JsonSchemaValidationWorkflowRunner(PhenopacketFormatConverter<T> converter,
                                        JsonSchemaValidator baseValidator,
+                                       PhenopacketValidator<T> metadataValidator,
                                        Collection<JsonSchemaValidator> requirementValidators,
                                        Collection<PhenopacketValidator<T>> validators) {
         this.converter = Objects.requireNonNull(converter);
         this.baseValidator = Objects.requireNonNull(baseValidator);
+        this.metadataValidator = Objects.requireNonNull(metadataValidator);
         this.requirementValidators = Objects.requireNonNull(requirementValidators);
         this.validators = Objects.requireNonNull(validators);
         this.validatorInfos = summarizeValidatorInfos(baseValidator, requirementValidators, validators);
-    }
-
-    /**
-     * @deprecated use the other constructor
-     */
-    @Deprecated(forRemoval = true, since = "0.4.8")
-    JsonSchemaValidationWorkflowRunner(PhenopacketFormatConverter<T> converter,
-                                       JsonSchemaValidator baseValidator,
-                                       Collection<JsonSchemaValidator> requirementValidators,
-                                       Collection<PhenopacketValidator<T>> syntaxValidators,
-                                       Collection<PhenopacketValidator<T>> semanticValidators) {
-        this(converter, baseValidator, requirementValidators, Stream.concat(syntaxValidators.stream(), semanticValidators.stream()).toList());
     }
 
     private static <T extends MessageOrBuilder> List<ValidatorInfo> summarizeValidatorInfos(JsonSchemaValidator base,
@@ -137,19 +127,16 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     public ValidationResults validate(String json) {
         ValidationResults.Builder builder = ValidationResults.builder();
 
+        T component;
         try {
-            validateRequirements(json, builder);
+            component = converter.toItem(json);
+            validateRequirements(json, component, builder);
         } catch (ConversionException e) {
+            // We must not proceed with semantic validation with item that does not meet the requirements.
             return wrapUpValidation(e, builder);
         }
 
-        try {
-            convertAndRunValidation(json, builder);
-        } catch (ConversionException e) {
-            return wrapUpValidation(e, builder);
-        }
-
-        return builder.build();
+        return runValidation(component, builder);
     }
 
     @Override
@@ -159,16 +146,14 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
         String json = converter.toJson(item);
 
         try {
-            validateRequirements(json, builder);
+            validateRequirements(json, item, builder);
         } catch (ConversionException e) {
             // We must not proceed with semantic validation with item that does not meet the requirements.
             return wrapUpValidation(e, builder);
         }
 
         // No conversion necessary, hence no need to guard against the `ConversionException`.
-        runValidation(item, builder);
-
-        return builder.build();
+        return runValidation(item, builder);
     }
 
     private String parseToString(byte[] payload) throws ConversionException {
@@ -184,11 +169,11 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     }
 
     /**
-     * Validate requirements using {@link #baseValidator} and all {@link #requirementValidators}.
+     * Validate the requirements using {@link #baseValidator} and all {@link #requirementValidators}.
      *
      * @throws ConversionException if {@code json} cannot be mapped into {@link JsonNode}
      */
-    private void validateRequirements(String json, ValidationResults.Builder builder) throws ConversionException {
+    private void validateRequirements(String json, T component, ValidationResults.Builder builder) throws ConversionException {
         JsonNode jsonNode;
         try {
             jsonNode = objectMapper.readTree(json);
@@ -198,6 +183,7 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
         }
 
         builder.addResults(baseValidator.validatorInfo(), baseValidator.validate(jsonNode));
+        builder.addResults(metadataValidator.validatorInfo(), metadataValidator.validate(component));
 
         for (JsonSchemaValidator validator : requirementValidators) {
             builder.addResults(validator.validatorInfo(), validator.validate(jsonNode));
@@ -205,23 +191,13 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     }
 
     /**
-     * Convert the {@code item} into {@link T} and validate the requirements.
-     *
-     * @throws ConversionException if {@code item} cannot be mapped into {@link T}
+     * Validate the requirements by applying {@link #validators}.
      */
-    private void convertAndRunValidation(String item, ValidationResults.Builder builder) throws ConversionException {
-        T component = converter.toItem(item);
-
-        runValidation(component, builder);
-    }
-
-    /**
-     * Validate semantic requirements using {@link #validators}. Unlike {@link #convertAndRunValidation(String, ValidationResults.Builder)},
-     * this method does not throw {@link ConversionException}.
-     */
-    private void runValidation(T component, ValidationResults.Builder builder) {
+    private ValidationResults runValidation(T component, ValidationResults.Builder builder) {
         for (PhenopacketValidator<T> validator : validators)
             builder.addResults(validator.validatorInfo(), validator.validate(component));
+
+        return builder.build();
     }
 
     private static ValidationResults wrapUpValidation(ConversionException e, ValidationResults.Builder builder) {
