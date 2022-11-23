@@ -129,13 +129,6 @@ public class Resources {
             .setUrl("https://www.omim.org")
             .setIriPrefix("https://www.omim.org/entry/");
 
-    private static final Resource.Builder NCT_BUILDER = Resource.newBuilder()
-            .setId("nct")
-            .setName("ClinicalTrials.gov")
-            .setNamespacePrefix("NCT")
-            .setUrl("https://clinicaltrials.gov")
-            .setIriPrefix("https://clinicaltrials.gov/show/NCT");
-
     public static Resource hgncVersion(String version) { return HGNC_BUILDER.setVersion(version).build(); }
 
     public static Resource hpoVersion(String version) {
@@ -206,7 +199,4 @@ public class Resources {
         return OMIM_BUILDER.setVersion(version).build();
     }
 
-    public static Resource nctVersion(String version) {
-        return NCT_BUILDER.setVersion(version).build();
-    }
 }

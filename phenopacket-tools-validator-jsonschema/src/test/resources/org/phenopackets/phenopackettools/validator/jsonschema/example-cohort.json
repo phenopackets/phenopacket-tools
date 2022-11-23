@@ -566,8 +566,8 @@
       {
         "therapeuticRegimen": {
           "ontologyClass": {
-            "id": "NCT:04576091",
-            "label": "Testing the Addition of an Anti-cancer Drug, BAY 1895344, With Radiation Therapy to the Usual Pembrolizumab Treatment for Recurrent Head and Neck Cancer"
+            "id": "NCIT:C10894",
+            "label": "Carboplatin/Etoposide/Vincristine"
           },
           "startTime": {
             "age": {
@@ -748,14 +748,6 @@
         "version": "2.1",
         "namespacePrefix": "UCUM",
         "iriPrefix": "https://ucum.org/"
-      },
-      {
-        "id": "nct",
-        "name": "ClinicalTrials.gov",
-        "url": "https://clinicaltrials.gov",
-        "version": "VERSION",
-        "namespacePrefix": "NCT",
-        "iriPrefix": "https://clinicaltrials.gov/show/NCT"
       }
     ],
     "phenopacketSchemaVersion": "2.0",
