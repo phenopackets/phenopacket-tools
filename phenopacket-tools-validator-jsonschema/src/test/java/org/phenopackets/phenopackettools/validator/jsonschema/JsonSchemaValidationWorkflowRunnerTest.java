@@ -47,20 +47,24 @@ public class JsonSchemaValidationWorkflowRunnerTest {
 
         @Test
         public void baseValidationWorkflowHasExpectedValidators() {
+            String[] expected = {"BaseValidator", "MetaDataValidator"};
             JsonSchemaValidationWorkflowRunner<PhenopacketOrBuilder> phenopacket = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
                     .build();
             List<String> actual = phenopacket.validators().stream().map(ValidatorInfo::validatorId).toList();
-            assertThat(actual, hasItems("BaseValidator", "MetaDataValidator"));
+            assertThat(actual, hasItems(expected));
+            assertThat(actual, hasSize(2));
 
             JsonSchemaValidationWorkflowRunner<FamilyOrBuilder> family = JsonSchemaValidationWorkflowRunner.familyBuilder()
                     .build();
             actual = family.validators().stream().map(ValidatorInfo::validatorId).toList();
-            assertThat(actual, hasItems("BaseValidator", "MetaDataValidator"));
+            assertThat(actual, hasItems(expected));
+            assertThat(actual, hasSize(2));
 
             JsonSchemaValidationWorkflowRunner<CohortOrBuilder> cohort = JsonSchemaValidationWorkflowRunner.cohortBuilder()
                     .build();
             actual = cohort.validators().stream().map(ValidatorInfo::validatorId).toList();
-            assertThat(actual, hasItems("BaseValidator", "MetaDataValidator"));
+            assertThat(actual, hasItems(expected));
+            assertThat(actual, hasSize(2));
         }
     }
 
