@@ -2,6 +2,7 @@ package org.phenopackets.phenopackettools.cli.examples;
 
 import org.phenopackets.phenopackettools.builder.PhenopacketBuilder;
 import org.phenopackets.phenopackettools.builder.builders.*;
+import org.phenopackets.phenopackettools.builder.constants.Unit;
 import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.core.*;
 
@@ -52,8 +53,13 @@ public class Covid implements PhenopacketExample {
                 .description("The Imperfect Cytokine Storm: Severe COVID-19 With ARDS in a Patient on Durable LVAD Support")
                 .build();
         var metaData = MetaDataBuilder.builder("2021-08-17T00:00:00Z", "anonymous biocurator")
-                .addResource(Resources.ncitVersion("2019-11-26"))
-                .addResource(Resources.mondoVersion("2021-11-26"))
+                .addResource(Resources.hpoVersion("2021-08-02"))
+                .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.mondoVersion("2022-04-04"))
+                .addResource(Resources.loincVersion("2.73"))
+                .addResource(Resources.patoVersion("2022-08-31"))
+                .addResource(Resources.chebiVersion("2022-11-23"))
+                .addResource(Resources.ucum())
                 .addExternalReference(externalRef)
                 .build();
 
@@ -195,7 +201,7 @@ public class Covid implements PhenopacketExample {
 
     private MedicalAction dexamethasone() {
         // ten days, 6 mg once a day
-        Quantity quantity = QuantityBuilder.of("UO:0000022", "milligram", 6);
+        Quantity quantity = QuantityBuilder.of(Unit.milligram(), 6);
         OntologyClass onceDaily = ontologyClass("NCIT:C125004", "Once Daily");
         var doseInterval = DoseIntervalBuilder.of(quantity, onceDaily, "2020-03-20", "2020-03-30");
 

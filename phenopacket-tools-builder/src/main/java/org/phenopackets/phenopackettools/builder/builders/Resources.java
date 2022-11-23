@@ -129,6 +129,13 @@ public class Resources {
             .setUrl("https://www.omim.org")
             .setIriPrefix("https://www.omim.org/entry/");
 
+    private static final Resource.Builder CHEBI_BUILDER = Resource.newBuilder()
+            .setId("chebi")
+            .setName("Chemical Entities of Biological Interest")
+            .setNamespacePrefix("CHEBI")
+            .setUrl("https://www.ebi.ac.uk/chebi")
+            .setIriPrefix("https://purl.obolibrary.org/obo/CHEBI_");
+
     public static Resource hgncVersion(String version) { return HGNC_BUILDER.setVersion(version).build(); }
 
     public static Resource hpoVersion(String version) {
@@ -197,6 +204,10 @@ public class Resources {
 
     public static Resource omimVersion(String version) {
         return OMIM_BUILDER.setVersion(version).build();
+    }
+
+    public static Resource chebiVersion(String version) {
+        return CHEBI_BUILDER.setVersion(version).build();
     }
 
 }

@@ -33,7 +33,8 @@ public class DuchenneExon51Deletion implements PhenopacketExample {
     public DuchenneExon51Deletion() {
         var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .addResource(Resources.hpoVersion("2022-06-11"))
-                .addResource(Resources.mondoVersion("v2022-09-06"))
+                .addResource(Resources.mondoVersion("2022-04-04"))
+                .addResource(Resources.genoVersion("2022-03-05"))
                 .build();
         Individual proband = IndividualBuilder.builder(PROBAND_ID).
                 ageAtLastEncounter("P10Y").

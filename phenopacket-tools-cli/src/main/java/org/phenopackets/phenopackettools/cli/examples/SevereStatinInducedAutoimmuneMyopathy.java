@@ -32,8 +32,12 @@ public class SevereStatinInducedAutoimmuneMyopathy implements PhenopacketExample
                         "Severe statin-induced autoimmune myopathy successfully treated with intravenous immunoglobulin");
 
         var metadata = MetaDataBuilder.builder("2022-04-21T10:35:00Z", "anonymous biocurator")
-                .addResource(Resources.ncitVersion("22.03d"))
-                .addResource(Resources.hpoVersion("2021-08-02"))
+                .addResource(Resources.ncitVersion("21.05d"))
+                .addResource(Resources.hpoVersion("2022-06-11"))
+                .addResource(Resources.loincVersion("2.73"))
+                .addResource(Resources.ucum())
+                .addResource(Resources.mondoVersion("2022-04-04"))
+                .addResource(Resources.drugCentralVersion("2022-08-22"))
                 .addExternalReference(externalRef)
                 .build();
 

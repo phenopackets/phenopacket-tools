@@ -33,6 +33,11 @@ public class Retinoblastoma implements PhenopacketExample {
                 .addResource(Resources.efoVersion("3.34.0"))
                 .addResource(Resources.uberonVersion("2021-07-27"))
                 .addResource(Resources.ncbiTaxonVersion("2021-06-10"))
+                .addResource(Resources.hpoVersion("2022-06-11"))
+                .addResource(Resources.loincVersion("2.73"))
+                .addResource(Resources.ucum())
+                .addResource(Resources.genoVersion("2022-03-05"))
+                .addResource(Resources.drugCentralVersion("2022-08-22"))
                 .build();
         Individual proband = IndividualBuilder.builder(PROBAND_ID).
                 ageAtLastEncounter("P6M").
@@ -311,7 +316,7 @@ public class Retinoblastoma implements PhenopacketExample {
     measured with the Perkins tonometer.
      */
     List<Measurement> getMeasurements() {
-        OntologyClass iop = ontologyClass("56844-4","Intraocular pressure of Eye");
+        OntologyClass iop = ontologyClass("LOINC:56844-4","Intraocular pressure of Eye");
         ReferenceRange ref = ReferenceRangeBuilder.of(iop, 10, 21);
         OntologyClass leftEyeIop =
                 OntologyClassBuilder.ontologyClass("LOINC:79893-4", "Left eye Intraocular pressure");
