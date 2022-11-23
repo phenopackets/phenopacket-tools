@@ -51,6 +51,8 @@ the validation that **any phenopacket must pass**.
    missing-resources-valid.json,       A valid version of the above phenopacket with the `Resource` for describing `NCBITaxon`.
 
 
+.. _rstcustomjsonschematutorialexample:
+
 ``custom-json-schema`` - validate custom requirements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

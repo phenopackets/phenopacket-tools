@@ -4,23 +4,32 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.MessageOrBuilder;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.phenopackettools.validator.core.ValidationResults;
-import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
+import org.monarchinitiative.phenol.io.OntologyLoader;
+import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.TermId;
+import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
+import org.phenopackets.phenopackettools.io.PhenopacketParser;
+import org.phenopackets.phenopackettools.io.PhenopacketParserFactory;
+import org.phenopackets.phenopackettools.validator.core.*;
+import org.phenopackets.phenopackettools.validator.core.phenotype.HpoOrganSystems;
+import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
 import org.phenopackets.schema.v2.CohortOrBuilder;
 import org.phenopackets.schema.v2.FamilyOrBuilder;
+import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -29,6 +38,31 @@ public class JsonSchemaValidationWorkflowRunnerTest {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final JsonTamperer TAMPERER = new JsonTamperer();
+
+    /**
+     * Tests that all validation workflow runners (phenopacket, family, and cohort) must pass.
+     */
+    @Nested
+    public class GeneralTest {
+
+        @Test
+        public void baseValidationWorkflowHasExpectedValidators() {
+            JsonSchemaValidationWorkflowRunner<PhenopacketOrBuilder> phenopacket = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+            List<String> actual = phenopacket.validators().stream().map(ValidatorInfo::validatorId).toList();
+            assertThat(actual, hasItems("BaseValidator", "MetaDataValidator"));
+
+            JsonSchemaValidationWorkflowRunner<FamilyOrBuilder> family = JsonSchemaValidationWorkflowRunner.familyBuilder()
+                    .build();
+            actual = family.validators().stream().map(ValidatorInfo::validatorId).toList();
+            assertThat(actual, hasItems("BaseValidator", "MetaDataValidator"));
+
+            JsonSchemaValidationWorkflowRunner<CohortOrBuilder> cohort = JsonSchemaValidationWorkflowRunner.cohortBuilder()
+                    .build();
+            actual = cohort.validators().stream().map(ValidatorInfo::validatorId).toList();
+            assertThat(actual, hasItems("BaseValidator", "MetaDataValidator"));
+        }
+    }
 
     /**
      * Check required and recommended phenopacket fields.
@@ -511,6 +545,117 @@ public class JsonSchemaValidationWorkflowRunnerTest {
             }
         }
 
+    }
+
+    /**
+     * The tests that are part of the user guide. Ensure that the user guide is updated if the tests do not compile.
+     * The tests do not need to be run, just to compile (hence @Disabled).
+     */
+    @Nested
+    @Disabled
+    public class DocumentationTest {
+
+        @Test
+        public void baseValidationWorkflowRunner() throws Exception {
+            // Prepare the runner
+            ValidationWorkflowRunner<PhenopacketOrBuilder> runner = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+
+            // A path
+            Path path = Path.of("bethlem-myopathy.json");
+            ValidationResults results = runner.validate(path);
+
+            // An input stream
+            try (InputStream is = new FileInputStream(path.toFile())) {
+                results = runner.validate(is);
+            }
+
+            // A byte array
+            try (InputStream is = new FileInputStream(path.toFile())) {
+                results = runner.validate(is.readAllBytes());
+            }
+
+            // A JSON or YAML string
+            try (BufferedReader reader = Files.newBufferedReader(path)) {
+                String jsonString = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                results = runner.validate(jsonString);
+            }
+
+            // Or a phenopacket.
+            PhenopacketParser parser = PhenopacketParserFactory.getInstance()
+                    .forFormat(PhenopacketSchemaVersion.V2);
+            Phenopacket phenopacket = (Phenopacket) parser.parse(path);
+            results = runner.validate(phenopacket);
+        }
+
+        @Test
+        public void availableBuilders() {
+            ValidationWorkflowRunner<PhenopacketOrBuilder> phenopacket = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+
+            ValidationWorkflowRunner<FamilyOrBuilder> family = JsonSchemaValidationWorkflowRunner.familyBuilder()
+                    .build();
+
+            ValidationWorkflowRunner<CohortOrBuilder> cohort = JsonSchemaValidationWorkflowRunner.cohortBuilder()
+                    .build();
+        }
+
+        @Test
+        public void workflowIntrospection() {
+            ValidationWorkflowRunner<PhenopacketOrBuilder> runner = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+
+            List<ValidatorInfo> validators = runner.validators();
+        }
+
+        @Test
+        public void validationResults() throws Exception {
+            // Prepare the runner
+            ValidationWorkflowRunner<PhenopacketOrBuilder> runner = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+
+            // A path
+            Path path = Path.of("bethlem-myopathy.json");
+            ValidationResults results = runner.validate(path);
+
+            assert results.isValid();
+            List<ValidatorInfo> validators = results.validators();
+            List<ValidationResult> issues = results.validationResults();
+
+            ValidationResult issue = issues.get(0);
+
+            // The validator that pointed out the issue.
+            ValidatorInfo validatorInfo = issue.validatorInfo();
+
+            // The issue severity (warning or error).
+            ValidationLevel level = issue.level();
+
+            // Category of the issue, useful for grouping the issues.
+            // One validator can produce issues with different categories.
+            String category = issue.category();
+
+            // A message targeted for the user.
+            String message = issue.message();
+        }
+
+        @Test
+        public void elaborateExample() throws Exception {
+            JsonSchemaValidationWorkflowRunnerBuilder<PhenopacketOrBuilder> builder = JsonSchemaValidationWorkflowRunner.phenopacketBuilder();
+
+            Path customSchema = Path.of("hpo-rare-disease-schema.json");
+            builder.addJsonSchema(customSchema);
+
+            Ontology hpo = OntologyLoader.loadOntology(new File("hp.json"));
+            PhenopacketValidator<PhenopacketOrBuilder> primary = HpoPhenotypeValidators.Primary.phenopacketHpoPhenotypeValidator(hpo);
+            builder.addValidator(primary);
+
+            PhenopacketValidator<PhenopacketOrBuilder> ancestry = HpoPhenotypeValidators.Ancestry.phenopacketHpoAncestryValidator(hpo);
+            builder.addValidator(ancestry);
+
+            List<TermId> organSystemIds = List.of(HpoOrganSystems.EYE, HpoOrganSystems.CARDIOVASCULAR, HpoOrganSystems.RESPIRATORY);
+            PhenopacketValidator<PhenopacketOrBuilder> organSystem = HpoPhenotypeValidators.OrganSystem.phenopacketHpoOrganSystemValidator(hpo, organSystemIds);
+            builder.addValidator(organSystem);
+        }
     }
 
     /**
