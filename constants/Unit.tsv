@@ -2,24 +2,24 @@ ontology.id	ontology.label	variable.name	function.name
 UCUM:degree	degree (plane angle)	DEGREE	degreeOfAngle
 UCUM:[diop]	diopter	DIOPTER	diopter
 UCUM:g	gram	GRAM	gram
-UCUM:g/kg	gram per kilogram	GRAM_PER_KG	gramPerKilogram
+UCUM:g.kg-1	gram per kilogram	GRAM_PER_KG	gramPerKilogram
 UCUM:kg	kilogram	KILOGRAM	kilogram
 UCUM:L	liter	LITER	liter
 UCUM:m	meter	METER	meter
 UCUM:ug	microgram	MICROGRAM	microgram
-UCUM:ug/dL	microgram per deciliter	MICROGRAM_PER_DECILITER	microgramPerDeciliter
-UCUM:ug/L	microgram per liter	MICROGRAM_PER_LITER	microgramPerLiter
+UCUM:ug.dL-1	microgram per deciliter	MICROGRAM_PER_DECILITER	microgramPerDeciliter
+UCUM:ug.L-1	microgram per liter	MICROGRAM_PER_LITER	microgramPerLiter
 UCUM:uL	microliter	MICROLITER	microliter
 UCUM:um	micrometer	MICROMETER	micrometer
 UCUM:mg	milligram	MILLIGRAM	milligram
-UCUM:mg/dL	milligram per day	MILLIGRAM_PER_DAY	milligramPerDay
-UCUM:mg/dL	milligram per deciliter	MILLIGRAM_PER_DL	milligramPerDeciliter
+UCUM:mg.d-1	milligram per day	MILLIGRAM_PER_DAY	milligramPerDay
+UCUM:mg.dL-1	milligram per deciliter	MILLIGRAM_PER_DL	milligramPerDeciliter
 UCUM:mg.kg-1	milligram per kilogram	MILLIGRAM_PER_KG	mgPerKg
 UCUM:mL	milliliter	MILLILITER	milliliter
 UCUM:mm	millimeter	MILLIMETER	millimeter
 UCUM:mm[Hg]	millimetres of mercury	MILLIMETRES_OF_MERCURY	mmHg
 UCUM:mmol	millimole	MILLIMOLE	millimole
 UCUM:mol	mole	MOLE	mole
-UCUM:mol/L	mole per liter	MOLE_PER_LITER	molePerLiter
-UCUM:mol/mL	mole per milliliter	MOLE_PER_MILLILITER	molePerMilliliter
-UCUM:U/L	enzyme unit per liter	ENZYME_UNIT_PER_LITER	enzymeUnitPerLiter
+UCUM:mol.L-1	mole per liter	MOLE_PER_LITER	molePerLiter
+UCUM:mol.mL-1	mole per milliliter	MOLE_PER_MILLILITER	molePerMilliliter
+UCUM:U.L-1	enzyme unit per liter	ENZYME_UNIT_PER_LITER	enzymeUnitPerLiter
