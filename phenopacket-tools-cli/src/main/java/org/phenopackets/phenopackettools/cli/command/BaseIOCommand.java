@@ -33,11 +33,6 @@ public abstract class BaseIOCommand extends BaseCommand {
     public InputSection inputSection = new InputSection();
 
     public static class InputSection {
-        @CommandLine.Option(names = {"-i", "--input"},
-                arity = "0..*",
-                description = "Input phenopacket(s).%nLeave empty for STDIN")
-        public List<Path> inputs = null;
-
         // The format will be sniffed if it is not provided.
         @CommandLine.Option(names = {"-f", "--format"},
                 description = {"Phenopacket format.",
@@ -51,6 +46,16 @@ public abstract class BaseIOCommand extends BaseCommand {
         public PhenopacketElement element = null;
 
     }
+
+    @CommandLine.Parameters(
+            paramLabel = "phenopacket file(s)",
+            description = {
+                    "Input phenopacket(s).",
+                    "Leave empty for STDIN"
+            }
+    )
+    public List<Path> inputs = null;
+
     protected BaseIOCommand() {
         parserFactory = PhenopacketParserFactory.getInstance();
     }
@@ -65,7 +70,7 @@ public abstract class BaseIOCommand extends BaseCommand {
      */
     protected List<MessageAndPath> readMessagesOrExit(PhenopacketSchemaVersion schemaVersion) {
         PhenopacketParser parser = parserFactory.forFormat(schemaVersion);
-        if (inputSection.inputs == null) {
+        if (inputs == null) {
             // The user did not set `-i | --input` option, assuming a single input is coming from STDIN.
             InputStream is = System.in;
             try {
@@ -82,10 +87,10 @@ public abstract class BaseIOCommand extends BaseCommand {
             // Assuming a one or more input are provided via `-i | --input`.
             //
             // Picocli should ensure that `input` is never an empty list. `input` is `null` if no `-i` was supplied.
-            assert !inputSection.inputs.isEmpty();
+            assert !inputs.isEmpty();
 
             List<MessageAndPath> messages = new ArrayList<>();
-            for (Path input : inputSection.inputs) {
+            for (Path input : inputs) {
                 try (InputStream is = new BufferedInputStream(Files.newInputStream(input))) {
                     setFormatAndElement(is, schemaVersion);
                     Message message = parser.parse(inputSection.format, inputSection.element, is);

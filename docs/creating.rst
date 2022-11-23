@@ -6,10 +6,14 @@ Creating Phenopackets
 =====================
 
 Google's `Protocol Buffer (protobuf)`_ framework automatically generates
-Java code for building and working with Phenopackets. However, the code can be unwieldy. Additionally, many users
-of the phenopacket framework will want to use a recommended set of ontology terms for specific kinds of data, and thus
-the *phenopacket-tools* library provides terms and constants that are more convenient to use than manually creating
+Java bindings for building and working with Phenopackets. However, the code can be unwieldy. Additionally, many users
+of the phenopacket framework will want to use a recommended set of ontology terms for specific kinds of data.
+*Phenopacket-tools* library provides terms and constants that are more convenient to use than manually creating
 the equivalent message.
+
+This section exemplifies usage of `PhenotypicFeatureBuilder`, one of many builders provided by the
+`org.phenopackets.phenopackettools.builder <http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html>`_
+module.
 
 
 `phenopacket-tools` builder pattern
@@ -80,7 +84,17 @@ Both code snippets generate identical phenopacket code.
         }
     }
 
-Several detailed examples are available in the ``phenopackets-tools-cli`` module in the `examples`_ package.
 
-.. _examples: https://github.com/phenopackets/phenopacket-tools/tree/main/phenopacket-tools-cli/src/main/java/org/phenopackets/phenopackettools/examples
+See also
+========
+
+See the API documentation of the
+`org.phenopackets.phenopackettools.builder <http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html>`_
+module for a comprehensive list of ontology constants, convenience methods, and builders provided
+by the *phenopacket-tools* library.
+
+Several detailed examples are available in the ``phenopackets-tools-cli`` module in the
+`org.phenopackets.phenopackettools.cli.examples <https://github.com/phenopackets/phenopacket-tools/tree/main/phenopacket-tools-cli/src/main/java/org/phenopackets/phenopackettools/cli/examples>`_
+package.
+
 .. _Protocol Buffer (protobuf): https://developers.google.com/protocol-buffers

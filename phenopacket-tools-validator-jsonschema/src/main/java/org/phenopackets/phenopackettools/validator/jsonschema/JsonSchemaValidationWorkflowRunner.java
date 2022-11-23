@@ -83,15 +83,17 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
         this.metadataValidator = Objects.requireNonNull(metadataValidator);
         this.requirementValidators = Objects.requireNonNull(requirementValidators);
         this.validators = Objects.requireNonNull(validators);
-        this.validatorInfos = summarizeValidatorInfos(baseValidator, requirementValidators, validators);
+        this.validatorInfos = summarizeValidatorInfos(baseValidator, metadataValidator, requirementValidators, validators);
     }
 
     private static <T extends MessageOrBuilder> List<ValidatorInfo> summarizeValidatorInfos(JsonSchemaValidator base,
+                                                                                            PhenopacketValidator<T> metadataValidator,
                                                                                             Collection<JsonSchemaValidator> requirements,
                                                                                             Collection<PhenopacketValidator<T>> validators) {
         List<ValidatorInfo> infos = new ArrayList<>();
 
         infos.add(base.validatorInfo());
+        infos.add(metadataValidator.validatorInfo());
         for (JsonSchemaValidator validator : requirements) {
             infos.add(validator.validatorInfo());
         }

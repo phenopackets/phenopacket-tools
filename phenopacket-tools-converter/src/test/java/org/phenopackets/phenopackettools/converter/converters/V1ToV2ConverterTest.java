@@ -2,6 +2,7 @@ package org.phenopackets.phenopackettools.converter.converters;
 
 import org.ga4gh.vrsatile.v1.Expression;
 import org.ga4gh.vrsatile.v1.VariationDescriptor;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -282,6 +283,28 @@ public class V1ToV2ConverterTest {
 
     @Nested
     public class PhenopacketConverterTest {
+    }
+
+    /**
+     * Tests with code used in the user guide. The tests must compile, otherwise the documentation must be updated.
+     * However, the tests need not pass, hence Disabled.
+     */
+    @Nested
+    @Disabled
+    public class DocumentationTest {
+
+        @Test
+        public void converterWorks() {
+            // Set up the converter
+            boolean convertVariants = true; // or false, as desired
+            V1ToV2Converter converter = V1ToV2Converter.of(convertVariants);
+
+            // Get v1 phenopacket.
+            org.phenopackets.schema.v1.Phenopacket v1 = TestData.V1.comprehensivePhenopacket();
+
+            // Convert to v2 phenopacket.
+            org.phenopackets.schema.v2.Phenopacket v2 = converter.convertPhenopacket(v1);
+        }
     }
 
 }
