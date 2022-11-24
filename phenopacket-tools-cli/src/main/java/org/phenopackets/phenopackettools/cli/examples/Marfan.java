@@ -15,7 +15,7 @@ public class Marfan implements PhenopacketExample {
     private final Phenopacket phenopacket;
 
     public Marfan() {
-        var marfan = DiseaseBuilder.of("OMIM:154700 ", "Marfan syndrome");
+        var marfan = DiseaseBuilder.of("OMIM:154700", "Marfan syndrome");
         var individual = IndividualBuilder.builder(PROBAND_ID).female().ageAtLastEncounter("P27Y").build();
         var losartan = ontologyClass("DrugCentral:1610", "losartan");
         var aorticAneurysm =
