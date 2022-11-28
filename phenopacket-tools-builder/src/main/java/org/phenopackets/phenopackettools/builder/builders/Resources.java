@@ -106,7 +106,7 @@ public class Resources {
             .setName("Unified Code for Units of Measure")
             .setNamespacePrefix("UCUM")
             .setUrl("https://ucum.org")
-            .setIriPrefix("https://ucum.org/");
+            .setIriPrefix("https://units-of-measurement.org/");
 
     private static final Resource.Builder LOINC_BUILDER = Resource.newBuilder()
             .setId("loinc")
