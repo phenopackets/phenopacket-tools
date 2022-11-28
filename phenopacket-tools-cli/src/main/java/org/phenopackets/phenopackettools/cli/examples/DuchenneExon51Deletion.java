@@ -91,7 +91,7 @@ public class DuchenneExon51Deletion implements PhenopacketExample {
 
         abuilder.alleleLocation("refseq:NC_000023.11",31774144, 31785736);//VRS uses inter-residue coordinates
         abuilder.oneCopy();
-        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder();
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("variant-id");
         vbuilder.variation(abuilder.buildVariation())
                 .genomic()
                 .hemizygous()

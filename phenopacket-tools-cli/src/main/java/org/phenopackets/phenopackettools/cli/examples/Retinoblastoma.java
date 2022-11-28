@@ -130,7 +130,7 @@ public class Retinoblastoma implements PhenopacketExample {
                 .setCopyNumber(cnv)
                 .build();
 
-        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder();
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("variant-id");
         vbuilder.variation(variation);
         vbuilder.mosaicism(40.0);
         VariantInterpretationBuilder vibuilder = VariantInterpretationBuilder.builder(vbuilder);
