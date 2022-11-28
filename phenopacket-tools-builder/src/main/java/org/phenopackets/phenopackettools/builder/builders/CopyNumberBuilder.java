@@ -23,10 +23,12 @@ public class CopyNumberBuilder {
      *  residues, possibly with length zero, and specified using “0-start, half-open” coordinates.
      */
     public CopyNumberBuilder alleleLocation(String contig, int interbaseStartPos, int interbaseEndPos) {
-        AlleleBuilder abuilder = AlleleBuilder.builder()
-                        .sequenceId(contig)
-                        .interbaseStartEnd(interbaseStartPos, interbaseEndPos);
-        builder.setAllele(abuilder.build());
+        builder.setDerivedSequenceExpression(DerivedSequenceExpression.newBuilder()
+                .setLocation(SequenceLocation.newBuilder()
+                        .setSequenceId(contig)
+                        .setSequenceInterval(SequenceInterval.newBuilder()
+                                .setStartNumber(Number.newBuilder().setValue(interbaseStartPos))
+                                .setEndNumber(Number.newBuilder().setValue(interbaseEndPos)))));
         return this;
     }
 

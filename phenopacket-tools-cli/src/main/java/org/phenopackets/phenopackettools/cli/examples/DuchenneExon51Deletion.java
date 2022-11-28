@@ -84,15 +84,14 @@ public class DuchenneExon51Deletion implements PhenopacketExample {
     }
 
     private GenomicInterpretation dmdDeletion() {
-        CopyNumberBuilder abuilder = CopyNumberBuilder.builder();
         // NC_000023.11:g.31774144_31785736del
         // NM_004006.3:c.7310-11543_7359del
         // This deletion removed the 5' part of exon 51 (of NM_004006.3)
-
-        abuilder.alleleLocation("refseq:NC_000023.11",31774144, 31785736);//VRS uses inter-residue coordinates
-        abuilder.oneCopy();
-        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("variant-id");
-        vbuilder.variation(abuilder.buildVariation())
+        CopyNumberBuilder cnvBuilder = CopyNumberBuilder.builder()
+                .alleleLocation("refseq:NC_000023.11", 31774144, 31785736) //VRS uses inter-residue coordinates
+                .oneCopy();
+        VariationDescriptorBuilder vbuilder = VariationDescriptorBuilder.builder("variant-id")
+                .variation(cnvBuilder.buildVariation())
                 .genomic()
                 .hemizygous()
                 .geneContext(GeneDescriptorBuilder.of("HGNC:2928", "DMD"))
