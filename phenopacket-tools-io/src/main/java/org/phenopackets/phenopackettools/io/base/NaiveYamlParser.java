@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.google.protobuf.Message;
-import com.google.protobuf.util.JsonFormat;
+import org.phenopackets.phenopackettools.util.print.PhenopacketPrintUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,8 +14,6 @@ import java.io.InputStream;
  * and then decodes the JSON into {@link Message}.
  */
 class NaiveYamlParser {
-
-    private static final JsonFormat.Parser JSON_PARSER = JsonFormat.parser();
 
     static final NaiveYamlParser INSTANCE = new NaiveYamlParser();
     private final ObjectMapper yamlMapper;
@@ -28,6 +26,6 @@ class NaiveYamlParser {
     void deserializeYamlMessage(InputStream is, Message.Builder builder) throws IOException {
         JsonNode node = yamlMapper.readTree(is);
         String jsonString = jsonMapper.writeValueAsString(node);
-        JSON_PARSER.merge(jsonString, builder);
+        PhenopacketPrintUtil.getParser().merge(jsonString, builder);
     }
 }

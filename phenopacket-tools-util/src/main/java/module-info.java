@@ -3,7 +3,12 @@
  */
 module org.phenopackets.phenopackettools.util {
     requires transitive org.phenopackets.phenopackettools.core;
+    requires com.google.protobuf;
+    // The `print` package exposes `JsonFormat.Printer`, hence the transitive export.
+    requires transitive com.google.protobuf.util;
+    requires org.phenopackets.schema;
     requires org.slf4j;
 
     exports org.phenopackets.phenopackettools.util.format;
+    exports org.phenopackets.phenopackettools.util.print;
 }

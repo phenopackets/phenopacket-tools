@@ -10,11 +10,13 @@ module org.phenopackets.phenopackettools.validator.core {
     exports org.phenopackets.phenopackettools.validator.core.writer;
 
     requires org.phenopackets.phenopackettools.core;
+    requires org.phenopackets.phenopackettools.util;
     requires org.monarchinitiative.phenol.core;
     requires org.phenopackets.schema;
 
+    // There are many places where the protobuf classes are part of the API, e.g. as type parameter
+    // of PhenopacketFormatConverter.
     requires transitive com.google.protobuf;
-    requires com.google.protobuf.util;
 
     requires org.slf4j;
 
