@@ -33,7 +33,7 @@ author = u'Daniel Danis, Peter Robinson'
 # The short X.Y version.
 version = '1.0'
 # The full version, including alpha/beta/rc tags.
-release = '1.0.0-RC1'
+release = '1.0.0-RC2-SNAPSHOT'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
