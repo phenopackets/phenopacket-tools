@@ -32,10 +32,15 @@ public class PhenopacketPrintUtil {
 
         The set that we create below includes all enum descriptors declared in protobuf files.
          */
+        Set<Descriptors.FieldDescriptor.JavaType> serializeDefaultValues = Set.of(
+                Descriptors.FieldDescriptor.JavaType.ENUM,
+                Descriptors.FieldDescriptor.JavaType.BOOLEAN
+        );
+
         return Stream.of(
-                        findEnumDescriptors(Phenopacket.getDescriptor()),
-                        findEnumDescriptors(Family.getDescriptor()),
-                        findEnumDescriptors(Cohort.getDescriptor())
+                        findDescriptors(Phenopacket.getDescriptor(), serializeDefaultValues),
+                        findDescriptors(Family.getDescriptor(), serializeDefaultValues),
+                        findDescriptors(Cohort.getDescriptor(), serializeDefaultValues)
                 )
                 .flatMap(Function.identity())
                 .collect(Collectors.toSet());
@@ -63,29 +68,31 @@ public class PhenopacketPrintUtil {
     }
 
     /**
-     * Find recursively all enum field descriptors, starting from {@code base}.
+     * Find recursively all enum field descriptors with given {@code targetTypes},
+     * starting from {@code base}.
      */
-    private static Stream<Descriptors.FieldDescriptor> findEnumDescriptors(Descriptors.Descriptor base) {
+    private static Stream<Descriptors.FieldDescriptor> findDescriptors(Descriptors.Descriptor base,
+                                                                       Set<Descriptors.FieldDescriptor.JavaType> targetTypes) {
         Stream.Builder<Descriptors.FieldDescriptor> builder = Stream.builder();
         Set<Descriptors.Descriptor> visited = new HashSet<>();
-        allEnumDescriptors(base, builder, visited);
+        findDescriptors(base, targetTypes, builder, visited);
 
         return builder.build();
     }
 
-    private static void allEnumDescriptors(Descriptors.Descriptor descriptor,
-                                           Stream.Builder<Descriptors.FieldDescriptor> builder,
-                                           Set<Descriptors.Descriptor> visited) {
+    private static void findDescriptors(Descriptors.Descriptor descriptor,
+                                        Set<Descriptors.FieldDescriptor.JavaType> targetTypes,
+                                        Stream.Builder<Descriptors.FieldDescriptor> builder,
+                                        Set<Descriptors.Descriptor> visited) {
         for (Descriptors.FieldDescriptor field : descriptor.getFields()) {
-            if (field.getJavaType().equals(Descriptors.FieldDescriptor.JavaType.ENUM))
+            if (targetTypes.contains(field.getJavaType()))
                 builder.add(field);
 
             if (field.getJavaType().equals(Descriptors.FieldDescriptor.JavaType.MESSAGE)) {
-                if (visited.contains(field.getMessageType()))
-                    continue;
-
-                visited.add(field.getMessageType());
-                allEnumDescriptors(field.getMessageType(), builder, visited);
+                if (!visited.contains(field.getMessageType())) {
+                    visited.add(field.getMessageType());
+                    findDescriptors(field.getMessageType(), targetTypes, builder, visited);
+                }
             }
         }
     }
