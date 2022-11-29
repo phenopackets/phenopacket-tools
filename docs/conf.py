@@ -31,9 +31,9 @@ author = u'Daniel Danis, Peter Robinson'
 # built documents.
 #
 # The short X.Y version.
-version = '0.4'
+version = '1.0'
 # The full version, including alpha/beta/rc tags.
-release = '0.4.8-SNAPSHOT'
+release = '1.0.0-RC1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
