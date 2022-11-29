@@ -46,6 +46,11 @@ public class Pseudoexfoliation implements PhenopacketExample {
                 .addResource(Resources.uberonVersion("2022-08-19"))
                 .addResource(Resources.ncitVersion("22.07d"))
                 .addResource(Resources.hpoVersion("2022-06-11"))
+                .addResource(Resources.ucum())
+                .addResource(Resources.loincVersion("2.73"))
+                .addResource(Resources.mondoVersion("2022-04-04"))
+                .addResource(Resources.drugCentralVersion("2022-08-22"))
+
                 .build();
         Individual proband = IndividualBuilder.builder(PROBAND_ID).
                 ageAtLastEncounter("P70Y").
@@ -346,11 +351,11 @@ which was achieved unintentionally and, therefore, we did not proceed to an exch
                 .excluded()
                 .build();
         PhenotypicFeature excludedpupilabnormality = PhenotypicFeatureBuilder.
-                builder(" HP:0007686", "Abnormal pupillary function")
+                builder("HP:0007686", "Abnormal pupillary function")
                 .excluded()
                 .build();
         PhenotypicFeature monovision = PhenotypicFeatureBuilder.
-                builder(" SCTID: 414775001", "monovision")// alternative to snomed?
+                builder("SCTID:414775001", "monovision")// alternative to snomed?
                 .excluded()
                 .build();
         return List.of(emmetropia, myopia, iopi, excludedpupilabnormality, excludedPhacodonesis, monovision);

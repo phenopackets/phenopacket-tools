@@ -1,10 +1,10 @@
 package org.phenopackets.phenopackettools.io.base;
 
 import com.google.protobuf.Message;
-import com.google.protobuf.util.JsonFormat;
 import org.phenopackets.phenopackettools.io.PhenopacketParser;
 import org.phenopackets.phenopackettools.core.PhenopacketElement;
 import org.phenopackets.phenopackettools.core.PhenopacketFormat;
+import org.phenopackets.phenopackettools.util.print.PhenopacketPrintUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +41,7 @@ public abstract class BasePhenopacketParser implements PhenopacketParser {
         // Not closing the BufferedReader as the InputStream should be closed.
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         Message.Builder builder = prepareBuilder(element);
-        JsonFormat.parser().merge(reader, builder);
+        PhenopacketPrintUtil.getParser().merge(reader, builder);
         return builder.build();
     }
 

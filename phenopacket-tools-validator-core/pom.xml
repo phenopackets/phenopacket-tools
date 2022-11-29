@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>org.phenopackets.phenopackettools</groupId>
-            <artifactId>phenopacket-tools-core</artifactId>
+            <artifactId>phenopacket-tools-util</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

@@ -38,6 +38,8 @@ public class Holoprosencephaly5 implements PhenopacketExample {
         var metaData = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .addResource(Resources.hpoVersion("2021-08-02"))
                 .addResource(Resources.genoVersion("2020-03-08"))
+                .addResource(Resources.ecoVersion("2022-08-05"))
+                .addResource(Resources.omimVersion("2022-11-23"))
                 .addExternalReference(authorAssertion.getReference())
                 .build();
         var vcfRecord = VcfRecordBuilder.of("GRCh38",

@@ -28,6 +28,7 @@ public class FamilyWithPedigree {
     public FamilyWithPedigree() {
         FamilyBuilder builder = FamilyBuilder.create(FAMILY_ID);
         var metadata = MetaDataBuilder.builder("2022-04-17T10:35:00Z", "biocurator")
+                .addResource(Resources.hpoVersion("2022-06-11"))
                 .build();
         builder.metaData(metadata);
         builder.pedigree(pedigree());

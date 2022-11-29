@@ -6,7 +6,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.google.protobuf.Message;
 import com.google.protobuf.MessageOrBuilder;
-import com.google.protobuf.util.JsonFormat;
+import org.phenopackets.phenopackettools.util.print.PhenopacketPrintUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -18,8 +18,6 @@ import java.io.OutputStream;
  * This is, of course, not efficient. However, it works OK as a prototype printer.
  */
 class NaiveYamlPrinter implements PhenopacketPrinter {
-
-    private static final JsonFormat.Printer PB_PRINTER = JsonFormat.printer();
 
     private static final NaiveYamlPrinter INSTANCE = new NaiveYamlPrinter();
 
@@ -39,7 +37,7 @@ class NaiveYamlPrinter implements PhenopacketPrinter {
 
     @Override
     public void print(Message message, OutputStream os) throws IOException {
-        String jsonString = PB_PRINTER.print(message);
+        String jsonString = PhenopacketPrintUtil.getPrinter().print(message);
         JsonNode jsonNode = jsonMapper.readTree(jsonString);
         yamlMapper.writeValue(os, jsonNode);
     }

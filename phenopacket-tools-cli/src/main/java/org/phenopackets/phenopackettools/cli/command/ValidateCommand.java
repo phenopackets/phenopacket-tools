@@ -9,7 +9,6 @@ import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.core.PhenopacketElement;
 import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
 import org.phenopackets.phenopackettools.validator.core.*;
-import org.phenopackets.phenopackettools.validator.core.metadata.MetaDataValidators;
 import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
 import org.phenopackets.phenopackettools.validator.core.writer.ValidationResultsAndPath;
 import org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidationWorkflowRunner;
@@ -100,7 +99,6 @@ public class ValidateCommand extends BaseIOCommand {
                 List<PhenopacketValidator<PhenopacketOrBuilder>> validators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
                         .addAllJsonSchemaUrls(customJsonSchemas)
-                        .addValidator(MetaDataValidators.phenopacketValidator())
                         .addValidators(validators)
                         .build();
             }
@@ -108,7 +106,6 @@ public class ValidateCommand extends BaseIOCommand {
                 List<PhenopacketValidator<FamilyOrBuilder>> validators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.familyBuilder()
                         .addAllJsonSchemaUrls(customJsonSchemas)
-                        .addValidator(MetaDataValidators.familyValidator())
                         .addValidators(validators)
                         .build();
             }
@@ -116,7 +113,6 @@ public class ValidateCommand extends BaseIOCommand {
                 List<PhenopacketValidator<CohortOrBuilder>> validators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.cohortBuilder()
                         .addAllJsonSchemaUrls(customJsonSchemas)
-                        .addValidator(MetaDataValidators.cohortValidator())
                         .addValidators(validators)
                         .build();
             }

@@ -31,8 +31,9 @@ public class NemalineMyopathyPrenatal implements PhenopacketExample {
         var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .addResource(Resources.ncitVersion("21.05d"))
                 .addResource(Resources.hpoVersion("2022-02"))
-                .addResource(Resources.mondoVersion("v2022-04-04"))
+                .addResource(Resources.mondoVersion("2022-04-04"))
                 .addResource(Resources.uberonVersion("2021-07-27"))
+                .addResource(Resources.genoVersion("2022-03-05"))
                 .build();
         var vitalStatus = VitalStatusBuilder.deceased().causeOfDeath(NEMALINE_MYOPATHY_8).build();
         var individual = IndividualBuilder.builder(PROBAND_ID)

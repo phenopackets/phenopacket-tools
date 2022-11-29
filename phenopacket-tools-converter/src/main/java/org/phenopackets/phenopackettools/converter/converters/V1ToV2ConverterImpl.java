@@ -180,7 +180,7 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
                                     vcfAllele.getRef(),
                                     vcfAllele.getAlt())
                             .build();
-                    yield VariationDescriptorBuilder.builder()
+                    yield VariationDescriptorBuilder.builder(vcfAllele.getId())
                             .vcfRecord(vcfRecord)
                             .genomic()
                             .zygosity(v2zygosity)

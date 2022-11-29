@@ -14,6 +14,7 @@ public class VariationDescriptorBuilder {
     /**
      * Constructor if no identifier is to be used
      */
+    @Deprecated(forRemoval = true)
     private VariationDescriptorBuilder() {
         builder = VariationDescriptor.newBuilder();
     }
@@ -25,6 +26,12 @@ public class VariationDescriptorBuilder {
         builder = VariationDescriptor.newBuilder().setId(id);
     }
 
+    /**
+     *
+     * @deprecated use {@link #builder(String)} instead. The id is a required field and it should not be possible
+     * to create a builder without an id.
+     */
+    @Deprecated(forRemoval = true, since = "0.4.8")
     public static VariationDescriptorBuilder builder() {
         return new VariationDescriptorBuilder();
     }

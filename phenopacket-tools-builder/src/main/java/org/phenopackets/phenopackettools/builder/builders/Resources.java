@@ -106,7 +106,7 @@ public class Resources {
             .setName("Unified Code for Units of Measure")
             .setNamespacePrefix("UCUM")
             .setUrl("https://ucum.org")
-            .setIriPrefix("https://ucum.org/");
+            .setIriPrefix("https://units-of-measurement.org/");
 
     private static final Resource.Builder LOINC_BUILDER = Resource.newBuilder()
             .setId("loinc")
@@ -128,6 +128,13 @@ public class Resources {
             .setNamespacePrefix("OMIM")
             .setUrl("https://www.omim.org")
             .setIriPrefix("https://www.omim.org/entry/");
+
+    private static final Resource.Builder CHEBI_BUILDER = Resource.newBuilder()
+            .setId("chebi")
+            .setName("Chemical Entities of Biological Interest")
+            .setNamespacePrefix("CHEBI")
+            .setUrl("https://www.ebi.ac.uk/chebi")
+            .setIriPrefix("https://purl.obolibrary.org/obo/CHEBI_");
 
     public static Resource hgncVersion(String version) { return HGNC_BUILDER.setVersion(version).build(); }
 
@@ -197,6 +204,10 @@ public class Resources {
 
     public static Resource omimVersion(String version) {
         return OMIM_BUILDER.setVersion(version).build();
+    }
+
+    public static Resource chebiVersion(String version) {
+        return CHEBI_BUILDER.setVersion(version).build();
     }
 
 }
