@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Validating Phenopackets &mdash; phenopacket-tools 0.4.7 documentation</title>
+  <title>Validating Phenopackets &mdash; phenopacket-tools 1.0.0-RC1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
@@ -21,8 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Converting V1 Phenopackets" href="converting.html" />
-    <link rel="prev" title="Creating Phenopackets" href="creating.html" /> 
+    <link rel="next" title="Phenopackets Examples" href="examples.html" />
+    <link rel="prev" title="Converting v1 Phenopackets" href="converting.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> phenopacket-tools
           </a>
               <div class="version">
-                0.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -47,20 +47,35 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Validating Phenopackets</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#validation-workflow">Validation workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#off-the-shelf-validators"><em>Off-the-shelf</em> validators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#base-validation">Base validation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#phenotype-validation">Phenotype validation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#custom-validation">Custom validation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#organ-system-validation">Organ system validation</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting v1 Phenopackets</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Validating Phenopackets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#validation-workflow">Validation workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#base-validation-workflow">Base validation workflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validationresults"><cite>ValidationResults</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validationresult"><cite>ValidationResult</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#off-the-shelf-validators"><em>Off-the-shelf</em> validators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#custom-validation">Custom validation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#custom-json-schema-header">Custom JSON schema header</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-json-schema-body">Custom JSON schema body</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-custom-json-schema">Use custom JSON schema</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#phenotype-validators">Phenotype validators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#primary-validation">Primary validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ancestry-validation">Ancestry validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#organ-system-validation">Organ system validation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Phenopackets Examples</a></li>
 </ul>
 
         </div>
@@ -92,83 +107,327 @@
 <p>Phenopackets schema uses protobuf, an exchange format developed in 2008 by Google. We refer readers to the excellent
 <a class="reference external" href="https://en.wikipedia.org/wiki/Protocol_Buffers">Wikipedia page</a>
 on Protobuf and to <a class="reference external" href="https://developers.google.com/protocol-buffers/">Google’s documentation</a> for details.
-In Protobuf (version 3, which is what the Phenopacket Schema uses), all fields are optional.
-However, the Phenopacket Schema defines certain fields to be optional
+In Protobuf (version 3, which is what the Phenopacket Schema uses), all fields are <em>optional</em>.
+However, the Phenopacket Schema defines certain fields as <em>required</em>.
 (See <a class="reference external" href="https://phenopacket-schema.readthedocs.io/en/latest/index.html">documentation</a> for details).
 Moreover, projects and consortia can require application of specific constraints and requirements for the phenopackets.</p>
-<p><em>Phenopacket-tools</em> provides a functionality for validating phenopackets.</p>
-<p>This document provides a comprehensive description of the functionality of the <em>off-the-shelf</em> validators
-as well as the validation workflow API.</p>
+<p><em>Phenopacket-tools</em> provides an extensible API for validation of all schema components,
+including a model of validation workflow and validation results.</p>
+<p>This document outlines the validation workflow API and demonstrates how to use the off-the-shelf validators present
+in the <em>phenopacket-tools</em> library.</p>
 <section id="validation-workflow">
 <h2>Validation workflow<a class="headerlink" href="#validation-workflow" title="Permalink to this heading"></a></h2>
-<p><em>Phenopacket-tools</em> defines an API for phenopacket validation workflow. The workflow is consists of
-a list of validation steps. There are two types of steps: <em>syntax</em> and <em>semantic</em>. The syntax steps check syntax
-and cardinality of each component separately. The semantic validators are run after syntax checks and validate
-the components in the context of the entire phenopacket.</p>
-<p>There is one mandatory syntax validation step that is always run first: the <em>base</em> validation. The base validation
-ensures the phenopacket message meets the requirements of the Phenopacket Schema.</p>
-<p>The results of the validation are aggregated into a container object that consists
-of immutable value objects that describe the performed validations and the validation results suitable
-for reporting back to the user.</p>
-<p><strong>API</strong></p>
-<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
-</section>
-<section id="off-the-shelf-validators">
-<h2><em>Off-the-shelf</em> validators<a class="headerlink" href="#off-the-shelf-validators" title="Permalink to this heading"></a></h2>
-<p>TODO - describe <em>off-the-shelf</em> validators in great detail.</p>
-<section id="base-validation">
-<span id="rstbasevalidation"></span><h3>Base validation<a class="headerlink" href="#base-validation" title="Permalink to this heading"></a></h3>
-<p>All phenopackets should be tested against the base JSON Schema (analogously for all <code class="docutils literal notranslate"><span class="pre">Family</span></code> and <code class="docutils literal notranslate"><span class="pre">Cohort</span></code> messages).
-In code, this can be implemented as follows.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">JsonSchemaValidator</span><span class="w"> </span><span class="n">validator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhenopacketWorkflowRunnerBuilder</span><span class="p">.</span><span class="na">getBaseRequirementsValidator</span><span class="p">();</span><span class="w"></span>
-<span class="n">Path</span><span class="w"> </span><span class="n">phenopacketPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span><span class="w"> </span><span class="c1">// get Path to a JSON file representing a GA4GH phenopacket</span><span class="w"></span>
-
-<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Files</span><span class="p">.</span><span class="na">newInputStream</span><span class="p">(</span><span class="n">phenopacketPath</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">ValidationResults</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">validator</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">is</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">ValidationResult</span><span class="o">&gt;</span><span class="w"> </span><span class="n">validationResults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">validationResults</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">validationResults</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;%s - OK%n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fileName</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">ValidationResult</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">validationResults</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;%s [%s] - %s: %s%n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fileName</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">level</span><span class="p">(),</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">category</span><span class="p">(),</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">message</span><span class="p">());</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"></span>
-<span class="w">     </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Error opening the phenopacket: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<p>The validation workflow consists of a list of steps. The workflow includes a mandatory <em>base</em> validation step that
+validates syntax and cardinality of each component, to verify the basic requirements of Phenopacket Schema,
+such as presence of identifier fields and metadata. The base validation is implemented using JSON schema
+and Java code (<code class="docutils literal notranslate"><span class="pre">MetaDataValidator</span></code>).</p>
+<p>The workflow can be extended by any number of validation steps for checking specific logical or semantic requirements.
+<em>Phenopacket-tools</em> offers an API for the validation steps to allow encoding custom validation logic as well
+as several off-the-shelf validators.</p>
+<p>The central element of the validation API is <code class="docutils literal notranslate"><span class="pre">PhenopacketValidator&lt;T</span> <span class="pre">extends</span> <span class="pre">MessageOrBuilder&gt;</span></code> that represents
+a single validation step. The validator is generic over <code class="docutils literal notranslate"><span class="pre">T</span></code> where <code class="docutils literal notranslate"><span class="pre">T</span></code> must be a top-level element
+of the Phenopacket Schema: <code class="docutils literal notranslate"><span class="pre">Phenopacket</span></code>, <code class="docutils literal notranslate"><span class="pre">Family</span></code>, or <code class="docutils literal notranslate"><span class="pre">Cohort</span></code>.
+The validator is identified by <code class="docutils literal notranslate"><span class="pre">ValidationInfo</span></code> with the name, type and description of the validation functionality.
+The validation reports any errors as <code class="docutils literal notranslate"><span class="pre">ValidationResult</span></code> objects, one result per error.
+The execution of the workflow is orchestrated by the <code class="docutils literal notranslate"><span class="pre">ValidationWorkflowRunner</span></code>. The runner applies the validators
+in the correct order, ensuring that the base validation is done first, and gathers the results into
+a <code class="docutils literal notranslate"><span class="pre">ValidationResults</span></code> container. The container represents the results of the validation as immutable value objects,
+<code class="docutils literal notranslate"><span class="pre">ValidatorInfo</span></code>, <code class="docutils literal notranslate"><span class="pre">ValidationResult</span></code>, suitable for reporting back to the user.</p>
+<section id="base-validation-workflow">
+<span id="rstbasevalidation"></span><h3>Base validation workflow<a class="headerlink" href="#base-validation-workflow" title="Permalink to this heading"></a></h3>
+<p>Let’s demonstrate setting up of the base validation workflow for phenopacket validation.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">runner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span><span class="w"></span>
+<span class="w">                                                           </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
-<p><strong>API</strong></p>
-<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
+<p>The <cite>JsonSchemaValidationWorkflowRunner</cite> provides factory methods for getting a workflow runner builder
+for phenopacket, family, and cohort. The validation workflow can be extended by calling builder methods.
+However, in this case we are only interested in the base validation, hence we conclude the building
+by calling the <cite>build()</cite> method.</p>
+<p>As a convenience, the <cite>runner</cite> can validate phenopacket in several different input types:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// A path</span><span class="w"></span>
+<span class="n">Path</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;bethlem-myopathy.json&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">ValidationResults</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">path</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// An input stream</span><span class="w"></span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="na">toFile</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">is</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// A byte array</span><span class="w"></span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="na">toFile</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">is</span><span class="p">.</span><span class="na">readAllBytes</span><span class="p">());</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// A JSON/YAML string</span><span class="w"></span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Files</span><span class="p">.</span><span class="na">newBufferedReader</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">jsonString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="na">lines</span><span class="p">().</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">lineSeparator</span><span class="p">()));</span><span class="w"></span>
+<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">jsonString</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// Or a phenopacket.</span><span class="w"></span>
+<span class="n">PhenopacketParser</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhenopacketParserFactory</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span><span class="w"></span>
+<span class="w">                             </span><span class="p">.</span><span class="na">forFormat</span><span class="p">(</span><span class="n">PhenopacketSchemaVersion</span><span class="p">.</span><span class="na">V2</span><span class="p">);</span><span class="w"></span>
+<span class="n">Phenopacket</span><span class="w"> </span><span class="n">phenopacket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Phenopacket</span><span class="p">)</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">path</span><span class="p">);</span><span class="w"></span>
+<span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">phenopacket</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">JsonSchemaValidationWorkflowRunner</span></code> provides static factory method for getting builders for all top-level elements
+of Phenopacket Schema:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">phenopacket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+
+<span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">FamilyOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">familyBuilder</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+
+<span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">CohortOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cohort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">cohortBuilder</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To validation workflow can be introspected by calling <cite>validators()</cite> method:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">runner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+
+<span class="n">List</span><span class="o">&lt;</span><span class="n">ValidatorInfo</span><span class="o">&gt;</span><span class="w"> </span><span class="n">validators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validators</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
 </section>
-<section id="phenotype-validation">
-<span id="rstphenotypevalidation"></span><h3>Phenotype validation<a class="headerlink" href="#phenotype-validation" title="Permalink to this heading"></a></h3>
-<p>TODO - write
-.. TODO - continue</p>
-<p><strong>API</strong></p>
-<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
+<section id="validationresults">
+<h3><cite>ValidationResults</cite><a class="headerlink" href="#validationresults" title="Permalink to this heading"></a></h3>
+<p>The validation returns <cite>ValidationResults</cite>, a container object that aggregates issues discovered by all validators
+of the workflow.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationResults</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">path</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The <cite>results.isValid()</cite> returns <cite>true</cite> if no validation errors were discovered:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">isValid</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The <cite>results</cite> has information regarding the applied validation checks:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">ValidatorInfo</span><span class="o">&gt;</span><span class="w"> </span><span class="n">validators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">validators</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>and the discovered issues (if any):</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">ValidationResult</span><span class="o">&gt;</span><span class="w"> </span><span class="n">issues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">validationResults</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
 </section>
+<section id="validationresult">
+<h3><cite>ValidationResult</cite><a class="headerlink" href="#validationresult" title="Permalink to this heading"></a></h3>
+<p><cite>ValidationResult</cite> represents a single validation issue. The object is a simple POJO/value object with several attributes:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationResult</span><span class="w"> </span><span class="n">issue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issues</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// The validator that pointed out the issue.</span><span class="w"></span>
+<span class="n">ValidatorInfo</span><span class="w"> </span><span class="n">validatorInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">validatorInfo</span><span class="p">();</span><span class="w"></span>
+
+<span class="c1">// The issue severity (warning or error).</span><span class="w"></span>
+<span class="n">ValidationLevel</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">level</span><span class="p">();</span><span class="w"></span>
+
+<span class="c1">// Category of the issue, useful for grouping the issues.</span><span class="w"></span>
+<span class="c1">// One validator can produce issues with different categories.</span><span class="w"></span>
+<span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">category</span><span class="p">();</span><span class="w"></span>
+
+<span class="c1">// A message targeted for the user.</span><span class="w"></span>
+<span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">message</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The API documentation of the core validation API can be found in the
+<a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/module-summary.html">org.phenopackets.phenopackettools.validator.core</a>
+module.</p>
+</section>
+</section>
+<section id="off-the-shelf-validators">
+<span id="rstofftheshelfvalidation"></span><h2><em>Off-the-shelf</em> validators<a class="headerlink" href="#off-the-shelf-validators" title="Permalink to this heading"></a></h2>
+<p>Additional constraints and requirements may be made for phenopackets that are used in a specific
+project or for a specific collaboration or consortium.</p>
+<p>For instance, one may want to require that phenopackets made for rare-disease diagnostics include age of the proband
+and use Human Phenotype Ontology (HPO) terms to represent phenotypic features. Additionally, one may want
+to enforce requirements that are difficult to encode using JSON Schema, such as that only a valid term id is used
+(currently, the HPO has over 16,000 terms), or that the phenopacket does not encode both a term
+and a parent or ancestor of the term, or that the phenopacket annotates or excludes abnormality
+in selected organ systems.</p>
+<p>Here we use a bunch of <em>off-the-shelf</em> validators from <em>phenopacket-tools</em> to show a validation workflow for checking
+the above requirements. Let’s start by creating a validation workflow runner builder:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">JsonSchemaValidationWorkflowRunnerBuilder</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
 <section id="custom-validation">
 <span id="rstcustomvalidation"></span><h3>Custom validation<a class="headerlink" href="#custom-validation" title="Permalink to this heading"></a></h3>
-<p>TODO - write
-.. TODO - continue</p>
-<p><strong>API</strong></p>
-<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
+<p><em>Phenopacket-tools</em> offers a validator for enforcing custom requirements encoded as JSON schema.
+In the context of the example above, a project may require including age of the proband
+and use HPO terms to represent phenotypic features, as well as presence of a certain number
+of phenotypic features.</p>
+<p>Let’s write a JSON schema document <code class="docutils literal notranslate"><span class="pre">hpo-rare-disease-schema.json</span></code> to enforce the requirements.</p>
+<section id="custom-json-schema-header">
+<h4>Custom JSON schema header<a class="headerlink" href="#custom-json-schema-header" title="Permalink to this heading"></a></h4>
+<p>To use a JSON schema with <em>phenopacket-tools</em>, the schema header must include the following elements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;$schema&quot;</span><span class="p">:</span> <span class="s2">&quot;https://json-schema.org/draft/2019-09/schema&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;$id&quot;</span><span class="p">:</span> <span class="s2">&quot;https://example.com/hpo-rare-disease-validator&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;HPO Rare Disease Phenopacket Schema&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;An example JSON schema for validating a phenopacket in context of the rare-disease research&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The elements are used for the following purpose:</p>
+<ul class="simple">
+<li><p><cite>$schema</cite> - <em>phenopacket-tools</em>  uses draft <cite>2019-09</cite> JSON schema specification. The <cite>$schema</cite> element MUST be present
+in the document and it MUST use the <cite>2019-09</cite> specification.</p></li>
+<li><p><cite>$id</cite> - identifier of the schema, used at <cite>validator.validatorInfo().validatorId()</cite>.</p></li>
+<li><p><cite>title</cite> - name of the schema for human consumption, used in <cite>validator.validatorInfo().validatorName()</cite>.</p></li>
+<li><p><cite>description</cite> - a short description of the validation check, used in <cite>validator.validatorInfo().description()</cite>.</p></li>
+<li><p><cite>type</cite> - JSON schema and JSON allows several data types, e.g. <cite>number</cite>, <cite>string</cite>, <cite>object</cite>, <cite>boolean</cite>, etc.
+Here we are writing a JSON schema for validating a phenopacket, family, or cohort. Therefore, the <cite>type</cite>
+must be an <cite>object</cite>.</p></li>
+</ul>
+</section>
+<section id="custom-json-schema-body">
+<h4>Custom JSON schema body<a class="headerlink" href="#custom-json-schema-body" title="Permalink to this heading"></a></h4>
+<p>Now, let’s constrain the schema to first check that the time at last encounter is specified in the phenopacket subject.
+To encode this in JSON schema, we require presence of a <cite>subject</cite> property in phenopacket.
+The snippet follows the JSON schema header and instructs the JSON schema validator to check presence of
+the <cite>subject</cite> field. The <cite>subject</cite> is an <cite>object</cite> and we can add a <cite>description</cite> to self-document the schema.
+Phenopacket Schema does not require presence of the <cite>subject</cite>. However, here we make <cite>subject</cite> a required field,
+hence presence of the <cite>required</cite> clause:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="o">//</span> <span class="n">The</span> <span class="n">header</span> <span class="o">...</span>
+  <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;The subject element is required for a rare-disease Phenopacket&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;subject&quot;</span> <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Next, we add a constraint to the <cite>subject</cite> field to require presence of the time at last encounter.
+We do this by requiring <cite>timeAtLastEncounter</cite> in the <cite>subject</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="o">//</span> <span class="n">The</span> <span class="n">header</span> <span class="o">...</span>
+  <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;The subject element is required for a rare-disease Phenopacket&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;timeAtLastEncounter&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;The time at last encounter is required for a rare-disease phenopacket&quot;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;timeAtLastEncounter&quot;</span> <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;subject&quot;</span> <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We can encode additional checks using <a class="reference external" href="https://json-schema.org/learn">JSON schema</a> syntax.
+See the JSON schema document described in <a class="reference internal" href="tutorial_examples.html#rstcustomjsonschematutorialexample"><span class="std std-ref">custom-json-schema - validate custom requirements</span></a> section for additional examples.</p>
+</section>
+<section id="use-custom-json-schema">
+<h4>Use custom JSON schema<a class="headerlink" href="#use-custom-json-schema" title="Permalink to this heading"></a></h4>
+<p><em>Phenopacket-tools</em> validation API supports including custom JSON schema in the validation workflow.
+The custom schema can be added into the <cite>builder</cite> created in the previous section (<a class="reference internal" href="#rstofftheshelfvalidation"><span class="std std-ref">Off-the-shelf validators</span></a>)
+by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Path</span> <span class="n">customSchema</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;hpo-rare-disease-schema.json&quot;</span><span class="p">);</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">addJsonSchema</span><span class="p">(</span><span class="n">customSchema</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <cite>addJsonSchema()</cite> adds a step for using the JSON schema in the validation workflow.</p>
+</section>
+</section>
+<section id="phenotype-validators">
+<span id="rstphenotypevalidation"></span><h3>Phenotype validators<a class="headerlink" href="#phenotype-validators" title="Permalink to this heading"></a></h3>
+<p>The validation we discussed until now was fairly simple; it included checking presence, absence, or formatting
+of Phenopacket Schema components. However, sometimes we may need to check relationships between individual components.</p>
+<p>For instance, in the context of rare-disease research and diagnostics, we may want to check if all phenotypic features
+are encoded using valid HPO terms and if the phenotypic annotations are logically consistent. For instance, using both a term
+(e.g. <a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0011682">Perimembranous ventricular septal defect</a>) and
+its ancestor (e.g. <a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001629">Ventricular septal defect</a> ) is a logical error,
+because an annotation with a specific HPO term (e.g., a patient with perimembranous VSD by necessity also has VSD).</p>
+<p>In this section, we describe validators that use HPO file to perform several checks that can be useful in many contexts.
+The API documentation and the corresponding Java classes can be found in
+<a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/org/phenopackets/phenopackettools/validator/core/phenotype/package-summary.html">org.phenopackets.phenopackettools.validator.core.phenotype</a>
+package.</p>
+<section id="primary-validation">
+<span id="rstprimaryphenotypevalidation"></span><h4>Primary validation<a class="headerlink" href="#primary-validation" title="Permalink to this heading"></a></h4>
+<p>The <cite>HpoPhenotypeValidator</cite> checks if the HPO terms used by a phenopacket are <em>valid</em> - well-formatted and present
+in the given HPO file, and <em>current</em> - not obsolete. If an obsolete term is found, the validator suggests a replacement
+with the current term.</p>
+<p>In code, we add the primary validation into the validation workflow by running:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Ontology</span><span class="w"> </span><span class="n">hpo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OntologyLoader</span><span class="p">.</span><span class="na">loadOntology</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&quot;hp.json&quot;</span><span class="p">));</span><span class="w"></span>
+<span class="n">PhenopacketValidator</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">primary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">Primary</span><span class="p">.</span><span class="na">phenopacketHpoPhenotypeValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">);</span><span class="w"></span>
+<span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">primary</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The validator requires an HPO <cite>Ontology</cite> object. We use <a class="reference external" href="https://github.com/monarch-initiative/phenol">Phenol</a>
+library to parse the HPO JSON file. The <cite>OntologyLoader</cite> is part of
+<a class="reference external" href="https://mvnrepository.com/artifact/org.monarchinitiative.phenol/phenol-io">phenol-io</a> module, you may need to add
+an appropriate dependency into your build file.</p>
+</section>
+<section id="ancestry-validation">
+<span id="rstancestryphenotypevalidation"></span><h4>Ancestry validation<a class="headerlink" href="#ancestry-validation" title="Permalink to this heading"></a></h4>
+<p>The <cite>HpoAncestryValidator</cite> checks if the HPO terms are logically consistent; the phenotype features do not include both
+a term and its ancestor.</p>
+<p>Apart from a mere id of the phenotype feature, Phenopacket Schema also models observation status of a feature.
+A feature can be either present/observed, or absent/excluded in the subject. The ancestry validator takes
+the observation status into the account, which leads to several possible outcomes regarding validity of a term combination:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0032792">Tonic seizure</a> (Term)</p></th>
+<th class="head"><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001250">Seizure</a> (Ancestor)</p></th>
+<th class="head"><p>Is valid</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>observed</p></td>
+<td><p>observed</p></td>
+<td><p>No</p></td>
+<td><p><em>Tonic seizure</em> is a type of <em>Seizure</em>. Use the <em>most</em> specific term (Tonic seizure).</p></td>
+</tr>
+<tr class="row-odd"><td><p>excluded</p></td>
+<td><p>excluded</p></td>
+<td><p>No</p></td>
+<td><p>Absence of a <em>Seizure</em> implies absence of the <em>Tonic seizure</em>. Use the <em>less</em> specific term (Seizure).</p></td>
+</tr>
+<tr class="row-even"><td><p>observed</p></td>
+<td><p>excluded</p></td>
+<td><p>No</p></td>
+<td><p>Absence of a <em>Seizure</em> implies absence of the <em>Tonic seizure</em>. Keep one of the terms depending on the case context.</p></td>
+</tr>
+<tr class="row-odd"><td><p>excluded</p></td>
+<td><p>observed</p></td>
+<td><p>Yes</p></td>
+<td><p>A valid phenotype term combination. A subject can be annotated with a term and having a sub-type excluded at the same time.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Using ancestry validator in the validator workflow is fairly straightforward if we can get ahold of a HPO <cite>Ontology</cite> object:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PhenopacketValidator</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ancestry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">Ancestry</span><span class="p">.</span><span class="na">phenopacketHpoAncestryValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">);</span><span class="w"></span>
+<span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">ancestry</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
 </section>
 <section id="organ-system-validation">
-<span id="rstorgsysvalidation"></span><h3>Organ system validation<a class="headerlink" href="#organ-system-validation" title="Permalink to this heading"></a></h3>
-<p>TODO - write
-.. TODO - continue</p>
-<p>We can validate presence of annotation for specific organ systems in a phenopacket.</p>
-<p>As an example, we work with toy phenopackets that represent patients with
-<a class="reference external" href="https://hpo.jax.org/app/browse/disease/OMIM:154700">Marfan syndrome</a>. Due to the nature of the Marfan syndrome,
-we may require annotation of three organ systems:</p>
+<span id="rstorgsysvalidation"></span><h4>Organ system validation<a class="headerlink" href="#organ-system-validation" title="Permalink to this heading"></a></h4>
+<p>In some cases it may be desirable to ensure presence of annotation for specific organ systems.
+For instance, phenopackets that represent patients with
+<a class="reference external" href="https://hpo.jax.org/app/browse/disease/OMIM:154700">Marfan syndrome</a> may require annotation of three organ systems:</p>
 <ul class="simple">
 <li><p>Eye</p></li>
 <li><p>Cardiovascular system</p></li>
 <li><p>Respiratory system</p></li>
 </ul>
-<p>The annotation is done either by <em>excluding</em> the corresponding top-level HPO term or by adding a descendent term:</p>
+<p>To annotate organ system, we either <em>exclude</em> the corresponding top-level HPO term or by adding a descendent term:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 33%" />
@@ -196,9 +455,26 @@ we may require annotation of three organ systems:</p>
 </tr>
 </tbody>
 </table>
-<p><strong>API</strong></p>
-<p>See the <code class="docutils literal notranslate"><span class="pre">TODO</span> <span class="pre">-</span> <span class="pre">add</span> <span class="pre">JavaDoc</span> <span class="pre">link</span></code> for the API documentation.</p>
+<p>The <cite>HpoOrganSystemValidator</cite> requires HPO <cite>Ontology</cite> and a list of top-level HPO terms:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">TermId</span><span class="o">&gt;</span><span class="w"> </span><span class="n">organSystemIds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">List</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">HpoOrganSystems</span><span class="p">.</span><span class="na">EYE</span><span class="p">,</span><span class="w"> </span><span class="n">HpoOrganSystems</span><span class="p">.</span><span class="na">CARDIOVASCULAR</span><span class="p">,</span><span class="w"> </span><span class="n">HpoOrganSystems</span><span class="p">.</span><span class="na">RESPIRATORY</span><span class="p">);</span><span class="w"></span>
+<span class="n">PhenopacketValidator</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">organSystem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">OrganSystem</span><span class="p">.</span><span class="na">phenopacketHpoOrganSystemValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">,</span><span class="w"> </span><span class="n">organSystemIds</span><span class="p">);</span><span class="w"></span>
+<span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">organSystem</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p><em>Phenopacket-tools</em> includes a convenience class <cite>HpoOrganSystems</cite> with IDs of the commonly-used top-level HPO terms.
+However, any valid term ID can be used for the organ system validation.
+For instance, <code class="docutils literal notranslate"><span class="pre">List.of(TermId.of(&quot;HP:0001250&quot;))</span></code> validates annotation
+of a <a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001250">Seizure (HP:0001250)</a>.</p>
 </section>
+</section>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<p>Check out the
+<a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/module-summary.html">org.phenopackets.phenopackettools.validator.core</a>
+and
+<a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.jsonschema/module-summary.html">org.phenopackets.phenopackettools.validator.jsonschema</a>
+modules for more information regarding the public validation API.</p>
 </section>
 </section>
 
@@ -206,8 +482,8 @@ we may require annotation of three organ systems:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="creating.html" class="btn btn-neutral float-left" title="Creating Phenopackets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="converting.html" class="btn btn-neutral float-right" title="Converting V1 Phenopackets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="converting.html" class="btn btn-neutral float-left" title="Converting v1 Phenopackets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Phenopackets Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

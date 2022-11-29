@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example phenopackets &mdash; phenopacket-tools 0.4.7 documentation</title>
+  <title>Example phenopackets &mdash; phenopacket-tools 1.0.0-RC1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
@@ -31,7 +31,7 @@
             <a href="index.html" class="icon icon-home"> phenopacket-tools
           </a>
               <div class="version">
-                0.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -45,10 +45,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting v1 Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Phenopackets Examples</a></li>
 </ul>
 
         </div>
@@ -133,7 +134,7 @@ the validation that <strong>any phenopacket must pass</strong>.</p>
 </table>
 </section>
 <section id="custom-json-schema-validate-custom-requirements">
-<h3><code class="docutils literal notranslate"><span class="pre">custom-json-schema</span></code> - validate custom requirements<a class="headerlink" href="#custom-json-schema-validate-custom-requirements" title="Permalink to this heading"></a></h3>
+<span id="rstcustomjsonschematutorialexample"></span><h3><code class="docutils literal notranslate"><span class="pre">custom-json-schema</span></code> - validate custom requirements<a class="headerlink" href="#custom-json-schema-validate-custom-requirements" title="Permalink to this heading"></a></h3>
 <p>A bunch of phenopackets for showing how a custom JSON schema can be used to validate user-specific requirements.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -149,19 +150,19 @@ the validation that <strong>any phenopacket must pass</strong>.</p>
 <tr class="row-even"><td><p>hpo-rare-disease-schema.json</p></td>
 <td><p>A custom JSON schema for enforcing user-specific requirements.</p></td>
 </tr>
-<tr class="row-odd"><td><p>marfan.no-phenotype.invalid.json</p></td>
+<tr class="row-odd"><td><p>marfan.no-phenotype.json</p></td>
 <td><p>The phenopacket is <em>invalid</em> since it contains no phenotypic features.</p></td>
 </tr>
-<tr class="row-even"><td><p>marfan.no-subject.invalid.json</p></td>
+<tr class="row-even"><td><p>marfan.no-subject.json</p></td>
 <td><p>The phenopacket is <em>invalid</em> since the <cite>subject</cite> is missing.</p></td>
 </tr>
-<tr class="row-odd"><td><p>marfan.no-time-at-last-encounter.invalid.json</p></td>
+<tr class="row-odd"><td><p>marfan.no-time-at-last-encounter.json</p></td>
 <td><p>The phenopacket is <em>invalid</em> due to missing time at last encounter.</p></td>
 </tr>
-<tr class="row-even"><td><p>marfan.not-hpo.invalid.json</p></td>
+<tr class="row-even"><td><p>marfan.not-hpo.json</p></td>
 <td><p>The phenopacket is <em>invalid</em> because HPO terms are not used to represent phenotypic features.</p></td>
 </tr>
-<tr class="row-odd"><td><p>marfan.valid.json</p></td>
+<tr class="row-odd"><td><p>marfan.json</p></td>
 <td><p>A phenopacket that meets the custom requirements.</p></td>
 </tr>
 </tbody>
@@ -187,15 +188,15 @@ of
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>marfan.no-abnormalities.valid.json</p></td>
+<tr class="row-even"><td><p>marfan.no-abnormalities.json</p></td>
 <td><p>A valid phenopacket of a proband with no abnormalities of the target organ systems.</p></td>
 </tr>
-<tr class="row-odd"><td><p>marfan.all-organ-system-annotated.valid.json</p></td>
+<tr class="row-odd"><td><p>marfan.all-organ-system-annotated.json</p></td>
 <td><p>A valid phenopacket of a proband who had an abnormality of eye and cardiovascular systems but
 no abnormality of respiratory system. Note that it is OK to have phenotypic feature of other organ system,
 such as Arachnodactyly in this case.</p></td>
 </tr>
-<tr class="row-even"><td><p>marfan.missing-eye-annotation.invalid.json</p></td>
+<tr class="row-even"><td><p>marfan.missing-eye-annotation.json</p></td>
 <td><p>An invalid phenopacket of a proband without any annotation of the eye.</p></td>
 </tr>
 </tbody>
@@ -215,17 +216,17 @@ such as Arachnodactyly in this case.</p></td>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>marfan.annotation-propagation-rule.invalid.json</p></td>
+<tr class="row-even"><td><p>marfan.annotation-propagation-rule.json</p></td>
 <td><div class="line-block">
 <div class="line">Invalid phenopacket due to logical inconsistency in phenotypic features. The phenopacket contains</div>
 <div class="line">both <em>Aortic root aneurysm</em> and its ancestor <em>Aortic aneurysm</em>. Only the more specific term should be used.</div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p>marfan.obsolete-term.invalid.json</p></td>
+<tr class="row-odd"><td><p>marfan.obsolete-term.json</p></td>
 <td><p>The phenopacket is <em>invalid</em> because it contains an obsolete HPO term.</p></td>
 </tr>
-<tr class="row-even"><td><p>marfan.valid.json</p></td>
+<tr class="row-even"><td><p>marfan.json</p></td>
 <td><p>A phenopacket that meets the phenotype validation requirements.</p></td>
 </tr>
 </tbody>

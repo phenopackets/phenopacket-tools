@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Constants &mdash; phenopacket-tools 0.4.7 documentation</title>
+  <title>Constants &mdash; phenopacket-tools 1.0.0-RC1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
@@ -21,7 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Converting V1 Phenopackets" href="converting.html" /> 
+    <link rel="next" title="Creating Phenopackets" href="creating.html" />
+    <link rel="prev" title="Command-line interface" href="cli.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> phenopacket-tools
           </a>
               <div class="version">
-                0.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -46,9 +47,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Constants</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#administrationroute">AdministrationRoute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#allelicstate">AllelicState</a></li>
@@ -71,6 +69,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#unit">Unit</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting v1 Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Phenopackets Examples</a></li>
 </ul>
 
         </div>
@@ -97,17 +99,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="constants">
-<span id="rstconstants"></span><h1>Constants<a class="headerlink" href="#constants" title="Permalink to this heading"></a></h1>
-<p>The phenopacket-tools library offers a selection of recommended and predefined OntologyClass objects for commonly used concepts.
-For instance, this is the code one would need to write using the native Protobuf frameworkto get an OntologyClass instance that represents the modifier <code class="docutils literal notranslate"><span class="pre">Left</span></code>.</p>
+  <span class="target" id="rstconstants"></span><section id="constants">
+<h1>Constants<a class="headerlink" href="#constants" title="Permalink to this heading"></a></h1>
+<p>The <em>phenopacket-tools</em> library offers a selection of recommended and predefined <cite>OntologyClass</cite> objects
+for commonly used concepts. For instance, this is the code one would need to write using the native Protobuf framework
+to get an <cite>OntologyClass</cite> instance that represents the modifier <code class="docutils literal notranslate"><span class="pre">Left</span></code>:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">OntologyClass</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OntologyClass</span><span class="p">.</span><span class="na">newBuilder</span><span class="p">()</span><span class="w"></span>
 <span class="w">  </span><span class="p">.</span><span class="na">setId</span><span class="p">(</span><span class="s">&quot;HP:0012835&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="w">  </span><span class="p">.</span><span class="na">setLabel</span><span class="p">(</span><span class="s">&quot;Left&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="w">  </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
-<p>In contrast, this is the code required with phenopacket-tools (omitting import statements in both cases)</p>
+<p>In contrast, this is the code required with <em>phenopacket-tools</em> (omitting import statements in both cases):</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">OntologyClass</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
@@ -1246,7 +1249,7 @@ For instance, this is the code one would need to write using the native Protobuf
 <td><p>gram</p></td>
 <td><p>gram()</p></td>
 </tr>
-<tr class="row-odd"><td><p>UCUM:g/kg</p></td>
+<tr class="row-odd"><td><p>UCUM:g.kg-1</p></td>
 <td><p>gram per kilogram</p></td>
 <td><p>gramPerKilogram()</p></td>
 </tr>
@@ -1266,11 +1269,11 @@ For instance, this is the code one would need to write using the native Protobuf
 <td><p>microgram</p></td>
 <td><p>microgram()</p></td>
 </tr>
-<tr class="row-even"><td><p>UCUM:ug/dL</p></td>
+<tr class="row-even"><td><p>UCUM:ug.dL-1</p></td>
 <td><p>microgram per deciliter</p></td>
 <td><p>microgramPerDeciliter()</p></td>
 </tr>
-<tr class="row-odd"><td><p>UCUM:ug/L</p></td>
+<tr class="row-odd"><td><p>UCUM:ug.L-1</p></td>
 <td><p>microgram per liter</p></td>
 <td><p>microgramPerLiter()</p></td>
 </tr>
@@ -1286,11 +1289,11 @@ For instance, this is the code one would need to write using the native Protobuf
 <td><p>milligram</p></td>
 <td><p>milligram()</p></td>
 </tr>
-<tr class="row-odd"><td><p>UCUM:mg/dL</p></td>
+<tr class="row-odd"><td><p>UCUM:mg.d-1</p></td>
 <td><p>milligram per day</p></td>
 <td><p>milligramPerDay()</p></td>
 </tr>
-<tr class="row-even"><td><p>UCUM:mg/dL</p></td>
+<tr class="row-even"><td><p>UCUM:mg.dL-1</p></td>
 <td><p>milligram per deciliter</p></td>
 <td><p>milligramPerDeciliter()</p></td>
 </tr>
@@ -1318,15 +1321,15 @@ For instance, this is the code one would need to write using the native Protobuf
 <td><p>mole</p></td>
 <td><p>mole()</p></td>
 </tr>
-<tr class="row-odd"><td><p>UCUM:mol/L</p></td>
+<tr class="row-odd"><td><p>UCUM:mol.L-1</p></td>
 <td><p>mole per liter</p></td>
 <td><p>molePerLiter()</p></td>
 </tr>
-<tr class="row-even"><td><p>UCUM:mol/mL</p></td>
+<tr class="row-even"><td><p>UCUM:mol.mL-1</p></td>
 <td><p>mole per milliliter</p></td>
 <td><p>molePerMilliliter()</p></td>
 </tr>
-<tr class="row-odd"><td><p>UCUM:U/L</p></td>
+<tr class="row-odd"><td><p>UCUM:U.L-1</p></td>
 <td><p>enzyme unit per liter</p></td>
 <td><p>enzymeUnitPerLiter()</p></td>
 </tr>
@@ -1339,7 +1342,8 @@ For instance, this is the code one would need to write using the native Protobuf
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="converting.html" class="btn btn-neutral float-left" title="Converting V1 Phenopackets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cli.html" class="btn btn-neutral float-left" title="Command-line interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="creating.html" class="btn btn-neutral float-right" title="Creating Phenopackets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

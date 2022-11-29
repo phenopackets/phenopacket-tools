@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating Phenopackets &mdash; phenopacket-tools 0.4.7 documentation</title>
+  <title>Creating Phenopackets &mdash; phenopacket-tools 1.0.0-RC1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
@@ -21,8 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Validating Phenopackets" href="validation.html" />
-    <link rel="prev" title="Command-line interface" href="cli.html" /> 
+    <link rel="next" title="Converting v1 Phenopackets" href="converting.html" />
+    <link rel="prev" title="Constants" href="constants.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> phenopacket-tools
           </a>
               <div class="version">
-                0.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -47,13 +47,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Creating Phenopackets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#phenopacket-tools-builder-pattern"><cite>phenopacket-tools</cite> builder pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting v1 Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Phenopackets Examples</a></li>
 </ul>
 
         </div>
@@ -83,10 +85,13 @@
   <section id="creating-phenopackets">
 <span id="rstcreating"></span><h1>Creating Phenopackets<a class="headerlink" href="#creating-phenopackets" title="Permalink to this heading"></a></h1>
 <p>Google’s <a class="reference external" href="https://developers.google.com/protocol-buffers">Protocol Buffer (protobuf)</a> framework automatically generates
-Java code for building and working with Phenopackets. However, the code can be unwieldy. Additionally, many users
-of the phenopacket framework will want to use a recommended set of ontology terms for specific kinds of data, and thus
-the <em>phenopacket-tools</em> library provides terms and constants that are more convenient to use than manually creating
+Java bindings for building and working with Phenopackets. However, the code can be unwieldy. Additionally, many users
+of the phenopacket framework will want to use a recommended set of ontology terms for specific kinds of data.
+<em>Phenopacket-tools</em> library provides terms and constants that are more convenient to use than manually creating
 the equivalent message.</p>
+<p>This section exemplifies usage of <cite>PhenotypicFeatureBuilder</cite>, one of many builders provided by the
+<a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html">org.phenopackets.phenopackettools.builder</a>
+module.</p>
 <section id="phenopacket-tools-builder-pattern">
 <h2><cite>phenopacket-tools</cite> builder pattern<a class="headerlink" href="#phenopacket-tools-builder-pattern" title="Permalink to this heading"></a></h2>
 <p>In this example, let’s imagine we want to create a <code class="docutils literal notranslate"><span class="pre">PhenotypicFeature</span></code> element to denote that severe weakness of the
@@ -147,7 +152,16 @@ of this <code class="docutils literal notranslate"><span class="pre">PhenotypicF
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>Several detailed examples are available in the <code class="docutils literal notranslate"><span class="pre">phenopackets-tools-cli</span></code> module in the <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/tree/main/phenopacket-tools-cli/src/main/java/org/phenopackets/phenopackettools/examples">examples</a> package.</p>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<p>See the API documentation of the
+<a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html">org.phenopackets.phenopackettools.builder</a>
+module for a comprehensive list of ontology constants, convenience methods, and builders provided
+by the <em>phenopacket-tools</em> library.</p>
+<p>Several detailed examples are available in the <code class="docutils literal notranslate"><span class="pre">phenopackets-tools-cli</span></code> module in the
+<a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/tree/main/phenopacket-tools-cli/src/main/java/org/phenopackets/phenopackettools/cli/examples">org.phenopackets.phenopackettools.cli.examples</a>
+package.</p>
 </section>
 </section>
 
@@ -155,8 +169,8 @@ of this <code class="docutils literal notranslate"><span class="pre">PhenotypicF
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="cli.html" class="btn btn-neutral float-left" title="Command-line interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="validation.html" class="btn btn-neutral float-right" title="Validating Phenopackets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="constants.html" class="btn btn-neutral float-left" title="Constants" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="converting.html" class="btn btn-neutral float-right" title="Converting v1 Phenopackets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

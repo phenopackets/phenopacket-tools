@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command-line interface &mdash; phenopacket-tools 0.4.7 documentation</title>
+  <title>Command-line interface &mdash; phenopacket-tools 1.0.0-RC1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Creating Phenopackets" href="creating.html" />
+    <link rel="next" title="Constants" href="constants.html" />
     <link rel="prev" title="Tutorial" href="tutorial.html" /> 
 </head>
 
@@ -33,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> phenopacket-tools
           </a>
               <div class="version">
-                0.4
+                1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -50,27 +50,29 @@
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#download">Download</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#build-from-source-code">Build from source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-up-alias-and-autocompletion">Set up alias and autocompletion</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#examples-generate-examples-of-the-top-level-elements"><em>examples</em> - generate examples of the top-level elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#convert-convert-top-level-elements-from-v1-to-v2-format"><em>convert</em> - convert top-level elements from <em>v1</em> to <em>v2</em> format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-concepts">Common concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples-generate-phenopacket-examples"><code class="docutils literal notranslate"><span class="pre">examples</span></code> - generate phenopacket examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#convert-convert-top-level-elements-from-v1-to-v2-format"><code class="docutils literal notranslate"><span class="pre">convert</span></code> - convert top-level elements from <em>v1</em> to <em>v2</em> format</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#validate-validate-semantic-and-syntactic-correctness"><em>validate</em> - validate semantic and syntactic correctness</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#validate-validate-phenopacket-schema-elements"><code class="docutils literal notranslate"><span class="pre">validate</span></code> - validate Phenopacket Schema elements</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id1">Usage</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#set-up-autocompletion">Set up autocompletion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting V1 Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting v1 Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Phenopackets Examples</a></li>
 </ul>
 
         </div>
@@ -99,25 +101,25 @@
              
   <section id="command-line-interface">
 <span id="rstcli"></span><h1>Command-line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this heading"></a></h1>
-<p><em>Phenopacket-tools</em> command-line interface (CLI) provides functionality for viewing, conversion and validation
-of the top-level elements of Phenopacket schema. This document describes how to set up the CLI application
+<p><em>Phenopacket-tools</em> command-line interface (CLI) provides functionality for conversion and validation
+of the top-level elements of Phenopacket Schema. Here we describe how to set up the CLI application
 on Linux, Mac and Windows environments.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><em>Phenopacket-tools</em> is written in Java 17 and requires Java 17 or newer to run.</p>
+<p><em>phenopacket-tools</em> is written in Java 17 and requires Java 17 or newer to run.</p>
 </div>
-<p><em>Phenopacket-tools</em> is distributed as a standalone executable Java Archive (JAR) file. The application requires
-no special installation procedure if Java 17 or better is available in your environment.</p>
+<p>We distribute <em>phenopacket-tools</em> in a ZIP archive. The application requires no special installation procedure
+if Java 17 or better is available in your environment.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
-<p>Most users should <em>download</em> the distribution ZIP file with precompiled JAR file from <em>Phenopacket-tools</em> release page.
+<p>Most users should <em>download</em> the distribution ZIP file with precompiled JAR file from <em>phenopacket-tools</em> release page.
 However, it is also possible to <em>build</em> the JAR from sources.</p>
 <section id="download">
 <h3>Download<a class="headerlink" href="#download" title="Permalink to this heading"></a></h3>
-<p><em>Phenopacket-tools</em> JAR is provided in the distribution ZIP file as part of <em>Phenopacket-tools</em>’ release schedule
+<p><em>phenopacket-tools</em> JAR is provided in the distribution ZIP file as part of <em>phenopacket-tools</em>’ release schedule
 from <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/releases">Releases</a>.</p>
-<p>The ZIP archive contains the executable JAR file along with README and example phenopackets required to run the setup
-and the tutorial.</p>
+<p>The ZIP archive contains the executable JAR file along with a <cite>README</cite> file and example phenopackets required
+to run the setup and the tutorial.</p>
 </section>
 <section id="build-from-source-code">
 <h3>Build from source code<a class="headerlink" href="#build-from-source-code" title="Permalink to this heading"></a></h3>
@@ -125,45 +127,82 @@ and the tutorial.</p>
 There are 2 requirements for building the app from sources:</p>
 <ul class="simple">
 <li><p><strong>Java Development Kit</strong> (JDK) 17 or newer must be present in the environment and <code class="docutils literal notranslate"><span class="pre">$JAVA_HOME</span></code> variable must point
-to JDK’s location. See <a class="reference external" href="https://maven.apache.org/install.html">Installing Apache Maven</a> for more details regarding
-setting up JDK and <code class="docutils literal notranslate"><span class="pre">$JAVA_HOME</span></code> on your system.</p></li>
-<li><p><em>Phenopacket-tools</em> leverages several open-source Java libraries and a <strong>working internet connection</strong>
+to JDK’s location. See <a class="reference external" href="https://docs.oracle.com/en/cloud/saas/enterprise-performance-management-common/diepm/epm_set_java_home_104x6dd63633_106x6dd6441c.html">Setting JAVA_HOME</a>
+for more details regarding setting up <code class="docutils literal notranslate"><span class="pre">$JAVA_HOME</span></code> on Windows, Mac, and Linux.</p></li>
+<li><p><em>phenopacket-tools</em> uses several open-source Java libraries and a <strong>working internet connection</strong>
 is required to download the libraries.</p></li>
 </ul>
-<p>Run the following commands to check out the stable source code and to build the application:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/phenopackets/phenopacket-tools
-$ cd phenopacket-tools
-$ ./mvnw -Prelease package
+<p>Run the following commands to check out the source code and to build the application:</p>
+<pre class="literal-block">git clone <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools">https://github.com/phenopackets/phenopacket-tools</a>
+cd phenopacket-tools
+git checkout tags/1.0.0-RC1
+./mvnw -Prelease package</pre>
+<p>If the build completes, a ZIP archive “phenopacket-tools-cli-1.0.0-RC1-distribution.zip”
+is created in the <code class="docutils literal notranslate"><span class="pre">phenopacket-tools-cli/target</span></code> directory. Use the archive in the same way as the archive
+downloaded from <em>phenopacket-tools</em> releases.</p>
+</section>
+<section id="set-up-alias-and-autocompletion">
+<h3>Set up alias and autocompletion<a class="headerlink" href="#set-up-alias-and-autocompletion" title="Permalink to this heading"></a></h3>
+<p>In this <em>optional</em> step, we set up an alias and autocompletion for <em>phenopacket-tools</em> command-line application.
+The autocompletion works thanks to the awesome <a class="reference external" href="https://picocli.info">Picocli</a> library and it works
+on Bash or ZSH Unix shells.</p>
+<p>Let’s set up the alias first. To reiterate the tutorial <a class="reference internal" href="tutorial.html#rstsetupaliastutorial"><span class="std std-ref">Set up alias</span></a> section,
+Java command line applications are invoked as <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">executable.jar</span></code>. However, such incantation is
+a bit too verbose and we can shorten it a bit by defining an alias.</p>
+<p>Assuming the distribution ZIP was unpacked into phenopacket-tools-cli-1.0.0-RC1 directory, let’s run the following
+to set up the alias:</p>
+<pre class="literal-block">alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC1/phenopacket-tools-cli-1.0.0-RC1.jar&quot;
+pxf --help</pre>
+<p>Now the autocompletion. The autocompletion can simplify using the CLI options by completing the command
+or option after pressing the <cite>TAB</cite> key.
+To enable the autocompletion, make sure the alias for <cite>pxf</cite> is set up correctly and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">pxf</span> <span class="n">generate</span><span class="o">-</span><span class="n">completion</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>After a successful build, a distribution ZIP file “phenopacket-tools-cli-0.4.7-distribution.zip”
-will be created in the <code class="docutils literal notranslate"><span class="pre">phenopacket-tools-cli/target</span></code> directory. Use the ZIP archive in the same way as the archive
-downloaded from <em>Phenopacket-tools</em> releases.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pxf</span> <span class="pre">generate-completion</span></code> command generates the autocompletion script and <code class="docutils literal notranslate"><span class="pre">source</span></code> uses it to set up
+the completion. However, the autocompletion will last only for the duration of the current shell session.</p>
+<p>To make the autocompletion permanent, store the script file and add the alias and and sourcing into your <cite>.bashrc</cite>
+or <cite>.bash_profile</cite> file:</p>
+<pre class="literal-block">echo &quot;### Install phenopacket-tools&quot; &gt;&gt; .bashrc
+echo alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC1/phenopacket-tools-cli-1.0.0-RC1.jar&quot; &gt;&gt; .bashrc
+pxf generate-completion &gt; pxf-completion.sh
+echo source $(pwd)/pxf-completion.sh &gt;&gt; .bashrc</pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The autocompletion only works if the alias is set to <cite>pxf</cite>. Other alias values will <em>not</em> work.</p>
+</div>
 </section>
 </section>
 <section id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading"></a></h2>
-<p><em>Phenopacket-tools</em> CLI provides the following commands:</p>
+<p>The command-line interface provides the following commands:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">examples</span></code> - generate examples of the top-level elements</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">convert</span></code> - convert top-level elements from <em>v1</em> to <em>v2</em> format</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">validate</span></code> - validate semantic and syntactic correctness of top-level Phenopacket schema elements</p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">examples</span></code> command is fairly simple; it writes a bunch of example phenopackets, cohorts and families
-into the provided directory. The <code class="docutils literal notranslate"><span class="pre">convert</span></code> and <code class="docutils literal notranslate"><span class="pre">validate</span></code> commands, despite being a bit more elaborate, work in
-a similar manner. The parts shared by the both command are be described in greater detail
-in the <code class="docutils literal notranslate"><span class="pre">convert</span></code> command section.</p>
-<p>In the next sections, we will run <em>Phenopacket-tools</em> by using the following alias:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ alias pxf=&quot;java -jar phenopacket-tools-cli-${project.version}.jar&quot;
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The commands report warnings and errors by default. Use <cite>-v</cite> to increase the verbosity and see what’s
-going on under the hood. The <cite>-v</cite> can be specified multiple times (e.g. <cite>-vvv</cite>).</p>
-</div>
-<section id="examples-generate-examples-of-the-top-level-elements">
-<h3><em>examples</em> - generate examples of the top-level elements<a class="headerlink" href="#examples-generate-examples-of-the-top-level-elements" title="Permalink to this heading"></a></h3>
+<p>Before we dive into the commands, let’s discuss some common concepts shared by all CLI commands.</p>
+<section id="common-concepts">
+<h3>Common concepts<a class="headerlink" href="#common-concepts" title="Permalink to this heading"></a></h3>
+<p>We designed the CLI with aim to make it as easy to use as possible. As a result, the <em>phenopacket-tools</em> commands
+use several common design principles:</p>
+<ul class="simple">
+<li><p>The input data can be provided either via the standard input <em>OR</em> as a list of positional parameters.</p></li>
+<li><p>The input <em>data format</em> is provided using <code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">|</span> <span class="pre">--format</span></code> option.
+<em>phenopacket-tools</em> supports phenopackets in <cite>JSON</cite>, <cite>YAML</cite>, or <cite>protobuf</cite> formats.
+In absence of the explicit data format, <em>phenopacket-tools</em> makes an educated guess.</p></li>
+<li><p>The output is written in the input data format.</p></li>
+<li><p>The top-level <em>element type</em> of the data input is indicated by the <code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">|</span> <span class="pre">--element</span></code> option.
+According to the Phenopacket Schema, the commands supports <cite>phenopacket</cite>, <cite>family</cite>, or <cite>cohort</cite> elements.</p></li>
+<li><p>The output is written into the standard output stream. Progress, warnings, and errors are reported
+into standard error.</p></li>
+<li><p>The CLI operates in a silent mode by default; only warnings and errors are reported.
+Use <code class="docutils literal notranslate"><span class="pre">-v</span></code> to increase the verbosity; the <code class="docutils literal notranslate"><span class="pre">-v</span></code> option can be specified multiple times (e.g. <code class="docutils literal notranslate"><span class="pre">-vvv</span></code>).</p></li>
+</ul>
+<p>We discuss the common concepts further at the relevant places of the next sections.</p>
+</section>
+<section id="examples-generate-phenopacket-examples">
+<h3><code class="docutils literal notranslate"><span class="pre">examples</span></code> - generate phenopacket examples<a class="headerlink" href="#examples-generate-phenopacket-examples" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">examples</span></code> command writes example phenopackets (including family and cohort examples) into
 a provided base directory. Starting from a <cite>base</cite> directory, the examples are written into three sub-folders:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span>
@@ -175,79 +214,138 @@ a provided base directory. Starting from a <cite>base</cite> directory, the exam
 <p>The <code class="docutils literal notranslate"><span class="pre">examples</span></code> command requires an optional <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">|</span> <span class="pre">--output</span></code> argument. By default, the examples will be placed
 into the current directory.</p>
 <p>The following command writes the examples into the <code class="docutils literal notranslate"><span class="pre">path/to/examples</span></code> directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pxf examples -o path/to/examples
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pxf</span> <span class="n">examples</span> <span class="o">-</span><span class="n">o</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">examples</span>
 </pre></div>
 </div>
 </section>
 <section id="convert-convert-top-level-elements-from-v1-to-v2-format">
-<h3><em>convert</em> - convert top-level elements from <em>v1</em> to <em>v2</em> format<a class="headerlink" href="#convert-convert-top-level-elements-from-v1-to-v2-format" title="Permalink to this heading"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">convert</span></code> command converts a phenopacket, family, or a cohort from <em>v1</em> to <em>v2</em> format of Phenopacket schema.</p>
+<h3><code class="docutils literal notranslate"><span class="pre">convert</span></code> - convert top-level elements from <em>v1</em> to <em>v2</em> format<a class="headerlink" href="#convert-convert-top-level-elements-from-v1-to-v2-format" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">convert</span></code> command converts a phenopacket, family, or a cohort from <em>v1</em> to <em>v2</em> format of Phenopacket Schema.</p>
 <section id="usage">
 <h4>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h4>
 <p>Let’s assume we have an example phenopacket <code class="docutils literal notranslate"><span class="pre">phenopacket.v1.json</span></code>, family <code class="docutils literal notranslate"><span class="pre">family.v1.json</span></code>,
 and cohort <code class="docutils literal notranslate"><span class="pre">cohort.v1.json</span></code>.</p>
 <p>We can convert a <em>v1</em> phenopacket into <em>v2</em> by running:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat phenopacket.v1.json | pxf convert &gt; phenopacket.v2.json
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">json</span> <span class="o">|</span> <span class="n">pxf</span> <span class="n">convert</span> <span class="o">&gt;</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
 </div>
-<p><em>Phenopacket-tools</em> makes an educated guess to determine if the input is in <em>JSON</em>, <em>Protobuf</em>, or <em>YAML</em> format.
-The guessing is, however, naive and can fail in parsing e.g. gzipped <em>JSON</em> file. Turn of the format guessing
-by providing the <code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">|</span> <span class="pre">--format</span></code> option:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ # Explicit JSON input
-$ cat phenopacket.v1.json | pxf convert -f json &gt; phenopacket.v2.json
-$
-$ # Explicit protobuf input
-$ cat phenopacket.v1.pb | pxf convert -f protobuf &gt; phenopacket.v2.pb
+<p><em>Phenopacket-tools</em> makes an educated guess to determine if the input is in <cite>JSON</cite>, <cite>protobuf</cite>, or <cite>YAML</cite> format.
+The current format guessing implementation is, however, naïve and can fail in parsing e.g. gzipped <cite>JSON</cite> file.
+Turn the format guessing off by providing the <code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">|</span> <span class="pre">--format</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Explicit JSON input</span>
+<span class="n">cat</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">json</span> <span class="o">|</span> <span class="n">pxf</span> <span class="n">convert</span> <span class="o">-</span><span class="n">f</span> <span class="n">json</span> <span class="o">&gt;</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">json</span>
+
+<span class="c1"># Explicit protobuf input</span>
+<span class="n">cat</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">pb</span> <span class="o">|</span> <span class="n">pxf</span> <span class="n">convert</span> <span class="o">-</span><span class="n">f</span> <span class="n">protobuf</span> <span class="o">&gt;</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">pb</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">|</span> <span class="pre">--format</span></code> option accepts one of the following 3 values: <code class="docutils literal notranslate"><span class="pre">{json,</span> <span class="pre">pb,</span> <span class="pre">yaml}</span></code>.</p>
 <p>By default, the output is written in the format of the input data.
 However, we can override this by using <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> option:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat phenopacket.v1.json | pxf convert --output-format pb &gt; phenopacket.v2.pb
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">json</span> <span class="o">|</span> <span class="n">pxf</span> <span class="n">convert</span> <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">format</span> <span class="n">pb</span> <span class="o">&gt;</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">pb</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">--output-format</span></code> option takes the same values as <code class="docutils literal notranslate"><span class="pre">--format</span></code>: <code class="docutils literal notranslate"><span class="pre">{json,</span> <span class="pre">pb,</span> <span class="pre">yaml}</span></code>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">convert</span></code> command expects to receive a phenopacket by default. However, it can also convert the other
 top-level elements of the Phenopacket schema: family and cohort. Use the <code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">|</span> <span class="pre">--element</span></code> option to indicate if
 the input is a <code class="docutils literal notranslate"><span class="pre">family</span></code> or a <code class="docutils literal notranslate"><span class="pre">cohort</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat family.v1.json | pxf convert -e family &gt; family.v2.json
-$ cat cohort.v1.json | pxf convert -e cohort &gt; cohort.v2.json
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">family</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">json</span> <span class="o">|</span> <span class="n">pxf</span> <span class="n">convert</span> <span class="o">-</span><span class="n">e</span> <span class="n">family</span> <span class="o">&gt;</span> <span class="n">family</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">json</span>
+<span class="n">cat</span> <span class="n">cohort</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">json</span> <span class="o">|</span> <span class="n">pxf</span> <span class="n">convert</span> <span class="o">-</span><span class="n">e</span> <span class="n">cohort</span> <span class="o">&gt;</span> <span class="n">cohort</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
 </div>
-<p>We can convert one or more item at the time by using the <code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">|</span> <span class="pre">--input</span></code> option. If the <code class="docutils literal notranslate"><span class="pre">-i</span></code> option is used only once,
-the STDIN is ignored and the conversion proceeds in the same way as in the examples above. However, <code class="docutils literal notranslate"><span class="pre">-i</span></code> option can
-be provided more than once, to convert a collection of items in a single run. The results of the bulk processing
-are written into a directory supplied via the <code class="docutils literal notranslate"><span class="pre">-O</span> <span class="pre">|</span> <span class="pre">--output-directory</span></code> option (the option is mandatory if using
-&gt;1 <code class="docutils literal notranslate"><span class="pre">-i</span></code>).</p>
+<p>We can convert one or more item at the time by passing the paths to the input files as a positional parameters.
+In case one parameter is provided, the STDIN is ignored and the conversion proceeds in the same way as in the examples
+above. The command can accept two or more files as positional parameters for bulk conversion. To perform
+the bulk conversion, the <code class="docutils literal notranslate"><span class="pre">-O</span> <span class="pre">|</span> <span class="pre">--output-directory</span></code> option must be provided to set the location of the directory
+for writing the converted phenopackets.</p>
 <p>For instance:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pxf convert -i phenopacket.a.v1.json -i phenopacket.b.v1.json -O converted
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pxf</span> <span class="n">convert</span> <span class="o">-</span><span class="n">O</span> <span class="n">converted</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">json</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">b</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
 </div>
 <p>converts the input phenopackets and stores the results in the <code class="docutils literal notranslate"><span class="pre">converted</span></code> folder. The converted files will be stored
 under the same names.</p>
 </section>
 </section>
-<section id="validate-validate-semantic-and-syntactic-correctness">
-<h3><em>validate</em> - validate semantic and syntactic correctness<a class="headerlink" href="#validate-validate-semantic-and-syntactic-correctness" title="Permalink to this heading"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">validate</span></code> command checks <em>syntactic</em> and <em>semantic</em> correctness of a <em>phenopacket</em>, <em>family</em>, or <em>cohort</em>.</p>
-<p>Briefly, to be syntactically correct, a phenopacket must be well formatted (valid Protobuf message, JSON document, etc.)
-and meet the requirements of the Phenopacket schema; all REQUIRED attributes are set  (e.g. <code class="docutils literal notranslate"><span class="pre">phenopacket.id</span></code> and
+<section id="validate-validate-phenopacket-schema-elements">
+<h3><code class="docutils literal notranslate"><span class="pre">validate</span></code> - validate Phenopacket Schema elements<a class="headerlink" href="#validate-validate-phenopacket-schema-elements" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">validate</span></code> command checks <em>phenopacket</em>, <em>family</em>, or <em>cohort</em> for the <em>base</em> requirements imposed by
+the Phenopacket Schema as well as additional user-defined constraints.</p>
+<p>Briefly, to meet the base requirements, the phenopacket must be well formatted (valid Protobuf message, JSON document, etc.)
+and meet the requirements of the Phenopacket schema; all REQUIRED attributes are set (e.g. <code class="docutils literal notranslate"><span class="pre">phenopacket.id</span></code> and
 <code class="docutils literal notranslate"><span class="pre">phenopacket.meta_data</span></code>), and <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> includes a <code class="docutils literal notranslate"><span class="pre">Resource</span></code> for all ontology concepts.</p>
-<p>The <em>semantic</em> correctness ensures that the element, when taken as a whole, is … TODO - finish</p>
+<p>The validation can include a number of additional steps, as required by a project or a consortium.
+<em>Phenopacket-tools</em> offers several off-the-shelf validators and the CLI uses the validators in the validation workflow
+if the required resources are present.</p>
 <section id="id1">
 <h4>Usage<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">validate</span></code> command shares many CLI options with <code class="docutils literal notranslate"><span class="pre">convert</span></code>.</p>
-<p>The same options are used to indicate the input formats and element types. The input can be provided through STDIN
-as well as in bulk. The bulk processing makes sense especially if we e.g. load the HPO graph for each validation.</p>
-<p>Results are written into STDOUT in CSV/TSV format. The CSV output has a header, each header line starts with <code class="docutils literal notranslate"><span class="pre">#</span></code> character.
-The header contains phenopacket-tools version, date time of validation, and list of validators that were run.
-A row with column names follows the header, and then the individual validation results.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">validate</span></code> command can validate one or more phenopacket files provided either via standard input or
+as positional parameters. Results are written into the standard output in CSV format including an optional header
+containing the validation metadata. The header lines start with <code class="docutils literal notranslate"><span class="pre">#</span></code> and contain <em>phenopacket-tools</em> version,
+date and time of validation, and the list of validators that were run.
+The header is followed by a row with column names, and the individual validation results.</p>
+<section id="base-validation-example">
+<h5>Base validation example<a class="headerlink" href="#base-validation-example" title="Permalink to this heading"></a></h5>
+<p>Let’s demonstrate the base validation usage using a few examples. Phenopacket can be validated on a stream:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">json</span> <span class="o">|</span> <span class="n">pxf</span> <span class="n">validate</span>
+</pre></div>
+</div>
+<p>or as a positional parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pxf</span> <span class="n">validate</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">-H</span> <span class="pre">|</span> <span class="pre">--include-header</span></code> to include the validation metadata in the output and store the results in a file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pxf</span> <span class="n">validate</span> <span class="o">-</span><span class="n">H</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">json</span> <span class="o">&gt;</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">validation</span><span class="o">.</span><span class="n">csv</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-validation-example">
+<h5>Custom validation example<a class="headerlink" href="#custom-validation-example" title="Permalink to this heading"></a></h5>
+<p>On top of the base validation, <em>phenopacket-tools</em> supports validation using a custom requirements.
+See the <a class="reference internal" href="validation.html#rstcustomvalidation"><span class="std std-ref">Custom validation</span></a> section to learn how to define a custom JSON schema.</p>
+<p>The CLI can be provided with one or more JSON schema documents using the <code class="docutils literal notranslate"><span class="pre">--require</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pxf</span> <span class="n">validate</span> <span class="o">--</span><span class="n">require</span> <span class="n">custom</span><span class="o">-</span><span class="n">schema</span><span class="o">.</span><span class="n">json</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+</section>
+<section id="phenotype-validation">
+<h5>Phenotype validation<a class="headerlink" href="#phenotype-validation" title="Permalink to this heading"></a></h5>
+<p><em>Phenopacket-tools</em> includes off-the-shelf validators for pointing out annotation errors in phenopackets that use
+Human Phenotype Ontology (HPO) to represent clinical findings of the subjects.
+The validators check presence of obsolete or unknown ontology concepts and violations
+of the annotation propagation rule based on a HPO file.</p>
+<p>The CLI will automatically add the phenotype validation steps into the validation workflow if path to a HPO JSON file
+is provided via the <code class="docutils literal notranslate"><span class="pre">--hpo</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pxf</span> <span class="n">validate</span> <span class="o">--</span><span class="n">hpo</span> <span class="n">hp</span><span class="o">.</span><span class="n">json</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The bulk validation where phenopackets are provided as positional parameters is much faster
+since the HPO graph parsing, a computationally expensive operation, is done only once.</p>
+</div>
+</section>
+<section id="organ-system-validation">
+<h5>Organ system validation<a class="headerlink" href="#organ-system-validation" title="Permalink to this heading"></a></h5>
+<p>It can be desirable to check annotation of specific organ systems in the phenopacket. <em>Phenopacket-tools</em> can validate
+annotation of specific organ systems by using the corresponding top-level HPO concepts, such as
+<a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0000478">Eye</a>,
+<a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001626">Cardiovascular</a>, or
+<a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0002086">Respiratory</a> organ systems.</p>
+<p>The organ systems are provided using <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">|</span> <span class="pre">--organ-system</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pxf</span> <span class="n">validate</span> <span class="o">--</span><span class="n">hpo</span> <span class="n">hp</span><span class="o">.</span><span class="n">json</span> \
+  <span class="o">-</span><span class="n">s</span> <span class="n">HP</span><span class="p">:</span><span class="mi">0000478</span> \
+  <span class="o">-</span><span class="n">s</span> <span class="n">HP</span><span class="p">:</span><span class="mi">0001626</span> \
+  <span class="o">-</span><span class="n">s</span> <span class="n">HP</span><span class="p">:</span><span class="mi">0002086</span> \
+  <span class="n">phenopacket</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The organ system validation requires HPO file to run.</p>
+</div>
 </section>
 </section>
 </section>
-<section id="set-up-autocompletion">
-<h2>Set up autocompletion<a class="headerlink" href="#set-up-autocompletion" title="Permalink to this heading"></a></h2>
-<p>TODO - write</p>
 </section>
 </section>
 
@@ -256,7 +354,7 @@ A row with column names follows the header, and then the individual validation r
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="tutorial.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="creating.html" class="btn btn-neutral float-right" title="Creating Phenopackets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
