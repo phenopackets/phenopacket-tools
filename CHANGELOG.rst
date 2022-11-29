@@ -2,6 +2,14 @@
 Changelog
 =========
 
+1.0.0
+-----
+
+* Update predefined constants, convenience functions and builders
+* Improve user guide, tutorial, and documentation
+* Run `MetaDataValidator` during base validation
+* Fix example phenopackets
+
 0.4.7
 -----
 
