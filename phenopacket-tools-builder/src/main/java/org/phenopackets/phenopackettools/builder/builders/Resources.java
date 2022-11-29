@@ -35,6 +35,13 @@ public class Resources {
             .setUrl("http://www.ebi.ac.uk/efo/efo.owl")
             .setIriPrefix("http://purl.obolibrary.org/obo/EFO_");
 
+    private static final Resource.Builder ECO_BUILDER = Resource.newBuilder()
+            .setId("eco")
+            .setName("Evidence & Conclusion Ontology (ECO)")
+            .setNamespacePrefix("ECO")
+            .setUrl("http://purl.obolibrary.org/obo/eco.owl")
+            .setIriPrefix("http://purl.obolibrary.org/obo/ECO_");
+
     private static final Resource.Builder CL_BUILDER = Resource.newBuilder()
             .setId("cl")
             .setName("Cell Ontology")
@@ -99,7 +106,7 @@ public class Resources {
             .setName("Unified Code for Units of Measure")
             .setNamespacePrefix("UCUM")
             .setUrl("https://ucum.org")
-            .setIriPrefix("https://ucum.org/");
+            .setIriPrefix("https://units-of-measurement.org/");
 
     private static final Resource.Builder LOINC_BUILDER = Resource.newBuilder()
             .setId("loinc")
@@ -114,6 +121,20 @@ public class Resources {
             .setNamespacePrefix("DrugCentral")
             .setUrl("https://drugcentral.org/")
             .setIriPrefix("https://drugcentral.org/drugcard/");
+
+    private static final Resource.Builder OMIM_BUILDER = Resource.newBuilder()
+            .setId("omim")
+            .setName("An Online Catalog of Human Genes and Genetic Disorders")
+            .setNamespacePrefix("OMIM")
+            .setUrl("https://www.omim.org")
+            .setIriPrefix("https://www.omim.org/entry/");
+
+    private static final Resource.Builder CHEBI_BUILDER = Resource.newBuilder()
+            .setId("chebi")
+            .setName("Chemical Entities of Biological Interest")
+            .setNamespacePrefix("CHEBI")
+            .setUrl("https://www.ebi.ac.uk/chebi")
+            .setIriPrefix("https://purl.obolibrary.org/obo/CHEBI_");
 
     public static Resource hgncVersion(String version) { return HGNC_BUILDER.setVersion(version).build(); }
 
@@ -131,6 +152,10 @@ public class Resources {
 
     public static Resource efoVersion(String version) {
         return EFO_BUILDER.setVersion(version).build();
+    }
+
+    public static Resource ecoVersion(String version) {
+        return ECO_BUILDER.setVersion(version).build();
     }
 
     public static Resource clVersion(String version) {
@@ -176,4 +201,13 @@ public class Resources {
     public static Resource drugCentralVersion(String version) {
         return DRUG_CENTRAL_BUILDER.setVersion(version).build();
     }
+
+    public static Resource omimVersion(String version) {
+        return OMIM_BUILDER.setVersion(version).build();
+    }
+
+    public static Resource chebiVersion(String version) {
+        return CHEBI_BUILDER.setVersion(version).build();
+    }
+
 }

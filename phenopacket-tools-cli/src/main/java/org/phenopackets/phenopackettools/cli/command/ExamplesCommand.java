@@ -21,9 +21,9 @@ import java.nio.file.Path;
         description = "Write example phenopackets to a directory.")
 public class ExamplesCommand extends BaseCommand {
 
-    @CommandLine.Option(names = {"-o", "--output"},
-            description = "Output directory (default: ${DEFAULT-VALUE})")
-    public Path output = Path.of(".");
+    @CommandLine.Option(names = {"-O", "--output-directory"},
+            description = "Path to output directory")
+    public Path outputDirectory = Path.of(".");
 
     private final PhenopacketPrinter jsonPrinter;
     private final PhenopacketPrinter yamlPrinter;
@@ -37,9 +37,9 @@ public class ExamplesCommand extends BaseCommand {
     @Override
     protected Integer execute() {
         try {
-            Path phenopacketDir = createADirectoryIfDoesNotExist(output.resolve("phenopackets"));
-            Path familyDir = createADirectoryIfDoesNotExist(output.resolve("families"));
-            Path cohortDir = createADirectoryIfDoesNotExist(output.resolve("cohorts"));
+            Path phenopacketDir = createADirectoryIfDoesNotExist(outputDirectory.resolve("phenopackets"));
+            Path familyDir = createADirectoryIfDoesNotExist(outputDirectory.resolve("families"));
+            Path cohortDir = createADirectoryIfDoesNotExist(outputDirectory.resolve("cohorts"));
 
             // Phenopackets
             printJsonAndYaml(new AtaxiaWithVitaminEdeficiency().getPhenopacket(), phenopacketDir, "AVED");

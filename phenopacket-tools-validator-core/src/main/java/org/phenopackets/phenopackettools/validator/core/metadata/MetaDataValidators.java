@@ -29,7 +29,7 @@ public class MetaDataValidators {
         if (PHENOPACKET_VALIDATOR == null) {
             synchronized (MetaDataValidators.class) {
                 if (PHENOPACKET_VALIDATOR == null)
-                    PHENOPACKET_VALIDATOR = new PhenopacketMetaDataValidator();
+                    PHENOPACKET_VALIDATOR = new MetaDataValidator.PhenopacketMetaDataValidator();
             }
         }
         return PHENOPACKET_VALIDATOR;
@@ -47,7 +47,7 @@ public class MetaDataValidators {
         if (FAMILY_VALIDATOR == null) {
             synchronized (MetaDataValidators.class) {
                 if (FAMILY_VALIDATOR == null)
-                    FAMILY_VALIDATOR = new FamilyMetaDataValidator();
+                    FAMILY_VALIDATOR = new MetaDataValidator.FamilyMetaDataValidator();
             }
         }
         return FAMILY_VALIDATOR;
@@ -65,7 +65,7 @@ public class MetaDataValidators {
         if (COHORT_VALIDATOR == null) {
             synchronized (MetaDataValidators.class) {
                 if (COHORT_VALIDATOR == null)
-                    COHORT_VALIDATOR = new CohortMetaDataValidator();
+                    COHORT_VALIDATOR = new MetaDataValidator.CohortMetaDataValidator();
             }
         }
         return COHORT_VALIDATOR;

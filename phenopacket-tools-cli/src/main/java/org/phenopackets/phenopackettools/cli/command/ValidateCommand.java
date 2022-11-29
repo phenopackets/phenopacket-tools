@@ -9,7 +9,6 @@ import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.core.PhenopacketElement;
 import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
 import org.phenopackets.phenopackettools.validator.core.*;
-import org.phenopackets.phenopackettools.validator.core.metadata.MetaDataValidators;
 import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
 import org.phenopackets.phenopackettools.validator.core.writer.ValidationResultsAndPath;
 import org.phenopackets.phenopackettools.validator.jsonschema.JsonSchemaValidationWorkflowRunner;
@@ -34,7 +33,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Command(name = "validate",
-        description = "Validate top-level elements of the Phenopacket schema.",
+        description = "Validate top-level elements of the Phenopacket Schema.",
         sortOptions = false,
         mixinStandardHelpOptions = true)
 public class ValidateCommand extends BaseIOCommand {
@@ -97,27 +96,24 @@ public class ValidateCommand extends BaseIOCommand {
         List<URL> customJsonSchemas = prepareCustomSchemaUrls();
         Object runner = switch (inputSection.element) {
             case PHENOPACKET -> {
-                List<PhenopacketValidator<PhenopacketOrBuilder>> semanticValidators = configureSemanticValidators();
+                List<PhenopacketValidator<PhenopacketOrBuilder>> validators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
                         .addAllJsonSchemaUrls(customJsonSchemas)
-                        .addSemanticValidator(MetaDataValidators.phenopacketValidator())
-                        .addAllSemanticValidators(semanticValidators)
+                        .addValidators(validators)
                         .build();
             }
             case FAMILY -> {
-                List<PhenopacketValidator<FamilyOrBuilder>> semanticValidators = configureSemanticValidators();
+                List<PhenopacketValidator<FamilyOrBuilder>> validators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.familyBuilder()
                         .addAllJsonSchemaUrls(customJsonSchemas)
-                        .addSemanticValidator(MetaDataValidators.familyValidator())
-                        .addAllSemanticValidators(semanticValidators)
+                        .addValidators(validators)
                         .build();
             }
             case COHORT -> {
-                List<PhenopacketValidator<CohortOrBuilder>> semanticValidators = configureSemanticValidators();
+                List<PhenopacketValidator<CohortOrBuilder>> validators = configureSemanticValidators();
                 yield JsonSchemaValidationWorkflowRunner.cohortBuilder()
                         .addAllJsonSchemaUrls(customJsonSchemas)
-                        .addSemanticValidator(MetaDataValidators.cohortValidator())
-                        .addAllSemanticValidators(semanticValidators)
+                        .addValidators(validators)
                         .build();
             }
         };

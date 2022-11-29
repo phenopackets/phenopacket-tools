@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.phenopackets.phenopackettools</groupId>
         <artifactId>phenopacket-tools</artifactId>
-        <version>0.4.7</version>
+        <version>1.0.0-RC1</version>
     </parent>
 
     <artifactId>phenopacket-tools-validator-core</artifactId>
@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>org.phenopackets.phenopackettools</groupId>
-            <artifactId>phenopacket-tools-core</artifactId>
+            <artifactId>phenopacket-tools-util</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

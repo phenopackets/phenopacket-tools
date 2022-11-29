@@ -35,7 +35,5 @@
  * <p>
  * {@link org.phenopackets.phenopackettools.validator.core.ValidatorInfo} describes
  * the {@link org.phenopackets.phenopackettools.validator.core.PhenopacketValidator}.
- * <p>
- * {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel}
  */
 package org.phenopackets.phenopackettools.validator.core;

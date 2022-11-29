@@ -17,6 +17,7 @@ import java.util.List;
 @CommandLine.Command(name = "family",
         description = "Validate families using builtin and custom JSON Schemas.",
         mixinStandardHelpOptions = true)
+@Deprecated(forRemoval = true)
 public class ValidateFamilyCommand extends BaseValidateCommand<FamilyOrBuilder> {
 
     @Override

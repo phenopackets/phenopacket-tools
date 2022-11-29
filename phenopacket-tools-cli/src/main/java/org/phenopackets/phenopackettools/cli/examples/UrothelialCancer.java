@@ -28,6 +28,7 @@ public class UrothelialCancer implements PhenopacketExample {
                 .addResource(Resources.efoVersion("3.34.0"))
                 .addResource(Resources.uberonVersion("2021-07-27"))
                 .addResource(Resources.ncbiTaxonVersion("2021-06-10"))
+                .addResource(Resources.hpoVersion("2022-06-11"))
                 .build();
         phenopacket = PhenopacketBuilder.create(PHENOPACKET_ID, metadata)
                 .individual(individual)

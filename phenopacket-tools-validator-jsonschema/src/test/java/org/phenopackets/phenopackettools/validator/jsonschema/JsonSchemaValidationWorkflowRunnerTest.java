@@ -4,21 +4,32 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.MessageOrBuilder;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.phenopackets.phenopackettools.validator.core.ValidationResult;
-import org.phenopackets.phenopackettools.validator.core.ValidationResults;
-import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
+import org.monarchinitiative.phenol.io.OntologyLoader;
+import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.TermId;
+import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
+import org.phenopackets.phenopackettools.io.PhenopacketParser;
+import org.phenopackets.phenopackettools.io.PhenopacketParserFactory;
+import org.phenopackets.phenopackettools.validator.core.*;
+import org.phenopackets.phenopackettools.validator.core.phenotype.HpoOrganSystems;
+import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
 import org.phenopackets.schema.v2.CohortOrBuilder;
 import org.phenopackets.schema.v2.FamilyOrBuilder;
+import org.phenopackets.schema.v2.Phenopacket;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -27,6 +38,35 @@ public class JsonSchemaValidationWorkflowRunnerTest {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final JsonTamperer TAMPERER = new JsonTamperer();
+
+    /**
+     * Tests that all validation workflow runners (phenopacket, family, and cohort) must pass.
+     */
+    @Nested
+    public class GeneralTest {
+
+        @Test
+        public void baseValidationWorkflowHasExpectedValidators() {
+            String[] expected = {"BaseValidator", "MetaDataValidator"};
+            JsonSchemaValidationWorkflowRunner<PhenopacketOrBuilder> phenopacket = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+            List<String> actual = phenopacket.validators().stream().map(ValidatorInfo::validatorId).toList();
+            assertThat(actual, hasItems(expected));
+            assertThat(actual, hasSize(2));
+
+            JsonSchemaValidationWorkflowRunner<FamilyOrBuilder> family = JsonSchemaValidationWorkflowRunner.familyBuilder()
+                    .build();
+            actual = family.validators().stream().map(ValidatorInfo::validatorId).toList();
+            assertThat(actual, hasItems(expected));
+            assertThat(actual, hasSize(2));
+
+            JsonSchemaValidationWorkflowRunner<CohortOrBuilder> cohort = JsonSchemaValidationWorkflowRunner.cohortBuilder()
+                    .build();
+            actual = cohort.validators().stream().map(ValidatorInfo::validatorId).toList();
+            assertThat(actual, hasItems(expected));
+            assertThat(actual, hasSize(2));
+        }
+    }
 
     /**
      * Check required and recommended phenopacket fields.
@@ -58,7 +98,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/metaData,                            DELETE,          'metaData' is missing but it is required",
             })
             public void checkTopLevelPhenopacketConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -69,7 +109,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/subject/id,                          DELETE,           'subject.id' is missing but it is required"
             })
             public void checkSubjectConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -81,7 +121,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/subject/vitalStatus/status,          DELETE,           'subject.vitalStatus.status' is missing but it is required"
             })
             public void checkVitalStatusConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -93,7 +133,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/phenotypicFeatures[1]/type,          DELETE,           'phenotypicFeatures[1].type' is missing but it is required"
             })
             public void checkPhenotypicFeatureConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -117,7 +157,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/phenotypicFeatures[5]/onset/interval/end,                DELETE,           'phenotypicFeatures[5].onset.interval.end' is missing but it is required",
             })
             public void checkTimeElementConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -128,7 +168,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/phenotypicFeatures[0]/evidence[0]/evidenceCode,          DELETE,           'phenotypicFeatures[0].evidence[0].evidenceCode' is missing but it is required",
             })
             public void checkEvidenceConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -142,7 +182,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/measurements[1]/complexValue,          DELETE,           'measurements[1].value' is missing but it is required|'measurements[1].complexValue' is missing but it is required",
             })
             public void checkMeasurementConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -153,7 +193,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/biosamples[0]/id,                 DELETE,           'biosamples[0].id' is missing but it is required",
             })
             public void checkBiosampleConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -166,7 +206,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/interpretations[0]/progressStatus,     DELETE,           'interpretations[0].progressStatus' is missing but it is required",
             })
             public void checkInterpretationConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -177,7 +217,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/interpretations[0]/diagnosis/disease,   DELETE,           'interpretations[0].diagnosis.disease' is missing but it is required",
             })
             public void checkDiagnosisConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -194,7 +234,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/interpretations[0]/diagnosis/genomicInterpretations[1]/gene,                   DELETE,          'interpretations[0].diagnosis.genomicInterpretations[1].gene' is missing but it is required|'interpretations[0].diagnosis.genomicInterpretations[1].variantInterpretation' is missing but it is required",
             })
             public void checkGenomicInterpretationConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -207,7 +247,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/interpretations[0]/diagnosis/genomicInterpretations[1]/gene/symbol,            DELETE,          'interpretations[0].diagnosis.genomicInterpretations[1].gene.symbol' is missing but it is required",
             })
             public void checkGeneDescriptorConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -221,7 +261,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor,                DELETE,          'interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor' is missing but it is required",
             })
             public void checkVariantInterpretationConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             @ParameterizedTest
@@ -230,7 +270,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/interpretations[0]/diagnosis/genomicInterpretations[0]/variantInterpretation/variationDescriptor/moleculeContext, DELETE,          'interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor.moleculeContext' is missing but it is required",
             })
             public void checkVariationDescriptorConstraints(String path, String action, String expected) {
-                testErrors(runner, readRetinoblastomaPhenopacketNode(), path, action, expected);
+                testErrors(runner, readRetinoblastomaPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -250,7 +290,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
 
                 String validationMessagePrefix = "interpretations[0].diagnosis.genomicInterpretations[0].variantInterpretation.variationDescriptor.variation";
                 String expectedValidationMessage = subExpected.replaceAll("REPLACE", validationMessagePrefix);
-                testErrors(runner, readRetinoblastomaPhenopacketNode(), path, action, expectedValidationMessage);
+                testErrors(runner, readRetinoblastomaPhenopacketNode(), path, action, expectedValidationMessage, true);
             }
 
             /**
@@ -261,7 +301,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/diseases[0]/term,                DELETE,          'diseases[0].term' is missing but it is required",
             })
             public void checkDiseaseConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -275,7 +315,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/medicalActions[3]/therapeuticRegimen,       DELETE,          'medicalActions[3].procedure' is missing but it is required|'medicalActions[3].treatment' is missing but it is required|'medicalActions[3].radiationTherapy' is missing but it is required|'medicalActions[3].therapeuticRegimen' is missing but it is required",
             })
             public void checkMedicalActionConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -286,7 +326,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/medicalActions[0]/procedure/code,           DELETE,          'medicalActions[0].procedure.code' is missing but it is required"
             })
             public void checkProcedureConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -297,7 +337,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/medicalActions[1]/treatment/agent,         DELETE,          'medicalActions[1].treatment.agent' is missing but it is required"
             })
             public void checkTreatmentConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -312,7 +352,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/medicalActions[2]/radiationTherapy/fractions,        DELETE,          'medicalActions[2].radiationTherapy.fractions' is missing but it is required"
             })
             public void checkRadiationTherapyConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -326,7 +366,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/medicalActions[3]/therapeuticRegimen/regimenStatus,       DELETE,          'medicalActions[3].therapeuticRegimen.regimenStatus' is missing but it is required"
             })
             public void checkTherapeuticRegimenConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -338,7 +378,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/files[0]/uri,          DELETE,           'files[0].uri' is missing but it is required",
             })
             public void checkFileConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
 
             /**
@@ -347,13 +387,13 @@ public class JsonSchemaValidationWorkflowRunnerTest {
              */
             @ParameterizedTest
             @CsvSource({
-                    "/metaData/created,                      DELETE,           'metaData.created' is missing but it is required",
-                    "/metaData/createdBy,                    DELETE,           'metaData.createdBy' is missing but it is required",
-                    "/metaData/resources[*],                 DELETE,           'metaData.resources' there must be a minimum of 1 items in the array",
-                    "/metaData/phenopacketSchemaVersion,     DELETE,           'metaData.phenopacketSchemaVersion' is missing but it is required",
+                    "/metaData/created,                      DELETE,      true,      'metaData.created' is missing but it is required",
+                    "/metaData/createdBy,                    DELETE,      true,      'metaData.createdBy' is missing but it is required",
+                    "/metaData/resources[*],                 DELETE,     false,      'metaData.resources' there must be a minimum of 1 items in the array",
+                    "/metaData/phenopacketSchemaVersion,     DELETE,      true,      'metaData.phenopacketSchemaVersion' is missing but it is required",
             })
-            public void checkMetaDataConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            public void checkMetaDataConstraints(String path, String action, boolean validateCount, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, validateCount);
             }
 
             /**
@@ -362,15 +402,15 @@ public class JsonSchemaValidationWorkflowRunnerTest {
              */
             @ParameterizedTest
             @CsvSource({
-                    "/metaData/resources[0]/id,              DELETE,           'metaData.resources[0].id' is missing but it is required",
-                    "/metaData/resources[0]/name,            DELETE,           'metaData.resources[0].name' is missing but it is required",
-                    "/metaData/resources[0]/namespacePrefix, DELETE,           'metaData.resources[0].namespacePrefix' is missing but it is required",
-                    "/metaData/resources[0]/url,             DELETE,           'metaData.resources[0].url' is missing but it is required",
-                    "/metaData/resources[0]/version,         DELETE,           'metaData.resources[0].version' is missing but it is required",
-                    "/metaData/resources[0]/iriPrefix,       DELETE,           'metaData.resources[0].iriPrefix' is missing but it is required",
+                    "/metaData/resources[0]/id,              DELETE,    true,       'metaData.resources[0].id' is missing but it is required",
+                    "/metaData/resources[0]/name,            DELETE,    true,       'metaData.resources[0].name' is missing but it is required",
+                    "/metaData/resources[0]/namespacePrefix, DELETE,   false,       'metaData.resources[0].namespacePrefix' is missing but it is required",
+                    "/metaData/resources[0]/url,             DELETE,    true,       'metaData.resources[0].url' is missing but it is required",
+                    "/metaData/resources[0]/version,         DELETE,    true,       'metaData.resources[0].version' is missing but it is required",
+                    "/metaData/resources[0]/iriPrefix,       DELETE,    true,       'metaData.resources[0].iriPrefix' is missing but it is required",
             })
-            public void checkResourceConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+            public void checkResourceConstraints(String path, String action, boolean validateCount, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, validateCount);
             }
 
             /**
@@ -382,7 +422,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/metaData/updates[0]/timestamp,         DELETE,           'metaData.updates[0].timestamp' is missing but it is required",
             })
             public void checkUpdateConstraints(String path, String action, String expected) {
-                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected);
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
             }
         }
 
@@ -442,7 +482,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/metaData,              DELETE,          'metaData' is missing but it is required",
             })
             public void absenceOfTopLevelFamilyElementsYieldsErrors(String path, String action, String expected) {
-                testErrors(runner, readExampleFamilyNode(), path, action, expected);
+                testErrors(runner, readExampleFamilyNode(), path, action, expected, true);
             }
 
             @ParameterizedTest
@@ -451,7 +491,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/pedigree/persons[*],   DELETE,          'pedigree.persons' there must be a minimum of 1 items in the array",
             })
             public void emptyPedigreeYieldsError(String path, String action, String expected) {
-                testErrors(runner, readExampleFamilyNode(), path, action, expected);
+                testErrors(runner, readExampleFamilyNode(), path, action, expected, true);
             }
 
 
@@ -496,7 +536,7 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/metaData,             DELETE,          'metaData' is missing but it is required",
             })
             public void checkCohortConstraints(String path, String action, String expected) {
-                testErrors(runner, readExampleCohortNode(), path, action, expected);
+                testErrors(runner, readExampleCohortNode(), path, action, expected, true);
             }
 
         }
@@ -512,10 +552,125 @@ public class JsonSchemaValidationWorkflowRunnerTest {
     }
 
     /**
+     * The tests that are part of the user guide. Ensure that the user guide is updated if the tests do not compile.
+     * The tests do not need to be run, just to compile (hence @Disabled).
+     */
+    @Nested
+    @Disabled
+    public class DocumentationTest {
+
+        @Test
+        public void baseValidationWorkflowRunner() throws Exception {
+            // Prepare the runner
+            ValidationWorkflowRunner<PhenopacketOrBuilder> runner = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+
+            // A path
+            Path path = Path.of("bethlem-myopathy.json");
+            ValidationResults results = runner.validate(path);
+
+            // An input stream
+            try (InputStream is = new FileInputStream(path.toFile())) {
+                results = runner.validate(is);
+            }
+
+            // A byte array
+            try (InputStream is = new FileInputStream(path.toFile())) {
+                results = runner.validate(is.readAllBytes());
+            }
+
+            // A JSON or YAML string
+            try (BufferedReader reader = Files.newBufferedReader(path)) {
+                String jsonString = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                results = runner.validate(jsonString);
+            }
+
+            // Or a phenopacket.
+            PhenopacketParser parser = PhenopacketParserFactory.getInstance()
+                    .forFormat(PhenopacketSchemaVersion.V2);
+            Phenopacket phenopacket = (Phenopacket) parser.parse(path);
+            results = runner.validate(phenopacket);
+        }
+
+        @Test
+        public void availableBuilders() {
+            ValidationWorkflowRunner<PhenopacketOrBuilder> phenopacket = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+
+            ValidationWorkflowRunner<FamilyOrBuilder> family = JsonSchemaValidationWorkflowRunner.familyBuilder()
+                    .build();
+
+            ValidationWorkflowRunner<CohortOrBuilder> cohort = JsonSchemaValidationWorkflowRunner.cohortBuilder()
+                    .build();
+        }
+
+        @Test
+        public void workflowIntrospection() {
+            ValidationWorkflowRunner<PhenopacketOrBuilder> runner = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+
+            List<ValidatorInfo> validators = runner.validators();
+        }
+
+        @Test
+        public void validationResults() throws Exception {
+            // Prepare the runner
+            ValidationWorkflowRunner<PhenopacketOrBuilder> runner = JsonSchemaValidationWorkflowRunner.phenopacketBuilder()
+                    .build();
+
+            // A path
+            Path path = Path.of("bethlem-myopathy.json");
+            ValidationResults results = runner.validate(path);
+
+            assert results.isValid();
+            List<ValidatorInfo> validators = results.validators();
+            List<ValidationResult> issues = results.validationResults();
+
+            ValidationResult issue = issues.get(0);
+
+            // The validator that pointed out the issue.
+            ValidatorInfo validatorInfo = issue.validatorInfo();
+
+            // The issue severity (warning or error).
+            ValidationLevel level = issue.level();
+
+            // Category of the issue, useful for grouping the issues.
+            // One validator can produce issues with different categories.
+            String category = issue.category();
+
+            // A message targeted for the user.
+            String message = issue.message();
+        }
+
+        @Test
+        public void elaborateExample() throws Exception {
+            JsonSchemaValidationWorkflowRunnerBuilder<PhenopacketOrBuilder> builder = JsonSchemaValidationWorkflowRunner.phenopacketBuilder();
+
+            Path customSchema = Path.of("hpo-rare-disease-schema.json");
+            builder.addJsonSchema(customSchema);
+
+            Ontology hpo = OntologyLoader.loadOntology(new File("hp.json"));
+            PhenopacketValidator<PhenopacketOrBuilder> primary = HpoPhenotypeValidators.Primary.phenopacketHpoPhenotypeValidator(hpo);
+            builder.addValidator(primary);
+
+            PhenopacketValidator<PhenopacketOrBuilder> ancestry = HpoPhenotypeValidators.Ancestry.phenopacketHpoAncestryValidator(hpo);
+            builder.addValidator(ancestry);
+
+            List<TermId> organSystemIds = List.of(HpoOrganSystems.EYE, HpoOrganSystems.CARDIOVASCULAR, HpoOrganSystems.RESPIRATORY);
+            PhenopacketValidator<PhenopacketOrBuilder> organSystem = HpoPhenotypeValidators.OrganSystem.phenopacketHpoOrganSystemValidator(hpo, organSystemIds);
+            builder.addValidator(organSystem);
+        }
+    }
+
+    /**
      * In principle, we do the same kind of testing in all parameterized tests.
      * We use the {@link #TAMPERER} to tamper with a {@code node}, performing a certain {@code action} on a {@code path}
      * to make the {@code invalid}.
      * Then we validate the invalid node with the {@code runner} and check we receive the expected {@code errors}.
+     * <p>
+     * Sometimes, absence of an element leads to other errors. For instance, absence of a namespace prefix in HP resource
+     * triggers missing ontology class definition for all HPO terms used in phenotypic feature.
+     * To check only presence of a specific error instead of all, we can set {@code validateCount} to {@code false}.
      * <p>
      * This is what is done in this method.
      */
@@ -523,7 +678,8 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                                                                 JsonNode node,
                                                                 String path,
                                                                 String action,
-                                                                String errors) {
+                                                                String errors,
+                                                                boolean validateCount) {
         JsonNode tampered = TAMPERER.tamper(node, path, Action.valueOf(action));
 
         ValidationResults results = runner.validate(tampered.toPrettyString());
@@ -532,10 +688,18 @@ public class JsonSchemaValidationWorkflowRunnerTest {
 //                .map(ValidationResult::message)
 //                .forEach(System.err::println);
 
-        String[] tokens = errors.split("\\|");
-        assertThat(results.validationResults(), hasSize(tokens.length));
+        Collection<String> tokens = Arrays.asList(errors.split("\\|"));
+        if (validateCount) {
+            assertThat(results.validationResults(), hasSize(tokens.size()));
+            // All messages must be present
+            assertThat(results.validationResults().stream().map(ValidationResult::message).toList(), containsInAnyOrder(tokens.toArray()));
+        } else {
+            // At least one message must be present
+            assertThat(results.validationResults().stream().map(ValidationResult::message).anyMatch(tokens::contains), is(true));
+        }
+
+        // Finally, the method is testing errors, so all levels must be errors.
         assertThat(results.validationResults().stream().allMatch(r -> r.level().isError()), is(true));
-        assertThat(results.validationResults().stream().map(ValidationResult::message).toList(), containsInAnyOrder(tokens));
     }
 
 

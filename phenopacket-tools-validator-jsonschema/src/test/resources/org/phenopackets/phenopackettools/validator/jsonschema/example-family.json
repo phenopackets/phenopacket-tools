@@ -251,13 +251,13 @@
         "value": {
           "quantity": {
             "unit": {
-              "id": "UO:0000316",
+              "id": "UCUM:{cells}/uL",
               "label": "cells per microliter"
             },
             "value": 24000.0,
             "referenceRange": {
               "unit": {
-                "id": "UO:0000316",
+                "id": "UCUM:{cells}/uL",
                 "label": "cells per microliter"
               },
               "low": 150000.0,
@@ -270,7 +270,7 @@
         },
         "procedure": {
           "code": {
-            "id": "C173496",
+            "id": "NCIT:C173496",
             "label": "Peripheral Blood"
           },
           "performed": {
@@ -281,7 +281,7 @@
       {
         "description": "Customized blood pressure measurement description.",
         "assay": {
-          "id": "55417-0",
+          "id": "LOINC:55417-0",
           "label": "Short blood pressure panel"
         },
         "complexValue": {
@@ -427,7 +427,7 @@
       {
         "procedure": {
           "code": {
-            "id": "C15396",
+            "id": "NCIT:C15396",
             "label": "Radical Cystectomy"
           },
           "bodySite": {
@@ -445,17 +445,19 @@
           "label": "Infiltrating Urothelial Carcinoma"
         },
         "treatmentIntent": {
-          "id": "C62220",
+          "id": "NCIT:C62220",
           "label": "Cure"
         },
         "responseToTreatment": {
-          "id": "C4870",
+          "id": "NCIT:C4870",
           "label": "Complete Remission"
         },
-        "adverseEvents": [{
-          "id": "HP:0012587",
-          "label": "Macroscopic hematuria"
-        }]
+        "adverseEvents": [
+          {
+            "id": "HP:0012587",
+            "label": "Macroscopic hematuria"
+          }
+        ]
       },
       {
         "treatment": {
@@ -471,7 +473,7 @@
             {
               "quantity": {
                 "unit": {
-                  "id": "UO:0000022",
+                  "id": "UCUM:mg",
                   "label": "milligram"
                 },
                 "value": 30.0
@@ -489,7 +491,7 @@
           "drugType": "PRESCRIPTION",
           "cumulativeDose": {
             "unit": {
-              "id": "UO:0000022",
+              "id": "UCUM:mg",
               "label": "milligram"
             },
             "value": 43800.0
@@ -514,17 +516,19 @@
           "label": "Infiltrating Urothelial Carcinoma"
         },
         "treatmentIntent": {
-          "id": "C62220",
+          "id": "NCIT:C62220",
           "label": "Cure"
         },
         "responseToTreatment": {
-          "id": "C4870",
+          "id": "NCIT:C4870",
           "label": "Complete Remission"
         },
-        "adverseEvents": [{
-          "id": "HP:0020060",
-          "label": "Decreased red blood cell count"
-        }]
+        "adverseEvents": [
+          {
+            "id": "HP:0020060",
+            "label": "Decreased red blood cell count"
+          }
+        ]
       },
       {
         "therapeuticRegimen": {
@@ -550,23 +554,25 @@
           "label": "Infiltrating Urothelial Carcinoma"
         },
         "treatmentIntent": {
-          "id": "C62220",
+          "id": "NCIT:C62220",
           "label": "Cure"
         },
         "responseToTreatment": {
-          "id": "C4870",
+          "id": "NCIT:C4870",
           "label": "Complete Remission"
         },
-        "adverseEvents": [{
-          "id": "HP:0020060",
-          "label": "Decreased red blood cell count"
-        }]
+        "adverseEvents": [
+          {
+            "id": "HP:0020060",
+            "label": "Decreased red blood cell count"
+          }
+        ]
       },
       {
         "therapeuticRegimen": {
           "ontologyClass": {
-            "id": "NCT04576091",
-            "label": "ABCD"
+            "id": "NCIT:C10894",
+            "label": "Carboplatin/Etoposide/Vincristine"
           },
           "startTime": {
             "age": {
@@ -585,17 +591,19 @@
           "label": "Infiltrating Urothelial Carcinoma"
         },
         "treatmentIntent": {
-          "id": "C62220",
+          "id": "NCIT:C62220",
           "label": "Cure"
         },
         "responseToTreatment": {
-          "id": "C4870",
+          "id": "NCIT:C4870",
           "label": "Complete Remission"
         },
-        "adverseEvents": [{
-          "id": "HP:0020060",
-          "label": "Decreased red blood cell count"
-        }]
+        "adverseEvents": [
+          {
+            "id": "HP:0020060",
+            "label": "Decreased red blood cell count"
+          }
+        ]
       }
     ],
     "files": [
@@ -613,24 +621,6 @@
     "metaData": {
       "created": "2021-05-14T10:35:00Z",
       "createdBy": "anonymous biocurator",
-      "resources": [
-        {
-          "id": "hp",
-          "name": "human phenotype ontology",
-          "url": "http://purl.obolibrary.org/obo/hp.owl",
-          "version": "2021-08-02",
-          "namespacePrefix": "HP",
-          "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
-        },
-        {
-          "id": "geno",
-          "name": "Genotype Ontology",
-          "url": "http://purl.obolibrary.org/obo/geno.owl",
-          "version": "2020-03-08",
-          "namespacePrefix": "GENO",
-          "iriPrefix": "http://purl.obolibrary.org/obo/GENO_"
-        }
-      ],
       "updates": [
         {
           "timestamp": "2022-02-22T00:12:34.123456789Z",
@@ -684,49 +674,112 @@
     "created": "2021-07-01T19:32:35Z",
     "createdBy": "anonymous biocurator",
     "submittedBy": "anonymous submitter",
-    "resources": [{
-      "id": "hp",
-      "name": "Human Phenotype Ontology",
-      "url": "http://purl.obolibrary.org/obo/hp.owl",
-      "version": "2021-08-02",
-      "namespacePrefix": "HP",
-      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
-    }, {
-      "id": "hp",
-      "name": "Human Phenotype Ontology",
-      "url": "http://purl.obolibrary.org/obo/hp.owl",
-      "version": "2021-08-02",
-      "namespacePrefix": "HP",
-      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
-    }, {
-      "id": "mondo",
-      "name": "Mondo Disease Ontology",
-      "url": "http://purl.obolibrary.org/obo/mondo.owl",
-      "version": "2021-09-01",
-      "namespacePrefix": "Mondo",
-      "iriPrefix": "http://purl.obolibrary.org/obo/mondo_"
-    }, {
-      "id": "hp",
-      "name": "Human Phenotype Ontology",
-      "url": "http://purl.obolibrary.org/obo/hp.owl",
-      "version": "2021-08-02",
-      "namespacePrefix": "HP",
-      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
-    }, {
-      "id": "hp",
-      "name": "Human Phenotype Ontology",
-      "url": "http://purl.obolibrary.org/obo/hp.owl",
-      "version": "2021-08-02",
-      "namespacePrefix": "HP",
-      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
-    }, {
-      "id": "mondo",
-      "name": "Mondo Disease Ontology",
-      "url": "http://purl.obolibrary.org/obo/mondo.owl",
-      "version": "2021-09-01",
-      "namespacePrefix": "Mondo",
-      "iriPrefix": "http://purl.obolibrary.org/obo/mondo_"
-    }],
+    "resources": [
+      {
+        "id": "hp",
+        "name": "Human Phenotype Ontology",
+        "url": "http://purl.obolibrary.org/obo/hp.owl",
+        "version": "2021-08-02",
+        "namespacePrefix": "HP",
+        "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+      },
+      {
+        "id": "mondo",
+        "name": "Mondo Disease Ontology",
+        "url": "http://purl.obolibrary.org/obo/mondo.owl",
+        "version": "2021-09-01",
+        "namespacePrefix": "Mondo",
+        "iriPrefix": "http://purl.obolibrary.org/obo/mondo_"
+      },
+      {
+        "id": "hp",
+        "name": "Human Phenotype Ontology",
+        "url": "http://purl.obolibrary.org/obo/hp.owl",
+        "version": "2021-08-02",
+        "namespacePrefix": "HP",
+        "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+      },
+      {
+        "id": "geno",
+        "name": "Genotype Ontology",
+        "url": "http://purl.obolibrary.org/obo/geno.owl",
+        "version": "2020-03-08",
+        "namespacePrefix": "GENO",
+        "iriPrefix": "http://purl.obolibrary.org/obo/GENO_"
+      },
+      {
+        "id": "efo",
+        "name": "Experimental Factor Ontology",
+        "url": "http://www.ebi.ac.uk/efo/efo.owl",
+        "version": "VERSION",
+        "namespacePrefix": "EFO",
+        "iriPrefix": "http://purl.obolibrary.org/obo/EFO_"
+      },
+      {
+        "id": "ncit",
+        "name": "NCI Thesaurus",
+        "url": "http://purl.obolibrary.org/obo/ncit.owl",
+        "version": "VERSION",
+        "namespacePrefix": "NCIT",
+        "iriPrefix": "http://purl.obolibrary.org/obo/NCIT_"
+      },
+      {
+        "id": "uberon",
+        "name": "Uber-anatomy ontology",
+        "url": "http://purl.obolibrary.org/obo/uberon.owl",
+        "version": "VERSION",
+        "namespacePrefix": "UBERON",
+        "iriPrefix": "http://purl.obolibrary.org/obo/UBERON_"
+      },
+      {
+        "id": "ncbitaxon",
+        "name": "NCBI organismal classification",
+        "url": "http://purl.obolibrary.org/obo/ncbitaxon.owl",
+        "version": "VERSION",
+        "namespacePrefix": "NCBITaxon",
+        "iriPrefix": "http://purl.obolibrary.org/obo/NCBITaxon_"
+      },
+      {
+        "id": "loinc",
+        "name": "Logical Observation Identifiers Names and Codes",
+        "url": "https://loinc.org",
+        "version": "VERSION",
+        "namespacePrefix": "LOINC",
+        "iriPrefix": "https://loinc.org"
+      },
+      {
+        "id": "drugcentral",
+        "name": "Drug Central",
+        "url": "https://drugcentral.org/",
+        "version": "VERSION",
+        "namespacePrefix": "DrugCentral",
+        "iriPrefix": "https://drugcentral.org/drugcard"
+      },
+      {
+        "id": "omim",
+        "name": "An Online Catalog of Human Genes and Genetic Disorders",
+        "url": "https://www.omim.org",
+        "version": "VERSION",
+        "namespacePrefix": "OMIM",
+        "iriPrefix": "https://www.omim.org/entry/"
+      },
+      {
+        "id": "eco",
+        "name": "Evidence & Conclusion Ontology (ECO)",
+        "url": "http://purl.obolibrary.org/obo/eco.owl",
+        "version": "VERSION",
+        "namespacePrefix": "ECO",
+        "iriPrefix": "http://purl.obolibrary.org/obo/ECO_"
+      },
+      {
+        "id": "ucum",
+        "name": "Unified Code for Units of Measure",
+        "url": "https://ucum.org",
+        "version": "2.1",
+        "namespacePrefix": "UCUM",
+        "iriPrefix": "https://ucum.org/"
+      }
+    ],
     "phenopacketSchemaVersion": "2.0",
     "externalReferences": [{
       "id": "PMID:20842687",
