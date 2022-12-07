@@ -55,7 +55,7 @@ jobs:
         pxfcli="phenopacket-tools-cli"
         find ${pxfcli}/target \
              -regex "^${pxfcli}/target/${pxfcli}-[0-9]\.[0-9]\.[0-9]\(-SNAPSHOT\)?\.jar$" \
-             -exec java -jar {} examples --output-directory ./gh-pages/examples \;
+             -exec java -jar {} examples -v --output-directory ./gh-pages/examples \;
         pwd
         ls -alH
         ls -alH ./gh-pages
