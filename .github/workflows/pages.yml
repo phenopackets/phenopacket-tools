@@ -5,7 +5,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   # Runs on pushes targeting the main branch
-  push:
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -66,7 +66,7 @@ jobs:
 
 
     - name: Deploy documentation.
-      if: ${{ github.event_name == 'push' }}
+      if: ${{ github.event_name == 'pull_request' }}
       uses: JamesIves/github-pages-deploy-action@v4.3.0
       with:
         branch: gh-pages
