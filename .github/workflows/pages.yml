@@ -53,11 +53,16 @@ jobs:
         
         ## Generate examples
         # Find the CLI jar and run the `examples` command.
-        printf "Generating Phenopacket examples\n"
-        find phenopacket-tools-cli/target \
+        jar=$(find phenopacket-tools-cli/target \
           -regextype posix-extended \
-          -regex ".*[0-9]+\.[0-9]+\.[0-9]+(-RC[1-9][0-9]*)?\.jar$" \
-          -exec java -jar {} examples -v --output-directory ./gh-pages/examples \;
+          -regex ".*[0-9]+\.[0-9]+\.[0-9]+(-RC[1-9][0-9]*)?\.jarr$")
+        if [ -f "${jar}" ]; then
+          printf "Generating Phenopacket examples using ${jar}\n"
+          java -jar ${jar} examples -v --output-directory ./gh-pages/examples
+        else
+          printf "Could not find phenopacket-tools JAR file\n"
+          exit 1
+        fi
         
         ## Build the docs
         # Generate the HTML pages and move the generated content into the target folder.
