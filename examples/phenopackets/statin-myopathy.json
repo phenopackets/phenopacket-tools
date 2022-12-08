@@ -1,0 +1,369 @@
+{
+  "id": "arbitrary.id",
+  "subject": {
+    "id": "65-year-old man",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P65Y"
+      }
+    },
+    "sex": "MALE",
+    "karyotypicSex": "UNKNOWN_KARYOTYPE"
+  },
+  "phenotypicFeatures": [{
+    "type": {
+      "id": "HP:0008994",
+      "label": "Proximal muscle weakness in lower limbs"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P65Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0007289",
+      "label": "Limb fasciculations"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P65Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0008956",
+      "label": "Proximal lower limb amyotrophy"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P65Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0003808",
+      "label": "Abnormal muscle tone"
+    },
+    "excluded": true,
+    "onset": {
+      "age": {
+        "iso8601duration": "P65Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0003391",
+      "label": "Gowers sign"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P65Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0003551",
+      "label": "Difficulty climbing stairs"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P65Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0006886",
+      "label": "Impaired distal vibration sensation"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P65Y"
+      }
+    }
+  }],
+  "measurements": [{
+    "assay": {
+      "id": "LOINC:2157-6",
+      "label": "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:U.L-1",
+          "label": "enzyme unit per liter"
+        },
+        "value": 4292.0,
+        "referenceRange": {
+          "unit": {
+            "id": "UCUM:U.L-1",
+            "label": "enzyme unit per liter"
+          },
+          "low": 20.0,
+          "high": 200.0
+        }
+      }
+    }
+  }, {
+    "assay": {
+      "id": "LOINC:1742-6",
+      "label": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma"
+    },
+    "value": {
+      "quantity": {
+        "unit": {
+          "id": "UCUM:U.L-1",
+          "label": "enzyme unit per liter"
+        },
+        "value": 234.0,
+        "referenceRange": {
+          "unit": {
+            "id": "UCUM:U.L-1",
+            "label": "enzyme unit per liter"
+          },
+          "low": 4.0,
+          "high": 36.0
+        }
+      }
+    }
+  }],
+  "diseases": [{
+    "term": {
+      "id": "MONDO:0005148",
+      "label": "type 2 diabetes mellitus"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P55Y"
+      }
+    }
+  }, {
+    "term": {
+      "id": "MONDO:0001134",
+      "label": "essential hypertension"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P55Y"
+      }
+    }
+  }],
+  "medicalActions": [{
+    "treatment": {
+      "agent": {
+        "id": "DrugCentral:257",
+        "label": "atorvastatin"
+      },
+      "routeOfAdministration": {
+        "id": "NCIT:C38288",
+        "label": "Oral Route of Administration"
+      },
+      "doseIntervals": [{
+        "quantity": {
+          "unit": {
+            "id": "UCUM:mg",
+            "label": "milligram"
+          },
+          "value": 10.0
+        },
+        "scheduleFrequency": {
+          "id": "NCIT:C125004",
+          "label": "Once Daily"
+        },
+        "interval": {
+          "start": "2010-09-02T00:00:00Z",
+          "end": "2020-09-02T00:00:00Z"
+        }
+      }],
+      "drugType": "UNKNOWN_DRUG_TYPE"
+    },
+    "adverseEvents": [{
+      "id": "HP:0003198",
+      "label": "Myopathy"
+    }],
+    "treatmentTerminationReason": {
+      "id": "NCIT:C41331",
+      "label": "Adverse Event"
+    }
+  }, {
+    "treatment": {
+      "agent": {
+        "id": "DrugCentral:74",
+        "label": "acetylsalicylic acid"
+      },
+      "routeOfAdministration": {
+        "id": "NCIT:C38288",
+        "label": "Oral Route of Administration"
+      },
+      "doseIntervals": [{
+        "quantity": {
+          "unit": {
+            "id": "UCUM:mg",
+            "label": "milligram"
+          },
+          "value": 75.0
+        },
+        "scheduleFrequency": {
+          "id": "NCIT:C125004",
+          "label": "Once Daily"
+        },
+        "interval": {
+          "start": "2010-09-02T00:00:00Z",
+          "end": "2020-09-02T00:00:00Z"
+        }
+      }],
+      "drugType": "UNKNOWN_DRUG_TYPE"
+    }
+  }, {
+    "treatment": {
+      "agent": {
+        "id": "DrugCentral:2356",
+        "label": "ramipril"
+      },
+      "routeOfAdministration": {
+        "id": "NCIT:C38288",
+        "label": "Oral Route of Administration"
+      },
+      "doseIntervals": [{
+        "quantity": {
+          "unit": {
+            "id": "UCUM:mg",
+            "label": "milligram"
+          },
+          "value": 10.0
+        },
+        "scheduleFrequency": {
+          "id": "NCIT:C125004",
+          "label": "Once Daily"
+        },
+        "interval": {
+          "start": "2010-09-02T00:00:00Z",
+          "end": "2020-09-02T00:00:00Z"
+        }
+      }],
+      "drugType": "UNKNOWN_DRUG_TYPE"
+    }
+  }, {
+    "treatment": {
+      "agent": {
+        "id": "DrugCentral:1725",
+        "label": "metformin"
+      },
+      "routeOfAdministration": {
+        "id": "NCIT:C38288",
+        "label": "Oral Route of Administration"
+      },
+      "doseIntervals": [{
+        "quantity": {
+          "unit": {
+            "id": "UCUM:mg",
+            "label": "milligram"
+          },
+          "value": 500.0
+        },
+        "scheduleFrequency": {
+          "id": "NCIT:C64527",
+          "label": "Three Times Daily"
+        },
+        "interval": {
+          "start": "2010-09-02T00:00:00Z",
+          "end": "2020-09-02T00:00:00Z"
+        }
+      }],
+      "drugType": "UNKNOWN_DRUG_TYPE"
+    }
+  }, {
+    "treatment": {
+      "agent": {
+        "id": "NCIT:C121331",
+        "label": "Intravenous Immunoglobulin Therapy"
+      },
+      "routeOfAdministration": {
+        "id": "NCIT:C38276",
+        "label": "Intravenous Route of Administration"
+      },
+      "doseIntervals": [{
+        "quantity": {
+          "unit": {
+            "id": "UCUM:g.kg-1",
+            "label": "gram per kilogram"
+          },
+          "value": 1.6
+        },
+        "scheduleFrequency": {
+          "id": "NCIT:C89788",
+          "label": "Every Six Weeks"
+        },
+        "interval": {
+          "start": "2020-09-02T00:00:00Z",
+          "end": "2021-03-02T00:00:00Z"
+        }
+      }],
+      "drugType": "UNKNOWN_DRUG_TYPE"
+    },
+    "responseToTreatment": {
+      "id": "NCIT:C123584",
+      "label": "Favorable Response"
+    }
+  }],
+  "metaData": {
+    "created": "2022-04-21T10:35:00Z",
+    "createdBy": "anonymous biocurator",
+    "resources": [{
+      "id": "ncit",
+      "name": "NCI Thesaurus",
+      "url": "http://purl.obolibrary.org/obo/ncit.owl",
+      "version": "21.05d",
+      "namespacePrefix": "NCIT",
+      "iriPrefix": "http://purl.obolibrary.org/obo/NCIT_"
+    }, {
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2022-06-11",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }, {
+      "id": "loinc",
+      "name": "Logical Observation Identifiers Names and Codes",
+      "url": "https://loinc.org",
+      "version": "2.73",
+      "namespacePrefix": "LOINC",
+      "iriPrefix": "https://loinc.org/"
+    }, {
+      "id": "ucum",
+      "name": "Unified Code for Units of Measure",
+      "url": "https://ucum.org",
+      "version": "2.1",
+      "namespacePrefix": "UCUM",
+      "iriPrefix": "https://units-of-measurement.org/"
+    }, {
+      "id": "mondo",
+      "name": "Mondo Disease Ontology",
+      "url": "http://purl.obolibrary.org/obo/mondo.obo",
+      "version": "2022-04-04",
+      "namespacePrefix": "MONDO",
+      "iriPrefix": "http://purl.obolibrary.org/obo/MONDO_"
+    }, {
+      "id": "drugcentral",
+      "name": "Drug Central",
+      "url": "https://drugcentral.org/",
+      "version": "2022-08-22",
+      "namespacePrefix": "DrugCentral",
+      "iriPrefix": "https://drugcentral.org/drugcard/"
+    }],
+    "phenopacketSchemaVersion": "2.0.0",
+    "externalReferences": [{
+      "id": "PMID:32444443",
+      "description": "Severe statin-induced autoimmune myopathy successfully treated with intravenous immunoglobulin"
+    }]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "id.1",
+  "subject": {
+    "id": "case1",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P4D"
+      }
+    },
+    "sex": "MALE",
+    "karyotypicSex": "UNKNOWN_KARYOTYPE"
+  },
+  "phenotypicFeatures": [{
+    "type": {
+      "id": "HP:0034248",
+      "label": "Increased fetal lens echogenicity"
+    },
+    "excluded": false,
+    "onset": {
+      "gestationalAge": {
+        "weeks": 27,
+        "days": 2
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0000568",
+      "label": "Microphthalmia"
+    },
+    "excluded": true,
+    "onset": {
+      "gestationalAge": {
+        "weeks": 27,
+        "days": 2
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0000369",
+      "label": "Low-set ears"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P4D"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0008936",
+      "label": "Axial hypotonia"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P4D"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0000568",
+      "label": "Microphthalmia"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P4D"
+      }
+    }
+  }],
+  "diseases": [{
+    "term": {
+      "id": "MONDO:0016649",
+      "label": "Warburg micro syndrome"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P4D"
+      }
+    }
+  }],
+  "metaData": {
+    "created": "2022-04-17T10:35:00Z",
+    "createdBy": "biocurator",
+    "resources": [{
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2022-04-15",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }, {
+      "id": "mondo",
+      "name": "Mondo Disease Ontology",
+      "url": "http://purl.obolibrary.org/obo/mondo.obo",
+      "version": "v2022-04-04",
+      "namespacePrefix": "MONDO",
+      "iriPrefix": "http://purl.obolibrary.org/obo/MONDO_"
+    }],
+    "phenopacketSchemaVersion": "2.0.0"
+  }
+}
