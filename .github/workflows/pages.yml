@@ -55,12 +55,13 @@ jobs:
         # Find the CLI jar and run the `examples` command.
         jar=$(find phenopacket-tools-cli/target \
           -regextype posix-extended \
-          -regex ".*[0-9]+\.[0-9]+\.[0-9]+(-RC[1-9][0-9]*)?\.jarr$")
+          -regex ".*[0-9]+\.[0-9]+\.[0-9]+(-RC[1-9][0-9]*)?\.jar$")
         if [ -f "${jar}" ]; then
           printf "Generating Phenopacket examples using ${jar}\n"
           java -jar ${jar} examples -v --output-directory ./gh-pages/examples
         else
           printf "Could not find phenopacket-tools JAR file\n"
+          tree -L 3 .
           exit 1
         fi
         
