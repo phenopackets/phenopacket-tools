@@ -61,6 +61,7 @@ jobs:
           java -jar ${jar} examples -v --output-directory ./gh-pages/examples
         else
           printf "Could not find phenopacket-tools JAR file\n"
+          tree -L 3 .
           exit 1
         fi
         
