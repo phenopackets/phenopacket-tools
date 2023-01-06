@@ -46,14 +46,25 @@ public class TimeElements {
         return TimeElement.newBuilder().setGestationalAge(GestationalAge.newBuilder().setWeeks(weeks)).build();
     }
 
+    public static TimeElement age(Age age) {
+        return TimeElement.newBuilder().setAge(age).build();
+    }
     public static TimeElement age(String iso8601duration) {
         Age age = Ages.age(iso8601duration);
-        return TimeElement.newBuilder().setAge(age).build();
+        return age(age);
     }
 
     public static TimeElement ageRange(String iso8601start, String iso8601End) {
         AgeRange ageRange = Ages.ageRange(iso8601start, iso8601End);
+        return ageRange(ageRange);
+    }
+
+    public static TimeElement ageRange(AgeRange ageRange) {
         return TimeElement.newBuilder().setAgeRange(ageRange).build();
+    }
+
+    public static TimeElement ontologyClass(String id, String label) {
+        return ontologyClass(OntologyClassBuilder.ontologyClass(id, label));
     }
 
     public static TimeElement ontologyClass(OntologyClass clz) {
