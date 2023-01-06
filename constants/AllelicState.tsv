@@ -2,3 +2,4 @@ ontology.id	ontology.label	variable.name	function.name
 GENO:0000135	heterozygous	HETEROZYGOUS	heterozygous
 GENO:0000136	homozygous	HOMOZYGOUS	homozygous
 GENO:0000134	hemizygous	HEMIZYGOUS	hemizygous
+GENO:0000137	unspecified zygosity	UNSPECIFIED_ZYGOSITY	unspecifiedZygosity
