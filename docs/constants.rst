@@ -62,6 +62,7 @@ Terms from the `GENE ontology <https://www.ebi.ac.uk/ols/ontologies/geno>`_ are 
    "GENO:0000135", "heterozygous", "heterozygous()"
    "GENO:0000136", "homozygous", "homozygous()"
    "GENO:0000134", "hemizygous", "hemizygous()"
+   "GENO:0000137", "unspecified zygosity", "unspecifiedZygosity()"
 
 
 BiospecimenType
