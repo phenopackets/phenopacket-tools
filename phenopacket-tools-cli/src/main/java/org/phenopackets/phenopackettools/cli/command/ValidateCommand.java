@@ -49,7 +49,6 @@ public class ValidateCommand extends BaseIOCommand {
         public boolean includeHeader = false;
 
         @CommandLine.Option(names = {"--require"},
-                arity = "*",
                 description = "Path to JSON schema with additional requirements to enforce.")
         public List<Path> requirements = List.of();
 
@@ -58,7 +57,6 @@ public class ValidateCommand extends BaseIOCommand {
         public Path hpJson;
 
         @CommandLine.Option(names = {"-s", "--organ-system"},
-                arity = "*",
                 description = {"Organ system HPO term IDs",
                         "Default: empty"})
         public List<String> organSystems = List.of();
