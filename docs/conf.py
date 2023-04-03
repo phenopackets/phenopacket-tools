@@ -50,8 +50,7 @@ source_suffix = ['.rst', '.md']
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
-html_css_files = ['ptools.css']
-#html_style = 'ptools.css'
+html_css_files = ['pxftools.css']
 
 
 # The name of the Pygments (syntax highlighting) style to use.
