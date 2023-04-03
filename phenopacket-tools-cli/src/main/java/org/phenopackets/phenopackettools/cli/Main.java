@@ -48,6 +48,7 @@ public class Main {
         Locale.setDefault(Locale.US);
         //noinspection InstantiationOfUtilityClass
         CommandLine cline = new CommandLine(new Main())
+                .setUnmatchedOptionsArePositionalParams(false)
                 .setColorScheme(COLOR_SCHEME);
         cline.getSubcommands().get("generate-completion").getCommandSpec().usageMessage().hidden(true);
         System.exit(cline.execute(args));
