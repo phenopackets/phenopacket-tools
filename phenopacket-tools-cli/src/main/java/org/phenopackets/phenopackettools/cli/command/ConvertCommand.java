@@ -62,7 +62,9 @@ public class ConvertCommand extends BaseIOCommand {
 
         // (2) Convert into v2 format.
         if (convertSection.convertVariants)
-            LOGGER.debug("Converting variants");
+            LOGGER.info("Converting variants");
+        else
+            LOGGER.info("Ignoring variants since the `--convert-variants` option is unset");
 
         V1ToV2Converter converter = V1ToV2Converter.of(convertSection.convertVariants);
         List<MessageAndPath> converted = new ArrayList<>(messages.size());
