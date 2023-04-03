@@ -37,15 +37,10 @@ Download *phenopacket-tools*
 
 A prebuilt distribution ZIP file is available for download from the
 `release section <https://github.com/phenopackets/phenopacket-tools/releases>`_
-of the GitHub repository.
+of our GitHub repository.
 
-Download and unpack the ZIP file of the latest release |release| from the release assets:
-
-.. parsed-literal::
-
-  URL=https://github.com/phenopackets/phenopacket-tools/releases/download/v\ |release|\ /phenopacket-tools-cli-|release|-distribution.zip
-  curl -o phenopacket-tools-cli-|release|-distribution.zip ${URL}
-  unzip phenopacket-tools-cli-|release|-distribution.zip
+Use your favorite web browser to download the ZIP archive with the latest release |release| and unpack the archive
+into a folder of your choice.
 
 .. _rstsetupaliastutorial:
 
