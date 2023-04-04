@@ -15,7 +15,7 @@ import static picocli.CommandLine.Help.Ansi.Style.*;
                 "phenopacket-tools (pxf)",
                 "An application and library for building, conversion, and validation of GA4GH Phenopackets.\n"
         },
-        version = "v1.0.0-RC2-SNAPSHOT",
+        version = "v1.0.0-RC2",
         mixinStandardHelpOptions = true,
         subcommands = {
                 // see https://picocli.info/autocomplete.html
