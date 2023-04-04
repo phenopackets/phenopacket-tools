@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Validating Phenopackets &mdash; phenopacket-tools 1.0.0-RC1 documentation</title>
+  <title>Validating Phenopackets &mdash; phenopacket-tools 1.0.0-RC2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pxftools.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -30,14 +27,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> phenopacket-tools
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            phenopacket-tools
           </a>
               <div class="version">
                 1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -91,7 +92,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Validating Phenopackets</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/validation.rst.txt" rel="nofollow"> View page source</a>
@@ -136,8 +137,8 @@ a <code class="docutils literal notranslate"><span class="pre">ValidationResults
 <section id="base-validation-workflow">
 <span id="rstbasevalidation"></span><h3>Base validation workflow<a class="headerlink" href="#base-validation-workflow" title="Permalink to this heading"></a></h3>
 <p>Let’s demonstrate setting up of the base validation workflow for phenopacket validation.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">runner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span><span class="w"></span>
-<span class="w">                                                           </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">runner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span>
+<span class="w">                                                           </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>The <cite>JsonSchemaValidationWorkflowRunner</cite> provides factory methods for getting a workflow runner builder
@@ -145,50 +146,50 @@ for phenopacket, family, and cohort. The validation workflow can be extended by 
 However, in this case we are only interested in the base validation, hence we conclude the building
 by calling the <cite>build()</cite> method.</p>
 <p>As a convenience, the <cite>runner</cite> can validate phenopacket in several different input types:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// A path</span><span class="w"></span>
-<span class="n">Path</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;bethlem-myopathy.json&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="n">ValidationResults</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">path</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// A path</span>
+<span class="n">Path</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;bethlem-myopathy.json&quot;</span><span class="p">);</span>
+<span class="n">ValidationResults</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
 
-<span class="c1">// An input stream</span><span class="w"></span>
-<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="na">toFile</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">is</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// An input stream</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="na">toFile</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">is</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="c1">// A byte array</span><span class="w"></span>
-<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="na">toFile</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">is</span><span class="p">.</span><span class="na">readAllBytes</span><span class="p">());</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// A byte array</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="na">toFile</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">is</span><span class="p">.</span><span class="na">readAllBytes</span><span class="p">());</span>
+<span class="p">}</span>
 
-<span class="c1">// A JSON/YAML string</span><span class="w"></span>
-<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Files</span><span class="p">.</span><span class="na">newBufferedReader</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">jsonString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="na">lines</span><span class="p">().</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">lineSeparator</span><span class="p">()));</span><span class="w"></span>
-<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">jsonString</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// A JSON/YAML string</span>
+<span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Files</span><span class="p">.</span><span class="na">newBufferedReader</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">jsonString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="na">lines</span><span class="p">().</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">lineSeparator</span><span class="p">()));</span>
+<span class="w">    </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">jsonString</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="c1">// Or a phenopacket.</span><span class="w"></span>
-<span class="n">PhenopacketParser</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhenopacketParserFactory</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span><span class="w"></span>
-<span class="w">                             </span><span class="p">.</span><span class="na">forFormat</span><span class="p">(</span><span class="n">PhenopacketSchemaVersion</span><span class="p">.</span><span class="na">V2</span><span class="p">);</span><span class="w"></span>
-<span class="n">Phenopacket</span><span class="w"> </span><span class="n">phenopacket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Phenopacket</span><span class="p">)</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">path</span><span class="p">);</span><span class="w"></span>
-<span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">phenopacket</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// Or a phenopacket.</span>
+<span class="n">PhenopacketParser</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhenopacketParserFactory</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span>
+<span class="w">                             </span><span class="p">.</span><span class="na">forFormat</span><span class="p">(</span><span class="n">PhenopacketSchemaVersion</span><span class="p">.</span><span class="na">V2</span><span class="p">);</span>
+<span class="n">Phenopacket</span><span class="w"> </span><span class="n">phenopacket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Phenopacket</span><span class="p">)</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+<span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">phenopacket</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">JsonSchemaValidationWorkflowRunner</span></code> provides static factory method for getting builders for all top-level elements
 of Phenopacket Schema:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">phenopacket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">phenopacket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 
-<span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">FamilyOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">familyBuilder</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+<span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">FamilyOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">familyBuilder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 
-<span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">CohortOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cohort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">cohortBuilder</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+<span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">CohortOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cohort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">cohortBuilder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>To validation workflow can be introspected by calling <cite>validators()</cite> method:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">runner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">runner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 
-<span class="n">List</span><span class="o">&lt;</span><span class="n">ValidatorInfo</span><span class="o">&gt;</span><span class="w"> </span><span class="n">validators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validators</span><span class="p">();</span><span class="w"></span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">ValidatorInfo</span><span class="o">&gt;</span><span class="w"> </span><span class="n">validators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validators</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
@@ -196,39 +197,39 @@ of Phenopacket Schema:</p>
 <h3><cite>ValidationResults</cite><a class="headerlink" href="#validationresults" title="Permalink to this heading"></a></h3>
 <p>The validation returns <cite>ValidationResults</cite>, a container object that aggregates issues discovered by all validators
 of the workflow.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationResults</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">path</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationResults</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The <cite>results.isValid()</cite> returns <cite>true</cite> if no validation errors were discovered:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">isValid</span><span class="p">();</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">isValid</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>The <cite>results</cite> has information regarding the applied validation checks:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">ValidatorInfo</span><span class="o">&gt;</span><span class="w"> </span><span class="n">validators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">validators</span><span class="p">();</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">ValidatorInfo</span><span class="o">&gt;</span><span class="w"> </span><span class="n">validators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">validators</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>and the discovered issues (if any):</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">ValidationResult</span><span class="o">&gt;</span><span class="w"> </span><span class="n">issues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">validationResults</span><span class="p">();</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">ValidationResult</span><span class="o">&gt;</span><span class="w"> </span><span class="n">issues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">validationResults</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
 <section id="validationresult">
 <h3><cite>ValidationResult</cite><a class="headerlink" href="#validationresult" title="Permalink to this heading"></a></h3>
 <p><cite>ValidationResult</cite> represents a single validation issue. The object is a simple POJO/value object with several attributes:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationResult</span><span class="w"> </span><span class="n">issue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issues</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationResult</span><span class="w"> </span><span class="n">issue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issues</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-<span class="c1">// The validator that pointed out the issue.</span><span class="w"></span>
-<span class="n">ValidatorInfo</span><span class="w"> </span><span class="n">validatorInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">validatorInfo</span><span class="p">();</span><span class="w"></span>
+<span class="c1">// The validator that pointed out the issue.</span>
+<span class="n">ValidatorInfo</span><span class="w"> </span><span class="n">validatorInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">validatorInfo</span><span class="p">();</span>
 
-<span class="c1">// The issue severity (warning or error).</span><span class="w"></span>
-<span class="n">ValidationLevel</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">level</span><span class="p">();</span><span class="w"></span>
+<span class="c1">// The issue severity (warning or error).</span>
+<span class="n">ValidationLevel</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">level</span><span class="p">();</span>
 
-<span class="c1">// Category of the issue, useful for grouping the issues.</span><span class="w"></span>
-<span class="c1">// One validator can produce issues with different categories.</span><span class="w"></span>
-<span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">category</span><span class="p">();</span><span class="w"></span>
+<span class="c1">// Category of the issue, useful for grouping the issues.</span>
+<span class="c1">// One validator can produce issues with different categories.</span>
+<span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">category</span><span class="p">();</span>
 
-<span class="c1">// A message targeted for the user.</span><span class="w"></span>
-<span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">message</span><span class="p">();</span><span class="w"></span>
+<span class="c1">// A message targeted for the user.</span>
+<span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issue</span><span class="p">.</span><span class="na">message</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>The API documentation of the core validation API can be found in the
@@ -248,7 +249,7 @@ and a parent or ancestor of the term, or that the phenopacket annotates or exclu
 in selected organ systems.</p>
 <p>Here we use a bunch of <em>off-the-shelf</em> validators from <em>phenopacket-tools</em> to show a validation workflow for checking
 the above requirements. Let’s start by creating a validation workflow runner builder:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">JsonSchemaValidationWorkflowRunnerBuilder</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">();</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">JsonSchemaValidationWorkflowRunnerBuilder</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">();</span>
 </pre></div>
 </div>
 <section id="custom-validation">
@@ -357,9 +358,9 @@ package.</p>
 in the given HPO file, and <em>current</em> - not obsolete. If an obsolete term is found, the validator suggests a replacement
 with the current term.</p>
 <p>In code, we add the primary validation into the validation workflow by running:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Ontology</span><span class="w"> </span><span class="n">hpo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OntologyLoader</span><span class="p">.</span><span class="na">loadOntology</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&quot;hp.json&quot;</span><span class="p">));</span><span class="w"></span>
-<span class="n">PhenopacketValidator</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">primary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">Primary</span><span class="p">.</span><span class="na">phenopacketHpoPhenotypeValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">);</span><span class="w"></span>
-<span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">primary</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Ontology</span><span class="w"> </span><span class="n">hpo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OntologyLoader</span><span class="p">.</span><span class="na">loadOntology</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&quot;hp.json&quot;</span><span class="p">));</span>
+<span class="n">PhenopacketValidator</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">primary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">Primary</span><span class="p">.</span><span class="na">phenopacketHpoPhenotypeValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">);</span>
+<span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">primary</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The validator requires an HPO <cite>Ontology</cite> object. We use <a class="reference external" href="https://github.com/monarch-initiative/phenol">Phenol</a>
@@ -375,12 +376,6 @@ a term and its ancestor.</p>
 A feature can be either present/observed, or absent/excluded in the subject. The ancestry validator takes
 the observation status into the account, which leads to several possible outcomes regarding validity of a term combination:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0032792">Tonic seizure</a> (Term)</p></th>
 <th class="head"><p><a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001250">Seizure</a> (Ancestor)</p></th>
@@ -412,8 +407,8 @@ the observation status into the account, which leads to several possible outcome
 </tbody>
 </table>
 <p>Using ancestry validator in the validator workflow is fairly straightforward if we can get ahold of a HPO <cite>Ontology</cite> object:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PhenopacketValidator</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ancestry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">Ancestry</span><span class="p">.</span><span class="na">phenopacketHpoAncestryValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">);</span><span class="w"></span>
-<span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">ancestry</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PhenopacketValidator</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ancestry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">Ancestry</span><span class="p">.</span><span class="na">phenopacketHpoAncestryValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">);</span>
+<span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">ancestry</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -429,11 +424,6 @@ For instance, phenopackets that represent patients with
 </ul>
 <p>To annotate organ system, we either <em>exclude</em> the corresponding top-level HPO term or by adding a descendent term:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Organ system</p></th>
 <th class="head"><p>Top-level HPO term</p></th>
@@ -456,9 +446,9 @@ For instance, phenopackets that represent patients with
 </tbody>
 </table>
 <p>The <cite>HpoOrganSystemValidator</cite> requires HPO <cite>Ontology</cite> and a list of top-level HPO terms:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">TermId</span><span class="o">&gt;</span><span class="w"> </span><span class="n">organSystemIds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">List</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">HpoOrganSystems</span><span class="p">.</span><span class="na">EYE</span><span class="p">,</span><span class="w"> </span><span class="n">HpoOrganSystems</span><span class="p">.</span><span class="na">CARDIOVASCULAR</span><span class="p">,</span><span class="w"> </span><span class="n">HpoOrganSystems</span><span class="p">.</span><span class="na">RESPIRATORY</span><span class="p">);</span><span class="w"></span>
-<span class="n">PhenopacketValidator</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">organSystem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">OrganSystem</span><span class="p">.</span><span class="na">phenopacketHpoOrganSystemValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">,</span><span class="w"> </span><span class="n">organSystemIds</span><span class="p">);</span><span class="w"></span>
-<span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">organSystem</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span><span class="o">&lt;</span><span class="n">TermId</span><span class="o">&gt;</span><span class="w"> </span><span class="n">organSystemIds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">List</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">HpoOrganSystems</span><span class="p">.</span><span class="na">EYE</span><span class="p">,</span><span class="w"> </span><span class="n">HpoOrganSystems</span><span class="p">.</span><span class="na">CARDIOVASCULAR</span><span class="p">,</span><span class="w"> </span><span class="n">HpoOrganSystems</span><span class="p">.</span><span class="na">RESPIRATORY</span><span class="p">);</span>
+<span class="n">PhenopacketValidator</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">organSystem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">OrganSystem</span><span class="p">.</span><span class="na">phenopacketHpoOrganSystemValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">,</span><span class="w"> </span><span class="n">organSystemIds</span><span class="p">);</span>
+<span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">organSystem</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><em>Phenopacket-tools</em> includes a convenience class <cite>HpoOrganSystems</cite> with IDs of the commonly-used top-level HPO terms.

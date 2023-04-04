@@ -6,7 +6,13 @@ Tutorial
 
 This tutorial walks through the installation of *phenopacket-tools* command-line interface application
 and provides an overview of the *conversion* of phenopackets from `v1` to the current `v2` format and
-*validation* functionality, including custom validation rules.
+the *validation* functionality, including custom validation rules.
+
+We show *phenopacket-tools* functionality within a Unix shell due to the fact that Unix is the predominant computational
+environment in bioinformatics. We use several Unix-specific concepts such as I/O redirection to demonstrate
+use of *phenopacket-tools* in a process pipeline, and we declare environment variables and command aliases
+to reduce the amount of boilerplate code. Note that *phenopacket-tools* is a cross-platform tool and
+will work on Windows shells with the appropriate adjustments.
 
 
 Setup
@@ -37,15 +43,9 @@ Download *phenopacket-tools*
 
 A prebuilt distribution ZIP file is available for download from the
 `release section <https://github.com/phenopackets/phenopacket-tools/releases>`_
-of the GitHub repository.
-
-Download and unpack the ZIP file of the latest release |release| from the release assets:
-
-.. parsed-literal::
-
-  URL=https://github.com/phenopackets/phenopacket-tools/releases/download/v\ |release|\ /phenopacket-tools-cli-|release|-distribution.zip
-  curl -o phenopacket-tools-cli-|release|-distribution.zip ${URL}
-  unzip phenopacket-tools-cli-|release|-distribution.zip
+of our GitHub repository.
+Use your favorite web browser to download the ZIP archive with the latest release |release| and unpack the archive
+into a folder of your choice.
 
 .. _rstsetupaliastutorial:
 
@@ -56,16 +56,42 @@ Set up alias
 In general, Java command line applications are invoked as ``java -jar executable.jar``. However, such incantation is
 a bit too verbose and we can shorten it a bit by defining an alias.
 
-Let's define an alias for *phenopacket-tools*. Assuming the distribution ZIP was unpacked into
-phenopacket-tools-cli-|release| directory, run the following to set up the alias and to check that the new alias works:
+Let's define a command alias for *phenopacket-tools*. Assuming the distribution ZIP was unpacked into
+phenopacket-tools-cli-|release| directory, run the following to set up and check the command alias:
 
 .. parsed-literal::
   alias pxf="java -jar $(pwd)/phenopacket-tools-cli-\ |release|\ /phenopacket-tools-cli-|release|.jar"
   pxf --help
 
 .. note::
-  From now on, we will use the ``pxf`` alias instead of the longer form. However, feel free to choose whichever
-  you like more.
+  From now on, we will use the ``pxf`` alias instead of the longer form.
+
+
+Set up examples directory
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will demonstrate *phenopacket-tools* functionality using a collection of example phenopackets that are bundled
+in the distribution ZIP file. The folder with the phenopacket collection resides next to the *phenopacket-tools*
+JAR file and has the following structure::
+
+  examples
+    |- convert
+      \ - Schreckenbach-2014-TPM3-II.2.json
+    |- phenopackets
+      \ - retinoblastoma.json
+    \- validate
+      | - ...
+      \ - ...
+
+To reduce the amount of boilerplate code in the following sections, let's define an environment variable to point
+to the example phenopacket directory::
+
+  examples=path/to/examples
+
+Make sure you set the variable to the actual path in your environment.
+
+.. note::
+  See :ref:`rsttutorialexamples` for detailed info of the example phenopackets.
 
 
 Set up autocompletion
@@ -98,29 +124,23 @@ and then 384 v1 phenopackets published by Robinson et al., 2020\ [1]_.
 Convert single phenopacket
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will convert a phenopacket ``Schreckenbach-2014-TPM3-II.2.json`` that is bundled
-in the distribution ZIP archive in `examples/convert` folder next to the executable JAR file.
-
-.. note::
-  See :ref:`rsttutorialexamples` for detailed info of the example phenopackets.
-
-Due to differences between version 1 and 2, there are two ways how to convert *v1* phenopackets into *v2*.
+Due to differences between phenopacket versions 1 and 2, there are two ways how to convert v1 phenopackets into
+the v2 format.
 Briefly, the conversion either assumes that the `Variant`\ s are *causal* with respect to a `Disease` of the
 v1 phenopacket, or skips conversion of `Variant`\ s altogether. The logic is controlled with ``--convert-variants``
-CLI option and the conversion can be done iff the *v1* phenopacket has one `Disease`.
+CLI option and the conversion can be done iff the v1 phenopacket has one `Disease`.
 
 .. note::
   See the :ref:`rstconverting` section for more information.
 
-Let's convert the phenopacket by running::
+Let's convert an example v1 phenopacket ``Schreckenbach-2014-TPM3-II.2.json`` to v2 format::
 
-  cat ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json | pxf convert > Schreckenbach-2014-TPM3-II.2.v2.json
+  pxf convert ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json > Schreckenbach-2014-TPM3-II.2.v2.json
 
 The example phenopacket represents a case report with several variants that are causal with respect to the disease.
 Therefore, we can use ``--convert-variants`` to convert `Variant`\ s into v2 `Interpretation` element::
 
-  cat ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json |\
-    pxf convert --convert-variants \
+  pxf convert --convert-variants ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json \
     > Schreckenbach-2014-TPM3-II.2.v2-with-variants.json
 
 
@@ -137,24 +157,19 @@ a folder named as ``v1``::
   curl -o phenopackets.v1.zip https://zenodo.org/record/3905420/files/phenopackets.zip
   unzip -d v1 phenopackets.v1.zip
 
-Now, we convert all *v1* phenopackets and store the results in JSON format in a new folder ``v2``::
+Now, we convert all v1 phenopackets and store the results in JSON format in a new folder ``v2``::
 
-  # Make the folder for converted phenopackets.
+  # Create a folder for the v2 phenopackets.
   mkdir -p v2
 
   # Convert the phenopackets.
   for pp in $(find v1 -name "*.json"); do
     pp_name=$(basename ${pp})
-    pxf convert --convert-variants -i ${pp} > v2/${pp_name}
+    pxf convert --convert-variants ${pp} > v2/${pp_name}
   done
 
   printf "Converted %s phenopackets\n" $(ls v2/ | wc -l)
 
-.. note::
-  We use ``-i`` instead of the standard input. The ``-i`` can be provided multiple times to convert multiple
-  phenopackets in bulk. See the :ref:`rstcli` reference for more details.
-
-After a while, phenopackets in the *v2* format are stored as JSON files in the ``v2`` folder.
 
 Validate
 ========
@@ -162,18 +177,7 @@ Validate
 The `validate` command of *phenopacket-tools* validates correctness of phenopackets, families and cohorts.
 This section outlines usage of the off-the-shelf validators available in the CLI application.
 
-In this tutorial section, we will work with a suite of phenopackets that are bundled in the distribution ZIP archive.
-The phenopackets are located in `examples/validate` folder next to the executable JAR file:
-
-.. parsed-literal::
-  examples=$(pwd)/phenopacket-tools-cli-\ |release|\ /examples
-
-.. note::
-  See :ref:`rsttutorialexamples` for detailed info of the example phenopackets.
-
 We will describe each validation and show an example validation errors and a proposed solution in a table.
-
-
 The validation examples use `Phenopacket`\ s, but the validation functionality is available for all top-level Phenopacket Schema
 elements, including `Cohort` and `Family`.
 
@@ -195,7 +199,7 @@ All required fields must be present
 
 The `BaseValidator` checks that all required fields are present::
 
-  pxf validate -i ${examples}/validate/base/missing-fields.json
+  pxf validate ${examples}/validate/base/missing-fields.json
 
 The validator will find 3 errors and emit 3 CSV lines with the following issues:
 
@@ -221,7 +225,7 @@ phenopacket to contain a `Resource` with ontology metadata such as version and I
 
 The `MetaDataValidator` checks if the `MetaData` has an ontology `Resource` for all used ontology concepts::
 
-  pxf validate -i ${examples}/validate/base/missing-resources.json
+  pxf validate ${examples}/validate/base/missing-resources.json
 
 The validator points out the absence of `NCBITaxon` definition:
 
@@ -249,10 +253,10 @@ at ``examples/custom-json-schema/hpo-rare-disease-schema.json``.
 Using the custom JSON schema via ``--require`` option will point out issues in the 4 example phenopackets::
 
   pxf validate --require ${examples}/validate/custom-json-schema/hpo-rare-disease-schema.json \
-    -i ${examples}/validate/custom-json-schema/marfan.no-subject.json \
-    -i ${examples}/validate/custom-json-schema/marfan.no-phenotype.json \
-    -i ${examples}/validate/custom-json-schema/marfan.not-hpo.json \
-    -i ${examples}/validate/custom-json-schema/marfan.no-time-at-last-encounter.json
+    ${examples}/validate/custom-json-schema/marfan.no-subject.json \
+    ${examples}/validate/custom-json-schema/marfan.no-phenotype.json \
+    ${examples}/validate/custom-json-schema/marfan.not-hpo.json \
+    ${examples}/validate/custom-json-schema/marfan.no-time-at-last-encounter.json
 
 .. csv-table::
   :header: "Validation error", "Solution"
@@ -289,7 +293,7 @@ Phenopackets use non-obsolete term IDs
 
 The `HpoPhenotypeValidator` points out if the phenopacket contains obsolete HPO terms::
 
-  pxf validate --hpo hp.json -i ${examples}/validate/phenotype-validation/marfan.obsolete-term.json
+  pxf validate --hpo hp.json ${examples}/validate/phenotype-validation/marfan.obsolete-term.json
 
 It turns out that ``marfan.obsolete-term.json`` uses an obsolete ``HP:0002631`` instead of
 the primary ``HP:0002616`` for *Aortic root aneurysm*:
@@ -315,8 +319,8 @@ but excluded *Aortic root aneurysm*, see ``marfan.valid.json``).
 The `HpoAncestryValidator` checks that the annotation propagation rule is not violated::
 
   pxf validate --hpo hp.json \
-  -i ${examples}/validate/phenotype-validation/marfan.annotation-propagation-rule.json \
-  -i ${examples}/validate/phenotype-validation/marfan.valid.json
+  ${examples}/validate/phenotype-validation/marfan.annotation-propagation-rule.json \
+  ${examples}/validate/phenotype-validation/marfan.valid.json
 
 
 .. csv-table::
@@ -339,9 +343,9 @@ in 3 phenopackets of toy `Marfan syndrome <https://hpo.jax.org/app/browse/diseas
 
   pxf validate --hpo hp.json \
      --organ-system HP:0000478 --organ-system HP:0001626 --organ-system HP:0002086 \
-    -i ${examples}/validate/organ-systems/marfan.all-organ-system-annotated.valid.json \
-    -i ${examples}/validate/organ-systems/marfan.missing-eye-annotation.json \
-    -i ${examples}/validate/organ-systems/marfan.no-abnormalities.valid.json
+    ${examples}/validate/organ-systems/marfan.all-organ-system-annotated.json \
+    ${examples}/validate/organ-systems/marfan.missing-eye-annotation.json \
+    ${examples}/validate/organ-systems/marfan.no-abnormalities.json
 
 .. note::
   Organ system validation requires HPO ontology. See the :ref:`rstphenotypevalidationtutorial` for more details about getting
@@ -358,7 +362,7 @@ The `HpoOrganSystemValidator` will point out one error in the `marfan.missing-ey
 .. note::
   See :ref:`rstorgsysvalidation` for more details regarding the organ system validation.
 
-That's it! You made it to the end of the *phenopacket-tools* tutorial where we set up the command-line application
+That's it, you made it to the end of the *phenopacket-tools* tutorial! We set up the command-line application
 and covered the conversion and validation functionality. The next section provides an in-depth explanation
 of the CLI functionality.
 

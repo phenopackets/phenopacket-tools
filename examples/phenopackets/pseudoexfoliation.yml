@@ -46,7 +46,7 @@ phenotypicFeatures:
     label: "Phakodonesis"
   excluded: true
 - type:
-    id: "SCTID:414775001"
+    id: "SNOMEDCT:414775001"
     label: "monovision"
   excluded: true
 measurements:
@@ -82,7 +82,7 @@ measurements:
           label: "Percent Unit"
         value: 100.0
 - assay:
-    id: "SCTID:397312009"
+    id: "SNOMEDCT:397312009"
     label: "Intraocular lens anterior chamber depth"
   value:
     quantity:
@@ -100,7 +100,7 @@ measurements:
     age:
       iso8601duration: "P71Y1M1D"
 - assay:
-    id: "SCTID:397312009"
+    id: "SNOMEDCT:397312009"
     label: "Intraocular lens anterior chamber depth"
   value:
     quantity:
@@ -359,4 +359,10 @@ metaData:
     version: "2022-08-22"
     namespacePrefix: "DrugCentral"
     iriPrefix: "https://drugcentral.org/drugcard/"
+  - id: "snomedct"
+    name: "SNOMED CT"
+    url: "https://www.snomed.org/"
+    version: "2023-03-31"
+    namespacePrefix: "SNOMEDCT"
+    iriPrefix: "https://browser.ihtsdotools.org/?perspective=full&edition=MAIN/2023-03-31&release=&languages=en&conceptId1="
   phenopacketSchemaVersion: "2.0.0"

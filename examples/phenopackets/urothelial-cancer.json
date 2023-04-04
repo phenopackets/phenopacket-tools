@@ -101,7 +101,7 @@
     "id": "bladder biopsy id",
     "individualId": "patient1",
     "sampledTissue": {
-      "id": "UBERON_0001256",
+      "id": "UBERON:0001256",
       "label": "wall of urinary bladder"
     },
     "timeOfCollection": {

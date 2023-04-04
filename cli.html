@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command-line interface &mdash; phenopacket-tools 1.0.0-RC1 documentation</title>
+  <title>Command-line interface &mdash; phenopacket-tools 1.0.0-RC2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pxftools.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -30,14 +27,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> phenopacket-tools
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            phenopacket-tools
           </a>
               <div class="version">
                 1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -88,7 +89,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Command-line interface</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/cli.rst.txt" rel="nofollow"> View page source</a>
@@ -116,9 +117,9 @@ if Java 17 or better is available in your environment.</p>
 However, it is also possible to <em>build</em> the JAR from sources.</p>
 <section id="download">
 <h3>Download<a class="headerlink" href="#download" title="Permalink to this heading"></a></h3>
-<p><em>phenopacket-tools</em> JAR is provided in the distribution ZIP file as part of <em>phenopacket-tools</em>’ release schedule
-from <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/releases">Releases</a>.</p>
-<p>The ZIP archive contains the executable JAR file along with a <cite>README</cite> file and example phenopackets required
+<p><em>phenopacket-tools</em> JAR is provided as a ZIP file and it is available for download
+from the <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/releases">releases section</a> of our GitHub repository.</p>
+<p>The ZIP file contains an executable JAR file along with a <cite>README</cite> file and example phenopackets required
 to run the setup and the tutorial.</p>
 </section>
 <section id="build-from-source-code">
@@ -135,9 +136,9 @@ is required to download the libraries.</p></li>
 <p>Run the following commands to check out the source code and to build the application:</p>
 <pre class="literal-block">git clone <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools">https://github.com/phenopackets/phenopacket-tools</a>
 cd phenopacket-tools
-git checkout tags/1.0.0-RC1
+git checkout tags/1.0.0-RC2
 ./mvnw -Prelease package</pre>
-<p>If the build completes, a ZIP archive “phenopacket-tools-cli-1.0.0-RC1-distribution.zip”
+<p>If the build completes, a ZIP archive “phenopacket-tools-cli-1.0.0-RC2-distribution.zip”
 is created in the <code class="docutils literal notranslate"><span class="pre">phenopacket-tools-cli/target</span></code> directory. Use the archive in the same way as the archive
 downloaded from <em>phenopacket-tools</em> releases.</p>
 </section>
@@ -149,9 +150,9 @@ on Bash or ZSH Unix shells.</p>
 <p>Let’s set up the alias first. To reiterate the tutorial <a class="reference internal" href="tutorial.html#rstsetupaliastutorial"><span class="std std-ref">Set up alias</span></a> section,
 Java command line applications are invoked as <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">executable.jar</span></code>. However, such incantation is
 a bit too verbose and we can shorten it a bit by defining an alias.</p>
-<p>Assuming the distribution ZIP was unpacked into phenopacket-tools-cli-1.0.0-RC1 directory, let’s run the following
+<p>Assuming the distribution ZIP was unpacked into phenopacket-tools-cli-1.0.0-RC2 directory, let’s run the following
 to set up the alias:</p>
-<pre class="literal-block">alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC1/phenopacket-tools-cli-1.0.0-RC1.jar&quot;
+<pre class="literal-block">alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC2/phenopacket-tools-cli-1.0.0-RC2.jar&quot;
 pxf --help</pre>
 <p>Now the autocompletion. The autocompletion can simplify using the CLI options by completing the command
 or option after pressing the <cite>TAB</cite> key.
@@ -164,7 +165,7 @@ the completion. However, the autocompletion will last only for the duration of t
 <p>To make the autocompletion permanent, store the script file and add the alias and and sourcing into your <cite>.bashrc</cite>
 or <cite>.bash_profile</cite> file:</p>
 <pre class="literal-block">echo &quot;### Install phenopacket-tools&quot; &gt;&gt; .bashrc
-echo alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC1/phenopacket-tools-cli-1.0.0-RC1.jar&quot; &gt;&gt; .bashrc
+echo alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC2/phenopacket-tools-cli-1.0.0-RC2.jar&quot; &gt;&gt; .bashrc
 pxf generate-completion &gt; pxf-completion.sh
 echo source $(pwd)/pxf-completion.sh &gt;&gt; .bashrc</pre>
 <div class="admonition warning">

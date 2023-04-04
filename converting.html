@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Converting v1 Phenopackets &mdash; phenopacket-tools 1.0.0-RC1 documentation</title>
+  <title>Converting v1 Phenopackets &mdash; phenopacket-tools 1.0.0-RC2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pxftools.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -30,14 +27,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> phenopacket-tools
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            phenopacket-tools
           </a>
               <div class="version">
                 1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -71,7 +72,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Converting v1 Phenopackets</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/converting.rst.txt" rel="nofollow"> View page source</a>
@@ -98,15 +99,15 @@ the conversion according to the logic of their application.</p>
 <section id="example-conversion">
 <h2>Example conversion<a class="headerlink" href="#example-conversion" title="Permalink to this heading"></a></h2>
 <p>To use library code for converting a phenopacket, adapt the following code:</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// Set up the converter</span><span class="w"></span>
-<span class="kt">boolean</span><span class="w"> </span><span class="n">convertVariants</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// or false, as desired</span><span class="w"></span>
-<span class="n">V1ToV2Converter</span><span class="w"> </span><span class="n">converter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">V1ToV2Converter</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">convertVariants</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// Set up the converter</span>
+<span class="kt">boolean</span><span class="w"> </span><span class="n">convertVariants</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// or false, as desired</span>
+<span class="n">V1ToV2Converter</span><span class="w"> </span><span class="n">converter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">V1ToV2Converter</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">convertVariants</span><span class="p">);</span>
 
-<span class="c1">// Get v1 phenopacket.</span><span class="w"></span>
-<span class="n">org</span><span class="p">.</span><span class="na">phenopackets</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">v1</span><span class="p">.</span><span class="na">Phenopacket</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TestData</span><span class="p">.</span><span class="na">V1</span><span class="p">.</span><span class="na">comprehensivePhenopacket</span><span class="p">();</span><span class="w"></span>
+<span class="c1">// Get v1 phenopacket.</span>
+<span class="n">org</span><span class="p">.</span><span class="na">phenopackets</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">v1</span><span class="p">.</span><span class="na">Phenopacket</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TestData</span><span class="p">.</span><span class="na">V1</span><span class="p">.</span><span class="na">comprehensivePhenopacket</span><span class="p">();</span>
 
-<span class="c1">// Convert to v2 phenopacket.</span><span class="w"></span>
-<span class="n">org</span><span class="p">.</span><span class="na">phenopackets</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">v2</span><span class="p">.</span><span class="na">Phenopacket</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">converter</span><span class="p">.</span><span class="na">convertPhenopacket</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// Convert to v2 phenopacket.</span>
+<span class="n">org</span><span class="p">.</span><span class="na">phenopackets</span><span class="p">.</span><span class="na">schema</span><span class="p">.</span><span class="na">v2</span><span class="p">.</span><span class="na">Phenopacket</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">converter</span><span class="p">.</span><span class="na">convertPhenopacket</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>

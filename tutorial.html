@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutorial &mdash; phenopacket-tools 1.0.0-RC1 documentation</title>
+  <title>Tutorial &mdash; phenopacket-tools 1.0.0-RC2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/ptools.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pxftools.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -30,14 +27,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> phenopacket-tools
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            phenopacket-tools
           </a>
               <div class="version">
                 1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -50,6 +51,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#download-phenopacket-tools">Download <em>phenopacket-tools</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#set-up-alias">Set up alias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-up-examples-directory">Set up examples directory</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#set-up-autocompletion">Set up autocompletion</a></li>
 </ul>
 </li>
@@ -96,7 +98,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Tutorial</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
@@ -111,7 +113,12 @@
 <span id="rsttutorial"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this heading"></a></h1>
 <p>This tutorial walks through the installation of <em>phenopacket-tools</em> command-line interface application
 and provides an overview of the <em>conversion</em> of phenopackets from <cite>v1</cite> to the current <cite>v2</cite> format and
-<em>validation</em> functionality, including custom validation rules.</p>
+the <em>validation</em> functionality, including custom validation rules.</p>
+<p>We show <em>phenopacket-tools</em> functionality within a Unix shell due to the fact that Unix is the predominant computational
+environment in bioinformatics. We use several Unix-specific concepts such as I/O redirection to demonstrate
+use of <em>phenopacket-tools</em> in a process pipeline, and we declare environment variables and command aliases
+to reduce the amount of boilerplate code. Note that <em>phenopacket-tools</em> is a cross-platform tool and
+will work on Windows shells with the appropriate adjustments.</p>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
 <p><em>Phenopacket-tools</em> is written in Java 17 and requires Java 17 or better to run.
@@ -135,24 +142,47 @@ and version of Java on your machine:</p>
 <h3>Download <em>phenopacket-tools</em><a class="headerlink" href="#download-phenopacket-tools" title="Permalink to this heading"></a></h3>
 <p>A prebuilt distribution ZIP file is available for download from the
 <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/releases">release section</a>
-of the GitHub repository.</p>
-<p>Download and unpack the ZIP file of the latest release 1.0.0-RC1 from the release assets:</p>
-<pre class="literal-block">URL=https://github.com/phenopackets/phenopacket-tools/releases/download/v1.0.0-RC1/phenopacket-tools-cli-1.0.0-RC1-distribution.zip
-curl -o phenopacket-tools-cli-1.0.0-RC1-distribution.zip ${URL}
-unzip phenopacket-tools-cli-1.0.0-RC1-distribution.zip</pre>
+of our GitHub repository.
+Use your favorite web browser to download the ZIP archive with the latest release 1.0.0-RC2 and unpack the archive
+into a folder of your choice.</p>
 </section>
 <section id="set-up-alias">
 <span id="rstsetupaliastutorial"></span><h3>Set up alias<a class="headerlink" href="#set-up-alias" title="Permalink to this heading"></a></h3>
 <p>In general, Java command line applications are invoked as <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">executable.jar</span></code>. However, such incantation is
 a bit too verbose and we can shorten it a bit by defining an alias.</p>
-<p>Let’s define an alias for <em>phenopacket-tools</em>. Assuming the distribution ZIP was unpacked into
-phenopacket-tools-cli-1.0.0-RC1 directory, run the following to set up the alias and to check that the new alias works:</p>
-<pre class="literal-block">alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC1/phenopacket-tools-cli-1.0.0-RC1.jar&quot;
+<p>Let’s define a command alias for <em>phenopacket-tools</em>. Assuming the distribution ZIP was unpacked into
+phenopacket-tools-cli-1.0.0-RC2 directory, run the following to set up and check the command alias:</p>
+<pre class="literal-block">alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC2/phenopacket-tools-cli-1.0.0-RC2.jar&quot;
 pxf --help</pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>From now on, we will use the <code class="docutils literal notranslate"><span class="pre">pxf</span></code> alias instead of the longer form. However, feel free to choose whichever
-you like more.</p>
+<p>From now on, we will use the <code class="docutils literal notranslate"><span class="pre">pxf</span></code> alias instead of the longer form.</p>
+</div>
+</section>
+<section id="set-up-examples-directory">
+<h3>Set up examples directory<a class="headerlink" href="#set-up-examples-directory" title="Permalink to this heading"></a></h3>
+<p>We will demonstrate <em>phenopacket-tools</em> functionality using a collection of example phenopackets that are bundled
+in the distribution ZIP file. The folder with the phenopacket collection resides next to the <em>phenopacket-tools</em>
+JAR file and has the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">examples</span>
+  <span class="o">|-</span> <span class="n">convert</span>
+    \ <span class="o">-</span> <span class="n">Schreckenbach</span><span class="o">-</span><span class="mi">2014</span><span class="o">-</span><span class="n">TPM3</span><span class="o">-</span><span class="n">II</span><span class="mf">.2</span><span class="o">.</span><span class="n">json</span>
+  <span class="o">|-</span> <span class="n">phenopackets</span>
+    \ <span class="o">-</span> <span class="n">retinoblastoma</span><span class="o">.</span><span class="n">json</span>
+  \<span class="o">-</span> <span class="n">validate</span>
+    <span class="o">|</span> <span class="o">-</span> <span class="o">...</span>
+    \ <span class="o">-</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>To reduce the amount of boilerplate code in the following sections, let’s define an environment variable to point
+to the example phenopacket directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">examples</span><span class="o">=</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">examples</span>
+</pre></div>
+</div>
+<p>Make sure you set the variable to the actual path in your environment.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a class="reference internal" href="tutorial_examples.html#rsttutorialexamples"><span class="std std-ref">Example phenopackets</span></a> for detailed info of the example phenopackets.</p>
 </div>
 </section>
 <section id="set-up-autocompletion">
@@ -176,31 +206,25 @@ In response to this feedback, the schema was extended and refined and version 2 
 and published in 2022 by the International Standards Organization (ISO).
 The <cite>convert</cite> command of <em>phenopacket-tools</em> converts version 1 phenopackets into version 2.</p>
 <p>For the purpose of this tutorial, we will first convert a single v1 phenopacket
-and then 384 v1 phenopackets published by Robinson et al., 2020<a class="footnote-reference brackets" href="#id3" id="id1">1</a>.</p>
+and then 384 v1 phenopackets published by Robinson et al., 2020<a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <section id="convert-single-phenopacket">
 <h3>Convert single phenopacket<a class="headerlink" href="#convert-single-phenopacket" title="Permalink to this heading"></a></h3>
-<p>We will convert a phenopacket <code class="docutils literal notranslate"><span class="pre">Schreckenbach-2014-TPM3-II.2.json</span></code> that is bundled
-in the distribution ZIP archive in <cite>examples/convert</cite> folder next to the executable JAR file.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>See <a class="reference internal" href="tutorial_examples.html#rsttutorialexamples"><span class="std std-ref">Example phenopackets</span></a> for detailed info of the example phenopackets.</p>
-</div>
-<p>Due to differences between version 1 and 2, there are two ways how to convert <em>v1</em> phenopackets into <em>v2</em>.
+<p>Due to differences between phenopacket versions 1 and 2, there are two ways how to convert v1 phenopackets into
+the v2 format.
 Briefly, the conversion either assumes that the <cite>Variant</cite>s are <em>causal</em> with respect to a <cite>Disease</cite> of the
 v1 phenopacket, or skips conversion of <cite>Variant</cite>s altogether. The logic is controlled with <code class="docutils literal notranslate"><span class="pre">--convert-variants</span></code>
-CLI option and the conversion can be done iff the <em>v1</em> phenopacket has one <cite>Disease</cite>.</p>
+CLI option and the conversion can be done iff the v1 phenopacket has one <cite>Disease</cite>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>See the <a class="reference internal" href="converting.html#rstconverting"><span class="std std-ref">Converting v1 Phenopackets</span></a> section for more information.</p>
 </div>
-<p>Let’s convert the phenopacket by running:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json | pxf convert &gt; Schreckenbach-2014-TPM3-II.2.v2.json
+<p>Let’s convert an example v1 phenopacket <code class="docutils literal notranslate"><span class="pre">Schreckenbach-2014-TPM3-II.2.json</span></code> to v2 format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf convert ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json &gt; Schreckenbach-2014-TPM3-II.2.v2.json
 </pre></div>
 </div>
 <p>The example phenopacket represents a case report with several variants that are causal with respect to the disease.
 Therefore, we can use <code class="docutils literal notranslate"><span class="pre">--convert-variants</span></code> to convert <cite>Variant</cite>s into v2 <cite>Interpretation</cite> element:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json |\
-  pxf convert --convert-variants \
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf convert --convert-variants ${examples}/convert/Schreckenbach-2014-TPM3-II.2.json \
   &gt; Schreckenbach-2014-TPM3-II.2.v2-with-variants.json
 </pre></div>
 </div>
@@ -210,46 +234,33 @@ Therefore, we can use <code class="docutils literal notranslate"><span class="pr
 <p>Let’s convert 384 individuals described in published case reports with Human Phenotype Ontology terms,
 causal genetic variants, and OMIM disease identifiers.</p>
 <p>Let’s start by downloading and unpacking the phenopacket dataset.
-The phenopacket dataset is available for download from Zenodo<a class="footnote-reference brackets" href="#id4" id="id2">2</a>. Then, we extract the archive content into
+The phenopacket dataset is available for download from Zenodo<a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. Then, we extract the archive content into
 a folder named as <code class="docutils literal notranslate"><span class="pre">v1</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">o</span> <span class="n">phenopackets</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">zip</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">zenodo</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">record</span><span class="o">/</span><span class="mi">3905420</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">phenopackets</span><span class="o">.</span><span class="n">zip</span>
 <span class="n">unzip</span> <span class="o">-</span><span class="n">d</span> <span class="n">v1</span> <span class="n">phenopackets</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
-<p>Now, we convert all <em>v1</em> phenopackets and store the results in JSON format in a new folder <code class="docutils literal notranslate"><span class="pre">v2</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Make the folder for converted phenopackets.
+<p>Now, we convert all v1 phenopackets and store the results in JSON format in a new folder <code class="docutils literal notranslate"><span class="pre">v2</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Create a folder for the v2 phenopackets.
 mkdir -p v2
 
 # Convert the phenopackets.
 for pp in $(find v1 -name &quot;*.json&quot;); do
   pp_name=$(basename ${pp})
-  pxf convert --convert-variants -i ${pp} &gt; v2/${pp_name}
+  pxf convert --convert-variants ${pp} &gt; v2/${pp_name}
 done
 
 printf &quot;Converted %s phenopackets\n&quot; $(ls v2/ | wc -l)
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>We use <code class="docutils literal notranslate"><span class="pre">-i</span></code> instead of the standard input. The <code class="docutils literal notranslate"><span class="pre">-i</span></code> can be provided multiple times to convert multiple
-phenopackets in bulk. See the <a class="reference internal" href="cli.html#rstcli"><span class="std std-ref">Command-line interface</span></a> reference for more details.</p>
-</div>
-<p>After a while, phenopackets in the <em>v2</em> format are stored as JSON files in the <code class="docutils literal notranslate"><span class="pre">v2</span></code> folder.</p>
 </section>
 </section>
 <section id="validate">
 <h2>Validate<a class="headerlink" href="#validate" title="Permalink to this heading"></a></h2>
 <p>The <cite>validate</cite> command of <em>phenopacket-tools</em> validates correctness of phenopackets, families and cohorts.
 This section outlines usage of the off-the-shelf validators available in the CLI application.</p>
-<p>In this tutorial section, we will work with a suite of phenopackets that are bundled in the distribution ZIP archive.
-The phenopackets are located in <cite>examples/validate</cite> folder next to the executable JAR file:</p>
-<pre class="literal-block">examples=$(pwd)/phenopacket-tools-cli-1.0.0-RC1/examples</pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>See <a class="reference internal" href="tutorial_examples.html#rsttutorialexamples"><span class="std std-ref">Example phenopackets</span></a> for detailed info of the example phenopackets.</p>
-</div>
-<p>We will describe each validation and show an example validation errors and a proposed solution in a table.</p>
-<p>The validation examples use <cite>Phenopacket</cite>s, but the validation functionality is available for all top-level Phenopacket Schema
+<p>We will describe each validation and show an example validation errors and a proposed solution in a table.
+The validation examples use <cite>Phenopacket</cite>s, but the validation functionality is available for all top-level Phenopacket Schema
 elements, including <cite>Cohort</cite> and <cite>Family</cite>.</p>
 <p>The validation is implemented for <em>v2</em> phenopackets only. The <em>v1</em> phenopackets must be converted to <em>v2</em> prior
 running validation.</p>
@@ -264,11 +275,11 @@ All phenopackets, regardless of their aim or scope must pass this requirement to
 <section id="all-required-fields-must-be-present">
 <h4>All required fields must be present<a class="headerlink" href="#all-required-fields-must-be-present" title="Permalink to this heading"></a></h4>
 <p>The <cite>BaseValidator</cite> checks that all required fields are present:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate -i ${examples}/validate/base/missing-fields.json
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate ${examples}/validate/base/missing-fields.json
 </pre></div>
 </div>
 <p>The validator will find 3 errors and emit 3 CSV lines with the following issues:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 39%" />
 <col style="width: 61%" />
@@ -303,11 +314,11 @@ with validation metadata.</p>
 the ontologies used in the particular phenopacket. To ensure data traceability, Phenopacket Schema requires
 phenopacket to contain a <cite>Resource</cite> with ontology metadata such as version and IRI for each used ontology concept.</p>
 <p>The <cite>MetaDataValidator</cite> checks if the <cite>MetaData</cite> has an ontology <cite>Resource</cite> for all used ontology concepts:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate -i ${examples}/validate/base/missing-resources.json
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate ${examples}/validate/base/missing-resources.json
 </pre></div>
 </div>
 <p>The validator points out the absence of <cite>NCBITaxon</cite> definition:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 39%" />
 <col style="width: 61%" />
@@ -339,13 +350,13 @@ The schema is located next to phenopacket examples for this section
 at <code class="docutils literal notranslate"><span class="pre">examples/custom-json-schema/hpo-rare-disease-schema.json</span></code>.</p>
 <p>Using the custom JSON schema via <code class="docutils literal notranslate"><span class="pre">--require</span></code> option will point out issues in the 4 example phenopackets:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate --require ${examples}/validate/custom-json-schema/hpo-rare-disease-schema.json \
-  -i ${examples}/validate/custom-json-schema/marfan.no-subject.json \
-  -i ${examples}/validate/custom-json-schema/marfan.no-phenotype.json \
-  -i ${examples}/validate/custom-json-schema/marfan.not-hpo.json \
-  -i ${examples}/validate/custom-json-schema/marfan.no-time-at-last-encounter.json
+  ${examples}/validate/custom-json-schema/marfan.no-subject.json \
+  ${examples}/validate/custom-json-schema/marfan.no-phenotype.json \
+  ${examples}/validate/custom-json-schema/marfan.not-hpo.json \
+  ${examples}/validate/custom-json-schema/marfan.no-time-at-last-encounter.json
 </pre></div>
 </div>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 39%" />
 <col style="width: 61%" />
@@ -392,12 +403,12 @@ Get the HPO JSON from <a class="reference external" href="https://hpo.jax.org/ap
 <section id="phenopackets-use-non-obsolete-term-ids">
 <h4>Phenopackets use non-obsolete term IDs<a class="headerlink" href="#phenopackets-use-non-obsolete-term-ids" title="Permalink to this heading"></a></h4>
 <p>The <cite>HpoPhenotypeValidator</cite> points out if the phenopacket contains obsolete HPO terms:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate --hpo hp.json -i ${examples}/validate/phenotype-validation/marfan.obsolete-term.json
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate --hpo hp.json ${examples}/validate/phenotype-validation/marfan.obsolete-term.json
 </pre></div>
 </div>
 <p>It turns out that <code class="docutils literal notranslate"><span class="pre">marfan.obsolete-term.json</span></code> uses an obsolete <code class="docutils literal notranslate"><span class="pre">HP:0002631</span></code> instead of
 the primary <code class="docutils literal notranslate"><span class="pre">HP:0002616</span></code> for <em>Aortic root aneurysm</em>:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 39%" />
 <col style="width: 61%" />
@@ -425,11 +436,11 @@ is <em>observed</em> and the child term is <em>excluded</em> (e.g. phenopacket w
 but excluded <em>Aortic root aneurysm</em>, see <code class="docutils literal notranslate"><span class="pre">marfan.valid.json</span></code>).</p>
 <p>The <cite>HpoAncestryValidator</cite> checks that the annotation propagation rule is not violated:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate --hpo hp.json \
--i ${examples}/validate/phenotype-validation/marfan.annotation-propagation-rule.json \
--i ${examples}/validate/phenotype-validation/marfan.valid.json
+${examples}/validate/phenotype-validation/marfan.annotation-propagation-rule.json \
+${examples}/validate/phenotype-validation/marfan.valid.json
 </pre></div>
 </div>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 39%" />
 <col style="width: 61%" />
@@ -457,9 +468,9 @@ but excluded <em>Aortic root aneurysm</em>, see <code class="docutils literal no
 in 3 phenopackets of toy <a class="reference external" href="https://hpo.jax.org/app/browse/disease/OMIM:154700">Marfan syndrome</a> patients:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate --hpo hp.json \
    --organ-system HP:0000478 --organ-system HP:0001626 --organ-system HP:0002086 \
-  -i ${examples}/validate/organ-systems/marfan.all-organ-system-annotated.valid.json \
-  -i ${examples}/validate/organ-systems/marfan.missing-eye-annotation.json \
-  -i ${examples}/validate/organ-systems/marfan.no-abnormalities.valid.json
+  ${examples}/validate/organ-systems/marfan.all-organ-system-annotated.json \
+  ${examples}/validate/organ-systems/marfan.missing-eye-annotation.json \
+  ${examples}/validate/organ-systems/marfan.no-abnormalities.json
 </pre></div>
 </div>
 <div class="admonition note">
@@ -468,7 +479,7 @@ in 3 phenopackets of toy <a class="reference external" href="https://hpo.jax.org
 the HPO file.</p>
 </div>
 <p>The <cite>HpoOrganSystemValidator</cite> will point out one error in the <cite>marfan.missing-eye-annotation.json</cite> phenopacket:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 39%" />
 <col style="width: 61%" />
@@ -488,17 +499,19 @@ the HPO file.</p>
 <p class="admonition-title">Note</p>
 <p>See <a class="reference internal" href="validation.html#rstorgsysvalidation"><span class="std std-ref">Organ system validation</span></a> for more details regarding the organ system validation.</p>
 </div>
-<p>That’s it! You made it to the end of the <em>phenopacket-tools</em> tutorial where we set up the command-line application
+<p>That’s it, you made it to the end of the <em>phenopacket-tools</em> tutorial! We set up the command-line application
 and covered the conversion and validation functionality. The next section provides an in-depth explanation
 of the CLI functionality.</p>
-<dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/32755546">https://pubmed.ncbi.nlm.nih.gov/32755546</a></p>
-</dd>
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p><a class="reference external" href="https://zenodo.org/record/3905420">https://zenodo.org/record/3905420</a></p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/32755546">https://pubmed.ncbi.nlm.nih.gov/32755546</a></p>
+</aside>
+<aside class="footnote brackets" id="id4" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://zenodo.org/record/3905420">https://zenodo.org/record/3905420</a></p>
+</aside>
+</aside>
 </section>
 </section>
 </section>
