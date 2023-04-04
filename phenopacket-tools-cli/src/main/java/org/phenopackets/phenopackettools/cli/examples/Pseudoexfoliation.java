@@ -42,6 +42,16 @@ public class Pseudoexfoliation implements PhenopacketExample {
     public Pseudoexfoliation() {
         // Metadaten
         var authorAssertion = EvidenceBuilder.authorStatementEvidence("PMID:21532993", "Late-Onset Anterior Dislocation  of a Posterior Chamber Intraocular Lens in a Patient Pseudoexfoliation Syndrome");
+
+        Resource snomed = Resource.newBuilder()
+                .setId("snomedct")
+                .setName("SNOMED CT")
+                .setNamespacePrefix("SNOMEDCT")
+                .setUrl("https://www.snomed.org/")
+                .setIriPrefix("https://browser.ihtsdotools.org/?perspective=full&edition=MAIN/2023-03-31&release=&languages=en&conceptId1=")
+                .setVersion("2023-03-31")
+                .build();
+
         var metadata = MetaDataBuilder.builder("2021-05-14T10:35:00Z", "anonymous biocurator")
                 .addResource(Resources.uberonVersion("2022-08-19"))
                 .addResource(Resources.ncitVersion("22.07d"))
@@ -50,7 +60,7 @@ public class Pseudoexfoliation implements PhenopacketExample {
                 .addResource(Resources.loincVersion("2.73"))
                 .addResource(Resources.mondoVersion("2022-04-04"))
                 .addResource(Resources.drugCentralVersion("2022-08-22"))
-
+                .addResource(snomed)
                 .build();
         Individual proband = IndividualBuilder.builder(PROBAND_ID).
                 ageAtLastEncounter("P70Y").
@@ -254,11 +264,11 @@ public class Pseudoexfoliation implements PhenopacketExample {
         //IOP was successfully regulated OD after Nd:YAG iridotomy (direct postoperative IOP: 14 mm Hg).
 
         // Anterior chamber depth was 3.93 mm. OS anterior chamber depth was 5.21 mm
-        OntologyClass acdod = ontologyClass("SCTID: 397312009", "Intraocular lens anterior chamber depth");
+        OntologyClass acdod = ontologyClass("SNOMEDCT:397312009", "Intraocular lens anterior chamber depth");
         ReferenceRange ref2 = ReferenceRangeBuilder.of(acdod, 0, 10);
 
         OntologyClass reAcDepth =
-                OntologyClassBuilder.ontologyClass("SCTID:397312009", "Intraocular lens anterior chamber depth");
+                OntologyClassBuilder.ontologyClass("SNOMEDCT:397312009", "Intraocular lens anterior chamber depth");
         Value reAcdValue = ValueBuilder.of(Unit.millimeter(), 3.93, ref);//
         var reAntChamberDepthMeasurement = MeasurementBuilder
                 .builder(reAcDepth, reAcdValue)
@@ -266,7 +276,7 @@ public class Pseudoexfoliation implements PhenopacketExample {
                 .build();
 
         OntologyClass leAcDepth =
-                OntologyClassBuilder.ontologyClass("SCTID:397312009", "Intraocular lens anterior chamber depth");
+                OntologyClassBuilder.ontologyClass("SNOMEDCT:397312009", "Intraocular lens anterior chamber depth");
         Value leAcdValue = ValueBuilder.of(Unit.millimeter(), 5.21, ref);//
         var leAntChamberDepthMeasurement = MeasurementBuilder
                 .builder(leAcDepth, leAcdValue)
@@ -355,7 +365,7 @@ which was achieved unintentionally and, therefore, we did not proceed to an exch
                 .excluded()
                 .build();
         PhenotypicFeature monovision = PhenotypicFeatureBuilder.
-                builder("SCTID:414775001", "monovision")// alternative to snomed?
+                builder("SNOMEDCT:414775001", "monovision")// alternative to snomed?
                 .excluded()
                 .build();
         return List.of(emmetropia, myopia, iopi, excludedpupilabnormality, excludedPhacodonesis, monovision);
