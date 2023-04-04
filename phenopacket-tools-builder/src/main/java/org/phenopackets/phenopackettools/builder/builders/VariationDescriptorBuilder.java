@@ -121,6 +121,11 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
+    public VariationDescriptorBuilder unspecifiedZygosity() {
+        builder.setAllelicState(AllelicState.unspecifiedZygosity());
+        return this;
+    }
+
     public VariationDescriptorBuilder zygosity(OntologyClass zygo) {
         builder.setAllelicState(zygo);
         return this;

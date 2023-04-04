@@ -25,10 +25,10 @@ However, it is also possible to *build* the JAR from sources.
 Download
 ^^^^^^^^
 
-*phenopacket-tools* JAR is provided in the distribution ZIP file as part of *phenopacket-tools*' release schedule
-from `Releases <https://github.com/phenopackets/phenopacket-tools/releases>`_.
+*phenopacket-tools* JAR is provided as a ZIP file and it is available for download
+from the `releases section <https://github.com/phenopackets/phenopacket-tools/releases>`_ of our GitHub repository.
 
-The ZIP archive contains the executable JAR file along with a `README` file and example phenopackets required
+The ZIP file contains an executable JAR file along with a `README` file and example phenopackets required
 to run the setup and the tutorial.
 
 

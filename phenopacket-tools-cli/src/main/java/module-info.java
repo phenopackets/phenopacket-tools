@@ -9,9 +9,9 @@ module org.phenopackets.phenopackettools.cli {
     requires org.monarchinitiative.phenol.io;
 
     requires info.picocli;
-    requires commons.csv;
+    requires org.apache.commons.csv;
     requires org.slf4j;
-    requires logback.classic;
+    requires ch.qos.logback.classic;
 
     opens org.phenopackets.phenopackettools.cli.command to info.picocli;
     opens org.phenopackets.phenopackettools.cli.command.validate to info.picocli;

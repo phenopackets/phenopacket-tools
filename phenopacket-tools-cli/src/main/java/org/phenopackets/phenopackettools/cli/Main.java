@@ -15,7 +15,7 @@ import static picocli.CommandLine.Help.Ansi.Style.*;
                 "phenopacket-tools (pxf)",
                 "An application and library for building, conversion, and validation of GA4GH Phenopackets.\n"
         },
-        version = "v1.0.0-RC1",
+        version = "v1.0.0-RC2",
         mixinStandardHelpOptions = true,
         subcommands = {
                 // see https://picocli.info/autocomplete.html
@@ -48,6 +48,7 @@ public class Main {
         Locale.setDefault(Locale.US);
         //noinspection InstantiationOfUtilityClass
         CommandLine cline = new CommandLine(new Main())
+                .setUnmatchedOptionsArePositionalParams(false)
                 .setColorScheme(COLOR_SCHEME);
         cline.getSubcommands().get("generate-completion").getCommandSpec().usageMessage().hidden(true);
         System.exit(cline.execute(args));

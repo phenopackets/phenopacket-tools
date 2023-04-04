@@ -121,7 +121,7 @@ public class UrothelialCancer implements PhenopacketExample {
     }
 
     private Biosample bladderBiosample() {
-        OntologyClass bladderWall = ontologyClass("UBERON_0001256", "wall of urinary bladder");
+        OntologyClass bladderWall = ontologyClass("UBERON:0001256", "wall of urinary bladder");
         return BiosampleBuilder.builder("bladder biopsy id")
                 .sampledTissue(bladderWall)
                 .individualId(PROBAND_ID)

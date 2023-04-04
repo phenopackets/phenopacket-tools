@@ -33,7 +33,7 @@ author = u'Daniel Danis, Peter Robinson'
 # The short X.Y version.
 version = '1.0'
 # The full version, including alpha/beta/rc tags.
-release = '1.0.0-RC1'
+release = '1.0.0-RC2'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -50,8 +50,7 @@ source_suffix = ['.rst', '.md']
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
-html_css_files = ['ptools.css']
-#html_style = 'ptools.css'
+html_css_files = ['pxftools.css']
 
 
 # The name of the Pygments (syntax highlighting) style to use.

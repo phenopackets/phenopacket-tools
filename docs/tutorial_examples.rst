@@ -7,10 +7,11 @@ Example phenopackets
 A set of example phenopackets is distributed with the *phenopacket-tools* binary. The example files should be used
 to demonstrate the tools' functionality.
 
-The files are grouped in sub-folders by the target command::
+The files are grouped in sub-folders::
 
   examples
   ├── convert
+  ├── phenopackets
   └── validate
     ├── base
     ├── custom-json-schema
