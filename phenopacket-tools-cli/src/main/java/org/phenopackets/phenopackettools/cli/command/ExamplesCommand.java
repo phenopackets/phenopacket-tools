@@ -60,7 +60,7 @@ public class ExamplesCommand extends BaseCommand {
             printJsonAndYaml(new FamilyWithPedigree().getFamily(), familyDir, "family");
 
             // Cohorts
-            // TODO - write a cohort
+            printJsonAndYaml(ExampleCohort.getCohort(), cohortDir, "example-cohort");
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
