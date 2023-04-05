@@ -13,6 +13,8 @@ public class FormatSniffer {
     /**
      * The number of bytes used for format sniffing.
      */
+    // The longest field name as of now is phenotypicFeatures which is 18 bytes,
+    // hence 32 bytes should be enough for format sniffing.
     static final int BUFFER_SIZE = 32;
 
     private FormatSniffer() {
