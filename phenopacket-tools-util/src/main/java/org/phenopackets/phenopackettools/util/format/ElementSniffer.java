@@ -62,11 +62,45 @@ public class ElementSniffer {
      * @throws IOException    in case an error occurs while reading the {@code input}.
      * @throws SniffException if there are not enough bytes available in the {@code input} of if the {@code input} does not
      *                        support {@link InputStream#mark(int)}.
+     * @deprecated in favor of {@link #sniff(InputStream, PhenopacketFormat)}.
      */
+    // REMOVE(v1.0.0)
     public static PhenopacketElement sniff(InputStream input,
                                            PhenopacketSchemaVersion schemaVersion,
                                            PhenopacketFormat format) throws IOException, SniffException {
-        return sniff(Util.getAtMostNFirstBytesAndReset(input, BUFFER_SIZE), schemaVersion, format);
+        return sniff(input, format);
+    }
+
+    /**
+     * Make an educated guess of {@link PhenopacketElement} present in given {@code input}.
+     *
+     * @param input  an {@link InputStream} that supports {@link InputStream#mark(int)}.
+     * @param format the {@code payload} format
+     * @return the sniffed {@link PhenopacketElement}.
+     * @throws IOException    in case an error occurs while reading the {@code input}.
+     * @throws SniffException if there are not enough bytes available in the {@code input} of if the {@code input} does not
+     *                        support {@link InputStream#mark(int)}.
+     */
+    public static PhenopacketElement sniff(InputStream input,
+                                           PhenopacketFormat format) throws IOException, SniffException {
+        return sniff(Util.getAtMostNFirstBytesAndReset(input, BUFFER_SIZE), format);
+    }
+
+    /**
+     * Make an educated guess of {@link PhenopacketElement} based on given {@code payload}.
+     *
+     * @param payload buffer with at least the first {@link #BUFFER_SIZE} bytes of the input.
+     * @param format  the {@code payload} format
+     * @return the sniffed {@link PhenopacketElement}.
+     * @throws ElementSniffException if the payload looks suspicious, e.g. contains a unique phenopacket field
+     * and a unique cohort field at the same time
+     * @deprecated in favor of {@link #sniff(byte[], PhenopacketFormat)}
+     */
+    // REMOVE(v1.0.0)
+    public static PhenopacketElement sniff(byte[] payload,
+                                           PhenopacketSchemaVersion schemaVersion,
+                                           PhenopacketFormat format) throws ElementSniffException {
+        return sniff(payload, format);
     }
 
     /**
@@ -79,16 +113,15 @@ public class ElementSniffer {
      * and a unique cohort field at the same time
      */
     public static PhenopacketElement sniff(byte[] payload,
-                                           PhenopacketSchemaVersion schemaVersion,
                                            PhenopacketFormat format) throws ElementSniffException {
         return switch (format) {
-            case PROTOBUF -> sniffProtobuf(payload, schemaVersion);
+            case PROTOBUF -> sniffProtobuf(payload);
             case JSON -> sniffJson(payload);
             case YAML -> sniffYaml(payload);
         };
     }
 
-    private static PhenopacketElement sniffProtobuf(byte[] payload, PhenopacketSchemaVersion schemaVersion) throws ElementSniffException {
+    private static PhenopacketElement sniffProtobuf(byte[] payload) throws ElementSniffException {
         // TODO - implement
         // possibly using https://protobuf.dev/programming-guides/encoding/
         throw new ElementSniffException("Element sniffing from protobuf input is not yet implemented");

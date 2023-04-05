@@ -31,7 +31,7 @@ public class HpoPhenotypeValidators {
      * @param hpo HPO ontology
      * @deprecated use {@link Primary#phenopacketHpoPhenotypeValidator(Ontology)} instead
      */
-    // TODO - remove prior v1
+    // REMOVE(v1.0.0)
     @Deprecated(forRemoval = true)
     public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoPhenotypeValidator(Ontology hpo) {
         return Primary.phenopacketHpoPhenotypeValidator(hpo);
@@ -43,7 +43,7 @@ public class HpoPhenotypeValidators {
      * @param hpo HPO ontology
      * @deprecated use {@link Primary#familyHpoPhenotypeValidator(Ontology)} instead
      */
-    // TODO - remove prior v1
+    // REMOVE(v1.0.0)
     @Deprecated(forRemoval = true)
     public static PhenopacketValidator<FamilyOrBuilder> familyHpoPhenotypeValidator(Ontology hpo) {
         return Primary.familyHpoPhenotypeValidator(hpo);
@@ -56,7 +56,7 @@ public class HpoPhenotypeValidators {
      * @param hpo HPO ontology
      * @deprecated use {@link Primary#cohortHpoPhenotypeValidator(Ontology)} instead
      */
-    // TODO - remove prior v1
+    // REMOVE(v1.0.0)
     @Deprecated(forRemoval = true)
     public static PhenopacketValidator<CohortOrBuilder> cohortHpoPhenotypeValidator(Ontology hpo) {
         return Primary.cohortHpoPhenotypeValidator(hpo);

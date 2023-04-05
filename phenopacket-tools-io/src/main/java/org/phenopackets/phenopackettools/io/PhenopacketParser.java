@@ -1,6 +1,7 @@
 package org.phenopackets.phenopackettools.io;
 
 import com.google.protobuf.Message;
+import org.phenopackets.phenopackettools.util.format.ElementSniffer;
 import org.phenopackets.phenopackettools.util.format.FormatSniffer;
 import org.phenopackets.phenopackettools.core.PhenopacketElement;
 import org.phenopackets.phenopackettools.core.PhenopacketFormat;
@@ -27,8 +28,12 @@ public interface PhenopacketParser {
     // We need to detect the element.
 
     default Message parse(PhenopacketFormat format, InputStream is) throws IOException {
-        PhenopacketElement element = sniffElement(is);
-        return parse(format, element, is);
+        try {
+            PhenopacketElement element = sniffElement(is, format);
+            return parse(format, element, is);
+        } catch (SniffException e) {
+            throw new IOException(e);
+        }
     }
 
     default Message parse(PhenopacketFormat format, Path path) throws IOException {
@@ -65,8 +70,8 @@ public interface PhenopacketParser {
 
     /* ******************************************* UTILITY METHODS ******************************************* */
 
-    private static PhenopacketElement sniffElement(InputStream is) {
-        return PhenopacketElement.PHENOPACKET; // TODO - implement
+    private static PhenopacketElement sniffElement(InputStream is, PhenopacketFormat format) throws SniffException, IOException {
+        return ElementSniffer.sniff(is, format);
     }
 
     private static PhenopacketFormat sniffFormat(InputStream is) throws SniffException, IOException {
