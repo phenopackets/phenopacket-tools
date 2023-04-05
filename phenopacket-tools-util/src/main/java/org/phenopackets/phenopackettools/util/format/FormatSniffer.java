@@ -25,11 +25,8 @@ public class FormatSniffer {
      *
      * @param payload buffer with at least the first {@link #BUFFER_SIZE} bytes of the input.
      * @return the sniffed {@link PhenopacketFormat}.
-     * @throws FormatSniffException if {@code payload} contains less than {@link #BUFFER_SIZE} bytes.
      */
-    public static PhenopacketFormat sniff(byte[] payload) throws FormatSniffException {
-        if (payload.length < BUFFER_SIZE)
-            throw new FormatSniffException("Need at least %d bytes to sniff but got %d".formatted(BUFFER_SIZE, payload.length));
+    public static PhenopacketFormat sniff(byte[] payload) {
         if (Util.looksLikeJson(payload)) {
             return PhenopacketFormat.JSON;
         } else if (Util.looksLikeYaml(payload)) {
@@ -53,6 +50,6 @@ public class FormatSniffer {
      * support {@link InputStream#mark(int)}.
      */
     public static PhenopacketFormat sniff(InputStream input) throws IOException, SniffException {
-        return sniff(Util.getFirstBytesAndReset(input, BUFFER_SIZE));
+        return sniff(Util.getAtMostNFirstBytesAndReset(input, BUFFER_SIZE));
     }
 }

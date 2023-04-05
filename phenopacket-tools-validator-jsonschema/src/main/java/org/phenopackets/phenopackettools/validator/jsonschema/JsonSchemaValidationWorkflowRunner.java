@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.MessageOrBuilder;
 import org.phenopackets.phenopackettools.util.format.FormatSniffer;
 import org.phenopackets.phenopackettools.core.PhenopacketFormat;
-import org.phenopackets.phenopackettools.util.format.FormatSniffException;
 import org.phenopackets.phenopackettools.validator.core.*;
 import org.phenopackets.phenopackettools.validator.jsonschema.impl.JsonSchemaValidator;
 import org.phenopackets.schema.v2.CohortOrBuilder;
@@ -159,15 +158,11 @@ public class JsonSchemaValidationWorkflowRunner<T extends MessageOrBuilder> impl
     }
 
     private String parseToString(byte[] payload) throws ConversionException {
-        try {
-            PhenopacketFormat format = FormatSniffer.sniff(payload);
-            return switch (format) {
-                case JSON, YAML -> new String(payload);
-                case PROTOBUF -> converter.toJson(payload);
-            };
-        } catch (FormatSniffException e) {
-            throw new ConversionException(e);
-        }
+        PhenopacketFormat format = FormatSniffer.sniff(payload);
+        return switch (format) {
+            case JSON, YAML -> new String(payload);
+            case PROTOBUF -> converter.toJson(payload);
+        };
     }
 
     /**

@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.*;
 
 public class FormatSnifferTest {
 
-    private static final Path BASE_DIR = Path.of("src/test/resources/org/phenopackets/phenopackettools/util/format");
+    private static final Path BASE_DIR = TestResources.BASE_DIR.resolve("format");
 
     @ParameterizedTest
     @CsvSource({
