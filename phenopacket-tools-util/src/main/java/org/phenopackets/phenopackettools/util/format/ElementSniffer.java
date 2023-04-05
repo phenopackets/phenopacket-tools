@@ -115,7 +115,7 @@ public class ElementSniffer {
 
     /**
      * Determine the candidate {@link PhenopacketElement} based on candidate field names.
-     *
+     * <p>
      * The code attempts to find discriminatory fields; the fields that are unique to specific top-level element.
      *
      * @param candidateFieldNames an iterable with candidate field names.

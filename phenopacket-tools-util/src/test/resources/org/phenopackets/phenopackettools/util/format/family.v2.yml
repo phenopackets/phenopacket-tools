@@ -1,3 +1,5 @@
+---
+# This is a meaningless comment in an example family.
 id: "family.1"
 proband:
   id: "phenopacket.id.1"

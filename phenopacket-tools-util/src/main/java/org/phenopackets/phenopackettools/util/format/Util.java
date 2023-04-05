@@ -57,8 +57,18 @@ class Util {
 
     static boolean looksLikeYaml(byte[] payload) {
         String string = new String(payload, StandardCharsets.UTF_8);
-        Matcher matcher = YAML_HEADER.matcher(string);
-        return matcher.find();
+        for (String line : string.split("\n")) {
+            if (line.startsWith("#"))
+                continue; // comment
+            else if (line.startsWith("---"))
+                continue; // document start
+            else if (line.startsWith("..."))
+                continue; // document end
+            Matcher matcher = YAML_HEADER.matcher(line);
+            if (matcher.find())
+                return true;
+        }
+        return false;
     }
 
     static byte[] getAtMostNFirstBytesAndReset(InputStream input, int nBytes) throws SniffException, IOException {

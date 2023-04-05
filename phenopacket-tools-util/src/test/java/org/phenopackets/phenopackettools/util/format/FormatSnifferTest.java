@@ -19,11 +19,17 @@ public class FormatSnifferTest {
 
     @ParameterizedTest
     @CsvSource({
-            "comprehensive-cohort.pb,         PROTOBUF",
-            "comprehensive-family.pb,         PROTOBUF",
             "comprehensive-phenopacket.pb,    PROTOBUF",
             "covid.json,                      JSON",
             "covid.yml,                       YAML",
+
+            "comprehensive-family.pb,         PROTOBUF",
+            "family.v2.json,                  JSON",
+            "family.v2.yml,                   YAML",
+
+            "comprehensive-cohort.pb,         PROTOBUF",
+            "cohort.v2.json,                  JSON",
+            "cohort.v2.yml,                   YAML",
     })
     public void sniff(String fileName, PhenopacketFormat expected) throws Exception {
         byte[] payload = readAllBytes(fileName);
