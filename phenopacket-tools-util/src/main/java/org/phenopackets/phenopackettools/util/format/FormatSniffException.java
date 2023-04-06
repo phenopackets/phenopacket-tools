@@ -3,7 +3,7 @@ package org.phenopackets.phenopackettools.util.format;
 /**
  * An exception thrown when sniffing of the top-level element of Phenopacket schema cannot be performed.
  */
-public class FormatSniffException extends ElementSniffException {
+public class FormatSniffException extends SniffException {
 
     public FormatSniffException() {
         super();

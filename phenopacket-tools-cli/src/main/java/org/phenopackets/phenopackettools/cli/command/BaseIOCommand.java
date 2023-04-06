@@ -42,7 +42,7 @@ public abstract class BaseIOCommand extends BaseCommand {
         @CommandLine.Option(names = {"-e", "--element"},
                 description = {"Top-level element.",
                         "Choose from {${COMPLETION-CANDIDATES}}",
-                        "Default: phenopacket"})
+                        "Default: an educated guess from the input"})
         public PhenopacketElement element = null;
 
     }
@@ -71,33 +71,29 @@ public abstract class BaseIOCommand extends BaseCommand {
     protected List<MessageAndPath> readMessagesOrExit(PhenopacketSchemaVersion schemaVersion) {
         PhenopacketParser parser = parserFactory.forFormat(schemaVersion);
         if (inputs == null) {
-            // The user did not set `-i | --input` option, assuming a single input is coming from STDIN.
+            // The user did not provide positional parameters, assuming a single input is coming from STDIN.
             InputStream is = System.in;
             try {
-                setFormatAndElement(is, schemaVersion);
+                setFormatAndElement(is);
                 Message message = parser.parse(inputSection.format, inputSection.element, is);
                 return List.of(new MessageAndPath(message, null));
-            } catch (SniffException e) {
-                System.err.println("Unable to detect input format from STDIN.\nConsider using the `--format` option.");
             } catch (IOException e) {
                 System.err.println("Unable to read STDIN: " + e.getMessage() + "\nPlease check the input format.");
             }
             System.exit(1);
         } else {
-            // Assuming a one or more input are provided via `-i | --input`.
+            // Assuming a one or more inputs are provided via positional parameters.
             //
-            // Picocli should ensure that `input` is never an empty list. `input` is `null` if no `-i` was supplied.
+            // Picocli should ensure that `input` is never an empty list.
+            // The `input` is `null` if no positional parameters were supplied.
             assert !inputs.isEmpty();
 
             List<MessageAndPath> messages = new ArrayList<>();
             for (Path input : inputs) {
                 try (InputStream is = new BufferedInputStream(Files.newInputStream(input))) {
-                    setFormatAndElement(is, schemaVersion);
+                    setFormatAndElement(is);
                     Message message = parser.parse(inputSection.format, inputSection.element, is);
                     messages.add(new MessageAndPath(message, input));
-                } catch (SniffException e) {
-                    System.err.printf("Unable to detect input format of %s.\nConsider using the `--format` option.%n", input.toAbsolutePath());
-                    System.exit(1);
                 } catch (IOException e) {
                     System.err.printf("Unable to read input file %s: %s\nPlease check the input format.%n", input.toAbsolutePath(), e.getMessage());
                     System.exit(1);
@@ -110,36 +106,52 @@ public abstract class BaseIOCommand extends BaseCommand {
 
     /**
      * Peek into the provided {@link InputStream} {@code is} to set {@link InputSection#format}
-     * and {@link InputSection#element} items
+     * and {@link InputSection#element} items.
      *
-     * @throws IOException if I/O error happens
-     * @throws SniffException if we cannot sniff the format
+     * @throws IOException if the format/element sniffing fails and the user did not set the CLI fields or if an I/O error happens.
      */
-    private void setFormatAndElement(InputStream is, PhenopacketSchemaVersion schemaVersion) throws IOException, SniffException {
-        // Set format.
-        PhenopacketFormat fmt = FormatSniffer.sniff(is);
+    private void setFormatAndElement(InputStream is) throws IOException {
+        SniffException se = null;
+
+        // Set the format.
+        PhenopacketFormat fmt = null;
+        try {
+            fmt = FormatSniffer.sniff(is);
+        } catch (SniffException e) {
+            se = e;
+        }
         if (inputSection.format == null) {
             LOGGER.info("Input format was not provided, making an educated guess..");
+            if (fmt == null)
+                throw new IOException("Input format (-f | --format) was not provided and format sniffing failed", se);
             LOGGER.info("The input looks like a {} file", fmt);
             inputSection.format = fmt;
         } else {
-            if (!inputSection.format.equals(fmt))
+            if (fmt != null && !inputSection.format.equals(fmt))
                 // This can happen e.g. if processing multiple files at once but one turns out to be a different format.
-                // We emit warning because this is likely not what the user intended and the code will likely explode
+                // We emit a warning because this is likely not what the user intended and the code will likely explode
                 // further downstream.
                 LOGGER.warn("Input format is set to {} but the current input looks like a {}", inputSection.format, fmt);
         }
 
-        // Set element.
-        PhenopacketElement element = ElementSniffer.sniff(is, inputSection.format);
+        // Set the element.
+        PhenopacketElement element = null;
+        try {
+            element = ElementSniffer.sniff(is, inputSection.format);
+        } catch (SniffException e) {
+            se = e;
+        }
         if (inputSection.element == null) {
-            LOGGER.info("Input element type (-e | --element) was not provided, making an educated guess..");
+            LOGGER.info("Input element was not provided, making an educated guess..");
+            if (element == null)
+                throw new IOException("Input element (-e | --element) was not provided and element sniffing failed", se);
             LOGGER.info("The input looks like a {} ", element);
             inputSection.element = element;
         }
         else {
-            if (!inputSection.element.equals(element))
-//                 Let's go an extra mile and check for the user.
+            if (element != null && !inputSection.element.equals(element))
+                // Let's go an extra mile and check for the user.
+                // Same as above, we emit a warning since the code will likely explode further downstream.
                 LOGGER.warn("Input element is set to {} but the current input looks like a {}", inputSection.element, element);
         }
     }

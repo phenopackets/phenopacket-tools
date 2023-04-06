@@ -78,8 +78,7 @@ public class ElementSniffer {
      * @param format the {@code payload} format
      * @return the sniffed {@link PhenopacketElement}.
      * @throws IOException    in case an error occurs while reading the {@code input}.
-     * @throws SniffException if there are not enough bytes available in the {@code input} of if the {@code input} does not
-     *                        support {@link InputStream#mark(int)}.
+     * @throws SniffException if the {@code input} does not support {@link InputStream#mark(int)}.
      */
     public static PhenopacketElement sniff(InputStream input,
                                            PhenopacketFormat format) throws IOException, SniffException {
