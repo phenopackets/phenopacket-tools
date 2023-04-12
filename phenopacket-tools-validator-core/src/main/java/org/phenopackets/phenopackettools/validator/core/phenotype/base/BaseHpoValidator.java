@@ -14,8 +14,7 @@ public abstract class BaseHpoValidator<T extends MessageOrBuilder> implements Ph
 
     protected BaseHpoValidator(Ontology hpo) {
         this.hpo = Objects.requireNonNull(hpo);
-        // TODO - can be replaced by this.hpo.version() in the most recent phenol versions.
-        this.hpoVersion = this.hpo.getMetaInfo().getOrDefault("data-version", "HPO");
+        this.hpoVersion = hpo.version().orElse("UNKNOWN");
     }
 
     protected static String summarizePhenopacketAndIndividualId(PhenopacketOrBuilder phenopacket) {

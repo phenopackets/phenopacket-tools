@@ -13,6 +13,8 @@ public class FormatSniffer {
     /**
      * The number of bytes used for format sniffing.
      */
+    // The longest field name as of now is phenotypicFeatures which is 18 bytes,
+    // hence 32 bytes should be enough for format sniffing.
     static final int BUFFER_SIZE = 32;
 
     private FormatSniffer() {
@@ -21,13 +23,10 @@ public class FormatSniffer {
     /**
      * Make an educated guess of {@link PhenopacketFormat} based on given {@code payload}.
      *
-     * @param payload buffer with at least the first {@link #BUFFER_SIZE} bytes of the input.
+     * @param payload buffer with a certain number of bytes from the front end of the input.
      * @return the sniffed {@link PhenopacketFormat}.
-     * @throws FormatSniffException if {@code payload} contains less than {@link #BUFFER_SIZE} bytes.
      */
-    public static PhenopacketFormat sniff(byte[] payload) throws FormatSniffException {
-        if (payload.length < BUFFER_SIZE)
-            throw new FormatSniffException("Need at least %d bytes to sniff but got %d".formatted(BUFFER_SIZE, payload.length));
+    public static PhenopacketFormat sniff(byte[] payload) {
         if (Util.looksLikeJson(payload)) {
             return PhenopacketFormat.JSON;
         } else if (Util.looksLikeYaml(payload)) {
@@ -47,10 +46,9 @@ public class FormatSniffer {
      * @param input an {@link InputStream} that supports {@link InputStream#mark(int)}.
      * @return the sniffed {@link PhenopacketFormat}.
      * @throws IOException in case an error occurs while reading the {@code input}.
-     * @throws FormatSniffException if there are not enough bytes available in the {@code input} of if the {@code input} does not
-     * support {@link InputStream#mark(int)}.
+     * @throws SniffException if the {@code input} does not support {@link InputStream#mark(int)}.
      */
     public static PhenopacketFormat sniff(InputStream input) throws IOException, SniffException {
-        return sniff(Util.getFirstBytesAndReset(input, BUFFER_SIZE));
+        return sniff(Util.getAtMostNFirstBytesAndReset(input, BUFFER_SIZE));
     }
 }
