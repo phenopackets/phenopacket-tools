@@ -33,7 +33,7 @@ from our `GitHub repository <https://github.com/phenopackets/phenopacket-tools>`
 The following sections describe phenopacket-tools library and CLI application.
 We start with :ref:`rsttutorial` to provide a quick overview of the CLI functionality.
 We follow with comprehensive description of the :ref:`rstcli`.
-The rest of the documentation offers an in-depth user guide for using the library functionality
+The rest of the documentation offers an in-depth user guide and a showcase of the library functionality
 in JVM-based applications.
 
 .. toctree::
@@ -47,6 +47,7 @@ in JVM-based applications.
    converting
    validation
    examples
+   showcase
 
 
 .. figure:: https://onlinelibrary.wiley.com/cms/asset/1cc0a141-da65-45a3-b7b0-6316b7b02069/ggn2202200016-fig-0002-m.jpg
