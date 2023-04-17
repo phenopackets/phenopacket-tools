@@ -1,0 +1,156 @@
+{
+  "id": "arbitrary.id",
+  "subject": {
+    "id": "10-year old boy",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P10Y"
+      }
+    },
+    "sex": "MALE",
+    "karyotypicSex": "UNKNOWN_KARYOTYPE"
+  },
+  "phenotypicFeatures": [{
+    "type": {
+      "id": "HP:0031936",
+      "label": "Delayed ability to walk"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P1Y6M"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0003707",
+      "label": "Calf muscle pseudohypertrophy"
+    },
+    "excluded": false,
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0011463",
+        "label": "Childhood onset"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0009046",
+      "label": "Difficulty running"
+    },
+    "excluded": false,
+    "onset": {
+      "ontologyClass": {
+        "id": "HP:0011463",
+        "label": "Childhood onset"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0003458",
+      "label": "EMG: myopathic abnormalities"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P10Y"
+      }
+    }
+  }, {
+    "type": {
+      "id": "HP:0003236",
+      "label": "Elevated circulating creatine kinase concentration"
+    },
+    "excluded": false,
+    "onset": {
+      "age": {
+        "iso8601duration": "P10Y"
+      }
+    }
+  }],
+  "interpretations": [{
+    "id": "interpretation.id",
+    "progressStatus": "SOLVED",
+    "diagnosis": {
+      "disease": {
+        "id": "MONDO:0010679",
+        "label": "Duchenne muscular dystrophy"
+      },
+      "genomicInterpretations": [{
+        "subjectOrBiosampleId": "10-year old boy",
+        "interpretationStatus": "CAUSATIVE",
+        "variantInterpretation": {
+          "acmgPathogenicityClassification": "PATHOGENIC",
+          "therapeuticActionability": "UNKNOWN_ACTIONABILITY",
+          "variationDescriptor": {
+            "id": "variant-id",
+            "variation": {
+              "copyNumber": {
+                "derivedSequenceExpression": {
+                  "location": {
+                    "sequenceId": "refseq:NC_000023.11",
+                    "sequenceInterval": {
+                      "startNumber": {
+                        "value": "31774144"
+                      },
+                      "endNumber": {
+                        "value": "31785736"
+                      }
+                    }
+                  },
+                  "reverseComplement": false
+                },
+                "number": {
+                  "value": "1"
+                }
+              }
+            },
+            "geneContext": {
+              "valueId": "HGNC:2928",
+              "symbol": "DMD"
+            },
+            "expressions": [{
+              "syntax": "hgvs.c",
+              "value": "NM_004006.3:c.7310-11543_7359del"
+            }, {
+              "syntax": "transcript_reference",
+              "value": "NM_004006.3"
+            }],
+            "moleculeContext": "genomic",
+            "allelicState": {
+              "id": "GENO:0000134",
+              "label": "hemizygous"
+            }
+          }
+        }
+      }]
+    }
+  }],
+  "metaData": {
+    "created": "2021-05-14T10:35:00Z",
+    "createdBy": "anonymous biocurator",
+    "resources": [{
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2022-06-11",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }, {
+      "id": "mondo",
+      "name": "Mondo Disease Ontology",
+      "url": "http://purl.obolibrary.org/obo/mondo.obo",
+      "version": "2022-04-04",
+      "namespacePrefix": "MONDO",
+      "iriPrefix": "http://purl.obolibrary.org/obo/MONDO_"
+    }, {
+      "id": "geno",
+      "name": "Genotype Ontology",
+      "url": "http://purl.obolibrary.org/obo/geno.owl",
+      "version": "2022-03-05",
+      "namespacePrefix": "GENO",
+      "iriPrefix": "http://purl.obolibrary.org/obo/GENO_"
+    }],
+    "phenopacketSchemaVersion": "2.0.0"
+  }
+}

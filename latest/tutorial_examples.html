@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example phenopackets &mdash; phenopacket-tools 1.0.0-RC3-SNAPSHOT documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pxftools.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            phenopacket-tools
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating.html">Creating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting v1 Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Phenopackets Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="showcase.html">Showcase of applications that use phenopacket-tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">phenopacket-tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Example phenopackets</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorial_examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example-phenopackets">
+<span id="rsttutorialexamples"></span><h1>Example phenopackets<a class="headerlink" href="#example-phenopackets" title="Permalink to this heading"></a></h1>
+<p>A set of example phenopackets is distributed with the <em>phenopacket-tools</em> binary. The example files should be used
+to demonstrate the tools’ functionality.</p>
+<p>The files are grouped in sub-folders:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>examples
+├── convert
+├── phenopackets
+└── validate
+  ├── base
+  ├── custom-json-schema
+  ├── organ-systems
+  └── phenotype-validation
+</pre></div>
+</div>
+<section id="convert">
+<h2>Convert<a class="headerlink" href="#convert" title="Permalink to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">convert</span></code> folder contains one v1 phenopacket to demonstrate the conversion functionality:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Schreckenbach</span><span class="o">-</span><span class="mi">2014</span><span class="o">-</span><span class="n">TPM3</span><span class="o">-</span><span class="n">II</span><span class="mf">.2</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>The phenopacket describes a case report of a 45 years-old female diagnosed with
+<a class="reference external" href="https://www.omim.org/entry/609284">NEMALINE MYOPATHY 1; NEM1</a>
+caused by heterozygous mutation in <a class="reference external" href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:12012">TPM3</a>.</p>
+</section>
+<section id="validate">
+<h2>Validate<a class="headerlink" href="#validate" title="Permalink to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">validate</span></code> directory contains files for demonstrating <em>off-the-shelf</em> phenopacket validation functionalities.</p>
+<section id="base-base-validation-functionality">
+<h3><code class="docutils literal notranslate"><span class="pre">base</span></code> - base validation functionality<a class="headerlink" href="#base-base-validation-functionality" title="Permalink to this heading"></a></h3>
+<p>The folder contains a few phenopackets for demonstrating the base validation functionality of <em>phenopacket-tools</em>;
+the validation that <strong>any phenopacket must pass</strong>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>File name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>missing-fields.json</p></td>
+<td><p>An invalid phenopacket with missing <cite>id</cite>, <cite>subject.id</cite> and <cite>phenotypicFeatures[0].type.label</cite> attributes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>missing-fields-valid.json</p></td>
+<td><p>A valid version of the above phenopacket with IDs and the label.</p></td>
+</tr>
+<tr class="row-even"><td><p>missing-resources.json</p></td>
+<td><p>An invalid phenopacket with missing <cite>Resource</cite> for the <cite>NCBITaxon:9606</cite> ontology concept used to represent organism of the subject.</p></td>
+</tr>
+<tr class="row-odd"><td><p>missing-resources-valid.json</p></td>
+<td><p>A valid version of the above phenopacket with the <cite>Resource</cite> for describing <cite>NCBITaxon</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="custom-json-schema-validate-custom-requirements">
+<span id="rstcustomjsonschematutorialexample"></span><h3><code class="docutils literal notranslate"><span class="pre">custom-json-schema</span></code> - validate custom requirements<a class="headerlink" href="#custom-json-schema-validate-custom-requirements" title="Permalink to this heading"></a></h3>
+<p>A bunch of phenopackets for showing how a custom JSON schema can be used to validate user-specific requirements.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>File name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hpo-rare-disease-schema.json</p></td>
+<td><p>A custom JSON schema for enforcing user-specific requirements.</p></td>
+</tr>
+<tr class="row-odd"><td><p>marfan.no-phenotype.json</p></td>
+<td><p>The phenopacket is <em>invalid</em> since it contains no phenotypic features.</p></td>
+</tr>
+<tr class="row-even"><td><p>marfan.no-subject.json</p></td>
+<td><p>The phenopacket is <em>invalid</em> since the <cite>subject</cite> is missing.</p></td>
+</tr>
+<tr class="row-odd"><td><p>marfan.no-time-at-last-encounter.json</p></td>
+<td><p>The phenopacket is <em>invalid</em> due to missing time at last encounter.</p></td>
+</tr>
+<tr class="row-even"><td><p>marfan.not-hpo.json</p></td>
+<td><p>The phenopacket is <em>invalid</em> because HPO terms are not used to represent phenotypic features.</p></td>
+</tr>
+<tr class="row-odd"><td><p>marfan.json</p></td>
+<td><p>A phenopacket that meets the custom requirements.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="organ-systems-validate-annotation-of-organ-systems">
+<h3><code class="docutils literal notranslate"><span class="pre">organ-systems</span></code> - validate annotation of organ systems<a class="headerlink" href="#organ-systems-validate-annotation-of-organ-systems" title="Permalink to this heading"></a></h3>
+<p>Phenopackets for showing organ system validation. As an example, we work with phenopackets of patients with
+<a class="reference external" href="https://hpo.jax.org/app/browse/disease/OMIM:154700">Marfan syndrome</a> and we require annotation
+of
+<a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0000478">Eye</a>,
+<a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0001626">Cardiovascular</a>, and
+<a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0002086">Respiratory</a> organ systems either by <em>excluding</em> the corresponding top-level HPO term or by adding a descendent term.</p>
+<p>The phenopackets include</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>File name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>marfan.no-abnormalities.json</p></td>
+<td><p>A valid phenopacket of a proband with no abnormalities of the target organ systems.</p></td>
+</tr>
+<tr class="row-odd"><td><p>marfan.all-organ-system-annotated.json</p></td>
+<td><p>A valid phenopacket of a proband who had an abnormality of eye and cardiovascular systems but
+no abnormality of respiratory system. Note that it is OK to have phenotypic feature of other organ system,
+such as Arachnodactyly in this case.</p></td>
+</tr>
+<tr class="row-even"><td><p>marfan.missing-eye-annotation.json</p></td>
+<td><p>An invalid phenopacket of a proband without any annotation of the eye.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="phenotype-validation-validate-custom-requirements">
+<h3><code class="docutils literal notranslate"><span class="pre">phenotype-validation</span></code> - validate custom requirements<a class="headerlink" href="#phenotype-validation-validate-custom-requirements" title="Permalink to this heading"></a></h3>
+<p>Phenopackets for demonstrating ontology-based validation.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>File name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>marfan.annotation-propagation-rule.json</p></td>
+<td><div class="line-block">
+<div class="line">Invalid phenopacket due to logical inconsistency in phenotypic features. The phenopacket contains</div>
+<div class="line">both <em>Aortic root aneurysm</em> and its ancestor <em>Aortic aneurysm</em>. Only the more specific term should be used.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>marfan.obsolete-term.json</p></td>
+<td><p>The phenopacket is <em>invalid</em> because it contains an obsolete HPO term.</p></td>
+</tr>
+<tr class="row-even"><td><p>marfan.json</p></td>
+<td><p>A phenopacket that meets the phenotype validation requirements.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Daniel Danis, Peter Robinson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

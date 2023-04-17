@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creating Phenopackets &mdash; phenopacket-tools 1.0.0-RC3-SNAPSHOT documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pxftools.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Converting v1 Phenopackets" href="converting.html" />
+    <link rel="prev" title="Constants" href="constants.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            phenopacket-tools
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating Phenopackets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#phenopacket-tools-builder-pattern"><cite>phenopacket-tools</cite> builder pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="converting.html">Converting v1 Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Phenopackets Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="showcase.html">Showcase of applications that use phenopacket-tools</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">phenopacket-tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Creating Phenopackets</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/creating.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="creating-phenopackets">
+<span id="rstcreating"></span><h1>Creating Phenopackets<a class="headerlink" href="#creating-phenopackets" title="Permalink to this heading"></a></h1>
+<p>Google’s <a class="reference external" href="https://developers.google.com/protocol-buffers">Protocol Buffer (protobuf)</a> framework automatically generates
+Java bindings for building and working with Phenopackets. However, the code can be unwieldy. Additionally, many users
+of the phenopacket framework will want to use a recommended set of ontology terms for specific kinds of data.
+<em>Phenopacket-tools</em> library provides terms and constants that are more convenient to use than manually creating
+the equivalent message.</p>
+<p>This section exemplifies usage of <cite>PhenotypicFeatureBuilder</cite>, one of many builders provided by the
+<a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html">org.phenopackets.phenopackettools.builder</a>
+module.</p>
+<section id="phenopacket-tools-builder-pattern">
+<h2><cite>phenopacket-tools</cite> builder pattern<a class="headerlink" href="#phenopacket-tools-builder-pattern" title="Permalink to this heading"></a></h2>
+<p>In this example, let’s imagine we want to create a <code class="docutils literal notranslate"><span class="pre">PhenotypicFeature</span></code> element to denote that severe weakness of the
+left triceps muscle was observed in a patient at the age of 11 years and 4 months. First, let us code this using
+the Phenopacket code that is automatically generated by the protobuf framework.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">OntologyClass</span><span class="w"> </span><span class="n">tricepsWeakness</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OntologyClass</span><span class="p">.</span><span class="na">newBuilder</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setId</span><span class="p">(</span><span class="s">&quot;HP:0031108&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setLabel</span><span class="p">(</span><span class="s">&quot;Triceps weakness&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="n">OntologyClass</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OntologyClass</span><span class="p">.</span><span class="na">newBuilder</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setId</span><span class="p">(</span><span class="s">&quot;HP:0012835&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setLabel</span><span class="p">(</span><span class="s">&quot;Left&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="n">OntologyClass</span><span class="w"> </span><span class="n">severe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OntologyClass</span><span class="p">.</span><span class="na">newBuilder</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setId</span><span class="p">(</span><span class="s">&quot;HP:0012828&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setLabel</span><span class="p">(</span><span class="s">&quot;Severe&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="n">Age</span><span class="w"> </span><span class="n">iso8601duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Age</span><span class="p">.</span><span class="na">newBuilder</span><span class="p">().</span><span class="na">setIso8601Duration</span><span class="p">(</span><span class="s">&quot;P11Y4M&quot;</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+<span class="n">TimeElement</span><span class="w"> </span><span class="n">ageElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeElement</span><span class="p">.</span><span class="na">newBuilder</span><span class="p">().</span><span class="na">setAge</span><span class="p">(</span><span class="n">iso8601duration</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setAge</span><span class="p">(</span><span class="n">iso8601duration</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="n">PhenotypicFeature</span><span class="w"> </span><span class="n">phenotypicFeature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhenotypicFeature</span><span class="p">.</span><span class="na">newBuilder</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setType</span><span class="p">(</span><span class="n">tricepsWeakness</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setOnset</span><span class="p">(</span><span class="n">ageElement</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">setSeverity</span><span class="p">(</span><span class="n">severe</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">addModifiers</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The following code block uses functions from the <em>phenopacket-tools</em> library to simplify the creation
+of this <code class="docutils literal notranslate"><span class="pre">PhenotypicFeature</span></code> element.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">PhenotypicFeature</span><span class="w"> </span><span class="n">phenotypicFeature2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PhenotypicFeatureBuilder</span><span class="p">.</span><span class="na">builder</span><span class="p">(</span><span class="s">&quot;HP:0031108&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Triceps weakness&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">addModifier</span><span class="p">(</span><span class="n">severe</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">addModifier</span><span class="p">(</span><span class="n">left</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">onset</span><span class="p">(</span><span class="n">TimeElements</span><span class="p">.</span><span class="na">age</span><span class="p">(</span><span class="s">&quot;P11Y4M&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Both code snippets generate identical phenopacket code.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HP:0031108&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Triceps weakness&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HP:0012828&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Severe&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;modifiers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HP:0012835&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Left&quot;</span>
+<span class="w">    </span><span class="p">}],</span>
+<span class="w">    </span><span class="nt">&quot;onset&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;iso8601duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;P11Y4M&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<p>See the API documentation of the
+<a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html">org.phenopackets.phenopackettools.builder</a>
+module for a comprehensive list of ontology constants, convenience methods, and builders provided
+by the <em>phenopacket-tools</em> library.</p>
+<p>Several detailed examples are available in the <code class="docutils literal notranslate"><span class="pre">phenopackets-tools-cli</span></code> module in the
+<a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/tree/main/phenopacket-tools-cli/src/main/java/org/phenopackets/phenopackettools/cli/examples">org.phenopackets.phenopackettools.cli.examples</a>
+package.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="constants.html" class="btn btn-neutral float-left" title="Constants" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="converting.html" class="btn btn-neutral float-right" title="Converting v1 Phenopackets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Daniel Danis, Peter Robinson.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
