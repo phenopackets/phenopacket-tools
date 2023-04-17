@@ -268,15 +268,6 @@
                                         <goal>jar</goal>
                                     </goals>
                                 </execution>
-                                <execution>
-                                    <!-- Aggregate Javadoc for hosting at the project site. -->
-                                    <id>aggregate</id>
-                                    <goals>
-                                        <goal>aggregate</goal>
-                                    </goals>
-                                    <phase>package</phase>
-                                    <inherited>false</inherited>
-                                </execution>
                             </executions>
                         </plugin>
                         <plugin>

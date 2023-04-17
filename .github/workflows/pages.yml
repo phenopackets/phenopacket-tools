@@ -1,12 +1,12 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to GitHub Pages
+name: Deploy documentation to GitHub Pages
 
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   # Runs on pushes targeting the main branch
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   build-docs:
@@ -34,9 +34,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
-    
-    - name: Build phenopacket-tools
-      run: ./mvnw -Prelease -DskipTests package # We test elsewhere
 
     - name: Generate examples and build documentation
       run: |
@@ -45,33 +42,60 @@ jobs:
         mkdir -p gh-pages
         touch gh-pages/.nojekyll
         
-        ## Copy Javadoc
-        # Copy aggregated Javadoc into `apidocs` folder. 
-        # The aggregated docs are built by Maven in `package` phase.
-        printf "Copying Javadocs from %s to %s\n" $(pwd)/target/site/apidocs $(pwd)/gh-pages/apidocs
-        cp -r target/site/apidocs ./gh-pages/apidocs 
+        function build_docs {
+          # The function will checkout a branch and build the Javadoc & documentation 
+          # into provided documentation directory.
+          BRANCH=${1}
+          DOCDIR=${2}
         
-        ## Generate examples
-        # Find the CLI jar and run the `examples` command.
-        jar=$(find phenopacket-tools-cli/target \
-          -regextype posix-extended \
-          -regex ".*[0-9]+\.[0-9]+\.[0-9]+(-RC[1-9][0-9]*)?\.jar$")
-        if [ -f "${jar}" ]; then
-          printf "Generating Phenopacket examples using ${jar}\n"
-          java -jar ${jar} examples -v --output-directory ./gh-pages/examples
-        else
-          printf "Could not find phenopacket-tools JAR file\n"
-          tree -L 3 .
-          exit 1
-        fi
+          git checkout ${BRANCH}
+          git fetch
+          git pull
+          ## Init the target folder.
+          # We will put all site documentation there.
+          mkdir -p gh-pages/${DOCDIR}
         
-        ## Build the docs
-        # Generate the HTML pages and move the generated content into the target folder.
-        printf "Building the documentation\n"
-        cd docs/ 
-        make html
-        mv _build/html/* ../gh-pages/
-        cd ..
+          ## Javadoc
+          # Build the aggregated Javadoc.
+          ./mvnw clean
+          ./mvnw -Ddoclint=none -Dinherited=false javadoc:aggregate
+          
+          # Copy aggregated Javadoc into `apidocs` folder.
+          printf "Copying Javadocs from %s to %s\n" $(pwd)/target/site/apidocs ${APIDOCS}
+          APIDOCS=$(pwd)/gh-pages/${DOCDIR}/apidocs
+          cp -r target/site/apidocs ${APIDOCS}
+          
+          ## Generate examples
+          # Find the CLI jar and run the `examples` command.
+          ./mvnw -Prelease -DskipTests package
+          jar=$(find phenopacket-tools-cli/target \
+            -regextype posix-extended \
+            -regex ".*[0-9]+\.[0-9]+\.[0-9]+(-RC[1-9][0-9]*)?\.jar$")
+          if [ -f "${jar}" ]; then
+            printf "Generating Phenopacket examples using ${jar}\n"
+            java -jar ${jar} examples -v --output-directory ./gh-pages/${DOCDIR}/examples
+          else
+            printf "Could not find phenopacket-tools JAR file\n"
+            tree -L 3 .
+            exit 1
+          fi
+          
+          ## Build the docs
+          # Generate the HTML pages and move the generated content into the target folder.
+          printf "Building the %s documentation\n" ${DOCDIR}
+          cd docs/
+          # Replace the `release_tag` placeholder to the right value in place. 
+          # This must be done *prior* generating docs in several files
+          sed -i "s/release_tag/${DOCDIR}/g" examples.rst
+          make clean html
+          cd ..
+          mv docs/_build/html/* gh-pages/${DOCDIR}
+        }
+        
+        # We store the docs for `master` in `stable` dir
+        build_docs main stable
+        # We store the docs for `develop` in `latest` dir
+        build_docs develop latest
 
 
     - name: Deploy documentation.
