@@ -20,11 +20,22 @@ Alternatively, *phenopacket-tools* can be built from source, as described in the
 
 ## Documentation
 
-The documentation includes a [Tutorial](http://phenopackets.org/phenopacket-tools/tutorial.html) showing 
-how to use the CLI, 
-a comprehensive [CLI user guide](http://phenopackets.org/phenopacket-tools/cli.html),
-a [Library user guide](http://phenopackets.org/phenopacket-tools),
-and the [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/apidocs).
+We provide the documentation for the latest release (`stable`) as well as the development version (`latest`).  
+
+The documentation includes a *Tutorial* showing how to use the CLI, a comprehensive *CLI user guide*, 
+a *Library user guide*, and the *Javadoc API documentation*.
+
+**Stable**
+- [Tutorial](http://phenopackets.org/phenopacket-tools/stable/tutorial.html)
+- [CLI user guide](http://phenopackets.org/phenopacket-tools/stable/cli.html)
+- [Library user guide](http://phenopackets.org/phenopacket-tools/stable)
+- [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/stable/apidocs)
+
+**Latest**
+- [Tutorial](http://phenopackets.org/phenopacket-tools/latest/tutorial.html)
+- [CLI user guide](http://phenopackets.org/phenopacket-tools/latest/cli.html)
+- [Library user guide](http://phenopackets.org/phenopacket-tools/latest)
+- [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/latest/apidocs)
 
 ## Issues
 
