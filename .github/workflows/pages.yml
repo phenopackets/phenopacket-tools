@@ -57,20 +57,20 @@ jobs:
         
           ## Javadoc
           # Build the aggregated Javadoc.
-          ./mvnw clean
-          ./mvnw -Ddoclint=none -Dinherited=false javadoc:aggregate
+          ./mvnw --quiet clean
+          ./mvnw --quiet -Ddoclint=none -Dinherited=false javadoc:aggregate
           
           # Copy aggregated Javadoc into `apidocs` folder.
-          printf "Copying Javadocs from %s to %s\n" $(pwd)/target/site/apidocs ${APIDOCS}
           APIDOCS=$(pwd)/gh-pages/${DOCDIR}/apidocs
+          printf "Copying Javadocs from %s to %s\n" $(pwd)/target/site/apidocs ${APIDOCS}
           cp -r target/site/apidocs ${APIDOCS}
           
           ## Generate examples
           # Find the CLI jar and run the `examples` command.
-          ./mvnw -Prelease -DskipTests package
+          ./mvnw --quiet -Prelease -DskipTests package
           jar=$(find phenopacket-tools-cli/target \
             -regextype posix-extended \
-            -regex ".*[0-9]+\.[0-9]+\.[0-9]+(-RC[1-9][0-9]*)?\.jar$")
+            -regex ".*[0-9]+\.[0-9]+\.[0-9]+(-RC[1-9][0-9]*)?(-SNAPSHOT)?\.jar$")
           if [ -f "${jar}" ]; then
             printf "Generating Phenopacket examples using ${jar}\n"
             java -jar ${jar} examples -v --output-directory ./gh-pages/${DOCDIR}/examples
