@@ -1,25 +1,40 @@
 package org.phenopackets.phenopackettools.converter.converters.v2;
 
+import org.phenopackets.schema.v2.core.OntologyClass;
 import org.phenopackets.schema.v2.core.Procedure;
+
+import java.util.Optional;
 
 import static org.phenopackets.phenopackettools.converter.converters.v2.OntologyClassConverter.toOntologyClass;
 
-public class ProcedureConverter {
+class ProcedureConverter {
 
     private ProcedureConverter() {
     }
 
-    public static Procedure toProcedure(org.phenopackets.schema.v1.core.Procedure procedure) {
-        if (org.phenopackets.schema.v1.core.Procedure.getDefaultInstance().equals(procedure)) {
-            return Procedure.getDefaultInstance();
+    static Optional<Procedure> toProcedure(org.phenopackets.schema.v1.core.Procedure procedure) {
+        if (procedure.equals(org.phenopackets.schema.v1.core.Procedure.getDefaultInstance()))
+            return Optional.empty();
+
+        boolean isDefault = true;
+        Procedure.Builder builder = Procedure.newBuilder();
+
+        Optional<OntologyClass> code = toOntologyClass(procedure.getCode());
+        if (code.isPresent()) {
+            isDefault = false;
+            builder.setCode(code.get());
         }
 
-        Procedure.Builder builder = Procedure.newBuilder();
-        if (procedure.hasBodySite()) {
-            builder.setBodySite(toOntologyClass(procedure.getBodySite()));
+        Optional<OntologyClass> bodySite = toOntologyClass(procedure.getBodySite());
+        if (bodySite.isPresent()) {
+            isDefault = false;
+            builder.setBodySite(bodySite.get());
         }
-        return builder
-                .setCode(toOntologyClass(procedure.getCode()))
-                .build();
+
+        if (isDefault)
+            return Optional.empty();
+        else
+            return Optional.of(builder.build());
+
     }
 }
