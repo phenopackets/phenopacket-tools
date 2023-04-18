@@ -23,29 +23,48 @@ public class MetaDataConverter {
         if (metaData.equals(org.phenopackets.schema.v1.core.MetaData.getDefaultInstance()))
             return Optional.empty();
 
-        List<ExternalReference> externalReferences = toExternalReferences(metaData.getExternalReferencesList());
-        List<Resource> resources = toResources(metaData.getResourcesList());
-        List<Update> updates = toUpdates(metaData.getUpdatesList());
+        boolean isDefault = true;
+        MetaData.Builder builder = MetaData.newBuilder().setPhenopacketSchemaVersion(VERSION);
 
-        if (metaData.getPhenopacketSchemaVersion().isEmpty()
-                && metaData.getCreated().equals(Timestamp.getDefaultInstance())
-                && metaData.getCreatedBy().isEmpty()
-                && metaData.getSubmittedBy().isEmpty()
-                && externalReferences.isEmpty()
-                && resources.isEmpty()
-                && updates.isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(MetaData.newBuilder()
-                    .setPhenopacketSchemaVersion(VERSION)
-                    .setCreated(metaData.getCreated())
-                    .setCreatedBy(metaData.getCreatedBy())
-                    .setSubmittedBy(metaData.getSubmittedBy())
-                    .addAllExternalReferences(externalReferences)
-                    .addAllResources(resources)
-                    .addAllUpdates(updates)
-                    .build());
+        Timestamp created = metaData.getCreated();
+        if (!created.equals(Timestamp.getDefaultInstance())) {
+            isDefault = false;
+            builder.setCreated(created);
         }
+
+        String createdBy = metaData.getCreatedBy();
+        if (!createdBy.isEmpty()) {
+            isDefault = false;
+            builder.setCreatedBy(createdBy);
+        }
+
+        String submittedBy = metaData.getSubmittedBy();
+        if (!submittedBy.isEmpty()) {
+            isDefault = false;
+            builder.setSubmittedBy(submittedBy);
+        }
+
+        List<Resource> resources = toResources(metaData.getResourcesList());
+        if (!resources.isEmpty()) {
+            isDefault = false;
+            builder.addAllResources(resources);
+        }
+
+        List<Update> updates = toUpdates(metaData.getUpdatesList());
+        if (!updates.isEmpty()) {
+            isDefault = false;
+            builder.addAllUpdates(updates);
+        }
+
+        List<ExternalReference> externalReferences = toExternalReferences(metaData.getExternalReferencesList());
+        if (!externalReferences.isEmpty()) {
+            isDefault = false;
+            builder.addAllExternalReferences(externalReferences);
+        }
+
+        return isDefault
+                ? Optional.empty()
+                : Optional.of(builder.build());
     }
 
     private static List<Update> toUpdates(List<org.phenopackets.schema.v1.core.Update> updatesList) {
