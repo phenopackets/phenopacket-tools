@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command-line interface &mdash; phenopacket-tools 1.0.0-RC2 documentation</title>
+  <title>Command-line interface &mdash; phenopacket-tools 1.0.0-RC3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/pxftools.css" type="text/css" />
@@ -74,6 +74,7 @@
 <li class="toctree-l1"><a class="reference internal" href="converting.html">Converting v1 Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validation.html">Validating Phenopackets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Phenopackets Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="showcase.html">Showcase of applications that use phenopacket-tools</a></li>
 </ul>
 
         </div>
@@ -136,9 +137,9 @@ is required to download the libraries.</p></li>
 <p>Run the following commands to check out the source code and to build the application:</p>
 <pre class="literal-block">git clone <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools">https://github.com/phenopackets/phenopacket-tools</a>
 cd phenopacket-tools
-git checkout tags/1.0.0-RC2
+git checkout tags/1.0.0-RC3
 ./mvnw -Prelease package</pre>
-<p>If the build completes, a ZIP archive “phenopacket-tools-cli-1.0.0-RC2-distribution.zip”
+<p>If the build completes, a ZIP archive “phenopacket-tools-cli-1.0.0-RC3-distribution.zip”
 is created in the <code class="docutils literal notranslate"><span class="pre">phenopacket-tools-cli/target</span></code> directory. Use the archive in the same way as the archive
 downloaded from <em>phenopacket-tools</em> releases.</p>
 </section>
@@ -150,9 +151,9 @@ on Bash or ZSH Unix shells.</p>
 <p>Let’s set up the alias first. To reiterate the tutorial <a class="reference internal" href="tutorial.html#rstsetupaliastutorial"><span class="std std-ref">Set up alias</span></a> section,
 Java command line applications are invoked as <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">executable.jar</span></code>. However, such incantation is
 a bit too verbose and we can shorten it a bit by defining an alias.</p>
-<p>Assuming the distribution ZIP was unpacked into phenopacket-tools-cli-1.0.0-RC2 directory, let’s run the following
+<p>Assuming the distribution ZIP was unpacked into phenopacket-tools-cli-1.0.0-RC3 directory, let’s run the following
 to set up the alias:</p>
-<pre class="literal-block">alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC2/phenopacket-tools-cli-1.0.0-RC2.jar&quot;
+<pre class="literal-block">alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC3/phenopacket-tools-cli-1.0.0-RC3.jar&quot;
 pxf --help</pre>
 <p>Now the autocompletion. The autocompletion can simplify using the CLI options by completing the command
 or option after pressing the <cite>TAB</cite> key.
@@ -165,7 +166,7 @@ the completion. However, the autocompletion will last only for the duration of t
 <p>To make the autocompletion permanent, store the script file and add the alias and and sourcing into your <cite>.bashrc</cite>
 or <cite>.bash_profile</cite> file:</p>
 <pre class="literal-block">echo &quot;### Install phenopacket-tools&quot; &gt;&gt; .bashrc
-echo alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC2/phenopacket-tools-cli-1.0.0-RC2.jar&quot; &gt;&gt; .bashrc
+echo alias pxf=&quot;java -jar $(pwd)/phenopacket-tools-cli-1.0.0-RC3/phenopacket-tools-cli-1.0.0-RC3.jar&quot; &gt;&gt; .bashrc
 pxf generate-completion &gt; pxf-completion.sh
 echo source $(pwd)/pxf-completion.sh &gt;&gt; .bashrc</pre>
 <div class="admonition warning">
