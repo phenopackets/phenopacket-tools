@@ -1,0 +1,90 @@
+{
+  "id": "example-cohort",
+  "description": "An example cohort",
+  "members": [{
+    "id": "cohort-member-1",
+    "subject": {
+      "id": "cohort-member-id-1",
+      "sex": "UNKNOWN_SEX",
+      "karyotypicSex": "UNKNOWN_KARYOTYPE"
+    },
+    "phenotypicFeatures": [{
+      "type": {
+        "id": "HP:0031936",
+        "label": "Delayed ability to walk"
+      },
+      "excluded": false
+    }, {
+      "type": {
+        "id": "HP:0009046",
+        "label": "Difficulty running"
+      },
+      "excluded": false
+    }, {
+      "type": {
+        "id": "HP:0003236",
+        "label": "Elevated circulating creatine kinase concentration"
+      },
+      "excluded": true
+    }],
+    "metaData": {
+      "created": "2022-04-17T10:35:00Z",
+      "createdBy": "biocurator",
+      "resources": [{
+        "id": "hp",
+        "name": "human phenotype ontology",
+        "url": "http://purl.obolibrary.org/obo/hp.owl",
+        "version": "2022-06-11",
+        "namespacePrefix": "HP",
+        "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+      }],
+      "phenopacketSchemaVersion": "2.0.0"
+    }
+  }, {
+    "id": "cohort-member-2",
+    "subject": {
+      "id": "cohort-member-id-2",
+      "sex": "UNKNOWN_SEX",
+      "karyotypicSex": "UNKNOWN_KARYOTYPE"
+    },
+    "phenotypicFeatures": [{
+      "type": {
+        "id": "HP:0000518",
+        "label": "Cataract"
+      },
+      "excluded": false
+    }, {
+      "type": {
+        "id": "HP:0001647",
+        "label": "Bicuspid aortic valve"
+      },
+      "excluded": true
+    }],
+    "metaData": {
+      "created": "2022-04-17T10:35:00Z",
+      "createdBy": "biocurator",
+      "resources": [{
+        "id": "hp",
+        "name": "human phenotype ontology",
+        "url": "http://purl.obolibrary.org/obo/hp.owl",
+        "version": "2022-06-11",
+        "namespacePrefix": "HP",
+        "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+      }],
+      "phenopacketSchemaVersion": "2.0.0"
+    }
+  }],
+  "metaData": {
+    "created": "2022-04-17T10:35:00Z",
+    "createdBy": "biocurator",
+    "resources": [{
+      "id": "hp",
+      "name": "human phenotype ontology",
+      "url": "http://purl.obolibrary.org/obo/hp.owl",
+      "version": "2022-06-11",
+      "namespacePrefix": "HP",
+      "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+    }],
+    "phenopacketSchemaVersion": "2.0.0"
+  }
+}

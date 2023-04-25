@@ -15,7 +15,7 @@ import static picocli.CommandLine.Help.Ansi.Style.*;
                 "phenopacket-tools (pxf)",
                 "An application and library for building, conversion, and validation of GA4GH Phenopackets.\n"
         },
-        version = "v1.0.0-RC2",
+        version = "v1.0.0-RC3",
         mixinStandardHelpOptions = true,
         subcommands = {
                 // see https://picocli.info/autocomplete.html
@@ -38,7 +38,7 @@ public class Main {
             .optionParams(italic)
             .build();
 
-    public static final String FOOTER = "\nSee the full documentation at http://phenopackets.org/phenopacket-tools\n";
+    public static final String FOOTER = "\nSee the full documentation at http://phenopackets.org/phenopacket-tools/stable\n";
 
     private Main() {
         // private no-op

@@ -85,7 +85,7 @@ public class PrimaryHpoPhenotypeValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
             assertThat(result.category(), equalTo("Invalid TermId"));
-            assertThat(result.message(), equalTo("HP:0001182 in proband A not found in http://purl.obolibrary.org/obo/hp/releases/2021-06-08/hp.json"));
+            assertThat(result.message(), equalTo("HP:0001182 in proband A not found in 2021-06-08"));
         }
 
         @Test

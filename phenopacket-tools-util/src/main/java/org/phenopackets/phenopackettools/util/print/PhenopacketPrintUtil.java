@@ -23,7 +23,8 @@ public class PhenopacketPrintUtil {
     private static final JsonFormat.Parser PARSER = JsonFormat.parser();
 
     private static final JsonFormat.Printer PRINTER = JsonFormat.printer()
-            .includingDefaultValueFields(defaultValueFields());
+            .includingDefaultValueFields(defaultValueFields())
+            ;
 
     private static Set<Descriptors.FieldDescriptor> defaultValueFields() {
         /*

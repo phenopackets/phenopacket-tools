@@ -3,24 +3,27 @@ package org.phenopackets.phenopackettools.converter.converters.v2;
 import org.phenopackets.schema.v2.core.OntologyClass;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-public class OntologyClassConverter {
+class OntologyClassConverter {
 
     private OntologyClassConverter() {
     }
 
-    public static List<OntologyClass> toOntologyClassList(List<org.phenopackets.schema.v1.core.OntologyClass> ontologyClasses) {
-        return ontologyClasses.stream().map(OntologyClassConverter::toOntologyClass).collect(Collectors.toUnmodifiableList());
+    static List<OntologyClass> toOntologyClassList(List<org.phenopackets.schema.v1.core.OntologyClass> ontologyClasses) {
+        // Returns non-default ontology classes.
+        return ontologyClasses.stream()
+                .map(OntologyClassConverter::toOntologyClass)
+                .flatMap(Optional::stream)
+                .toList();
     }
 
-    public static OntologyClass toOntologyClass(org.phenopackets.schema.v1.core.OntologyClass v1OntologyClass) {
-        if (org.phenopackets.schema.v1.core.OntologyClass.getDefaultInstance().equals(v1OntologyClass)) {
-            return OntologyClass.getDefaultInstance();
-        }
-        return OntologyClass.newBuilder()
+    static Optional<OntologyClass> toOntologyClass(org.phenopackets.schema.v1.core.OntologyClass v1OntologyClass) {
+        if (v1OntologyClass.equals(org.phenopackets.schema.v1.core.OntologyClass.getDefaultInstance()))
+            return Optional.empty();
+        return Optional.of(OntologyClass.newBuilder()
                 .setId(v1OntologyClass.getId())
                 .setLabel(v1OntologyClass.getLabel())
-                .build();
+                .build());
     }
 }

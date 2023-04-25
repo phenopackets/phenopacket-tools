@@ -2,26 +2,20 @@ package org.phenopackets.phenopackettools.converter.converters;
 
 import org.ga4gh.vrsatile.v1.VariationDescriptor;
 import org.phenopackets.phenopackettools.builder.builders.*;
+import org.phenopackets.phenopackettools.converter.converters.v2.*;
 import org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException;
 import org.phenopackets.schema.v1.core.Variant;
 import org.phenopackets.schema.v2.Cohort;
 import org.phenopackets.schema.v2.Family;
 import org.phenopackets.schema.v2.Phenopacket;
-import org.phenopackets.schema.v2.core.Interpretation;
-import org.phenopackets.schema.v2.core.OntologyClass;
+import org.phenopackets.schema.v2.core.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
-import static org.phenopackets.phenopackettools.converter.converters.v2.BiosampleConverter.toBiosamples;
-import static org.phenopackets.phenopackettools.converter.converters.v2.DiseaseConverter.toDiseases;
-import static org.phenopackets.phenopackettools.converter.converters.v2.FileConverter.toFiles;
-import static org.phenopackets.phenopackettools.converter.converters.v2.IndividualConverter.toIndividual;
-import static org.phenopackets.phenopackettools.converter.converters.v2.MetaDataConverter.toMetaData;
-import static org.phenopackets.phenopackettools.converter.converters.v2.PedigreeConverter.toPedigree;
-import static org.phenopackets.phenopackettools.converter.converters.v2.PhenotypicFeatureConverter.toPhenotypicFeatures;
 
 /**
  * The default implementation of {@link V1ToV2Converter} that delegates the conversion to the static methods of
@@ -38,93 +32,151 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
     }
 
     public Phenopacket convertPhenopacket(org.phenopackets.schema.v1.Phenopacket phenopacket) {
+        boolean isDefault = true;
         Phenopacket.Builder builder = Phenopacket.newBuilder();
 
         if (!phenopacket.getId().isEmpty()) {
+            isDefault = false;
             builder.setId(phenopacket.getId());
         }
-        if (phenopacket.hasSubject()) {
-            builder.setSubject(toIndividual(phenopacket.getSubject()));
+
+        Optional<Individual> individual = IndividualConverter.toIndividual(phenopacket.getSubject());
+        if (individual.isPresent()) {
+            isDefault = false;
+            builder.setSubject(individual.get());
         }
-        if (phenopacket.getPhenotypicFeaturesCount() > 0) {
-            builder.addAllPhenotypicFeatures(toPhenotypicFeatures(phenopacket.getPhenotypicFeaturesList()));
+
+        List<PhenotypicFeature> phenotypicFeatures = PhenotypicFeatureConverter.toPhenotypicFeatures(phenopacket.getPhenotypicFeaturesList());
+        if (!phenotypicFeatures.isEmpty()) {
+            isDefault = false;
+            builder.addAllPhenotypicFeatures(phenotypicFeatures);
         }
-        if (phenopacket.getBiosamplesCount() > 0) {
-            builder.addAllBiosamples(toBiosamples(phenopacket.getBiosamplesList()));
+
+        List<Biosample> biosamples = BiosampleConverter.toBiosamples(phenopacket.getBiosamplesList());
+        if (!biosamples.isEmpty()) {
+            isDefault = false;
+            builder.addAllBiosamples(biosamples);
         }
 
         if (convertVariants) {
-            Interpretation interpretation = toV2Interpretation(phenopacket);
-            if (!Interpretation.getDefaultInstance().equals(interpretation))
-                builder.addInterpretations(interpretation);
+            Optional<Interpretation> interpretation = toV2Interpretation(phenopacket);
+            if (interpretation.isPresent()) {
+                isDefault = false;
+                builder.addInterpretations(interpretation.get());
+            }
         }
 
-        if (phenopacket.getDiseasesCount() > 0) {
-            builder.addAllDiseases(toDiseases(phenopacket.getDiseasesList()));
+        List<Disease> diseases = DiseaseConverter.toDiseases(phenopacket.getDiseasesList());
+        if (!diseases.isEmpty()) {
+            isDefault = false;
+            builder.addAllDiseases(diseases);
         }
-        if (phenopacket.getHtsFilesCount() > 0) {
-            builder.addAllFiles(toFiles(phenopacket.getHtsFilesList()));
+
+        List<File> files = FileConverter.toFiles(phenopacket.getHtsFilesList());
+        if (!files.isEmpty()) {
+            isDefault = false;
+            builder.addAllFiles(files);
         }
-        if (phenopacket.hasMetaData()) {
-            builder.setMetaData(toMetaData(phenopacket.getMetaData()));
+
+        Optional<MetaData> metaData = MetaDataConverter.toMetaData(phenopacket.getMetaData());
+        if (metaData.isPresent()) {
+            isDefault = false;
+            builder.setMetaData(metaData.get());
         }
-        return builder.build();
+
+        return isDefault
+                ? Phenopacket.getDefaultInstance()
+                : builder.build();
     }
 
     public Family convertFamily(org.phenopackets.schema.v1.Family family) {
+        boolean isDefault = true;
         Family.Builder builder = Family.newBuilder();
 
-        if (family.hasMetaData()) {
-            builder.setMetaData(toMetaData(family.getMetaData()));
-        }
         if (!family.getId().isEmpty()) {
+            isDefault = false;
             builder.setId(family.getId());
         }
-        if (family.hasPedigree()) {
-            builder.setPedigree(toPedigree(family.getPedigree()));
-        }
-        if (family.hasProband()) {
-            builder.setProband(convertPhenopacket(family.getProband()));
+
+        Optional<Pedigree> pedigree = PedigreeConverter.toPedigree(family.getPedigree());
+        if (pedigree.isPresent()) {
+            isDefault = false;
+            builder.setPedigree(pedigree.get());
         }
 
-        if (family.getRelativesCount() > 0) {
-            family.getRelativesList().stream()
-                    .map(this::convertPhenopacket)
-                    .forEachOrdered(builder::addRelatives);
+        Phenopacket proband = convertPhenopacket(family.getProband());
+        if (!proband.equals(Phenopacket.getDefaultInstance())) {
+            isDefault = false;
+            builder.setProband(proband);
         }
 
-        if (family.getHtsFilesCount() > 0) {
-            builder.addAllFiles(toFiles(family.getHtsFilesList()));
+        List<Phenopacket> relatives = family.getRelativesList().stream()
+                .map(this::convertPhenopacket)
+                .filter(relative -> !relative.equals(Phenopacket.getDefaultInstance()))
+                .toList();
+        if (!relatives.isEmpty()) {
+            isDefault = false;
+            builder.addAllRelatives(relatives);
         }
 
-        return builder.build();
+        List<File> files = FileConverter.toFiles(family.getHtsFilesList());
+        if (!files.isEmpty()) {
+            isDefault = false;
+            builder.addAllFiles(files);
+        }
+
+        Optional<MetaData> metaData = MetaDataConverter.toMetaData(family.getMetaData());
+        if (metaData.isPresent()) {
+            isDefault = false;
+            builder.setMetaData(metaData.get());
+        }
+
+        return isDefault
+                ? Family.getDefaultInstance()
+                : builder.build();
     }
 
     public Cohort convertCohort(org.phenopackets.schema.v1.Cohort cohort) {
+        boolean isDefault = true;
         Cohort.Builder builder = Cohort.newBuilder();
 
-        if (cohort.hasMetaData()) {
-            builder.setMetaData(toMetaData(cohort.getMetaData()));
-        }
         if (!cohort.getId().isEmpty()) {
+            isDefault = false;
             builder.setId(cohort.getId());
         }
+
         if (!cohort.getDescription().isEmpty()) {
+            isDefault = false;
             builder.setDescription(cohort.getDescription());
         }
-        if (cohort.getMembersCount() > 0) {
-            builder.addAllMembers(cohort.getMembersList().stream()
-                    .map(this::convertPhenopacket)
-                    .toList());
-        }
-        if (cohort.getHtsFilesCount() > 0) {
-            builder.addAllFiles(toFiles(cohort.getHtsFilesList()));
+
+        List<Phenopacket> members = cohort.getMembersList().stream()
+                .map(this::convertPhenopacket)
+                .filter(member -> !member.equals(Phenopacket.getDefaultInstance()))
+                .toList();
+        if (!members.isEmpty()) {
+            isDefault = false;
+            builder.addAllMembers(members);
         }
 
-        return builder.build();
+        List<File> files = FileConverter.toFiles(cohort.getHtsFilesList());
+        if (!files.isEmpty()) {
+            isDefault = false;
+            builder.addAllFiles(files);
+        }
+
+        Optional<MetaData> metaData = MetaDataConverter.toMetaData(cohort.getMetaData());
+        if (metaData.isPresent()) {
+            isDefault = false;
+            builder.setMetaData(metaData.get());
+        }
+
+        return isDefault
+                ? Cohort.getDefaultInstance()
+                : builder.build();
     }
 
-    private static Interpretation toV2Interpretation(org.phenopackets.schema.v1.Phenopacket v1) {
+    private static Optional<Interpretation> toV2Interpretation(org.phenopackets.schema.v1.Phenopacket v1) {
         /*
         Assumption is that the variants are causative for the disease and there is no other disease,
         so we will use the v1 phenopacket id for the interpretation id.
@@ -135,7 +187,7 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
                 // We can still create a meaningful phenopacket, however, this may be not what the user intended,
                 // and we'll warn.
                 LOGGER.warn("Unable to convert disease and variant data since there are no variants in phenopacket '{}'", v1.getId());
-                return Interpretation.getDefaultInstance();
+                return Optional.empty();
             } else {
                 // Non-empty variant list but not a single disease, we throw.
                 throw new PhenopacketToolsRuntimeException("Can only convert variants if there is exactly one disease in v1 phenopacket!");
@@ -157,8 +209,8 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
             diagnosis.addGenomicInterpretation(genomicInterpretation.build());
         }
 
-        return InterpretationBuilder.builder(v1.getId())
-                .solved(diagnosis.build());
+        return Optional.ofNullable(InterpretationBuilder.builder(v1.getId())
+                .solved(diagnosis.build()));
     }
 
     private static Function<Variant, VariationDescriptor> toVariationDescriptor() {

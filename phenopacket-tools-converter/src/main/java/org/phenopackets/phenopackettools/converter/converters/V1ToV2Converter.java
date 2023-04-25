@@ -13,6 +13,10 @@ import org.phenopackets.schema.v2.Phenopacket;
  * {@link org.phenopackets.schema.v2.core.GenomicInterpretation.InterpretationStatus#CAUSATIVE}. For this to work,
  * there must be exactly one {@link org.phenopackets.schema.v1.core.Disease} in the phenopacket, otherwise
  * a {@link org.phenopackets.phenopackettools.core.PhenopacketToolsRuntimeException} is thrown.
+ * <p>
+ * Note, it is technically possible to convert an empty v1 phenopacket, family, or cohort message. In that case,
+ * the returned instance
+ * will equal to protobuf default instance (e.g. {@link org.phenopackets.schema.v1.Phenopacket#getDefaultInstance()}).
  */
 public interface V1ToV2Converter {
 

@@ -15,15 +15,21 @@ import static org.hamcrest.Matchers.*;
 
 public class FormatSnifferTest {
 
-    private static final Path BASE_DIR = Path.of("src/test/resources/org/phenopackets/phenopackettools/util/format");
+    private static final Path BASE_DIR = TestResources.BASE_DIR.resolve("format");
 
     @ParameterizedTest
     @CsvSource({
-            "comprehensive-cohort.pb,         PROTOBUF",
-            "comprehensive-family.pb,         PROTOBUF",
             "comprehensive-phenopacket.pb,    PROTOBUF",
             "covid.json,                      JSON",
             "covid.yml,                       YAML",
+
+            "comprehensive-family.pb,         PROTOBUF",
+            "family.v2.json,                  JSON",
+            "family.v2.yml,                   YAML",
+
+            "comprehensive-cohort.pb,         PROTOBUF",
+            "cohort.v2.json,                  JSON",
+            "cohort.v2.yml,                   YAML",
     })
     public void sniff(String fileName, PhenopacketFormat expected) throws Exception {
         byte[] payload = readAllBytes(fileName);
