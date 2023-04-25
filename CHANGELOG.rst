@@ -6,8 +6,11 @@ Changelog
 -----
 
 * Update predefined constants, convenience functions and builders
-* Improve user guide, tutorial, and documentation
+* Improve user guide, tutorial, and documentation.
+  * Introduce *latest* and *stable* documentation branches
+  * Add showcase of apps that use phenopacket-tools to add more code examples
 * Run `MetaDataValidator` during base validation
+* Finalize JSON and YAML format sniffing
 * Fix example phenopackets
 
 0.4.7

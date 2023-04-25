@@ -15,27 +15,33 @@ as the adherence to additional user-defined requirements.
 
 ## Availability
 
-Most users should download the latest distribution archive from the [Releases page](https://github.com/phenopackets/phenopacket-tools/releases).
-Alternatively, *phenopacket-tools* can be built from source, as described in the user guide.
+### CLI application
+
+A ZIP file with prebuilt CLI application is available for download from the [Releases page](https://github.com/phenopackets/phenopacket-tools/releases).
+Alternatively, the application can be built from source, as described in the library user guide (see the links below).
+
+### Library
+
+We provide *phenopacket-tools* library for use in JVM-based applications. 
+We publish the JAR artifacts to public [Maven central](https://mvnrepository.com/artifact/org.phenopackets.phenopackettools) 
+repository, and we make the Javadoc API documentation available for the latest release as well as the bleeding edge code. 
 
 ## Documentation
 
-We provide the documentation for the latest release (`stable`) as well as the development version (`latest`).  
-
-The documentation includes a *Tutorial* showing how to use the CLI, a comprehensive *CLI user guide*, 
+We provide documentation with a *Tutorial* showing how to use the CLI, a comprehensive *CLI user guide*,
 a *Library user guide*, and the *Javadoc API documentation*.
 
-**Stable**
-- [Tutorial](http://phenopackets.org/phenopacket-tools/stable/tutorial.html)
-- [CLI user guide](http://phenopackets.org/phenopacket-tools/stable/cli.html)
-- [Library user guide](http://phenopackets.org/phenopacket-tools/stable)
-- [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/stable/apidocs)
-
-**Latest**
-- [Tutorial](http://phenopackets.org/phenopacket-tools/latest/tutorial.html)
-- [CLI user guide](http://phenopackets.org/phenopacket-tools/latest/cli.html)
-- [Library user guide](http://phenopackets.org/phenopacket-tools/latest)
-- [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/latest/apidocs)
+The documentation is published in two documentation branches:
+- **stable**: corresponds to the latest published release, and generally also to the last commit of the `main` Git branch
+  - [Tutorial](http://phenopackets.org/phenopacket-tools/stable/tutorial.html)
+  - [CLI user guide](http://phenopackets.org/phenopacket-tools/stable/cli.html)
+  - [Library user guide](http://phenopackets.org/phenopacket-tools/stable)
+  - [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/stable/apidocs)
+- **latest**: corresponds to the bleeding edge code that is on the `develop` Git branch
+  - [Tutorial](http://phenopackets.org/phenopacket-tools/latest/tutorial.html)
+  - [CLI user guide](http://phenopackets.org/phenopacket-tools/latest/cli.html)
+  - [Library user guide](http://phenopackets.org/phenopacket-tools/latest)
+  - [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/latest/apidocs)  
 
 ## Issues
 

@@ -6,7 +6,7 @@
 
     <groupId>org.phenopackets.phenopackettools</groupId>
     <artifactId>phenopacket-tools</artifactId>
-    <version>1.0.0-RC3-SNAPSHOT</version>
+    <version>1.0.0-RC4-SNAPSHOT</version>
 
     <name>Phenopacket-tools</name>
     <description>An app and library for building, conversion and validation of GA4GH Phenopackets</description>
