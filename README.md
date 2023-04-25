@@ -24,7 +24,7 @@ Alternatively, the application can be built from source, as described in the lib
 
 We provide *phenopacket-tools* library for use in JVM-based applications. 
 We publish the JAR artifacts to public [Maven central](https://mvnrepository.com/artifact/org.phenopackets.phenopackettools) 
-repository, and we make the Javadoc API documentation available for the *latest.
+repository, and we make the Javadoc API documentation available for the latest release as well as the bleeding edge code. 
 
 ## Documentation
 
