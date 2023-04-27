@@ -2,9 +2,14 @@ package org.phenopackets.phenopackettools.builder.builders;
 
 import org.ga4gh.vrsatile.v1.VcfRecord;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VcfRecordBuilder {
 
     private final VcfRecord.Builder builder;
+    private boolean passIsSet = false;
+    private List<String> filters = null;
 
     private VcfRecordBuilder(String assembly, String chromosome, int position, String ref, String alt) {
         builder = VcfRecord.newBuilder()
@@ -48,18 +53,46 @@ public class VcfRecordBuilder {
     }
 
     /**
-     * If this method is called, "PASS" is added to the FILTER column
+     * If this method is called, the FILTER column is set to "PASS" and any other previously added filters are cleared.
+     * Calling {@code pass()} is equivalent to calling <code>filter("PASS")</code>.
      */
-    public VcfRecordBuilder pass() {
-        builder.setFilter("PASS");
+    public synchronized VcfRecordBuilder pass() {
+        passIsSet = true;
+        if (filters != null)
+            filters.clear();
+
         return this;
     }
 
     /**
-     * @param filter FILTER field of VCF. calling {@link #pass()} is equivant to calling filter("PASS)
+     * Add a VCF filter field.
+     * <p>
+     * The field can be a single value (e.g. <code>q50</code>) or several values joined by <code>;</code> (e.g. <code>q10;q50</code>).
+     * <p>
+     * Calling <code>filter("PASS")</code> is equivalent to calling {@link #pass()}. As a side effect,
+     * all previously added filter values are removed.
+     *
+     * @param filter add a FILTER field.
+     * @see #pass()
      */
-    public VcfRecordBuilder filter(String filter) {
-        builder.setFilter(filter);
+    public synchronized VcfRecordBuilder filter(String filter) {
+        passIsSet = false;
+        if (filters == null)
+            filters = new ArrayList<>();
+
+        if ("PASS".equalsIgnoreCase(filter))
+            return pass();
+        else {
+            if (filter.contains(";")) {
+                for (String field : filter.split(";")) {
+                    String trimmed = field.trim();
+                    if (!trimmed.isEmpty())
+                        this.filter(field);
+                }
+            } else
+                filters.add(filter);
+        }
+
         return this;
     }
 
@@ -71,7 +104,13 @@ public class VcfRecordBuilder {
         return this;
     }
 
-    public VcfRecord build() {
+    public synchronized VcfRecord build() {
+        if (passIsSet)
+            builder.setFilter("PASS");
+
+        else if (filters != null && !filters.isEmpty())
+            builder.setFilter(String.join(";", filters));
+
         return builder.build();
     }
 }
