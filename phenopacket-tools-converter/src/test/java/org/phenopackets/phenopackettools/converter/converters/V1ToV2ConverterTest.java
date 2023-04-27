@@ -1,6 +1,7 @@
 package org.phenopackets.phenopackettools.converter.converters;
 
 import org.ga4gh.vrsatile.v1.Expression;
+import org.ga4gh.vrsatile.v1.MoleculeContext;
 import org.ga4gh.vrsatile.v1.VariationDescriptor;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
@@ -101,6 +102,7 @@ public class V1ToV2ConverterTest {
                                 .setSyntax("hgvs")
                                 .setValue("NM_001848.2:c.877G>A")
                                 .build())
+                        .setMoleculeContext(MoleculeContext.transcript)
                         .setAllelicState(OntologyClass.newBuilder()
                                 .setId("GENO:0000135")
                                 .setLabel("heterozygous")
