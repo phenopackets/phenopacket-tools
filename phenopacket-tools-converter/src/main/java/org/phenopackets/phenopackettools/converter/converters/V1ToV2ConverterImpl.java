@@ -1,5 +1,6 @@
 package org.phenopackets.phenopackettools.converter.converters;
 
+import org.ga4gh.vrsatile.v1.MoleculeContext;
 import org.ga4gh.vrsatile.v1.VariationDescriptor;
 import org.phenopackets.phenopackettools.builder.builders.*;
 import org.phenopackets.phenopackettools.converter.converters.v2.*;
@@ -209,7 +210,7 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
             diagnosis.addGenomicInterpretation(genomicInterpretation.build());
         }
 
-        return Optional.ofNullable(InterpretationBuilder.builder(v1.getId())
+        return Optional.of(InterpretationBuilder.builder(v1.getId())
                 .solved(diagnosis.build()));
     }
 
@@ -220,8 +221,10 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
             return switch (variant.getAlleleCase()) {
                 case HGVS_ALLELE -> {
                     var hgvsAllele = variant.getHgvsAllele();
+                    Optional<MoleculeContext> moleculeContext = guessMoleculeContext(hgvsAllele.getHgvs());
                     yield VariationDescriptorBuilder.builder(hgvsAllele.getId())
                             .zygosity(v2zygosity)
+                            .moleculeContext(moleculeContext.orElse(MoleculeContext.unspecified_molecule_context))
                             .hgvs(hgvsAllele.getHgvs())
                             .build();
                 }
@@ -247,6 +250,7 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
                             spdiAllele.getInsertedSequence());
                     yield VariationDescriptorBuilder.builder(spdiAllele.getId())
                             .spdi(spdi)
+                            .genomic()
                             .zygosity(v2zygosity)
                             .build();
                 }
@@ -254,6 +258,7 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
                     var iscnAllele = variant.getIscnAllele();
                     yield VariationDescriptorBuilder.builder(iscnAllele.getId())
                             .iscn(iscnAllele.getIscn())
+                            .genomic()
                             .zygosity(v2zygosity)
                             .build();
                 }
@@ -261,6 +266,19 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
                 case ALLELE_NOT_SET -> throw new PhenopacketToolsRuntimeException("Did not recognize variant type");
             };
         };
+    }
+
+    private static Optional<MoleculeContext> guessMoleculeContext(String hgvs) {
+        if (hgvs.startsWith("NM_") || hgvs.startsWith("XM_") || hgvs.startsWith("ENST")) {
+            return Optional.of(MoleculeContext.transcript);
+        } else if (hgvs.startsWith("NP_") || hgvs.startsWith("XP_") || hgvs.startsWith("ENSP")) {
+            return Optional.of(MoleculeContext.protein);
+        } else if (hgvs.startsWith("NC_")) {
+            return Optional.of(MoleculeContext.genomic);
+        } else {
+            LOGGER.debug("Could not determine molecule context {transcript, protein, genomic} from HGVS string {}", hgvs);
+            return Optional.empty();
+        }
     }
 
 }
