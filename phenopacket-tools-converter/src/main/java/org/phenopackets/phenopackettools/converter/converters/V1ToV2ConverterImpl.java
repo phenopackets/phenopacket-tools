@@ -234,6 +234,7 @@ class V1ToV2ConverterImpl implements V1ToV2Converter {
                                     vcfAllele.getChr(), vcfAllele.getPos(),
                                     vcfAllele.getRef(),
                                     vcfAllele.getAlt())
+                            .info(vcfAllele.getInfo())
                             .build();
                     yield VariationDescriptorBuilder.builder(vcfAllele.getId())
                             .vcfRecord(vcfRecord)
