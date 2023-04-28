@@ -78,7 +78,7 @@ public class PhenotypicFeatureConverter {
     }
 
     private static Optional<TimeElement> toPhenotypicFeatureOnset(org.phenopackets.schema.v1.core.PhenotypicFeature v1PhenotypicFeature) {
-        if (v1PhenotypicFeature.equals(TimeElement.getDefaultInstance()))
+        if (v1PhenotypicFeature.equals(org.phenopackets.schema.v1.core.PhenotypicFeature.getDefaultInstance()))
             return Optional.empty();
 
         boolean isDefault = true;
