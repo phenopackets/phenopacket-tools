@@ -29,12 +29,11 @@ class AgeConverter {
 
         if (start.isEmpty() && end.isEmpty())
             return Optional.empty();
-        else
-            return Optional.of(
-                    AgeRange.newBuilder()
-                            .setStart(start.orElse(Age.getDefaultInstance()))
-                            .setEnd(end.orElse(Age.getDefaultInstance()))
-                            .build()
-            );
+        else {
+            AgeRange.Builder builder = AgeRange.newBuilder();
+            start.ifPresent(builder::setStart);
+            end.ifPresent(builder::setEnd);
+            return Optional.of(builder.build());
+        }
     }
 }

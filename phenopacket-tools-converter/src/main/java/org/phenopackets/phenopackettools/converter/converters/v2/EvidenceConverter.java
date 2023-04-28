@@ -22,7 +22,7 @@ class EvidenceConverter {
                 .toList();
     }
 
-    static Optional<Evidence> toEvidence(org.phenopackets.schema.v1.core.Evidence v1Evidence) {
+    private static Optional<Evidence> toEvidence(org.phenopackets.schema.v1.core.Evidence v1Evidence) {
         if (v1Evidence.equals(org.phenopackets.schema.v1.core.Evidence.getDefaultInstance()))
             return Optional.empty();
 
@@ -32,9 +32,9 @@ class EvidenceConverter {
         if (evidenceCode.isEmpty() && externalReference.isEmpty())
             return Optional.empty();
 
-        return Optional.of(Evidence.newBuilder()
-                .setEvidenceCode(evidenceCode.orElse(OntologyClass.getDefaultInstance()))
-                .setReference(externalReference.orElse(ExternalReference.getDefaultInstance()))
-                .build());
+        Evidence.Builder builder = Evidence.newBuilder();
+        evidenceCode.ifPresent(builder::setEvidenceCode);
+        externalReference.ifPresent(builder::setReference);
+        return Optional.of(builder.build());
     }
 }
