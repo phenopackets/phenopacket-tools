@@ -21,7 +21,7 @@ public class ValidatorInfoTest {
                   "validatorId" : "ID",
                   "validatorName" : "NAME",
                   "description" : "DESCRIPTION"
-                }""")
+                }""".replaceAll("\n", System.lineSeparator()))
         );
     }
 }

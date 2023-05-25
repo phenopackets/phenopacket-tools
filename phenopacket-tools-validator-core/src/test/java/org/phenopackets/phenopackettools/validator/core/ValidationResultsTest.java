@@ -56,6 +56,6 @@ public class ValidationResultsTest {
                     "category" : "CATEGORY2",
                     "message" : "MESSAGE2"
                   } ]
-                }"""));
+                }""".replaceAll("\n", System.lineSeparator())));
     }
 }

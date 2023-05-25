@@ -28,7 +28,7 @@ public class ValidationResultTest {
                           "level" : "ERROR",
                           "category" : "CATEGORY",
                           "message" : "MESSAGE"
-                        }""")
+                        }""".replaceAll("\n", System.lineSeparator()))
         );
     }
 }
