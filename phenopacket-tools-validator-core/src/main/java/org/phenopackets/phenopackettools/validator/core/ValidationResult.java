@@ -1,8 +1,14 @@
 package org.phenopackets.phenopackettools.validator.core;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * {@code ValidationResult} contains results of a single validation step performed by a {@link PhenopacketValidator}.
  */
+@JsonSerialize(as = ValidationResult.class)
+@JsonPropertyOrder({"validatorInfo", "level", "category", "message"})
 public interface ValidationResult {
 
     /**
@@ -36,21 +42,25 @@ public interface ValidationResult {
     /**
      * @return information about the validator used to create the {@link ValidationResult}.
      */
+    @JsonGetter
     ValidatorInfo validatorInfo();
 
     /**
      * @return level of the validation
      */
+    @JsonGetter
     ValidationLevel level();
 
     /**
      * @return an error category.
      */
+    @JsonGetter
     String category();
 
     /**
      * @return specific error message
      */
+    @JsonGetter
     String message();
 
 }
