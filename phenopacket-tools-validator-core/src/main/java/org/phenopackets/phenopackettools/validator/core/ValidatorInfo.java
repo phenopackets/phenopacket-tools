@@ -1,8 +1,14 @@
 package org.phenopackets.phenopackettools.validator.core;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * A description of a {@link PhenopacketValidator}.
  */
+@JsonSerialize(as = ValidatorInfo.class)
+@JsonPropertyOrder({"validatorId", "validatorName", "description"})
 public interface ValidatorInfo {
 
     static ValidatorInfo baseSyntaxValidation() {
@@ -25,16 +31,19 @@ public interface ValidatorInfo {
     /**
      * @return string with a unique validator ID.
      */
+    @JsonGetter
     String validatorId();
 
     /**
      * @return human-friendly validator name.
      */
+    @JsonGetter
     String validatorName();
 
     /**
      * @return brief description of the validation provided by the validator.
      */
+    @JsonGetter
     String description();
 
 }
