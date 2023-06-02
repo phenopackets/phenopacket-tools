@@ -9,5 +9,6 @@ module org.phenopackets.phenopackettools.util {
     requires org.phenopackets.schema;
 
     exports org.phenopackets.phenopackettools.util.format;
+    exports org.phenopackets.phenopackettools.util.message;
     exports org.phenopackets.phenopackettools.util.print;
 }
