@@ -12,6 +12,7 @@ module:org.phenopackets.phenopackettools.test
 org.phenopackets.phenopackettools.test
 module:org.phenopackets.phenopackettools.util
 org.phenopackets.phenopackettools.util.format
+org.phenopackets.phenopackettools.util.message
 org.phenopackets.phenopackettools.util.print
 module:org.phenopackets.phenopackettools.validator.core
 org.phenopackets.phenopackettools.validator.core
