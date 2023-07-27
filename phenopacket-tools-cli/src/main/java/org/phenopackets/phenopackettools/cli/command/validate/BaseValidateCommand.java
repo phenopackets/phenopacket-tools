@@ -1,8 +1,8 @@
 package org.phenopackets.phenopackettools.cli.command.validate;
 
 import com.google.protobuf.MessageOrBuilder;
-import org.monarchinitiative.phenol.io.OntologyLoader;
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.io.MinimalOntologyLoader;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.phenopackettools.validator.core.ValidationResults;
@@ -109,7 +109,7 @@ abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callab
         List<PhenopacketValidator<T>> validators = new ArrayList<>();
         if (hpJson != null) {
             LOGGER.debug("Reading HPO from '{}}'", hpJson.toAbsolutePath());
-            Ontology hpo = OntologyLoader.loadOntology(hpJson.toFile());
+            MinimalOntology hpo = MinimalOntologyLoader.loadOntology(hpJson.toFile());
             validators.add(createHpoValidator(hpo));
         }
 
@@ -117,6 +117,6 @@ abstract class BaseValidateCommand<T extends MessageOrBuilder> implements Callab
         return validators;
     }
 
-    protected abstract PhenopacketValidator<T> createHpoValidator(Ontology hpo);
+    protected abstract PhenopacketValidator<T> createHpoValidator(MinimalOntology hpo);
 
 }

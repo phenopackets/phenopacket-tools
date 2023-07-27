@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.validator.core.*;
 import org.phenopackets.schema.v2.*;
@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.*;
 
 public class OrganSystemValidatorTest {
 
-    private static final Ontology HPO = TestData.HPO;
+    private static final MinimalOntology HPO = TestData.HPO;
     private static final Set<TermId> ABNORMALITY_OF_LIMBS_ORGAN_SYSTEM = Set.of(TermId.of("HP:0040064"));
     // Not a real organ system, but for the sake of testing...
     private static final Set<TermId> SLENDER_FINGER_ORGAN_SYSTEM = Set.of(TermId.of("HP:0001238"));
