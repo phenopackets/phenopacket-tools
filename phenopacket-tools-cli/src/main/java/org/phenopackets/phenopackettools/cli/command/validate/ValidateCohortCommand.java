@@ -1,6 +1,6 @@
 package org.phenopackets.phenopackettools.cli.command.validate;
 
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.ValidationWorkflowRunner;
 import org.phenopackets.phenopackettools.validator.core.phenotype.HpoPhenotypeValidators;
@@ -30,7 +30,7 @@ public class ValidateCohortCommand extends BaseValidateCommand<CohortOrBuilder> 
     }
 
     @Override
-    protected PhenopacketValidator<CohortOrBuilder> createHpoValidator(Ontology hpo) {
+    protected PhenopacketValidator<CohortOrBuilder> createHpoValidator(MinimalOntology hpo) {
         return HpoPhenotypeValidators.cohortHpoPhenotypeValidator(hpo);
     }
 

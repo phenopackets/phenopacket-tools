@@ -1,6 +1,6 @@
 package org.phenopackets.phenopackettools.validator.core.phenotype.primary;
 
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
 import org.phenopackets.schema.v2.FamilyOrBuilder;
 import org.phenopackets.schema.v2.Phenopacket;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FamilyHpoPhenotypeValidator extends AbstractHpoPhenotypeValidator<FamilyOrBuilder> {
 
-    public FamilyHpoPhenotypeValidator(Ontology hpo) {
+    public FamilyHpoPhenotypeValidator(MinimalOntology hpo) {
         super(hpo);
     }
 
