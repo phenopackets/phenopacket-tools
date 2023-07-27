@@ -1,7 +1,7 @@
 package org.phenopackets.phenopackettools.validator.core.phenotype.base;
 
 import com.google.protobuf.MessageOrBuilder;
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 
@@ -9,10 +9,10 @@ import java.util.Objects;
 
 public abstract class BaseHpoValidator<T extends MessageOrBuilder> implements PhenopacketValidator<T> {
 
-    protected final Ontology hpo;
+    protected final MinimalOntology hpo;
     protected final String hpoVersion;
 
-    protected BaseHpoValidator(Ontology hpo) {
+    protected BaseHpoValidator(MinimalOntology hpo) {
         this.hpo = Objects.requireNonNull(hpo);
         this.hpoVersion = hpo.version().orElse("UNKNOWN");
     }

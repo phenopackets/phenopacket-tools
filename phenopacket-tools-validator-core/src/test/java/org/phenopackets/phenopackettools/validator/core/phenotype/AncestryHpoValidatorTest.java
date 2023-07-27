@@ -3,7 +3,7 @@ package org.phenopackets.phenopackettools.validator.core.phenotype;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.TestData;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.*;
 
 public class AncestryHpoValidatorTest {
 
-    private static final Ontology HPO = TestData.HPO;
+    private static final MinimalOntology HPO = TestData.HPO;
 
     @Nested
     public class PhenopacketTest {

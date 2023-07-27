@@ -1,8 +1,7 @@
 package org.phenopackets.phenopackettools.validator.core.phenotype.ancestry;
 
 import com.google.protobuf.MessageOrBuilder;
-import org.monarchinitiative.phenol.ontology.algo.OntologyAlgorithm;
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.monarchinitiative.phenol.ontology.data.Term;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
@@ -16,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -41,8 +41,12 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
     private static final String APR_VIOLATION = "Violation of the annotation propagation rule";
     private static final String UNKNOWN = "UNKNOWN_NAME";
 
-    AbstractHpoAncestryValidator(Ontology hpo) {
+    private final Set<TermId> obsoleteTermIds;
+
+    AbstractHpoAncestryValidator(MinimalOntology hpo) {
         super(hpo);
+        this.obsoleteTermIds = hpo.obsoleteTermIdsStream()
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -67,12 +71,12 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
         // Check that the component does not contain both observed term and its ancestor.
 
         for (TermId observed : featuresByExclusion.observedPhenotypicFeatures()) {
-            if (isObsoleteTermId(observed)) {
+            if (obsoleteTermIds.contains(observed)) {
                 LOGGER.debug("Ignoring unknown/obsolete term ID {}", observed.getValue());
                 continue;
             }
 
-            for (TermId ancestor : OntologyAlgorithm.getAncestorTerms(hpo, observed, false)) {
+            for (TermId ancestor : hpo.graph().getAncestors(observed, false)) {
                 if (featuresByExclusion.observedPhenotypicFeatures().contains(ancestor))
                     results.add(constructResultForAnObservedTerm(id, observed, ancestor, false));
                 if (featuresByExclusion.excludedPhenotypicFeatures().contains(ancestor))
@@ -82,15 +86,12 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
 
         // Check that the component does not have negated descendant
         for (TermId excluded : featuresByExclusion.excludedPhenotypicFeatures()) {
-            if (isObsoleteTermId(excluded)) {
+            if (obsoleteTermIds.contains(excluded)) {
                 LOGGER.debug("Ignoring unknown/obsolete term ID {}", excluded.getValue());
                 continue;
             }
 
-            for (TermId child : OntologyAlgorithm.getDescendents(hpo, excluded)) {
-                if (child.equals(excluded))
-                    // skip the parent term
-                    continue;
+            for (TermId child : hpo.graph().getDescendants(excluded, false)) {
                 if (featuresByExclusion.excludedPhenotypicFeatures().contains(child))
                     results.add(constructResultForAnExcludedTerm(id, excluded, child));
             }
@@ -99,15 +100,13 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
         return results.build();
     }
 
-    private boolean isObsoleteTermId(TermId termId) {
-        return hpo.getObsoleteTermIds().contains(termId);
-    }
-
     private ValidationResult constructResultForAnObservedTerm(String id, TermId observedId, TermId ancestorId, boolean ancestorIsExcluded) {
-        Term observedTerm = hpo.getTermMap().get(observedId);
-        String observedTermName = observedTerm == null ? UNKNOWN : observedTerm.getName();
-        Term ancestorTerm = hpo.getTermMap().get(ancestorId);
-        String ancestorTermName = ancestorTerm == null ? UNKNOWN : ancestorTerm.getName();
+        String observedTermName = hpo.termForTermId(observedId)
+                .map(Term::getName)
+                .orElse(UNKNOWN);
+        String ancestorTermName = hpo.termForTermId(ancestorId)
+                .map(Term::getName)
+                .orElse(UNKNOWN);
         String message;
         if (ancestorIsExcluded)
             message = "Phenotypic features of %s must not contain both an observed term (%s, %s) and an excluded ancestor (%s, %s)".formatted(
@@ -120,10 +119,12 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
     }
 
     private ValidationResult constructResultForAnExcludedTerm(String id, TermId excluded, TermId child) {
-        Term excludedTerm = hpo.getTermMap().get(excluded);
-        String excludedTermName = excludedTerm == null ? UNKNOWN : excludedTerm.getName();
-        Term childTerm = hpo.getTermMap().get(child);
-        String childTermName = childTerm == null ? UNKNOWN : childTerm.getName();
+        String excludedTermName = hpo.termForTermId(excluded)
+                .map(Term::getName)
+                .orElse(UNKNOWN);
+        String childTermName = hpo.termForTermId(child)
+                .map(Term::getName)
+                .orElse(UNKNOWN);
         String message = "Phenotypic features of %s must not contain both an excluded term (%s, %s) and an excluded child (%s, %s)".formatted(
                 id, excludedTermName, excluded.getValue(), childTermName, child.getValue());
 

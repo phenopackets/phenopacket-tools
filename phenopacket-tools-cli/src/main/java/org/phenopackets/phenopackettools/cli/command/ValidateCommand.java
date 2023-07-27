@@ -3,8 +3,8 @@ package org.phenopackets.phenopackettools.cli.command;
 
 import com.google.protobuf.MessageOrBuilder;
 import org.monarchinitiative.phenol.base.PhenolRuntimeException;
-import org.monarchinitiative.phenol.io.OntologyLoader;
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.io.MinimalOntologyLoader;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.core.PhenopacketElement;
 import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
@@ -149,10 +149,10 @@ public class ValidateCommand extends BaseIOCommand {
         // Right now we only have one semantic validator, but we'll extend this in the future.
         LOGGER.debug("Configuring semantic validators");
         List<PhenopacketValidator<T>> validators = new ArrayList<>();
-        Ontology hpo = null;
+        MinimalOntology hpo = null;
         if (validateSection.hpJson != null) {
             LOGGER.debug("Reading HPO from {}", validateSection.hpJson.toAbsolutePath());
-            hpo = OntologyLoader.loadOntology(validateSection.hpJson.toFile());
+            hpo = MinimalOntologyLoader.loadOntology(validateSection.hpJson.toFile());
 
             // The entire logic of this command stands and falls on correct state of `element` and the read message(s).
             // This method requires an appropriate combination of `T` and `element`, as described in Javadoc.
@@ -191,7 +191,7 @@ public class ValidateCommand extends BaseIOCommand {
         return validators;
     }
 
-    private static <T extends MessageOrBuilder> PhenopacketValidator<T> prepareOrganSystemValidator(Ontology hpo,
+    private static <T extends MessageOrBuilder> PhenopacketValidator<T> prepareOrganSystemValidator(MinimalOntology hpo,
                                                                                                     List<String> organSystems,
                                                                                                     PhenopacketElement element) {
         // Organ system validation can only be done when HPO is provided.
