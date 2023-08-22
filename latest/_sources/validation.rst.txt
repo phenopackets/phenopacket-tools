@@ -353,6 +353,20 @@ library to parse the HPO JSON file. The `OntologyLoader` is part of
 `phenol-io <https://mvnrepository.com/artifact/org.monarchinitiative.phenol/phenol-io>`_ module, you may need to add
 an appropriate dependency into your build file.
 
+.. _rstuniquephenotypevalidation:
+
+Unique phenotypic features
+##########################
+
+The `HpoUniqueValidator` checks if the HPO terms used by a phenopacket are *unique* - present at most once.
+If a term is not unique, the validator points this out along with the term's occurrence count.
+
+In code, we add the corresponding validator into the validation workflow by running:
+
+.. code-block:: java
+
+  builder.addValidator(HpoPhenotypeValidators.Unique.phenopacketValidator(hpo));
+
 
 .. _rstancestryphenotypevalidation:
 

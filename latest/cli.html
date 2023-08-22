@@ -12,11 +12,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=ea34fec0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -104,7 +104,7 @@
            <div itemprop="articleBody">
              
   <section id="command-line-interface">
-<span id="rstcli"></span><h1>Command-line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this heading"></a></h1>
+<span id="rstcli"></span><h1>Command-line interface<a class="headerlink" href="#command-line-interface" title="Link to this heading"></a></h1>
 <p><em>Phenopacket-tools</em> command-line interface (CLI) provides functionality for conversion and validation
 of the top-level elements of Phenopacket Schema. Here we describe how to set up the CLI application
 on Linux, Mac and Windows environments.</p>
@@ -115,18 +115,18 @@ on Linux, Mac and Windows environments.</p>
 <p>We distribute <em>phenopacket-tools</em> in a ZIP archive. The application requires no special installation procedure
 if Java 17 or better is available in your environment.</p>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <p>Most users should <em>download</em> the distribution ZIP file with precompiled JAR file from <em>phenopacket-tools</em> release page.
 However, it is also possible to <em>build</em> the JAR from sources.</p>
 <section id="download">
-<h3>Download<a class="headerlink" href="#download" title="Permalink to this heading"></a></h3>
+<h3>Download<a class="headerlink" href="#download" title="Link to this heading"></a></h3>
 <p><em>phenopacket-tools</em> JAR is provided as a ZIP file and it is available for download
 from the <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/releases">releases section</a> of our GitHub repository.</p>
 <p>The ZIP file contains an executable JAR file along with a <cite>README</cite> file and example phenopackets required
 to run the setup and the tutorial.</p>
 </section>
 <section id="build-from-source-code">
-<h3>Build from source code<a class="headerlink" href="#build-from-source-code" title="Permalink to this heading"></a></h3>
+<h3>Build from source code<a class="headerlink" href="#build-from-source-code" title="Link to this heading"></a></h3>
 <p>The source code is available in our <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools">GitHub repository</a>.
 There are 2 requirements for building the app from sources:</p>
 <ul class="simple">
@@ -146,7 +146,7 @@ is created in the <code class="docutils literal notranslate"><span class="pre">p
 downloaded from <em>phenopacket-tools</em> releases.</p>
 </section>
 <section id="set-up-alias-and-autocompletion">
-<h3>Set up alias and autocompletion<a class="headerlink" href="#set-up-alias-and-autocompletion" title="Permalink to this heading"></a></h3>
+<h3>Set up alias and autocompletion<a class="headerlink" href="#set-up-alias-and-autocompletion" title="Link to this heading"></a></h3>
 <p>In this <em>optional</em> step, we set up an alias and autocompletion for <em>phenopacket-tools</em> command-line application.
 The autocompletion works thanks to the awesome <a class="reference external" href="https://picocli.info">Picocli</a> library and it works
 on Bash or ZSH Unix shells.</p>
@@ -178,7 +178,7 @@ echo source $(pwd)/pxf-completion.sh &gt;&gt; .bashrc</pre>
 </section>
 </section>
 <section id="commands">
-<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading"></a></h2>
+<h2>Commands<a class="headerlink" href="#commands" title="Link to this heading"></a></h2>
 <p>The command-line interface provides the following commands:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">examples</span></code> - generate examples of the top-level elements</p></li>
@@ -187,7 +187,7 @@ echo source $(pwd)/pxf-completion.sh &gt;&gt; .bashrc</pre>
 </ul>
 <p>Before we dive into the commands, let’s discuss some common concepts shared by all CLI commands.</p>
 <section id="common-concepts">
-<h3>Common concepts<a class="headerlink" href="#common-concepts" title="Permalink to this heading"></a></h3>
+<h3>Common concepts<a class="headerlink" href="#common-concepts" title="Link to this heading"></a></h3>
 <p>We designed the CLI with aim to make it as easy to use as possible. As a result, the <em>phenopacket-tools</em> commands
 use several common design principles:</p>
 <ul class="simple">
@@ -206,7 +206,7 @@ Use <code class="docutils literal notranslate"><span class="pre">-v</span></code
 <p>We discuss the common concepts further at the relevant places of the next sections.</p>
 </section>
 <section id="examples-generate-phenopacket-examples">
-<h3><code class="docutils literal notranslate"><span class="pre">examples</span></code> - generate phenopacket examples<a class="headerlink" href="#examples-generate-phenopacket-examples" title="Permalink to this heading"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">examples</span></code> - generate phenopacket examples<a class="headerlink" href="#examples-generate-phenopacket-examples" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">examples</span></code> command writes example phenopackets (including family and cohort examples) into
 a provided base directory. Starting from a <cite>base</cite> directory, the examples are written into three sub-folders:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base</span>
@@ -223,10 +223,10 @@ into the current directory.</p>
 </div>
 </section>
 <section id="convert-convert-top-level-elements-from-v1-to-v2-format">
-<h3><code class="docutils literal notranslate"><span class="pre">convert</span></code> - convert top-level elements from <em>v1</em> to <em>v2</em> format<a class="headerlink" href="#convert-convert-top-level-elements-from-v1-to-v2-format" title="Permalink to this heading"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">convert</span></code> - convert top-level elements from <em>v1</em> to <em>v2</em> format<a class="headerlink" href="#convert-convert-top-level-elements-from-v1-to-v2-format" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">convert</span></code> command converts a phenopacket, family, or a cohort from <em>v1</em> to <em>v2</em> format of Phenopacket Schema.</p>
 <section id="usage">
-<h4>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h4>
+<h4>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h4>
 <p>Let’s assume we have an example phenopacket <code class="docutils literal notranslate"><span class="pre">phenopacket.v1.json</span></code>, family <code class="docutils literal notranslate"><span class="pre">family.v1.json</span></code>,
 and cohort <code class="docutils literal notranslate"><span class="pre">cohort.v1.json</span></code>.</p>
 <p>We can convert a <em>v1</em> phenopacket into <em>v2</em> by running:</p>
@@ -271,7 +271,7 @@ under the same names.</p>
 </section>
 </section>
 <section id="validate-validate-phenopacket-schema-elements">
-<h3><code class="docutils literal notranslate"><span class="pre">validate</span></code> - validate Phenopacket Schema elements<a class="headerlink" href="#validate-validate-phenopacket-schema-elements" title="Permalink to this heading"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">validate</span></code> - validate Phenopacket Schema elements<a class="headerlink" href="#validate-validate-phenopacket-schema-elements" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">validate</span></code> command checks <em>phenopacket</em>, <em>family</em>, or <em>cohort</em> for the <em>base</em> requirements imposed by
 the Phenopacket Schema as well as additional user-defined constraints.</p>
 <p>Briefly, to meet the base requirements, the phenopacket must be well formatted (valid Protobuf message, JSON document, etc.)
@@ -281,14 +281,14 @@ and meet the requirements of the Phenopacket schema; all REQUIRED attributes are
 <em>Phenopacket-tools</em> offers several off-the-shelf validators and the CLI uses the validators in the validation workflow
 if the required resources are present.</p>
 <section id="id1">
-<h4>Usage<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<h4>Usage<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">validate</span></code> command can validate one or more phenopacket files provided either via standard input or
 as positional parameters. Results are written into the standard output in CSV format including an optional header
 containing the validation metadata. The header lines start with <code class="docutils literal notranslate"><span class="pre">#</span></code> and contain <em>phenopacket-tools</em> version,
 date and time of validation, and the list of validators that were run.
 The header is followed by a row with column names, and the individual validation results.</p>
 <section id="base-validation-example">
-<h5>Base validation example<a class="headerlink" href="#base-validation-example" title="Permalink to this heading"></a></h5>
+<h5>Base validation example<a class="headerlink" href="#base-validation-example" title="Link to this heading"></a></h5>
 <p>Let’s demonstrate the base validation usage using a few examples. Phenopacket can be validated on a stream:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">phenopacket</span><span class="o">.</span><span class="n">json</span> <span class="o">|</span> <span class="n">pxf</span> <span class="n">validate</span>
 </pre></div>
@@ -303,7 +303,7 @@ The header is followed by a row with column names, and the individual validation
 </div>
 </section>
 <section id="custom-validation-example">
-<h5>Custom validation example<a class="headerlink" href="#custom-validation-example" title="Permalink to this heading"></a></h5>
+<h5>Custom validation example<a class="headerlink" href="#custom-validation-example" title="Link to this heading"></a></h5>
 <p>On top of the base validation, <em>phenopacket-tools</em> supports validation using a custom requirements.
 See the <a class="reference internal" href="validation.html#rstcustomvalidation"><span class="std std-ref">Custom validation</span></a> section to learn how to define a custom JSON schema.</p>
 <p>The CLI can be provided with one or more JSON schema documents using the <code class="docutils literal notranslate"><span class="pre">--require</span></code> option:</p>
@@ -312,7 +312,7 @@ See the <a class="reference internal" href="validation.html#rstcustomvalidation"
 </div>
 </section>
 <section id="phenotype-validation">
-<h5>Phenotype validation<a class="headerlink" href="#phenotype-validation" title="Permalink to this heading"></a></h5>
+<h5>Phenotype validation<a class="headerlink" href="#phenotype-validation" title="Link to this heading"></a></h5>
 <p><em>Phenopacket-tools</em> includes off-the-shelf validators for pointing out annotation errors in phenopackets that use
 Human Phenotype Ontology (HPO) to represent clinical findings of the subjects.
 The validators check presence of obsolete or unknown ontology concepts and violations
@@ -329,7 +329,7 @@ since the HPO graph parsing, a computationally expensive operation, is done only
 </div>
 </section>
 <section id="organ-system-validation">
-<h5>Organ system validation<a class="headerlink" href="#organ-system-validation" title="Permalink to this heading"></a></h5>
+<h5>Organ system validation<a class="headerlink" href="#organ-system-validation" title="Link to this heading"></a></h5>
 <p>It can be desirable to check annotation of specific organ systems in the phenopacket. <em>Phenopacket-tools</em> can validate
 annotation of specific organ systems by using the corresponding top-level HPO concepts, such as
 <a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0000478">Eye</a>,

@@ -12,11 +12,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=ea34fec0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -113,7 +113,7 @@
            <div itemprop="articleBody">
              
   <section id="tutorial">
-<span id="rsttutorial"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this heading"></a></h1>
+<span id="rsttutorial"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading"></a></h1>
 <p>This tutorial walks through the installation of <em>phenopacket-tools</em> command-line interface application
 and provides an overview of the <em>conversion</em> of phenopackets from <cite>v1</cite> to the current <cite>v2</cite> format and
 the <em>validation</em> functionality, including custom validation rules.</p>
@@ -123,12 +123,12 @@ use of <em>phenopacket-tools</em> in a process pipeline, and we declare environm
 to reduce the amount of boilerplate code. Note that <em>phenopacket-tools</em> is a cross-platform tool and
 will work on Windows shells with the appropriate adjustments.</p>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <p><em>Phenopacket-tools</em> is written in Java 17 and requires Java 17 or better to run.
 We distribute the CLI application as a ZIP archive with an executable Java Archive (JAR) file
 and several examples for running this tutorial.</p>
 <section id="prerequisites">
-<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h3>
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h3>
 <p>Java 17 or newer must be present on your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>. Run the following to check the availability
 and version of Java on your machine:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">java</span> <span class="o">-</span><span class="n">version</span>
@@ -142,7 +142,7 @@ and version of Java on your machine:</p>
 </div>
 </section>
 <section id="download-phenopacket-tools">
-<h3>Download <em>phenopacket-tools</em><a class="headerlink" href="#download-phenopacket-tools" title="Permalink to this heading"></a></h3>
+<h3>Download <em>phenopacket-tools</em><a class="headerlink" href="#download-phenopacket-tools" title="Link to this heading"></a></h3>
 <p>A prebuilt distribution ZIP file is available for download from the
 <a class="reference external" href="https://github.com/phenopackets/phenopacket-tools/releases">release section</a>
 of our GitHub repository.
@@ -150,7 +150,7 @@ Use your favorite web browser to download the ZIP archive with the latest releas
 into a folder of your choice.</p>
 </section>
 <section id="set-up-alias">
-<span id="rstsetupaliastutorial"></span><h3>Set up alias<a class="headerlink" href="#set-up-alias" title="Permalink to this heading"></a></h3>
+<span id="rstsetupaliastutorial"></span><h3>Set up alias<a class="headerlink" href="#set-up-alias" title="Link to this heading"></a></h3>
 <p>In general, Java command line applications are invoked as <code class="docutils literal notranslate"><span class="pre">java</span> <span class="pre">-jar</span> <span class="pre">executable.jar</span></code>. However, such incantation is
 a bit too verbose and we can shorten it a bit by defining an alias.</p>
 <p>Let’s define a command alias for <em>phenopacket-tools</em>. Assuming the distribution ZIP was unpacked into
@@ -163,7 +163,7 @@ pxf --help</pre>
 </div>
 </section>
 <section id="set-up-examples-directory">
-<h3>Set up examples directory<a class="headerlink" href="#set-up-examples-directory" title="Permalink to this heading"></a></h3>
+<h3>Set up examples directory<a class="headerlink" href="#set-up-examples-directory" title="Link to this heading"></a></h3>
 <p>We will demonstrate <em>phenopacket-tools</em> functionality using a collection of example phenopackets that are bundled
 in the distribution ZIP file. The folder with the phenopacket collection resides next to the <em>phenopacket-tools</em>
 JAR file and has the following structure:</p>
@@ -189,7 +189,7 @@ to the example phenopacket directory:</p>
 </div>
 </section>
 <section id="set-up-autocompletion">
-<h3>Set up autocompletion<a class="headerlink" href="#set-up-autocompletion" title="Permalink to this heading"></a></h3>
+<h3>Set up autocompletion<a class="headerlink" href="#set-up-autocompletion" title="Link to this heading"></a></h3>
 <p>As a quick way to increase the user convenience, <em>phenopacket-tools</em> offers autocompletion for completing the command
 or options after pressing the <cite>TAB</cite> key on Bash or ZSH Unix shells.</p>
 <p>Run the following to enable the autocompletion for the tutorial session:</p>
@@ -203,7 +203,7 @@ or options after pressing the <cite>TAB</cite> key on Bash or ZSH Unix shells.</
 </section>
 </section>
 <section id="convert">
-<h2>Convert<a class="headerlink" href="#convert" title="Permalink to this heading"></a></h2>
+<h2>Convert<a class="headerlink" href="#convert" title="Link to this heading"></a></h2>
 <p>Version 1 of the GA4GH Phenopacket schema was released in 2019 to elicit community feedback.
 In response to this feedback, the schema was extended and refined and version 2 was released in 2021
 and published in 2022 by the International Standards Organization (ISO).
@@ -211,7 +211,7 @@ The <cite>convert</cite> command of <em>phenopacket-tools</em> converts version 
 <p>For the purpose of this tutorial, we will first convert a single v1 phenopacket
 and then 384 v1 phenopackets published by Robinson et al., 2020<a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <section id="convert-single-phenopacket">
-<h3>Convert single phenopacket<a class="headerlink" href="#convert-single-phenopacket" title="Permalink to this heading"></a></h3>
+<h3>Convert single phenopacket<a class="headerlink" href="#convert-single-phenopacket" title="Link to this heading"></a></h3>
 <p>Due to differences between phenopacket versions 1 and 2, there are two ways how to convert v1 phenopackets into
 the v2 format.
 Briefly, the conversion either assumes that the <cite>Variant</cite>s are <em>causal</em> with respect to a <cite>Disease</cite> of the
@@ -233,7 +233,7 @@ Therefore, we can use <code class="docutils literal notranslate"><span class="pr
 </div>
 </section>
 <section id="a-real-life-example">
-<h3>A real-life example<a class="headerlink" href="#a-real-life-example" title="Permalink to this heading"></a></h3>
+<h3>A real-life example<a class="headerlink" href="#a-real-life-example" title="Link to this heading"></a></h3>
 <p>Let’s convert 384 individuals described in published case reports with Human Phenotype Ontology terms,
 causal genetic variants, and OMIM disease identifiers.</p>
 <p>Let’s start by downloading and unpacking the phenopacket dataset.
@@ -259,7 +259,7 @@ printf &quot;Converted %s phenopackets\n&quot; $(ls v2/ | wc -l)
 </section>
 </section>
 <section id="validate">
-<h2>Validate<a class="headerlink" href="#validate" title="Permalink to this heading"></a></h2>
+<h2>Validate<a class="headerlink" href="#validate" title="Link to this heading"></a></h2>
 <p>The <cite>validate</cite> command of <em>phenopacket-tools</em> validates correctness of phenopackets, families and cohorts.
 This section outlines usage of the off-the-shelf validators available in the CLI application.</p>
 <p>We will describe each validation and show an example validation errors and a proposed solution in a table.
@@ -268,7 +268,7 @@ elements, including <cite>Cohort</cite> and <cite>Family</cite>.</p>
 <p>The validation is implemented for <em>v2</em> phenopackets only. The <em>v1</em> phenopackets must be converted to <em>v2</em> prior
 running validation.</p>
 <section id="base-validation">
-<h3>Base validation<a class="headerlink" href="#base-validation" title="Permalink to this heading"></a></h3>
+<h3>Base validation<a class="headerlink" href="#base-validation" title="Link to this heading"></a></h3>
 <p>First, let’s check if the phenopackets meet the base requirements, as described by the Phenopacket Schema.
 All phenopackets, regardless of their aim or scope must pass this requirement to be valid.</p>
 <div class="admonition note">
@@ -276,7 +276,7 @@ All phenopackets, regardless of their aim or scope must pass this requirement to
 <p>See <a class="reference internal" href="validation.html#rstbasevalidation"><span class="std std-ref">Base validation workflow</span></a> for more details.</p>
 </div>
 <section id="all-required-fields-must-be-present">
-<h4>All required fields must be present<a class="headerlink" href="#all-required-fields-must-be-present" title="Permalink to this heading"></a></h4>
+<h4>All required fields must be present<a class="headerlink" href="#all-required-fields-must-be-present" title="Link to this heading"></a></h4>
 <p>The <cite>BaseValidator</cite> checks that all required fields are present:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate ${examples}/validate/base/missing-fields.json
 </pre></div>
@@ -312,7 +312,7 @@ with validation metadata.</p>
 </div>
 </section>
 <section id="all-ontologies-are-well-defined">
-<h4>All ontologies are well-defined<a class="headerlink" href="#all-ontologies-are-well-defined" title="Permalink to this heading"></a></h4>
+<h4>All ontologies are well-defined<a class="headerlink" href="#all-ontologies-are-well-defined" title="Link to this heading"></a></h4>
 <p>Phenopacket Schema relies heavily on use of ontologies and ontology concepts. <cite>MetaData</cite> element lists
 the ontologies used in the particular phenopacket. To ensure data traceability, Phenopacket Schema requires
 phenopacket to contain a <cite>Resource</cite> with ontology metadata such as version and IRI for each used ontology concept.</p>
@@ -340,7 +340,7 @@ phenopacket to contain a <cite>Resource</cite> with ontology metadata such as ve
 </section>
 </section>
 <section id="custom-validation-rules">
-<h3>Custom validation rules<a class="headerlink" href="#custom-validation-rules" title="Permalink to this heading"></a></h3>
+<h3>Custom validation rules<a class="headerlink" href="#custom-validation-rules" title="Link to this heading"></a></h3>
 <p>Projects or consortia can enforce specific requirements by designing a custom JSON schema.
 For instance, a rare disease project may require presence of several elements that are not required by the default schema:</p>
 <ol class="arabic simple">
@@ -390,7 +390,7 @@ at <code class="docutils literal notranslate"><span class="pre">examples/custom-
 </div>
 </section>
 <section id="phenotype-validation">
-<span id="rstphenotypevalidationtutorial"></span><h3>Phenotype validation<a class="headerlink" href="#phenotype-validation" title="Permalink to this heading"></a></h3>
+<span id="rstphenotypevalidationtutorial"></span><h3>Phenotype validation<a class="headerlink" href="#phenotype-validation" title="Link to this heading"></a></h3>
 <p><em>Phenopacket-tools</em> offers a validator for checking logical consistency of clinical abnormalities in the phenopacket.
 The validator assumes Human Phenotype Ontology (HPO) is used to represent the clinical abnormalities and
 the phenotype validation requires the HPO file to work.</p>
@@ -404,7 +404,7 @@ Get the HPO JSON from <a class="reference external" href="https://hpo.jax.org/ap
 <p>See <a class="reference internal" href="validation.html#rstphenotypevalidation"><span class="std std-ref">Phenotype validators</span></a> for more details.</p>
 </div>
 <section id="phenopackets-use-non-obsolete-term-ids">
-<h4>Phenopackets use non-obsolete term IDs<a class="headerlink" href="#phenopackets-use-non-obsolete-term-ids" title="Permalink to this heading"></a></h4>
+<h4>Phenopackets use non-obsolete term IDs<a class="headerlink" href="#phenopackets-use-non-obsolete-term-ids" title="Link to this heading"></a></h4>
 <p>The <cite>HpoPhenotypeValidator</cite> points out if the phenopacket contains obsolete HPO terms:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pxf validate --hpo hp.json ${examples}/validate/phenotype-validation/marfan.obsolete-term.json
 </pre></div>
@@ -429,7 +429,7 @@ the primary <code class="docutils literal notranslate"><span class="pre">HP:0002
 </table>
 </section>
 <section id="the-annotation-propagation-rule-is-not-violated">
-<h4>The annotation-propagation rule is not violated<a class="headerlink" href="#the-annotation-propagation-rule-is-not-violated" title="Permalink to this heading"></a></h4>
+<h4>The annotation-propagation rule is not violated<a class="headerlink" href="#the-annotation-propagation-rule-is-not-violated" title="Link to this heading"></a></h4>
 <p>Due to the annotation propagation rule, it is a logical error to use both a term and its ancestor
 (e.g. <em>Arachnodactyly</em> and <em>Abnormality of finger</em>) for annotation of a single item.
 When choosing HPO terms for phenotypic features, the <em>most</em> specific terms should be used for the <em>observed</em> clinical features.
@@ -462,7 +462,7 @@ ${examples}/validate/phenotype-validation/marfan.valid.json
 </section>
 </section>
 <section id="annotation-of-organ-systems">
-<h3>Annotation of organ systems<a class="headerlink" href="#annotation-of-organ-systems" title="Permalink to this heading"></a></h3>
+<h3>Annotation of organ systems<a class="headerlink" href="#annotation-of-organ-systems" title="Link to this heading"></a></h3>
 <p>We can validate presence of annotation for specific organ systems in a phenopacket.</p>
 <p>Using the term IDs of the top-level HPO terms, we can validate annotation of
 <a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:0000478">Eye</a>,

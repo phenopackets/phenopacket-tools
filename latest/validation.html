@@ -12,11 +12,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=ea34fec0"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -69,6 +69,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#phenotype-validators">Phenotype validators</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#primary-validation">Primary validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unique-phenotypic-features">Unique phenotypic features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ancestry-validation">Ancestry validation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#organ-system-validation">Organ system validation</a></li>
 </ul>
@@ -107,7 +108,7 @@
            <div itemprop="articleBody">
              
   <section id="validating-phenopackets">
-<span id="rstvalidation"></span><h1>Validating Phenopackets<a class="headerlink" href="#validating-phenopackets" title="Permalink to this heading"></a></h1>
+<span id="rstvalidation"></span><h1>Validating Phenopackets<a class="headerlink" href="#validating-phenopackets" title="Link to this heading"></a></h1>
 <p>Phenopackets schema uses protobuf, an exchange format developed in 2008 by Google. We refer readers to the excellent
 <a class="reference external" href="https://en.wikipedia.org/wiki/Protocol_Buffers">Wikipedia page</a>
 on Protobuf and to <a class="reference external" href="https://developers.google.com/protocol-buffers/">Google’s documentation</a> for details.
@@ -120,7 +121,7 @@ including a model of validation workflow and validation results.</p>
 <p>This document outlines the validation workflow API and demonstrates how to use the off-the-shelf validators present
 in the <em>phenopacket-tools</em> library.</p>
 <section id="validation-workflow">
-<h2>Validation workflow<a class="headerlink" href="#validation-workflow" title="Permalink to this heading"></a></h2>
+<h2>Validation workflow<a class="headerlink" href="#validation-workflow" title="Link to this heading"></a></h2>
 <p>The validation workflow consists of a list of steps. The workflow includes a mandatory <em>base</em> validation step that
 validates syntax and cardinality of each component, to verify the basic requirements of Phenopacket Schema,
 such as presence of identifier fields and metadata. The base validation is implemented using JSON schema
@@ -138,7 +139,7 @@ in the correct order, ensuring that the base validation is done first, and gathe
 a <code class="docutils literal notranslate"><span class="pre">ValidationResults</span></code> container. The container represents the results of the validation as immutable value objects,
 <code class="docutils literal notranslate"><span class="pre">ValidatorInfo</span></code>, <code class="docutils literal notranslate"><span class="pre">ValidationResult</span></code>, suitable for reporting back to the user.</p>
 <section id="base-validation-workflow">
-<span id="rstbasevalidation"></span><h3>Base validation workflow<a class="headerlink" href="#base-validation-workflow" title="Permalink to this heading"></a></h3>
+<span id="rstbasevalidation"></span><h3>Base validation workflow<a class="headerlink" href="#base-validation-workflow" title="Link to this heading"></a></h3>
 <p>Let’s demonstrate setting up of the base validation workflow for phenopacket validation.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationWorkflowRunner</span><span class="o">&lt;</span><span class="n">PhenopacketOrBuilder</span><span class="o">&gt;</span><span class="w"> </span><span class="n">runner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonSchemaValidationWorkflowRunner</span><span class="p">.</span><span class="na">phenopacketBuilder</span><span class="p">()</span>
 <span class="w">                                                           </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
@@ -197,7 +198,7 @@ of Phenopacket Schema:</p>
 </div>
 </section>
 <section id="validationresults">
-<h3><cite>ValidationResults</cite><a class="headerlink" href="#validationresults" title="Permalink to this heading"></a></h3>
+<h3><cite>ValidationResults</cite><a class="headerlink" href="#validationresults" title="Link to this heading"></a></h3>
 <p>The validation returns <cite>ValidationResults</cite>, a container object that aggregates issues discovered by all validators
 of the workflow.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationResults</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runner</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
@@ -217,7 +218,7 @@ of the workflow.</p>
 </div>
 </section>
 <section id="validationresult">
-<h3><cite>ValidationResult</cite><a class="headerlink" href="#validationresult" title="Permalink to this heading"></a></h3>
+<h3><cite>ValidationResult</cite><a class="headerlink" href="#validationresult" title="Link to this heading"></a></h3>
 <p><cite>ValidationResult</cite> represents a single validation issue. The object is a simple POJO/value object with several attributes:</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ValidationResult</span><span class="w"> </span><span class="n">issue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">issues</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
@@ -241,7 +242,7 @@ module.</p>
 </section>
 </section>
 <section id="off-the-shelf-validators">
-<span id="rstofftheshelfvalidation"></span><h2><em>Off-the-shelf</em> validators<a class="headerlink" href="#off-the-shelf-validators" title="Permalink to this heading"></a></h2>
+<span id="rstofftheshelfvalidation"></span><h2><em>Off-the-shelf</em> validators<a class="headerlink" href="#off-the-shelf-validators" title="Link to this heading"></a></h2>
 <p>Additional constraints and requirements may be made for phenopackets that are used in a specific
 project or for a specific collaboration or consortium.</p>
 <p>For instance, one may want to require that phenopackets made for rare-disease diagnostics include age of the proband
@@ -256,14 +257,14 @@ the above requirements. Let’s start by creating a validation workflow runner b
 </pre></div>
 </div>
 <section id="custom-validation">
-<span id="rstcustomvalidation"></span><h3>Custom validation<a class="headerlink" href="#custom-validation" title="Permalink to this heading"></a></h3>
+<span id="rstcustomvalidation"></span><h3>Custom validation<a class="headerlink" href="#custom-validation" title="Link to this heading"></a></h3>
 <p><em>Phenopacket-tools</em> offers a validator for enforcing custom requirements encoded as JSON schema.
 In the context of the example above, a project may require including age of the proband
 and use HPO terms to represent phenotypic features, as well as presence of a certain number
 of phenotypic features.</p>
 <p>Let’s write a JSON schema document <code class="docutils literal notranslate"><span class="pre">hpo-rare-disease-schema.json</span></code> to enforce the requirements.</p>
 <section id="custom-json-schema-header">
-<h4>Custom JSON schema header<a class="headerlink" href="#custom-json-schema-header" title="Permalink to this heading"></a></h4>
+<h4>Custom JSON schema header<a class="headerlink" href="#custom-json-schema-header" title="Link to this heading"></a></h4>
 <p>To use a JSON schema with <em>phenopacket-tools</em>, the schema header must include the following elements:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;$schema&quot;</span><span class="p">:</span> <span class="s2">&quot;https://json-schema.org/draft/2019-09/schema&quot;</span><span class="p">,</span>
@@ -287,7 +288,7 @@ must be an <cite>object</cite>.</p></li>
 </ul>
 </section>
 <section id="custom-json-schema-body">
-<h4>Custom JSON schema body<a class="headerlink" href="#custom-json-schema-body" title="Permalink to this heading"></a></h4>
+<h4>Custom JSON schema body<a class="headerlink" href="#custom-json-schema-body" title="Link to this heading"></a></h4>
 <p>Now, let’s constrain the schema to first check that the time at last encounter is specified in the phenopacket subject.
 To encode this in JSON schema, we require presence of a <cite>subject</cite> property in phenopacket.
 The snippet follows the JSON schema header and instructs the JSON schema validator to check presence of
@@ -331,7 +332,7 @@ We do this by requiring <cite>timeAtLastEncounter</cite> in the <cite>subject</c
 See the JSON schema document described in <a class="reference internal" href="tutorial_examples.html#rstcustomjsonschematutorialexample"><span class="std std-ref">custom-json-schema - validate custom requirements</span></a> section for additional examples.</p>
 </section>
 <section id="use-custom-json-schema">
-<h4>Use custom JSON schema<a class="headerlink" href="#use-custom-json-schema" title="Permalink to this heading"></a></h4>
+<h4>Use custom JSON schema<a class="headerlink" href="#use-custom-json-schema" title="Link to this heading"></a></h4>
 <p><em>Phenopacket-tools</em> validation API supports including custom JSON schema in the validation workflow.
 The custom schema can be added into the <cite>builder</cite> created in the previous section (<a class="reference internal" href="#rstofftheshelfvalidation"><span class="std std-ref">Off-the-shelf validators</span></a>)
 by:</p>
@@ -343,7 +344,7 @@ by:</p>
 </section>
 </section>
 <section id="phenotype-validators">
-<span id="rstphenotypevalidation"></span><h3>Phenotype validators<a class="headerlink" href="#phenotype-validators" title="Permalink to this heading"></a></h3>
+<span id="rstphenotypevalidation"></span><h3>Phenotype validators<a class="headerlink" href="#phenotype-validators" title="Link to this heading"></a></h3>
 <p>The validation we discussed until now was fairly simple; it included checking presence, absence, or formatting
 of Phenopacket Schema components. However, sometimes we may need to check relationships between individual components.</p>
 <p>For instance, in the context of rare-disease research and diagnostics, we may want to check if all phenotypic features
@@ -356,7 +357,7 @@ The API documentation and the corresponding Java classes can be found in
 <a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/org/phenopackets/phenopackettools/validator/core/phenotype/package-summary.html">org.phenopackets.phenopackettools.validator.core.phenotype</a>
 package.</p>
 <section id="primary-validation">
-<span id="rstprimaryphenotypevalidation"></span><h4>Primary validation<a class="headerlink" href="#primary-validation" title="Permalink to this heading"></a></h4>
+<span id="rstprimaryphenotypevalidation"></span><h4>Primary validation<a class="headerlink" href="#primary-validation" title="Link to this heading"></a></h4>
 <p>The <cite>HpoPhenotypeValidator</cite> checks if the HPO terms used by a phenopacket are <em>valid</em> - well-formatted and present
 in the given HPO file, and <em>current</em> - not obsolete. If an obsolete term is found, the validator suggests a replacement
 with the current term.</p>
@@ -371,8 +372,17 @@ library to parse the HPO JSON file. The <cite>OntologyLoader</cite> is part of
 <a class="reference external" href="https://mvnrepository.com/artifact/org.monarchinitiative.phenol/phenol-io">phenol-io</a> module, you may need to add
 an appropriate dependency into your build file.</p>
 </section>
+<section id="unique-phenotypic-features">
+<span id="rstuniquephenotypevalidation"></span><h4>Unique phenotypic features<a class="headerlink" href="#unique-phenotypic-features" title="Link to this heading"></a></h4>
+<p>The <cite>HpoUniqueValidator</cite> checks if the HPO terms used by a phenopacket are <em>unique</em> - present at most once.
+If a term is not unique, the validator points this out along with the term’s occurrence count.</p>
+<p>In code, we add the corresponding validator into the validation workflow by running:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">Unique</span><span class="p">.</span><span class="na">phenopacketValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
 <section id="ancestry-validation">
-<span id="rstancestryphenotypevalidation"></span><h4>Ancestry validation<a class="headerlink" href="#ancestry-validation" title="Permalink to this heading"></a></h4>
+<span id="rstancestryphenotypevalidation"></span><h4>Ancestry validation<a class="headerlink" href="#ancestry-validation" title="Link to this heading"></a></h4>
 <p>The <cite>HpoAncestryValidator</cite> checks if the HPO terms are logically consistent; the phenotype features do not include both
 a term and its ancestor.</p>
 <p>Apart from a mere id of the phenotype feature, Phenopacket Schema also models observation status of a feature.
@@ -416,7 +426,7 @@ the observation status into the account, which leads to several possible outcome
 </div>
 </section>
 <section id="organ-system-validation">
-<span id="rstorgsysvalidation"></span><h4>Organ system validation<a class="headerlink" href="#organ-system-validation" title="Permalink to this heading"></a></h4>
+<span id="rstorgsysvalidation"></span><h4>Organ system validation<a class="headerlink" href="#organ-system-validation" title="Link to this heading"></a></h4>
 <p>In some cases it may be desirable to ensure presence of annotation for specific organ systems.
 For instance, phenopackets that represent patients with
 <a class="reference external" href="https://hpo.jax.org/app/browse/disease/OMIM:154700">Marfan syndrome</a> may require annotation of three organ systems:</p>
@@ -462,7 +472,7 @@ of a <a class="reference external" href="https://hpo.jax.org/app/browse/term/HP:
 </section>
 </section>
 <section id="see-also">
-<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
 <p>Check out the
 <a class="reference external" href="http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/module-summary.html">org.phenopackets.phenopackettools.validator.core</a>
 and
