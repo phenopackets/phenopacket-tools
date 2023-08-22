@@ -9,6 +9,8 @@ import java.util.Objects;
 
 public abstract class BaseHpoValidator<T extends MessageOrBuilder> implements PhenopacketValidator<T> {
 
+    protected static final String UNKNOWN = "UNKNOWN_NAME";
+
     protected final MinimalOntology hpo;
     protected final String hpoVersion;
 
