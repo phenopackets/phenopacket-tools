@@ -39,7 +39,6 @@ public abstract class AbstractHpoAncestryValidator<T extends MessageOrBuilder> e
             "HPO ancestry phenotypic feature validator",
             "Validate that phenopacket does not contain an HPO term and its ancestor based on the provided HPO");
     private static final String APR_VIOLATION = "Violation of the annotation propagation rule";
-    private static final String UNKNOWN = "UNKNOWN_NAME";
 
     private final Set<TermId> obsoleteTermIds;
 

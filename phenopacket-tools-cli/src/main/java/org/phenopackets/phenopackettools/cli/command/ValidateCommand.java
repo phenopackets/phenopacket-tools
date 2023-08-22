@@ -163,17 +163,23 @@ public class ValidateCommand extends BaseIOCommand {
                     //noinspection unchecked
                     validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.phenopacketHpoPhenotypeValidator(hpo));
                     //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Unique.phenopacketValidator(hpo));
+                    //noinspection unchecked
                     validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.phenopacketHpoAncestryValidator(hpo));
                 }
                 case FAMILY -> {
                     //noinspection unchecked
                     validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.familyHpoPhenotypeValidator(hpo));
                     //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Unique.familyValidator(hpo));
+                    //noinspection unchecked
                     validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.familyHpoAncestryValidator(hpo));
                 }
                 case COHORT -> {
                     //noinspection unchecked
                     validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Primary.cohortHpoPhenotypeValidator(hpo));
+                    //noinspection unchecked
+                    validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Unique.cohortValidator(hpo));
                     //noinspection unchecked
                     validators.add((PhenopacketValidator<T>) HpoPhenotypeValidators.Ancestry.cohortHpoAncestryValidator(hpo));
                 }

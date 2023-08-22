@@ -12,6 +12,7 @@ import org.phenopackets.phenopackettools.validator.core.phenotype.orgsys.Phenopa
 import org.phenopackets.phenopackettools.validator.core.phenotype.primary.CohortHpoPhenotypeValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.primary.FamilyHpoPhenotypeValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.primary.PhenopacketHpoPhenotypeValidator;
+import org.phenopackets.phenopackettools.validator.core.phenotype.uniq.HpoUniqueValidator;
 import org.phenopackets.schema.v2.*;
 
 import java.util.Collection;
@@ -201,6 +202,42 @@ public class HpoPhenotypeValidators {
         public static PhenopacketValidator<CohortOrBuilder> cohortHpoOrganSystemValidator(MinimalOntology hpo,
                                                                                           Collection<TermId> organSystemTermIds) {
             return new CohortHpoOrganSystemValidator(hpo, organSystemTermIds);
+        }
+    }
+
+    /**
+     * A static factory class for providing {@link org.phenopackets.phenopackettools.validator.core.PhenopacketValidator}s
+     * that check if HPO terms of the Phenopacket schema elements are unique - specified only once.
+     */
+    public static class Unique {
+        private Unique() {
+        }
+
+        /**
+         * Get {@link PhenopacketValidator} to validate {@link Phenopacket} using provided ontology.
+         *
+         * @param hpo HPO ontology
+         */
+        public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketValidator(MinimalOntology hpo) {
+            return HpoUniqueValidator.phenopacketValidator(hpo);
+        }
+
+        /**
+         * Get {@link PhenopacketValidator} to validate {@link Cohort} using provided ontology.
+         *
+         * @param hpo HPO ontology
+         */
+        public static PhenopacketValidator<CohortOrBuilder> cohortValidator(MinimalOntology hpo) {
+            return HpoUniqueValidator.cohortValidator(hpo);
+        }
+
+        /**
+         * Get {@link PhenopacketValidator} to validate {@link Family} using provided ontology.
+         *
+         * @param hpo HPO ontology
+         */
+        public static PhenopacketValidator<FamilyOrBuilder> familyValidator(MinimalOntology hpo) {
+            return HpoUniqueValidator.familyValidator(hpo);
         }
     }
 
