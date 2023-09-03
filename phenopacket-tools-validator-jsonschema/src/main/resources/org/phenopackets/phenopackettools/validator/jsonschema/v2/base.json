@@ -94,7 +94,8 @@
       "properties": {
         "iso8601duration": {
           "description": "An ISO8601 string representing age.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d+[HMS])(\\d+H)?(\\d+M)?(\\d+S)?)?$"
         }
       },
       "required": ["iso8601duration"],

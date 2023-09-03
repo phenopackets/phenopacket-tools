@@ -148,7 +148,6 @@ public class JsonSchemaValidationWorkflowRunnerTest {
                     "/phenotypicFeatures[0]/onset/gestationalAge/weeks,        SET[-1],          'phenotypicFeatures[0].onset.gestationalAge.weeks' must have a minimum value of 0",
                     "/phenotypicFeatures[0]/onset/gestationalAge/days,         SET[-1],          'phenotypicFeatures[0].onset.gestationalAge.days' must have a minimum value of 0",
                     "/phenotypicFeatures[1]/onset/age/iso8601duration,         DELETE,           'phenotypicFeatures[1].onset.age.iso8601duration' is missing but it is required",
-                    // TODO - add test for ensuring that the duration is in an ISO8601 pattern
                     "/phenotypicFeatures[2]/onset/ageRange/start,              DELETE,           'phenotypicFeatures[2].onset.ageRange.start' is missing but it is required",
                     "/phenotypicFeatures[2]/onset/ageRange/end,                DELETE,           'phenotypicFeatures[2].onset.ageRange.end' is missing but it is required",
                     // TODO - require end being at or after start
@@ -158,6 +157,47 @@ public class JsonSchemaValidationWorkflowRunnerTest {
             })
             public void checkTimeElementConstraints(String path, String action, String expected) {
                 testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
+            }
+
+            /**
+             * Check that error in the ISO8601 period leads to the appropriate
+             * {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    // Age
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[P1H],         'phenotypicFeatures[1].onset.age.iso8601duration' does not match the regex pattern ^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d+[HMS])(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[PT1D],        'phenotypicFeatures[1].onset.age.iso8601duration' does not match the regex pattern ^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d+[HMS])(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[P],           'phenotypicFeatures[1].onset.age.iso8601duration' does not match the regex pattern ^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d+[HMS])(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[PT],          'phenotypicFeatures[1].onset.age.iso8601duration' does not match the regex pattern ^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d+[HMS])(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+                    // Wrong token order.
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[P10M4Y],      'phenotypicFeatures[1].onset.age.iso8601duration' does not match the regex pattern ^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d+[HMS])(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[P1YT4M12H],      'phenotypicFeatures[1].onset.age.iso8601duration' does not match the regex pattern ^P(?!$)(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(T(?=\\d+[HMS])(\\d+H)?(\\d+M)?(\\d+S)?)?$",
+            })
+            public void checkTimeElementConstraints_ISO8601_errors(String path, String action, String expected) {
+                testErrors(runner, readBethlemPhenopacketNode(), path, action, expected, true);
+            }
+
+            /**
+             * Check that correct ISO8601 period yields no
+             * {@link org.phenopackets.phenopackettools.validator.core.ValidationLevel#ERROR}s.
+             */
+            @ParameterizedTest
+            @CsvSource({
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[P1Y4M3W2DT1H23M44S]",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[P1Y]",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[P4M]",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[P3W]",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[P2D]",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[PT1H]",
+                    "/phenotypicFeatures[1]/onset/age/iso8601duration,         SET[PT1H2M]",
+                    })
+            public void checkTimeElementConstraints_ISO8601_OK(String path, String action) {
+                JsonNode tampered = TAMPERER.tamper(readBethlemPhenopacketNode(), path, Action.valueOf(action));
+
+                ValidationResults results = runner.validate(tampered.toPrettyString());
+
+                assertThat(results.isValid(), equalTo(true));
             }
 
             /**
@@ -683,10 +723,6 @@ public class JsonSchemaValidationWorkflowRunnerTest {
         JsonNode tampered = TAMPERER.tamper(node, path, Action.valueOf(action));
 
         ValidationResults results = runner.validate(tampered.toPrettyString());
-        // TODO - remove after the tests are completed
-//        results.validationResults().stream()
-//                .map(ValidationResult::message)
-//                .forEach(System.err::println);
 
         Collection<String> tokens = Arrays.asList(errors.split("\\|"));
         if (validateCount) {
