@@ -75,3 +75,5 @@ families/*
 phenopackets/*
 cohorts/*
 
+# Python stuff
+venv/
