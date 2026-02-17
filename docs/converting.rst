@@ -44,5 +44,5 @@ See also
 ^^^^^^^^
 
 The API documentation of the conversion functionality is located in the
-`org.phenopackets.phenopackettools.converter <http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.converter/module-summary.html>`_
+`org.phenopackets.phenopackettools.converter <https://phenopackets.github.io/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.converter/module-summary.html>`_
 module.

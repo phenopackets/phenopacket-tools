@@ -33,15 +33,15 @@ a *Library user guide*, and the *Javadoc API documentation*.
 
 The documentation is published in two documentation branches:
 - **stable**: corresponds to the latest published release, and generally also to the last commit of the `main` Git branch
-  - [Tutorial](http://phenopackets.org/phenopacket-tools/stable/tutorial.html)
-  - [CLI user guide](http://phenopackets.org/phenopacket-tools/stable/cli.html)
-  - [Library user guide](http://phenopackets.org/phenopacket-tools/stable)
-  - [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/stable/apidocs)
+  - [Tutorial](https://phenopackets.github.io/phenopacket-tools/stable/tutorial.html)
+  - [CLI user guide](https://phenopackets.github.io/phenopacket-tools/stable/cli.html)
+  - [Library user guide](https://phenopackets.github.io/phenopacket-tools/stable)
+  - [Javadoc API documentation](https://phenopackets.github.io/phenopacket-tools/stable/apidocs)
 - **latest**: corresponds to the bleeding edge code that is on the `develop` Git branch
-  - [Tutorial](http://phenopackets.org/phenopacket-tools/latest/tutorial.html)
-  - [CLI user guide](http://phenopackets.org/phenopacket-tools/latest/cli.html)
-  - [Library user guide](http://phenopackets.org/phenopacket-tools/latest)
-  - [Javadoc API documentation](http://phenopackets.org/phenopacket-tools/latest/apidocs)  
+  - [Tutorial](https://phenopackets.github.io/phenopacket-tools/latest/tutorial.html)
+  - [CLI user guide](https://phenopackets.github.io/phenopacket-tools/latest/cli.html)
+  - [Library user guide](https://phenopackets.github.io/phenopacket-tools/latest)
+  - [Javadoc API documentation](https://phenopackets.github.io/phenopacket-tools/latest/apidocs)  
 
 ## Issues
 

@@ -12,7 +12,7 @@ of the phenopacket framework will want to use a recommended set of ontology term
 the equivalent message.
 
 This section exemplifies usage of `PhenotypicFeatureBuilder`, one of many builders provided by the
-`org.phenopackets.phenopackettools.builder <http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html>`_
+`org.phenopackets.phenopackettools.builder <https://phenopackets.github.io/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html>`_
 module.
 
 
@@ -89,12 +89,12 @@ See also
 ========
 
 See the API documentation of the
-`org.phenopackets.phenopackettools.builder <http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html>`_
+`org.phenopackets.phenopackettools.builder <https://phenopackets.github.io/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.builder/module-summary.html>`_
 module for a comprehensive list of ontology constants, convenience methods, and builders provided
 by the *phenopacket-tools* library.
 
 Several detailed examples are available in the ``phenopackets-tools-cli`` module in the
-`org.phenopackets.phenopackettools.cli.examples <https://github.com/phenopackets/phenopacket-tools/tree/main/phenopacket-tools-cli/src/main/java/org/phenopackets/phenopackettools/cli/examples>`_
+`org.phenopackets.phenopackettools.cli.examples <https://phenopackets.github.io/phenopacket-tools/tree/main/phenopacket-tools-cli/src/main/java/org/phenopackets/phenopackettools/cli/examples>`_
 package.
 
 .. _Protocol Buffer (protobuf): https://developers.google.com/protocol-buffers
