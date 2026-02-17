@@ -3,13 +3,25 @@ package org.phenopackets.phenopackettools.validator.core;
 import org.monarchinitiative.phenol.io.MinimalOntologyLoader;
 import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 
-import java.nio.file.Path;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.util.Objects;
+import java.util.zip.GZIPInputStream;
 
 public class TestData {
 
-    public static final Path TEST_BASE_DIR = Path.of("src/test/resources/org/phenopackets/phenopackettools/validator/core");
-    private static final Path HPO_MODULE_PATH = TEST_BASE_DIR.resolve("hp.module.json");
+    public static final MinimalOntology HPO;
 
-    public static final MinimalOntology HPO = MinimalOntologyLoader.loadOntology(HPO_MODULE_PATH.toFile());
+    static {
+        try {
+            HPO = MinimalOntologyLoader.loadOntology(new GZIPInputStream(
+                    new BufferedInputStream(
+                            Objects.requireNonNull(TestData.class.getResourceAsStream("hp.v2026-01-08.json.gz"))
+                    )
+            ));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
