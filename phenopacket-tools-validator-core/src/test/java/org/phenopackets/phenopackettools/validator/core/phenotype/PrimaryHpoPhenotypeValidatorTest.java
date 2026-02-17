@@ -67,8 +67,8 @@ public class PrimaryHpoPhenotypeValidatorTest {
                       },
                       "phenotypicFeatures": [{
                         "type": {
-                          "id": "HP:0001182",
-                          "label": "Tapered finger"
+                          "id": "HP:0000000",
+                          "label": "Nonexistent term"
                         }
                       }, {
                         "type": {
@@ -85,7 +85,7 @@ public class PrimaryHpoPhenotypeValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
             assertThat(result.category(), equalTo("Invalid TermId"));
-            assertThat(result.message(), equalTo("HP:0001182 in proband A not found in 2021-06-08"));
+            assertThat(result.message(), equalTo("HP:0000000 in proband A not found in 2026-01-08"));
         }
 
         @Test
