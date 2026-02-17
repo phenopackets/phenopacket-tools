@@ -14,15 +14,15 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v6.0.2
       with:
         fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
         ref: main
     
     - name: Set up Python 3.
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6.2.0
       with:
-        python-version: 3.9
+        python-version: 3.12
 
     - name: Install Python dependencies
       run: |
@@ -30,7 +30,7 @@ jobs:
         pip install sphinx-rtd-theme
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v5.2.0
       with:
         java-version: '17'
         distribution: 'adopt'
@@ -100,7 +100,7 @@ jobs:
 
     - name: Deploy documentation.
       if: ${{ github.event_name == 'push' }}
-      uses: JamesIves/github-pages-deploy-action@v4.4.1
+      uses: JamesIves/github-pages-deploy-action@v4.8.0
       with:
         branch: gh-pages
         force: true
