@@ -38,7 +38,7 @@ public class Main {
             .optionParams(italic)
             .build();
 
-    public static final String FOOTER = "\nSee the full documentation at http://phenopackets.org/phenopacket-tools/stable\n";
+    public static final String FOOTER = "\nSee the full documentation at https://phenopackets.github.io/phenopacket-tools/stable\n";
 
     private Main() {
         // private no-op
