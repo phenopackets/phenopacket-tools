@@ -185,7 +185,7 @@ and the discovered issues (if any):
 
 
 The API documentation of the core validation API can be found in the
-`org.phenopackets.phenopackettools.validator.core <http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/module-summary.html>`_
+`org.phenopackets.phenopackettools.validator.core <https://phenopackets.github.io/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/module-summary.html>`_
 module.
 
 
@@ -327,7 +327,7 @@ because an annotation with a specific HPO term (e.g., a patient with perimembran
 
 In this section, we describe validators that use HPO file to perform several checks that can be useful in many contexts.
 The API documentation and the corresponding Java classes can be found in
-`org.phenopackets.phenopackettools.validator.core.phenotype <http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/org/phenopackets/phenopackettools/validator/core/phenotype/package-summary.html>`_
+`org.phenopackets.phenopackettools.validator.core.phenotype <https://phenopackets.github.io/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/org/phenopackets/phenopackettools/validator/core/phenotype/package-summary.html>`_
 package.
 
 
@@ -446,7 +446,7 @@ See also
 ^^^^^^^^
 
 Check out the
-`org.phenopackets.phenopackettools.validator.core <http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/module-summary.html>`_
+`org.phenopackets.phenopackettools.validator.core <https://phenopackets.github.io/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.core/module-summary.html>`_
 and
-`org.phenopackets.phenopackettools.validator.jsonschema <http://phenopackets.org/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.jsonschema/module-summary.html>`_
+`org.phenopackets.phenopackettools.validator.jsonschema <https://phenopackets.github.io/phenopacket-tools/apidocs/org.phenopackets.phenopackettools.validator.jsonschema/module-summary.html>`_
 modules for more information regarding the public validation API.
