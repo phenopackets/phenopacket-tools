@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Validating Phenopackets &mdash; phenopacket-tools 1.0.0-RC3 documentation</title>
+  <title>Validating Phenopackets &mdash; phenopacket-tools 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/pxftools.css?v=7dc6ce7e" />
@@ -14,7 +14,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=dcfdca45"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
       <script src="_static/doctools.js?v=9a2dae69"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -66,6 +66,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#phenotype-validators">Phenotype validators</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#primary-validation">Primary validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unique-phenotypic-features">Unique phenotypic features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ancestry-validation">Ancestry validation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#organ-system-validation">Organ system validation</a></li>
 </ul>
@@ -368,6 +369,15 @@ library to parse the HPO JSON file. The <cite>OntologyLoader</cite> is part of
 <a class="reference external" href="https://mvnrepository.com/artifact/org.monarchinitiative.phenol/phenol-io">phenol-io</a> module, you may need to add
 an appropriate dependency into your build file.</p>
 </section>
+<section id="unique-phenotypic-features">
+<span id="rstuniquephenotypevalidation"></span><h4>Unique phenotypic features<a class="headerlink" href="#unique-phenotypic-features" title="Link to this heading"></a></h4>
+<p>The <cite>HpoUniqueValidator</cite> checks if the HPO terms used by a phenopacket are <em>unique</em> - present at most once.
+If a term is not unique, the validator points this out along with the term’s occurrence count.</p>
+<p>In code, we add the corresponding validator into the validation workflow by running:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">builder</span><span class="p">.</span><span class="na">addValidator</span><span class="p">(</span><span class="n">HpoPhenotypeValidators</span><span class="p">.</span><span class="na">Unique</span><span class="p">.</span><span class="na">phenopacketValidator</span><span class="p">(</span><span class="n">hpo</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
 <section id="ancestry-validation">
 <span id="rstancestryphenotypevalidation"></span><h4>Ancestry validation<a class="headerlink" href="#ancestry-validation" title="Link to this heading"></a></h4>
 <p>The <cite>HpoAncestryValidator</cite> checks if the HPO terms are logically consistent; the phenotype features do not include both
@@ -479,7 +489,7 @@ modules for more information regarding the public validation API.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Daniel Danis, Peter Robinson.</p>
+    <p>&#169; Copyright 2026, Daniel Danis, Peter Robinson.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
