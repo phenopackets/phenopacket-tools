@@ -12,6 +12,9 @@
 
     <artifactId>phenopacket-tools-builder</artifactId>
 
+    <name>phenopacket-tools-builder</name>
+    <description>Builders for improving the ergonomics of creating Phenopacket Schema building blocks</description>
+
     <dependencies>
         <dependency>
             <groupId>org.phenopackets.phenopackettools</groupId>

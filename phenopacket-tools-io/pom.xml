@@ -11,6 +11,9 @@
 
     <artifactId>phenopacket-tools-io</artifactId>
 
+    <name>phenopacket-tools-io</name>
+    <description>Encoding and decoding of the Phenopacket Schema elements</description>
+
     <dependencies>
         <dependency>
             <groupId>org.phenopackets.phenopackettools</groupId>

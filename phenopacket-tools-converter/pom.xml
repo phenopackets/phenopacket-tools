@@ -12,6 +12,9 @@
 
     <artifactId>phenopacket-tools-converter</artifactId>
 
+    <name>phenopacket-tools-converter</name>
+    <description>Conversions between Phenopacket Schema data formats</description>
+
     <dependencies>
         <dependency>
             <groupId>org.phenopackets.phenopackettools</groupId>

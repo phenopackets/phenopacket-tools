@@ -11,6 +11,9 @@
 
     <artifactId>phenopacket-tools-test</artifactId>
 
+    <name>phenopacket-tools-test</name>
+    <description>Test helpers</description>
+
     <dependencies>
         <dependency>
             <groupId>com.google.protobuf</groupId>

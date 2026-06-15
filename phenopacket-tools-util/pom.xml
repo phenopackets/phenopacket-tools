@@ -11,6 +11,9 @@
 
     <artifactId>phenopacket-tools-util</artifactId>
 
+    <name>phenopacket-tools-util</name>
+    <description>Utilities and miscellaneous</description>
+
     <dependencies>
         <dependency>
             <groupId>org.phenopackets.phenopackettools</groupId>

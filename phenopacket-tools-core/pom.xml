@@ -11,4 +11,7 @@
 
     <artifactId>phenopacket-tools-core</artifactId>
 
+    <name>phenopacket-tools-core</name>
+    <description>Core data structures for handling Phenopacket Schema elements</description>
+
 </project>
