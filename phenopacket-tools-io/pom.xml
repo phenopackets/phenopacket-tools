@@ -6,7 +6,7 @@
     <parent>
         <artifactId>phenopacket-tools</artifactId>
         <groupId>org.phenopackets.phenopackettools</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>phenopacket-tools-io</artifactId>
