@@ -15,7 +15,7 @@
     <url>https://phenopackets.org/phenopacket-tools</url>
 
     <prerequisites>
-        <maven>3.6.0</maven>
+        <maven>3.6.3</maven>
     </prerequisites>
 
     <modules>
@@ -275,10 +275,9 @@
                             <version>3.0.0-M5</version>
                         </plugin>
                         <plugin>
-                            <!-- override version of GPG plugin to use new GPG signing features -->
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-gpg-plugin</artifactId>
-                            <version>1.6</version>
+                            <version>3.2.8</version>
                             <executions>
                                 <execution>
                                     <id>sign-artifacts</id>
