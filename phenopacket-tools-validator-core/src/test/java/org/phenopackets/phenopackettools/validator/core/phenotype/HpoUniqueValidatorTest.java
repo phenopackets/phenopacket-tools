@@ -13,11 +13,12 @@ import org.phenopackets.schema.v2.core.PhenotypicFeature;
 
 import java.util.List;
 
-import static org.phenopackets.phenopackettools.validator.core.phenotype.Utils.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static org.phenopackets.phenopackettools.validator.core.phenotype.Utils.createPhenopacket;
+import static org.phenopackets.phenopackettools.validator.core.phenotype.Utils.createPhenotypicFeature;
 
-public class AncestryHpoValidatorTest {
+public class HpoUniqueValidatorTest {
 
     private static final MinimalOntology HPO = TestData.HPO;
 
@@ -28,7 +29,7 @@ public class AncestryHpoValidatorTest {
 
         @BeforeEach
         public void setUp() {
-            validator = HpoPhenotypeValidators.Ancestry.phenopacketHpoAncestryValidator(HPO);
+            validator = HpoPhenotypeValidators.Unique.phenopacketValidator(HPO);
         }
 
         @Test
@@ -36,7 +37,7 @@ public class AncestryHpoValidatorTest {
             // Has some Abnormality of finger but no Arachnodactyly.
             Phenopacket pp = createPhenopacket(
                     "example-phenopacket", "example-subject",
-                    createPhenotypicFeature("HP:0001167", "Abnormal finger morphology", false),
+                    createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", true)
             ).build();
 
@@ -46,10 +47,12 @@ public class AncestryHpoValidatorTest {
         }
 
         @Test
-        public void testFailsIfTermAndAncestorIsObserved() {
-            // Has some Abnormality of finger and Arachnodactyly. Only Arachnodactyly should be present.
+        public void testFailsIfObservedTermIsPresentTwice() {
+            // Has Arachnodactyly twice.
             Phenopacket pp = createPhenopacket(
-                    "example-phenopacket", "example-subject", createPhenotypicFeature("HP:0001167", "Abnormal finger morphology", false),
+                    "example-phenopacket", "example-subject",
+                    createPhenotypicFeature("HP:0001167", "Abnormality of finger", false),
+                    createPhenotypicFeature("HP:0001166", "Arachnodactyly", false),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", false)
             ).build();
 
@@ -59,15 +62,19 @@ public class AncestryHpoValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.validatorInfo(), equalTo(validator.validatorInfo()));
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
-            assertThat(result.category(), equalTo("Violation of the annotation propagation rule"));
-            assertThat(result.message(), equalTo("Phenotypic features of example-phenopacket must not contain both an observed term (Arachnodactyly, HP:0001166) and an observed ancestor (Abnormal finger morphology, HP:0001167)"));
+            assertThat(result.category(), equalTo("Non-unique phenotypic feature"));
+            assertThat(result.message(), equalTo("""
+        Phenotypic features of example-phenopacket must not contain the same observed feature Arachnodactyly (HP:0001166)
+        more than once but the feature was present 2 times"""));
         }
 
         @Test
-        public void testFailsIfTermAndAncestorIsExcluded() {
-            // Has neither Abnormality of finger nor Arachnodactyly. Only Abnormality of finger should be present.
+        public void testFailsIfExcludedTermIsPresentTwice() {
+            // Has excluded Arachnodactyly twice.
             Phenopacket pp = createPhenopacket(
-                    "example-phenopacket", "example-subject", createPhenotypicFeature("HP:0001167", "Abnormal finger morphology", true),
+                    "example-phenopacket", "example-subject",
+                    createPhenotypicFeature("HP:0001167", "Abnormality of finger", true),
+                    createPhenotypicFeature("HP:0001166", "Arachnodactyly", true),
                     createPhenotypicFeature("HP:0001166", "Arachnodactyly", true)
             ).build();
 
@@ -75,33 +82,19 @@ public class AncestryHpoValidatorTest {
 
             assertThat(results, hasSize(1));
             ValidationResult result = results.get(0);
+            assertThat(result.validatorInfo(), equalTo(validator.validatorInfo()));
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
-            assertThat(result.category(), equalTo("Violation of the annotation propagation rule"));
-            assertThat(result.message(), equalTo("Phenotypic features of example-phenopacket must not contain both an excluded term (Abnormal finger morphology, HP:0001167) and an excluded child (Arachnodactyly, HP:0001166)"));
-        }
-
-        @Test
-        public void testFailsIfTermIsPresentAndAncestorIsExcluded() {
-            // Has neither Abnormality of finger nor Arachnodactyly. Only Abnormality of finger should be present.
-            Phenopacket pp = createPhenopacket(
-                    "example-phenopacket", "example-subject", createPhenotypicFeature("HP:0001167", "Abnormal finger morphology", true),
-                    createPhenotypicFeature("HP:0001166", "Arachnodactyly", false)
-            ).build();
-
-            List<ValidationResult> results = validator.validate(pp);
-
-            assertThat(results, hasSize(1));
-            ValidationResult result = results.get(0);
-            assertThat(result.level(), equalTo(ValidationLevel.ERROR));
-            assertThat(result.category(), equalTo("Violation of the annotation propagation rule"));
-            assertThat(result.message(), equalTo("Phenotypic features of example-phenopacket must not contain both an observed term (Arachnodactyly, HP:0001166) and an excluded ancestor (Abnormal finger morphology, HP:0001167)"));
+            assertThat(result.category(), equalTo("Non-unique phenotypic feature"));
+            assertThat(result.message(), equalTo("""
+        Phenotypic features of example-phenopacket must not contain the same excluded feature Arachnodactyly (HP:0001166)
+        more than once but the feature was present 2 times"""));
         }
     }
 
     /**
      * White-box testing - we know that the {@link PhenotypicFeature} is an attribute of a {@link Phenopacket}, so we
-     * test the validation logic extensively in {@link PhenopacketTest}. The {@link FamilyTest} test suite ensures
-     * there are not errors in valid input.
+     * test the validation logic extensively in {@link HpoUniqueValidatorTest.PhenopacketTest}.
+     * The {@link HpoUniqueValidatorTest.FamilyTest} test suite ensures there are not errors in valid input.
      */
     @Nested
     public class FamilyTest {
@@ -110,7 +103,7 @@ public class AncestryHpoValidatorTest {
 
         @BeforeEach
         public void setUp() {
-            validator = HpoPhenotypeValidators.Ancestry.familyHpoAncestryValidator(HPO);
+            validator = HpoPhenotypeValidators.Unique.familyValidator(HPO);
         }
 
         @Test
@@ -137,9 +130,10 @@ public class AncestryHpoValidatorTest {
     }
 
     /**
-     * White-box testing (same as in {@link FamilyTest}) - we know that the {@link PhenotypicFeature}
+     * White-box testing (same as in {@link HpoUniqueValidatorTest.FamilyTest}) - we know that the {@link PhenotypicFeature}
      * is an attribute of a {@link Phenopacket}, so we test the validation logic extensively
-     * in {@link PhenopacketTest}. The {@link CohortTest} test suite ensures there are not errors in valid input.
+     * in {@link HpoUniqueValidatorTest.PhenopacketTest}.
+     * The {@link HpoUniqueValidatorTest.CohortTest} test suite ensures there are not errors in valid input.
      */
     @Nested
     public class CohortTest {

@@ -6,7 +6,7 @@
 
     <groupId>org.phenopackets.phenopackettools</groupId>
     <artifactId>phenopacket-tools</artifactId>
-    <version>1.0.0-RC3</version>
+    <version>1.0.0</version>
 
     <name>Phenopacket-tools</name>
     <description>An app and library for building, conversion and validation of GA4GH Phenopackets</description>
@@ -15,7 +15,7 @@
     <url>https://phenopackets.org/phenopacket-tools</url>
 
     <prerequisites>
-        <maven>3.6.0</maven>
+        <maven>3.6.3</maven>
     </prerequisites>
 
     <modules>
@@ -37,8 +37,6 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-
-
     <licenses>
         <license>
             <name>The 3-Clause BSD License</name>
@@ -50,15 +48,15 @@
     <developers>
         <developer>
             <name>Peter Robinson</name>
-            <email>peter.robinson@jax.org</email>
-            <organization>The Jackson Laboratory</organization>
-            <organizationUrl>https://www.jax.org/</organizationUrl>
+            <email>peter.robinson@bih-charite.de</email>
+            <organization>Berlin Institute of Health at Charité</organization>
+            <organizationUrl>https://www.bihealth.org/</organizationUrl>
         </developer>
         <developer>
             <name>Daniel Danis</name>
-            <email>daniel.danis@jax.org</email>
-            <organization>The Jackson Laboratory</organization>
-            <organizationUrl>https://www.jax.org/</organizationUrl>
+            <email>daniel.danis@bih-charite.de</email>
+            <organization>Berlin Institute of Health at Charité</organization>
+            <organizationUrl>https://www.bihealth.org/</organizationUrl>
         </developer>
         <developer>
             <name>Jules Jacobsen</name>
@@ -75,31 +73,26 @@
         <tag>v${project.version}</tag>
     </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
-        <protobuf.version>3.21.7</protobuf.version>
+        <protobuf.version>[4.28.2,)</protobuf.version>
         <phenopacket-schema.version>2.0.2</phenopacket-schema.version>
-        <phenol.version>2.0.0</phenol.version>
+        <phenol.version>2.1.4</phenol.version>
         <jackson.version>2.14.2</jackson.version>
         <json-schema-validator.version>1.0.79</json-schema-validator.version>
-        <snakeyaml.version>2.0</snakeyaml.version>
-        <commons-csv.version>1.10.0</commons-csv.version>
-        <picocli.version>4.7.1</picocli.version>
-        <junit.jupiter.version>5.9.2</junit.jupiter.version>
+        <snakeyaml.version>[2.0,3.0)</snakeyaml.version>
+        <commons-csv.version>1.14.1</commons-csv.version>
+        <picocli.version>4.7.7</picocli.version>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <url>https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <pluginManagement>
@@ -230,9 +223,6 @@
 
     <profiles>
         <profile>
-            <!-- This profile should be activated only during local install or deploying a release. -->
-            <!-- The GPG plugin is used to sign the artifacts. Note that you need to set up your GPG key first. -->
-            <!-- Activate the profile by running e.g. `./mvnw -Prelease clean deploy` -->
             <id>release</id>
             <build>
                 <pluginManagement>
@@ -276,10 +266,9 @@
                             <version>3.0.0-M5</version>
                         </plugin>
                         <plugin>
-                            <!-- override version of GPG plugin to use new GPG signing features -->
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-gpg-plugin</artifactId>
-                            <version>1.6</version>
+                            <version>3.2.8</version>
                             <executions>
                                 <execution>
                                     <id>sign-artifacts</id>
@@ -289,6 +278,17 @@
                                     </goals>
                                 </execution>
                             </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.sonatype.central</groupId>
+                            <artifactId>central-publishing-maven-plugin</artifactId>
+                            <version>0.9.0</version>
+                            <extensions>true</extensions>
+                            <configuration>
+                                <publishingServerId>central</publishingServerId>
+                                <autoPublish>true</autoPublish>
+                                <waitUntil>published</waitUntil>
+                            </configuration>
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
@@ -309,6 +309,10 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>

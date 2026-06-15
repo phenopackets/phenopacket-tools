@@ -1,4 +1,4 @@
-package org.phenopackets.phenopackettools.util.format;
+package org.phenopackets.phenopackettools.util;
 
 import java.nio.file.Path;
 

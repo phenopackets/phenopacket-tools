@@ -2,13 +2,15 @@ package org.phenopackets.phenopackettools.validator.core.phenotype.primary;
 
 import com.google.protobuf.MessageOrBuilder;
 import org.monarchinitiative.phenol.base.PhenolRuntimeException;
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
+import org.monarchinitiative.phenol.ontology.data.Term;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.validator.core.*;
 import org.phenopackets.phenopackettools.validator.core.phenotype.base.BaseHpoValidator;
 import org.phenopackets.schema.v2.PhenopacketOrBuilder;
 import org.phenopackets.schema.v2.core.PhenotypicFeature;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public abstract class AbstractHpoPhenotypeValidator<T extends MessageOrBuilder> extends BaseHpoValidator<T> {
@@ -20,7 +22,7 @@ public abstract class AbstractHpoPhenotypeValidator<T extends MessageOrBuilder> 
     private static final String INVALID_TERM_ID = "Invalid TermId";
     private static final String OBSOLETED_TERM_ID = "Obsoleted TermId";
 
-    public AbstractHpoPhenotypeValidator(Ontology hpo) {
+    public AbstractHpoPhenotypeValidator(MinimalOntology hpo) {
         super(hpo);
     }
 
@@ -43,7 +45,8 @@ public abstract class AbstractHpoPhenotypeValidator<T extends MessageOrBuilder> 
         }
         if (termId.getPrefix().equals("HP")) {
             // Check if the HPO contains the term.
-            if (!hpo.containsTerm(termId)) {
+            Optional<Term> term = hpo.termForTermId(termId);
+            if (term.isEmpty()) {
                 String idSummary = summarizePhenopacketAndIndividualId(phenopacket);
                 String msg = "%s%s not found in %s".formatted(termId.getValue(), idSummary, hpoVersion);
                 return Stream.of(
@@ -52,7 +55,7 @@ public abstract class AbstractHpoPhenotypeValidator<T extends MessageOrBuilder> 
             }
 
             // Check if the `termId` is a primary ID. // If not, this is a warning.
-            TermId primaryId = hpo.getPrimaryTermId(termId);
+            TermId primaryId = term.get().id();
             if (!primaryId.equals(termId)) {
                 String idSummary = summarizePhenopacketAndIndividualId(phenopacket);
                 String msg = "Using obsolete id (%s) instead of current primary id (%s)%s".formatted(

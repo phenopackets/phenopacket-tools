@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.phenopackets.phenopackettools.core.PhenopacketElement;
 import org.phenopackets.phenopackettools.core.PhenopacketFormat;
 import org.phenopackets.phenopackettools.core.PhenopacketSchemaVersion;
+import org.phenopackets.phenopackettools.util.TestResources;
 
 import java.io.BufferedInputStream;
 import java.io.File;

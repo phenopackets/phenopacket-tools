@@ -100,6 +100,10 @@ public class VariationDescriptorBuilder {
         return this;
     }
 
+    public VariationDescriptorBuilder moleculeContext(MoleculeContext context) {
+        builder.setMoleculeContext(context);
+        return this;
+    }
 
     public VariationDescriptorBuilder structuralType(OntologyClass structuralType) {
         builder.setStructuralType(structuralType);

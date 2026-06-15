@@ -14,6 +14,8 @@ module org.phenopackets.phenopackettools.validator.core {
     requires org.monarchinitiative.phenol.core;
     requires org.phenopackets.schema;
 
+    requires com.fasterxml.jackson.databind;
+
     // There are many places where the protobuf classes are part of the API, e.g. as type parameter
     // of PhenopacketFormatConverter.
     requires transitive com.google.protobuf;

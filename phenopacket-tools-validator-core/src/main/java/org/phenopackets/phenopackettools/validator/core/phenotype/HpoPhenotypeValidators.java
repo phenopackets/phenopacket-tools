@@ -1,6 +1,6 @@
 package org.phenopackets.phenopackettools.validator.core.phenotype;
 
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.ancestry.CohortHpoAncestryValidator;
@@ -12,6 +12,7 @@ import org.phenopackets.phenopackettools.validator.core.phenotype.orgsys.Phenopa
 import org.phenopackets.phenopackettools.validator.core.phenotype.primary.CohortHpoPhenotypeValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.primary.FamilyHpoPhenotypeValidator;
 import org.phenopackets.phenopackettools.validator.core.phenotype.primary.PhenopacketHpoPhenotypeValidator;
+import org.phenopackets.phenopackettools.validator.core.phenotype.uniq.HpoUniqueValidator;
 import org.phenopackets.schema.v2.*;
 
 import java.util.Collection;
@@ -26,39 +27,39 @@ public class HpoPhenotypeValidators {
     }
 
     /**
-     * Get {@link PhenopacketValidator} to validate {@link Phenopacket} using provided {@link Ontology}.
+     * Get {@link PhenopacketValidator} to validate {@link Phenopacket} using provided {@link MinimalOntology}.
      *
      * @param hpo HPO ontology
-     * @deprecated use {@link Primary#phenopacketHpoPhenotypeValidator(Ontology)} instead
+     * @deprecated use {@link Primary#phenopacketHpoPhenotypeValidator(MinimalOntology)} instead
      */
     // REMOVE(v1.0.0)
     @Deprecated(forRemoval = true)
-    public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoPhenotypeValidator(Ontology hpo) {
+    public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoPhenotypeValidator(MinimalOntology hpo) {
         return Primary.phenopacketHpoPhenotypeValidator(hpo);
     }
 
     /**
-     * Get {@link PhenopacketValidator} for validate {@link Family} using provided {@link Ontology}.
+     * Get {@link PhenopacketValidator} for validate {@link Family} using provided {@link MinimalOntology}.
      *
      * @param hpo HPO ontology
-     * @deprecated use {@link Primary#familyHpoPhenotypeValidator(Ontology)} instead
+     * @deprecated use {@link Primary#familyHpoPhenotypeValidator(MinimalOntology)} instead
      */
     // REMOVE(v1.0.0)
     @Deprecated(forRemoval = true)
-    public static PhenopacketValidator<FamilyOrBuilder> familyHpoPhenotypeValidator(Ontology hpo) {
+    public static PhenopacketValidator<FamilyOrBuilder> familyHpoPhenotypeValidator(MinimalOntology hpo) {
         return Primary.familyHpoPhenotypeValidator(hpo);
     }
 
     /**
-     * Get {@link PhenopacketValidator} for performing primary validation {@link Cohort} using provided {@link Ontology},
+     * Get {@link PhenopacketValidator} for performing primary validation {@link Cohort} using provided {@link MinimalOntology},
      * as described in {@link org.phenopackets.phenopackettools.validator.core.phenotype.primary.AbstractHpoPhenotypeValidator}.
      *
      * @param hpo HPO ontology
-     * @deprecated use {@link Primary#cohortHpoPhenotypeValidator(Ontology)} instead
+     * @deprecated use {@link Primary#cohortHpoPhenotypeValidator(MinimalOntology)} instead
      */
     // REMOVE(v1.0.0)
     @Deprecated(forRemoval = true)
-    public static PhenopacketValidator<CohortOrBuilder> cohortHpoPhenotypeValidator(Ontology hpo) {
+    public static PhenopacketValidator<CohortOrBuilder> cohortHpoPhenotypeValidator(MinimalOntology hpo) {
         return Primary.cohortHpoPhenotypeValidator(hpo);
     }
 
@@ -69,30 +70,30 @@ public class HpoPhenotypeValidators {
      */
     public static class Primary {
         /**
-         * Get {@link PhenopacketValidator} to validate {@link Phenopacket} using provided {@link Ontology}.
+         * Get {@link PhenopacketValidator} to validate {@link Phenopacket} using provided {@link MinimalOntology}.
          *
          * @param hpo HPO ontology
          */
-        public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoPhenotypeValidator(Ontology hpo) {
+        public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoPhenotypeValidator(MinimalOntology hpo) {
             return new PhenopacketHpoPhenotypeValidator(hpo);
         }
 
         /**
-         * Get {@link PhenopacketValidator} for validate {@link Family} using provided {@link Ontology}.
+         * Get {@link PhenopacketValidator} for validate {@link Family} using provided {@link MinimalOntology}.
          *
          * @param hpo HPO ontology
          */
-        public static PhenopacketValidator<FamilyOrBuilder> familyHpoPhenotypeValidator(Ontology hpo) {
+        public static PhenopacketValidator<FamilyOrBuilder> familyHpoPhenotypeValidator(MinimalOntology hpo) {
             return new FamilyHpoPhenotypeValidator(hpo);
         }
 
         /**
-         * Get {@link PhenopacketValidator} for performing primary validation {@link Cohort} using provided {@link Ontology},
+         * Get {@link PhenopacketValidator} for performing primary validation {@link Cohort} using provided {@link MinimalOntology},
          * as described in {@link org.phenopackets.phenopackettools.validator.core.phenotype.primary.AbstractHpoPhenotypeValidator}.
          *
          * @param hpo HPO ontology
          */
-        public static PhenopacketValidator<CohortOrBuilder> cohortHpoPhenotypeValidator(Ontology hpo) {
+        public static PhenopacketValidator<CohortOrBuilder> cohortHpoPhenotypeValidator(MinimalOntology hpo) {
             return new CohortHpoPhenotypeValidator(hpo);
         }
     }
@@ -115,29 +116,29 @@ public class HpoPhenotypeValidators {
         }
 
         /**
-         * Get {@link PhenopacketValidator} to validate ancestry {@link Phenopacket} using provided {@link Ontology}.
+         * Get {@link PhenopacketValidator} to validate ancestry {@link Phenopacket} using provided {@link MinimalOntology}.
          *
          * @param hpo HPO ontology
          */
-        public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoAncestryValidator(Ontology hpo) {
+        public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoAncestryValidator(MinimalOntology hpo) {
             return new PhenopacketHpoAncestryValidator(hpo);
         }
 
         /**
-         * Get {@link PhenopacketValidator} to validate ancestry {@link Family} using provided {@link Ontology}.
+         * Get {@link PhenopacketValidator} to validate ancestry {@link Family} using provided {@link MinimalOntology}.
          *
          * @param hpo HPO ontology
          */
-        public static PhenopacketValidator<FamilyOrBuilder> familyHpoAncestryValidator(Ontology hpo) {
+        public static PhenopacketValidator<FamilyOrBuilder> familyHpoAncestryValidator(MinimalOntology hpo) {
             return new FamilyHpoAncestryValidator(hpo);
         }
 
         /**
-         * Get {@link PhenopacketValidator} to validate ancestry {@link Cohort} using provided {@link Ontology}.
+         * Get {@link PhenopacketValidator} to validate ancestry {@link Cohort} using provided {@link MinimalOntology}.
          *
          * @param hpo HPO ontology
          */
-        public static PhenopacketValidator<CohortOrBuilder> cohortHpoAncestryValidator(Ontology hpo) {
+        public static PhenopacketValidator<CohortOrBuilder> cohortHpoAncestryValidator(MinimalOntology hpo) {
             return new CohortHpoAncestryValidator(hpo);
         }
     }
@@ -160,47 +161,83 @@ public class HpoPhenotypeValidators {
 
         /**
          * Get {@link PhenopacketValidator} to validate annotation of organ systems in a {@link Phenopacket}
-         * using provided {@link Ontology} and a collection of organ system {@link TermId}s.
+         * using provided {@link MinimalOntology} and a collection of organ system {@link TermId}s.
          * <p>
-         * <b>NOTE:</b> the organ system {@link TermId} that is absent from the {@link Ontology} is disregarded
+         * <b>NOTE:</b> the organ system {@link TermId} that is absent from the {@link MinimalOntology} is disregarded
          * and not used for validation.
          *
          * @param hpo HPO ontology
          * @param organSystemTermIds a collection of HPO {@link TermId}s corresponding to organ systems.
          */
-        public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoOrganSystemValidator(Ontology hpo,
+        public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketHpoOrganSystemValidator(MinimalOntology hpo,
                                                                                                     Collection<TermId> organSystemTermIds) {
             return new PhenopacketHpoOrganSystemValidator(hpo, organSystemTermIds);
         }
 
         /**
          * Get {@link PhenopacketValidator} to validate annotation of organ systems in a {@link Family}
-         * using provided {@link Ontology} and a collection of organ system {@link TermId}s.
+         * using provided {@link MinimalOntology} and a collection of organ system {@link TermId}s.
          * <p>
-         * <b>NOTE:</b> the organ system {@link TermId} that is absent from the {@link Ontology} is disregarded
+         * <b>NOTE:</b> the organ system {@link TermId} that is absent from the {@link MinimalOntology} is disregarded
          * and not used for validation.
          *
          * @param hpo HPO ontology
          * @param organSystemTermIds a collection of HPO {@link TermId}s corresponding to organ systems.
          */
-        public static PhenopacketValidator<FamilyOrBuilder> familyHpoOrganSystemValidator(Ontology hpo,
+        public static PhenopacketValidator<FamilyOrBuilder> familyHpoOrganSystemValidator(MinimalOntology hpo,
                                                                                           Collection<TermId> organSystemTermIds) {
             return new FamilyHpoOrganSystemValidator(hpo, organSystemTermIds);
         }
 
         /**
          * Get {@link PhenopacketValidator} to validate annotation of organ systems in a {@link Cohort}
-         * using provided {@link Ontology} and a collection of organ system {@link TermId}s.
+         * using provided {@link MinimalOntology} and a collection of organ system {@link TermId}s.
          * <p>
-         * <b>NOTE:</b> the organ system {@link TermId} that is absent from the {@link Ontology} is disregarded
+         * <b>NOTE:</b> the organ system {@link TermId} that is absent from the {@link MinimalOntology} is disregarded
          * and not used for validation.
          *
          * @param hpo HPO ontology
          * @param organSystemTermIds a collection of HPO {@link TermId}s corresponding to organ systems.
          */
-        public static PhenopacketValidator<CohortOrBuilder> cohortHpoOrganSystemValidator(Ontology hpo,
+        public static PhenopacketValidator<CohortOrBuilder> cohortHpoOrganSystemValidator(MinimalOntology hpo,
                                                                                           Collection<TermId> organSystemTermIds) {
             return new CohortHpoOrganSystemValidator(hpo, organSystemTermIds);
+        }
+    }
+
+    /**
+     * A static factory class for providing {@link org.phenopackets.phenopackettools.validator.core.PhenopacketValidator}s
+     * that check if HPO terms of the Phenopacket schema elements are unique - specified only once.
+     */
+    public static class Unique {
+        private Unique() {
+        }
+
+        /**
+         * Get {@link PhenopacketValidator} to validate {@link Phenopacket} using provided ontology.
+         *
+         * @param hpo HPO ontology
+         */
+        public static PhenopacketValidator<PhenopacketOrBuilder> phenopacketValidator(MinimalOntology hpo) {
+            return HpoUniqueValidator.phenopacketValidator(hpo);
+        }
+
+        /**
+         * Get {@link PhenopacketValidator} to validate {@link Cohort} using provided ontology.
+         *
+         * @param hpo HPO ontology
+         */
+        public static PhenopacketValidator<CohortOrBuilder> cohortValidator(MinimalOntology hpo) {
+            return HpoUniqueValidator.cohortValidator(hpo);
+        }
+
+        /**
+         * Get {@link PhenopacketValidator} to validate {@link Family} using provided ontology.
+         *
+         * @param hpo HPO ontology
+         */
+        public static PhenopacketValidator<FamilyOrBuilder> familyValidator(MinimalOntology hpo) {
+            return HpoUniqueValidator.familyValidator(hpo);
         }
     }
 

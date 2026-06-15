@@ -1,8 +1,7 @@
 package org.phenopackets.phenopackettools.validator.core.phenotype.orgsys;
 
 import com.google.protobuf.MessageOrBuilder;
-import org.monarchinitiative.phenol.ontology.algo.OntologyAlgorithm;
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.monarchinitiative.phenol.ontology.data.Term;
 import org.monarchinitiative.phenol.ontology.data.TermId;
 import org.phenopackets.phenopackettools.validator.core.ValidationResult;
@@ -41,7 +40,7 @@ public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> e
 
     protected final List<TermId> organSystemTermIds;
 
-    protected AbstractOrganSystemValidator(Ontology hpo,
+    protected AbstractOrganSystemValidator(MinimalOntology hpo,
                                            Collection<TermId> organSystemTermIds) {
         super(hpo);
         this.organSystemTermIds = Objects.requireNonNull(organSystemTermIds).stream()
@@ -51,9 +50,9 @@ public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> e
                 .toList();
     }
 
-    private static Predicate<TermId> organSystemTermIdIsInOntology(Ontology hpo) {
+    private static Predicate<TermId> organSystemTermIdIsInOntology(MinimalOntology hpo) {
         return organSystemTermId -> {
-            if (hpo.containsTerm(organSystemTermId)) {
+            if (hpo.termForTermId(organSystemTermId).isPresent()) {
                 return true;
             } else {
                 LOGGER.warn("{} is not present in the ontology", organSystemTermId.getValue());
@@ -90,13 +89,16 @@ public abstract class AbstractOrganSystemValidator<T extends MessageOrBuilder> e
 
             // Check if we have at least one observed annotation for the organ system.
             for (TermId pf : featuresByExclusion.observedPhenotypicFeatures()) {
-                if (OntologyAlgorithm.existsPath(hpo, pf, organSystemId)) {
+                if (hpo.graph().existsPath(pf, organSystemId))
                     continue organSystemLoop; // It only takes one termId to annotate an organ system.
-                }
             }
 
+            // We know that the organSystemId is in the HPO because we check the organ system ID presence
+            // in the constructor.
+            //noinspection OptionalGetWithoutIsPresent
+            Term organSystem = hpo.termForTermId(organSystemId).get();
+
             // The organSystemId is neither annotated nor excluded. We report a validation error.
-            Term organSystem = hpo.getTermMap().get(organSystemId);
             ValidationResult result = ValidationResult.error(VALIDATOR_INFO,
                     MISSING_ORGAN_SYSTEM_CATEGORY,
                     "Missing annotation for %s [%s]%s"

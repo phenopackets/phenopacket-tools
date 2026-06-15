@@ -4,7 +4,7 @@ import com.google.protobuf.util.JsonFormat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.monarchinitiative.phenol.ontology.data.Ontology;
+import org.monarchinitiative.phenol.ontology.data.MinimalOntology;
 import org.phenopackets.phenopackettools.validator.core.PhenopacketValidator;
 import org.phenopackets.phenopackettools.validator.core.TestData;
 import org.phenopackets.phenopackettools.validator.core.ValidationLevel;
@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.*;
 
 public class PrimaryHpoPhenotypeValidatorTest {
 
-    private static final Ontology HPO = TestData.HPO;
+    private static final MinimalOntology HPO = TestData.HPO;
 
     @Nested
     public class PhenopacketTest {
@@ -85,7 +85,7 @@ public class PrimaryHpoPhenotypeValidatorTest {
             ValidationResult result = results.get(0);
             assertThat(result.level(), equalTo(ValidationLevel.ERROR));
             assertThat(result.category(), equalTo("Invalid TermId"));
-            assertThat(result.message(), equalTo("HP:0001182 in proband A not found in 2021-06-08"));
+            assertThat(result.message(), equalTo("HP:0001182 in proband A not found in 2026-06-06"));
         }
 
         @Test

@@ -19,27 +19,29 @@ public class DiseaseConverter {
                 .toList();
     }
 
-    static Optional<Disease> toDisease(org.phenopackets.schema.v1.core.Disease v1Disease) {
+    private static Optional<Disease> toDisease(org.phenopackets.schema.v1.core.Disease v1Disease) {
         if (v1Disease.equals(org.phenopackets.schema.v1.core.Disease.getDefaultInstance()))
             return Optional.empty();
 
         Optional<OntologyClass> term = OntologyClassConverter.toOntologyClass(v1Disease.getTerm());
+        Optional<TimeElement> onset = toDiseaseOnset(v1Disease);
         List<OntologyClass> stages = OntologyClassConverter.toOntologyClassList(v1Disease.getDiseaseStageList());
         List<OntologyClass> tnm = OntologyClassConverter.toOntologyClassList(v1Disease.getTnmFindingList());
-        Optional<TimeElement> onset = toDiseaseOnset(v1Disease);
 
-        if (term.isEmpty() && stages.isEmpty() && tnm.isEmpty() && onset.isEmpty())
+        if (term.isEmpty() && onset.isEmpty() && stages.isEmpty() && tnm.isEmpty())
             return Optional.empty();
 
-        return Optional.of(Disease.newBuilder()
-                .setTerm(term.orElse(OntologyClass.getDefaultInstance()))
-                .addAllDiseaseStage(stages)
-                .addAllClinicalTnmFinding(tnm)
-                .setOnset(onset.orElse(TimeElement.getDefaultInstance()))
-                .build());
+        Disease.Builder builder = Disease.newBuilder();
+        term.ifPresent(builder::setTerm);
+        // v1 has no excluded field, hence no builder.setExcluded(...)
+        if (!stages.isEmpty()) builder.addAllDiseaseStage(stages);
+        if (!tnm.isEmpty()) builder.addAllClinicalTnmFinding(tnm);
+        onset.ifPresent(builder::setOnset);
+
+        return Optional.of(builder.build());
     }
 
-    static Optional<TimeElement> toDiseaseOnset(org.phenopackets.schema.v1.core.Disease v1Disease) {
+    private static Optional<TimeElement> toDiseaseOnset(org.phenopackets.schema.v1.core.Disease v1Disease) {
         if (v1Disease.hasClassOfOnset())
             return OntologyClassConverter.toOntologyClass(v1Disease.getClassOfOnset())
                 .map(onsetClass -> TimeElement.newBuilder().setOntologyClass(onsetClass).build());
